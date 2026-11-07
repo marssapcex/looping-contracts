@@ -1,0 +1,399 @@
+{
+  "provenance": "LENDLE_MANTLE_CURRENT_READ_ONLY_TRIAGE_NOT_AN_EXPLOIT",
+  "rpcHost": "rpc.mantle.xyz",
+  "block": {
+    "number": 102963973,
+    "hash": "0x802c384197a6ae2ad15def82e1c1579c1755d605a11bdd2934dd52a47c2bcf25",
+    "timestamp": 1794058258
+  },
+  "targetNetLiquidProfitUsd": 10000,
+  "pools": {
+    "core": {
+      "address": "0xCFa5aE7c2CE8Fadc6426C1ff872cA45378Fb7cF3",
+      "paused": false,
+      "reserves": [
+        {
+          "asset": "0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9",
+          "symbol": "USDC",
+          "decimals": 6,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": true,
+          "ltvBps": "8500",
+          "liquidationThresholdBps": "9000",
+          "liquidationBonusBps": "10700",
+          "aToken": "0xF36AFb467D1f05541d998BBBcd5F7167D67bd8fC",
+          "cash": "38543408163",
+          "cashFormatted": "38543.408163",
+          "aTokenTotalSupply": "41376146713",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "2966543151",
+          "oraclePrice": "999620000000000000",
+          "source": {
+            "address": "0x244f112a831412d1F6F6B13a8A2bDbAB69035de0",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        },
+        {
+          "asset": "0x201EBa5CC46D216Ce6DC03F6a759e8E766e956aE",
+          "symbol": "USDT",
+          "decimals": 6,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": true,
+          "ltvBps": "8500",
+          "liquidationThresholdBps": "9000",
+          "liquidationBonusBps": "10700",
+          "aToken": "0xE71cbaaa6B093FcE66211E6f218780685077D8B5",
+          "cash": "39453748432",
+          "cashFormatted": "39453.748432",
+          "aTokenTotalSupply": "40956785741",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "1510899323",
+          "oraclePrice": "998712142857142900",
+          "source": {
+            "address": "0x8Ba59d9cB6E1Fd4d301cFE832c60142C2eefE909",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        },
+        {
+          "asset": "0xCAbAE6f6Ea1ecaB08Ad02fE02ce9A44F09aebfA2",
+          "symbol": "WBTC",
+          "decimals": 8,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": true,
+          "ltvBps": "4000",
+          "liquidationThresholdBps": "6000",
+          "liquidationBonusBps": "11500",
+          "aToken": "0x44CCCBbD7A5A9e2202076ea80C185DA0058f1715",
+          "cash": "3315930",
+          "cashFormatted": "0.0331593",
+          "aTokenTotalSupply": "4138076",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "818671",
+          "oraclePrice": "75992787287651040000000",
+          "source": {
+            "address": "0x790292b041d53B132fA7b4e17c8842DfEEaEC5b3",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        },
+        {
+          "asset": "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111",
+          "symbol": "WETH",
+          "decimals": 18,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": true,
+          "ltvBps": "8250",
+          "liquidationThresholdBps": "8600",
+          "liquidationBonusBps": "11000",
+          "aToken": "0x787Cb0D29194f0fAcA73884C383CF4d2501bb874",
+          "cash": "8017411707533683442",
+          "cashFormatted": "8.017411707533683442",
+          "aTokenTotalSupply": "8279322852991459401",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "271418361479006827",
+          "oraclePrice": "2238980000000000000000",
+          "source": {
+            "address": "0xf73c33B6775430F1F31e6D728D1DeAEA26721f2a",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        },
+        {
+          "asset": "0x78c1b0C915c4FAA5FffA6CAbf0219DA63d7f4cb8",
+          "symbol": "WMNT",
+          "decimals": 18,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": true,
+          "ltvBps": "7500",
+          "liquidationThresholdBps": "8000",
+          "liquidationBonusBps": "11000",
+          "aToken": "0x683696523512636B46A826A7e3D1B0658E8e2e1c",
+          "cash": "17941704843382730417764",
+          "cashFormatted": "17941.704843382730417764",
+          "aTokenTotalSupply": "26512344651313853244440",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "8583687710541624432312",
+          "oraclePrice": "454185960186997100",
+          "source": {
+            "address": "0x2e014fA8C0bfE34F525287Cc25b74df37a9d20Ee",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        },
+        {
+          "asset": "0xcDA86A272531e8640cD7F1a92c01839911B90bb0",
+          "symbol": "mETH",
+          "decimals": 18,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": true,
+          "ltvBps": "8250",
+          "liquidationThresholdBps": "8600",
+          "liquidationBonusBps": "11000",
+          "aToken": "0x0e927Aa52A38783C1Fd5DfA5c8873cbdBd01D2Ca",
+          "cash": "9674697665880344954",
+          "cashFormatted": "9.674697665880344954",
+          "aTokenTotalSupply": "11249838812010209149",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "1578000852650376558",
+          "oraclePrice": "2468218387062742494110",
+          "source": {
+            "address": "0x9830866B44cE08E3d0AA928330Dd65EE3A84Ff06",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        },
+        {
+          "asset": "0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34",
+          "symbol": "USDe",
+          "decimals": 18,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": true,
+          "ltvBps": "8000",
+          "liquidationThresholdBps": "8500",
+          "liquidationBonusBps": "11000",
+          "aToken": "0x2CfA1e69C8A8083Aa52CfCF22d8caFF7521E1E7E",
+          "cash": "5353602193620459358925",
+          "cashFormatted": "5353.602193620459358925",
+          "aTokenTotalSupply": "6125903758806945512277",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "783984324018036316031",
+          "oraclePrice": "999528150000000000",
+          "source": {
+            "address": "0x39D9ecD395231856E4C63747377Fb1665b80b131",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        },
+        {
+          "asset": "0xC96dE26018A54D51c097160568752c4E3BD6C364",
+          "symbol": "FBTC",
+          "decimals": 8,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": true,
+          "ltvBps": "7000",
+          "liquidationThresholdBps": "7700",
+          "liquidationBonusBps": "11000",
+          "aToken": "0xDef3542BB1B2969c1966DD91ebc504f4b37462FE",
+          "cash": "3091795",
+          "cashFormatted": "0.03091795",
+          "aTokenTotalSupply": "5243308",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "2155032",
+          "oraclePrice": "75781000000000000000000",
+          "source": {
+            "address": "0x5259279F3530244efAE245cCccC0cF2b6E31Dd1c",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        },
+        {
+          "asset": "0xE6829d9a7eE3040e1276Fa75293Bde931859e8fA",
+          "symbol": "cmETH",
+          "decimals": 18,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": true,
+          "ltvBps": "8250",
+          "liquidationThresholdBps": "8600",
+          "liquidationBonusBps": "11000",
+          "aToken": "0x68a1b2756B41CE837d73A801E18a06E13eac50e1",
+          "cash": "6351139380575113588",
+          "cashFormatted": "6.351139380575113588",
+          "aTokenTotalSupply": "6569932032158260314",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "218827394998923071",
+          "oraclePrice": "2468218387062742494110",
+          "source": {
+            "address": "0x14d48A6d54B612Fe7EE847E80a87C7d20E831C73",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        },
+        {
+          "asset": "0x00000000eFE302BEAA2b3e6e1b18d08D69a9012a",
+          "symbol": "AUSD",
+          "decimals": 6,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": true,
+          "ltvBps": "8000",
+          "liquidationThresholdBps": "8500",
+          "liquidationBonusBps": "11000",
+          "aToken": "0x90F22aa619217765c8eA84B18130fF60ad0d5dE1",
+          "cash": "1160420542",
+          "cashFormatted": "1160.420542",
+          "aTokenTotalSupply": "9977656977",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "9268798605",
+          "oraclePrice": "1000003697190117000",
+          "source": {
+            "address": "0xad22B2b6A43a8CE065272a51eE6d77136685756b",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        },
+        {
+          "asset": "0x211Cc4DD073734dA055fbF44a2b4667d5E5fE5d2",
+          "symbol": "sUSDe",
+          "decimals": 18,
+          "active": true,
+          "frozen": true,
+          "borrowingEnabled": false,
+          "ltvBps": "8000",
+          "liquidationThresholdBps": "8500",
+          "liquidationBonusBps": "11000",
+          "aToken": "0x8e3f5E745A030a384fbd19c97a56Da5337147376",
+          "cash": "9913388820056005477",
+          "cashFormatted": "9.913388820056005477",
+          "aTokenTotalSupply": "9913388820056005505",
+          "stableDebtTotalSupply": "0",
+          "variableDebtTotalSupply": "0",
+          "oraclePrice": "1256371240922514001",
+          "source": {
+            "address": "0xDcc5F2C27975807D7C4679AA8BB182e98c692A09",
+            "latestAnswer": null,
+            "latestTimestamp": null,
+            "decimals": null,
+            "description": null
+          }
+        }
+      ],
+      "borrowers": {
+        "fromBlock": "102463973",
+        "toBlock": "102963973",
+        "complete": true,
+        "uniqueBorrowerCount": 0,
+        "scanned": [],
+        "liquidatable": []
+      },
+      "oracle": "0x870c9692Ab04944C86ec6FEeF63F261226506EfC",
+      "baseCurrency": null,
+      "baseCurrencyUnit": null
+    },
+    "mETH/WETH": {
+      "address": "0x85def7bcff3a0b73f88429a70b73b412bf204cf7",
+      "paused": null,
+      "reserves": [],
+      "borrowers": {
+        "scanned": [],
+        "liquidatable": []
+      },
+      "oracle": null
+    },
+    "cmETH/WETH": {
+      "address": "0x84dc9d0a07498e89bab967b6bace21ade19cfd1b",
+      "paused": null,
+      "reserves": [],
+      "borrowers": {
+        "scanned": [],
+        "liquidatable": []
+      },
+      "oracle": null
+    },
+    "FBTC/WETH": {
+      "address": "0x7d8e5801de97cc8c1b163168ba2bd0732263d6d5",
+      "paused": null,
+      "reserves": [],
+      "borrowers": {
+        "scanned": [],
+        "liquidatable": []
+      },
+      "oracle": null
+    },
+    "MNT/WETH": {
+      "address": "0x2044b8059533a7d45fc3f70c0e8dfa8555bb10ba",
+      "paused": null,
+      "reserves": [],
+      "borrowers": {
+        "scanned": [],
+        "liquidatable": []
+      },
+      "oracle": null
+    },
+    "sUSDe/USDe": {
+      "address": "0x1244f36e812776390b3401e2391bdeb330db97fc",
+      "paused": null,
+      "reserves": [],
+      "borrowers": {
+        "scanned": [],
+        "liquidatable": []
+      },
+      "oracle": null
+    },
+    "mETH/USDe": {
+      "address": "0x15e983ef3940ef77eb2c645cd51559f8ff233011",
+      "paused": null,
+      "reserves": [],
+      "borrowers": {
+        "scanned": [],
+        "liquidatable": []
+      },
+      "oracle": null
+    },
+    "cmETH/USDe": {
+      "address": "0x553265ff16efb2e7590941d138273f1649132265",
+      "paused": null,
+      "reserves": [],
+      "borrowers": {
+        "scanned": [],
+        "liquidatable": []
+      },
+      "oracle": null
+    },
+    "FBTC/USDe": {
+      "address": "0x6d15d979e3f99e9bd74a6ba47f7c53c118df217c",
+      "paused": null,
+      "reserves": [],
+      "borrowers": {
+        "scanned": [],
+        "liquidatable": []
+      },
+      "oracle": null
+    },
+    "MNT/USDe": {
+      "address": "0xd5a52533e982883ff4186b311218f9efea7b04b1",
+      "paused": null,
+      "reserves": [],
+      "borrowers": {
+        "scanned": [],
+        "liquidatable": []
+      },
+      "oracle": null
+    }
+  },
+  "limitations": [
+    "Read-only current-state triage; no profitable execution is implied.",
+    "Borrower enumeration is range-limited and cannot prove that no dormant liquidatable account exists.",
+    "Cash is not profit; DEX exit, flash premium and gas are not included in raw cash values."
+  ]
+}
