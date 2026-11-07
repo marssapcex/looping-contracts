@@ -46,8 +46,9 @@ async function capture(fn) {
 async function read(contract, signature, args = []) {
   return contract.getFunction(signature)(...args, { blockTag });
 }
-function usdValue(amount, decimals, priceUsd1e18) {
-  return (amount * priceUsd1e18) / 10n ** BigInt(decimals);
+function usdValue(amount, _underlyingDecimals, underlyingPriceMantissa) {
+  // MixedPriceOracleV3.getUnderlyingPrice already incorporates underlying decimals.
+  return (amount * underlyingPriceMantissa) / 10n ** 18n;
 }
 function price(item) { return BigInt(item.oraclePriceResult.value); }
 

@@ -16,7 +16,12 @@ See [REPORT.md](REPORT.md) for provenance, negative controls and the complete ev
 MixedPriceOracleV2: 5/5 unit tests passed
 Artifact main sources: all selected sources match
 Aave + Uniswap + Mendi fork harness: compiled with solc 0.8.10
-State-changing fork: not executed
+Pinned archive RPC: https://rpc.linea.build at block 32540628
+Pinned market/feed/Aave/Uniswap recon: executed on GitHub Actions
+Full state-changing fork: passed (Aave -> swap -> mint -> borrow -> exit -> repay)
+Diagnostic liquid net: -0.963366051872584047 WETH before gas (seed excluded)
+Direct collateral strategies after exit/premium/gas reserve: 0 profitable candidates
+Borrower scan: 56 Borrow events, 27 accounts; four small shortfalls, no demonstrated net liquidation profit
 ```
 
 ## Run pinned recon

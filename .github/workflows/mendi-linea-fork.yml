@@ -104,11 +104,13 @@ jobs:
           FLASH_TOKEN: "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f"
           COLLATERAL_CTOKEN: "0x9be5e24F05bBAfC28Da814bD59284878b388a40f"
           DEBT_CTOKEN: "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D"
+          FLASH_CTOKEN: "0xAd7f33984bed10518012013D4aB0458D37FEE6F3"
           FLASH_AMOUNT: "1000000000000000000"
           BORROW_AMOUNT: "100000000"
           BUY_FEE: "500"
           EXIT_FEE: "500"
           SEED_FLASH_AMOUNT: "1000000000000000000"
+          REQUIRE_PROFIT: "false"
         run: |
           set -o pipefail
           RPC_URL="$RPC_URL" BLOCK="$BLOCK" forge test -vvvv --match-test testForkCandidate_flashMintBorrowExitRepayAndMeasureNet 2>&1 | tee evidence/fork-${BLOCK}.log

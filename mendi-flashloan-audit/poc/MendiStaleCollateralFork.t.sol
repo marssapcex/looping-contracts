@@ -20,9 +20,16 @@ interface ICTokenLike {
 
 interface IComptrollerLike {
     function enterMarkets(address[] calldata cTokens) external returns (uint256[] memory);
+    function markets(address cToken) external view returns (bool isListed, uint256 collateralFactorMantissa, bool isComped);
+    function oracle() external view returns (address);
+}
+
+interface IPriceOracleLike {
+    function getUnderlyingPrice(address cToken) external view returns (uint256);
 }
 
 interface IAavePoolLike {
+    function FLASHLOAN_PREMIUM_TOTAL() external view returns (uint128);
     function flashLoanSimple(
         address receiverAddress,
         address asset,
@@ -62,6 +69,7 @@ contract MendiCandidateFlashBorrower {
 
     uint256 public lastCollateralReceived;
     uint256 public lastDebtReceived;
+    uint256 public lastFlashPremium;
     uint256 public lastFlashRepayment;
 
     event CandidateExecuted(
@@ -138,7 +146,8 @@ contract MendiCandidateFlashBorrower {
         require(enterResults.length == 1 && enterResults[0] == 0, "enter market failed");
         require(collateralToken.approve(address(collateralCToken), collateralReceived), "mint approval failed");
         require(collateralCToken.mint(collateralReceived) == 0, "collateral mint failed");
-        require(debtCToken.borrow(borrowAmount) == 0, "debt borrow failed");
+        uint256 actualBorrowAmount = borrowAmount == 0 ? this.autoBorrowAmount(collateralReceived) : borrowAmount;
+        require(debtCToken.borrow(actualBorrowAmount) == 0, "debt borrow failed");
 
         uint256 debtReceived = debtToken.balanceOf(address(this));
         if (address(debtToken) != address(flashToken)) {
@@ -150,6 +159,7 @@ contract MendiCandidateFlashBorrower {
         require(flashToken.approve(address(aavePool), repayment), "Aave repay approval failed");
         lastCollateralReceived = collateralReceived;
         lastDebtReceived = debtReceived;
+        lastFlashPremium = premium;
         lastFlashRepayment = repayment;
         emit CandidateExecuted(
             collateralReceived,
@@ -159,6 +169,18 @@ contract MendiCandidateFlashBorrower {
             debtCToken.borrowBalanceStored(address(this))
         );
         return true;
+    }
+
+    function autoBorrowAmount(uint256 collateralReceived) external view returns (uint256) {
+        IComptrollerLike comptroller = IComptrollerLike(collateralCToken.comptroller());
+        (, uint256 collateralFactor,) = comptroller.markets(address(collateralCToken));
+        IPriceOracleLike oracle = IPriceOracleLike(comptroller.oracle());
+        uint256 collateralPrice = oracle.getUnderlyingPrice(address(collateralCToken));
+        uint256 debtPrice = oracle.getUnderlyingPrice(address(debtCToken));
+        uint256 collateralUsd = (collateralReceived * collateralPrice) / 1e18;
+        uint256 weightedUsd = (collateralUsd * collateralFactor) / 1e18;
+        // 1% buffer avoids rounding into an insufficient-liquidity revert.
+        return (((weightedUsd * 1e18) / debtPrice) * 99) / 100;
     }
 
     function _swap(address tokenIn, address tokenOut, uint256 amountIn, uint24 fee) internal {
@@ -183,28 +205,29 @@ contract MendiCandidateFlashBorrower {
 
 contract MendiStaleCollateralForkTest is Test {
     uint256 internal diagnosticSeedFlash;
+    address internal flashToken;
+    address internal collateralCToken;
+    address internal debtCToken;
+    address internal flashCTokenForGas;
+    uint256 internal flashAmount;
+    uint256 internal borrowAmount;
+    uint256 internal buyFee;
+    uint256 internal exitFee;
+    bool internal requireProfit;
+    bool internal expectRevert;
+    int256 internal minimumFlashNet;
+
     address internal constant AAVE_POOL = 0xc47b8C00b0f69a36fa203Ffeac0334874574a8Ac;
     address internal constant SWAP_ROUTER = 0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a;
-    address internal constant USDC = 0x176211869cA2b568f2A7D4EE941E073a821EE1ff;
+    address internal constant WBTC = 0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4;
     address internal constant ME_WBTC = 0x9be5e24F05bBAfC28Da814bD59284878b388a40f;
-    address internal constant ME_USDT = 0xf669C3C03D9fdF4339e19214A749E52616300E89;
+    address internal constant ME_WETH = 0xAd7f33984bed10518012013D4aB0458D37FEE6F3;
 
     function testForkCandidate_flashMintBorrowExitRepayAndMeasureNet() public {
         string memory rpc = vm.envString("RPC_URL");
         uint256 blockNumber = vm.envUint("BLOCK");
         vm.createSelectFork(rpc, blockNumber);
-
-        address flashToken = vm.envOr("FLASH_TOKEN", USDC);
-        address collateralCToken = vm.envOr("COLLATERAL_CTOKEN", ME_WBTC);
-        address debtCToken = vm.envOr("DEBT_CTOKEN", ME_USDT);
-        uint256 flashAmount = vm.envOr("FLASH_AMOUNT", uint256(1_000e6));
-        uint256 borrowAmount = vm.envOr("BORROW_AMOUNT", uint256(100e6));
-        uint256 buyFeeUint = vm.envOr("BUY_FEE", uint256(3000));
-        uint256 exitFeeUint = vm.envOr("EXIT_FEE", uint256(500));
-        require(buyFeeUint <= type(uint24).max && exitFeeUint <= type(uint24).max, "invalid fee tier");
-        bool requireProfit = vm.envOr("REQUIRE_PROFIT", false);
-        bool expectRevert = vm.envOr("EXPECT_REVERT", false);
-        int256 minimumFlashNet = vm.envOr("MIN_FLASH_NET", int256(0));
+        _configure();
 
         address debtToken = ICTokenLike(debtCToken).underlying();
         MendiCandidateFlashBorrower borrower = new MendiCandidateFlashBorrower(
@@ -216,11 +239,11 @@ contract MendiStaleCollateralForkTest is Test {
             debtCToken,
             flashAmount,
             borrowAmount,
-            uint24(buyFeeUint),
-            uint24(exitFeeUint)
+            uint24(buyFee),
+            uint24(exitFee)
         );
 
-        _seedDiagnostic(flashToken, address(borrower));
+        _seedDiagnostic(address(borrower));
         uint256 initialFlash = IERC20Like(flashToken).balanceOf(address(this)) + diagnosticSeedFlash;
         uint256 initialDebt = IERC20Like(debtToken).balanceOf(address(this));
         if (expectRevert) vm.expectRevert();
@@ -239,17 +262,51 @@ contract MendiStaleCollateralForkTest is Test {
         console2.log("debt token liquid net before gas", debtNet);
         console2.log("collateral received", borrower.lastCollateralReceived());
         console2.log("debt received", borrower.lastDebtReceived());
+        console2.log("Aave premium bps", IAavePoolLike(AAVE_POOL).FLASHLOAN_PREMIUM_TOTAL());
+        console2.log("Aave premium paid", borrower.lastFlashPremium());
         console2.log("Aave principal plus premium repaid", borrower.lastFlashRepayment());
         console2.log("residual collateral cTokens", ICTokenLike(collateralCToken).balanceOf(address(borrower)));
         console2.log("residual borrow balance", ICTokenLike(debtCToken).borrowBalanceStored(address(borrower)));
         console2.log("residual collateral/debt are not counted as liquid profit");
-        if (requireProfit) assertTrue(flashNet > minimumFlashNet, "candidate did not exceed minimum liquid flash-token delta");
+        _logGasReserveAndAssert(initialFlash);
     }
 
-    function _seedDiagnostic(address flashToken, address borrower) internal {
+    function _configure() internal {
+        flashToken = vm.envOr("FLASH_TOKEN", WBTC);
+        collateralCToken = vm.envOr("COLLATERAL_CTOKEN", ME_WBTC);
+        debtCToken = vm.envOr("DEBT_CTOKEN", ME_WETH);
+        flashCTokenForGas = vm.envOr("FLASH_CTOKEN", collateralCToken);
+        flashAmount = vm.envOr("FLASH_AMOUNT", uint256(1_000_000));
+        borrowAmount = vm.envOr("BORROW_AMOUNT", uint256(0));
+        buyFee = vm.envOr("BUY_FEE", uint256(500));
+        exitFee = vm.envOr("EXIT_FEE", uint256(500));
+        require(buyFee <= type(uint24).max && exitFee <= type(uint24).max, "invalid fee tier");
+        requireProfit = vm.envOr("REQUIRE_PROFIT", true);
+        expectRevert = vm.envOr("EXPECT_REVERT", false);
+        minimumFlashNet = vm.envOr("MIN_FLASH_NET", int256(0));
+    }
+
+    function _logGasReserveAndAssert(uint256 initialFlash) internal {
+        uint256 gasReserveFlash = _gasReserveFlash();
+        int256 flashNet = int256(IERC20Like(flashToken).balanceOf(address(this))) - int256(initialFlash);
+        int256 flashNetAfterGasReserve = flashNet - int256(gasReserveFlash);
+        console2.log("gas reserve in flash token", gasReserveFlash);
+        console2.log("flash token liquid net after gas reserve", flashNetAfterGasReserve);
+        if (requireProfit) assertTrue(flashNetAfterGasReserve > minimumFlashNet, "candidate did not exceed minimum liquid net after gas reserve");
+    }
+
+    function _gasReserveFlash() internal view returns (uint256) {
+        uint256 gasReserveWei = vm.envOr("GAS_RESERVE_WEI", uint256(1e15));
+        address comptroller = ICTokenLike(flashCTokenForGas).comptroller();
+        address oracle = IComptrollerLike(comptroller).oracle();
+        uint256 flashPrice = IPriceOracleLike(oracle).getUnderlyingPrice(flashCTokenForGas);
+        uint256 wethPrice = IPriceOracleLike(oracle).getUnderlyingPrice(ME_WETH);
+        return (gasReserveWei * wethPrice) / flashPrice;
+    }
+
+    function _seedDiagnostic(address borrower) internal {
         diagnosticSeedFlash = vm.envOr("SEED_FLASH_AMOUNT", uint256(0));
         if (diagnosticSeedFlash != 0) {
-            // Diagnostic liquidity only. It is included in initialFlash and therefore never counted as profit.
             deal(flashToken, borrower, diagnosticSeedFlash);
         }
     }

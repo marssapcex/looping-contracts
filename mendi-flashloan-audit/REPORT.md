@@ -12,6 +12,8 @@ The strongest source-level lead is **missing freshness validation in the active 
 
 The Unitroller proxy currently returns active oracle `0x05b1b5b09251355fdEb13c768987Ab750D2c6865`, verified on LineaScan as `MixedPriceOracleV3`; the older V2 artifact `0xD2Ed953C240edC59D57E5CFB527Eb768048Fa012` is not the active oracle. The active V3 source retains `latestAnswer()` without checking `updatedAt` or round completeness. Constructor arguments for the older V2 encode all ten symbols as address feeds, not Pyth IDs, and must not be confused with current V3 configuration.
 
+Pinned execution at block `32540628` (`0x19b1bf8e37420eed74f18b3b7908c13ce21f9679f7e9ad4372c48df3de5c6b9a`) now exists in `evidence/`. The complete diagnostic Aave → Uniswap → Mendi mint/borrow → exit → repayment path passed, with diagnostic seed excluded and liquid net **-0.963366051872584047 WETH before gas**. Direct-collateral screening produced no profitable candidate after exit quotes, Aave premium and a `0.001 ETH` gas reserve. A 2,000,000-block Borrow-event scan covered 27 accounts and found four small shortfalls; their gross liquidation incentives are only cents and no net liquidation profit is claimed.
+
 ## Deployment identities
 
 | Component | Address |
