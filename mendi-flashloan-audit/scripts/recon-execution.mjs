@@ -35,11 +35,11 @@ const FLASH = {
 
 const pool = new ethers.Contract(AAVE_POOL, [
   'function FLASHLOAN_PREMIUM_TOTAL() view returns (uint128)',
-  'function getReserveData(address) view returns ((uint256 data) configuration,uint128 liquidityIndex,uint128 currentLiquidityRate,uint128 currentVariableBorrowRate,uint128 currentStableBorrowRate,uint40 lastUpdateTimestamp,uint16 id,address aTokenAddress,address stableDebtTokenAddress,address variableDebtTokenAddress,address interestRateStrategyAddress,uint128 accruedToTreasury,uint128 unbacked,uint128 isolationModeTotalDebt)',
+  'function getReserveData(address) view returns ((uint256 data) configuration,uint128 liquidityIndex,uint128 currentLiquidityRate,uint128 variableBorrowIndex,uint128 currentVariableBorrowRate,uint128 currentStableBorrowRate,uint40 lastUpdateTimestamp,uint16 id,address aTokenAddress,address stableDebtTokenAddress,address variableDebtTokenAddress,address interestRateStrategyAddress,uint128 accruedToTreasury,uint128 unbacked,uint128 isolationModeTotalDebt)',
 ], provider);
 const erc20 = new ethers.Contract(ethers.ZeroAddress, ['function balanceOf(address) view returns (uint256)'], provider);
 const quoter = new ethers.Contract(QUOTER_V2, [
-  'function quoteExactInputSingle((address tokenIn,address tokenOut,uint24 fee,uint256 amountIn,uint160 sqrtPriceLimitX96)) returns (uint256 amountOut,uint160 sqrtPriceX96After,uint32 initializedTicksCrossed,uint256 gasEstimate)',
+  'function quoteExactInputSingle((address tokenIn,address tokenOut,uint256 amountIn,uint24 fee,uint160 sqrtPriceLimitX96)) returns (uint256 amountOut,uint160 sqrtPriceX96After,uint32 initializedTicksCrossed,uint256 gasEstimate)',
 ], provider);
 
 async function read(contract, signature, args = []) {
@@ -70,7 +70,7 @@ for (const market of marketList) {
   }
   const reserve = reserveResult.value;
   const configuration = reserve[0][0];
-  const aToken = reserve[7];
+  const aToken = reserve[8];
   const token = new ethers.Contract(market.underlying, erc20.interface, provider);
   const availableLiquidity = await read(token, 'balanceOf(address)', [aToken]);
   aaveReserves[market.symbol] = {
@@ -99,8 +99,8 @@ for (const collateral of marketList) {
       const quoteResult = await capture(() => quoter.getFunction('quoteExactInputSingle').staticCall({
         tokenIn: flashMarket.underlying,
         tokenOut: collateral.underlying,
-        fee,
         amountIn: flash.amountIn,
+        fee,
         sqrtPriceLimitX96: 0,
       }, { blockTag }));
       const item = {

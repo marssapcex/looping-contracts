@@ -100,6 +100,14 @@ jobs:
         working-directory: mendi-flashloan-audit
         env:
           FOUNDRY_PROFILE: fork
+          FLASH_TOKEN: 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f
+          COLLATERAL_CTOKEN: 0x9be5e24F05bBAfC28Da814bD59284878b388a40f
+          DEBT_CTOKEN: 0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D
+          FLASH_AMOUNT: "1000000000000000000"
+          BORROW_AMOUNT: "100000000"
+          BUY_FEE: "3000"
+          EXIT_FEE: "500"
+          SEED_FLASH_AMOUNT: "1000000000000000000"
         run: |
           set -o pipefail
           RPC_URL="$RPC_URL" BLOCK="$BLOCK" forge test -vvvv --match-test testForkCandidate_flashMintBorrowExitRepayAndMeasureNet 2>&1 | tee evidence/fork-${BLOCK}.log

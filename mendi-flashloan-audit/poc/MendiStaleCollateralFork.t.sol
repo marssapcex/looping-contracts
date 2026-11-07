@@ -178,6 +178,7 @@ contract MendiCandidateFlashBorrower {
 }
 
 contract MendiStaleCollateralForkTest is Test {
+    uint256 internal diagnosticSeedFlash;
     address internal constant AAVE_POOL = 0xc47b8C00b0f69a36fa203Ffeac0334874574a8Ac;
     address internal constant SWAP_ROUTER = 0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a;
     address internal constant USDC = 0x176211869cA2b568f2A7D4EE941E073a821EE1ff;
@@ -215,7 +216,8 @@ contract MendiStaleCollateralForkTest is Test {
             uint24(exitFeeUint)
         );
 
-        uint256 initialFlash = IERC20Like(flashToken).balanceOf(address(this));
+        _seedDiagnostic(flashToken, address(borrower));
+        uint256 initialFlash = IERC20Like(flashToken).balanceOf(address(this)) + diagnosticSeedFlash;
         uint256 initialDebt = IERC20Like(debtToken).balanceOf(address(this));
         if (expectRevert) vm.expectRevert();
         borrower.execute();
@@ -228,6 +230,7 @@ contract MendiStaleCollateralForkTest is Test {
         int256 flashNet = int256(finalFlash) - int256(initialFlash);
         int256 debtNet = int256(finalDebt) - int256(initialDebt);
 
+        console2.log("diagnostic flash seed excluded from P&L", diagnosticSeedFlash);
         console2.log("flash token liquid net before gas", flashNet);
         console2.log("debt token liquid net before gas", debtNet);
         console2.log("collateral received", borrower.lastCollateralReceived());
@@ -237,5 +240,13 @@ contract MendiStaleCollateralForkTest is Test {
         console2.log("residual borrow balance", ICTokenLike(debtCToken).borrowBalanceStored(address(borrower)));
         console2.log("residual collateral/debt are not counted as liquid profit");
         if (requireProfit) assertTrue(flashNet > minimumFlashNet, "candidate did not exceed minimum liquid flash-token delta");
+    }
+
+    function _seedDiagnostic(address flashToken, address borrower) internal {
+        diagnosticSeedFlash = vm.envOr("SEED_FLASH_AMOUNT", uint256(0));
+        if (diagnosticSeedFlash != 0) {
+            // Diagnostic liquidity only. It is included in initialFlash and therefore never counted as profit.
+            deal(flashToken, borrower, diagnosticSeedFlash);
+        }
     }
 }
