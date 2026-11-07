@@ -1,0 +1,25 @@
+{
+  "provenance": "TESTABLE_RECONSTRUCTION_NOT_CHAIN_VERIFIED",
+  "chainId": "31337",
+  "permissionlessCaller": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "oracle": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
+  "mainOracle": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+  "validatorMode": "REJECT_ALL; no Pivot is configured, so acceptance proves validator is not consulted",
+  "sameTransaction": {
+    "firstRead": "100",
+    "sourceAfterMutation": "200",
+    "secondRead": "100"
+  },
+  "separateTransactions": {
+    "cacheTransaction": "0x6edc2774b3c47af2438360dfa638d7bc0d7e6876ab50db0f6cdbef0cd5fabcf2",
+    "cacheBlock": 21,
+    "readAfterCacheTransaction": "100",
+    "sourceMutationTransaction": "0x17059e224dabdf2ffbd94785cb0ac070563fc54cb44f7cb6f36ce87726a95fb9",
+    "sourceMutationBlock": 22,
+    "readAfterSourceMutationTransaction": "200"
+  },
+  "assertions": {
+    "sameTransactionFirstValidPriceWins": true,
+    "separateTransactionCacheCleared": true
+  }
+}

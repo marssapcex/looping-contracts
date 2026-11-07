@@ -1,0 +1,24 @@
+No files changed, compilation skipped
+
+Ran 18 tests for /home/user/looping-contracts/venus-resilient-oracle-audit/upstream-poc/UpstreamResilientOracle.t.sol:UpstreamResilientOracleTest
+[PASS] test_assetSpecificCaching() (gas: 222427)
+[PASS] test_boundConfigurationIsAccessControlled() (gas: 43510)
+[PASS] test_cachingDisabledUpdateDoesNotValidatePrice() (gas: 93216)
+[PASS] test_configurationReplacementDoesNotClearTransientPrice() (gas: 526647)
+[PASS] test_correlatedMainAndPivotDefeatsCrossCheck() (gas: 108542)
+[PASS] test_enabledPivotReturningZeroDoesNotFailOpenToMain() (gas: 108498)
+[PASS] test_enabledPivotRevertDoesNotFailOpenToMain() (gas: 125730)
+[PASS] test_existingCacheSkipsLaterSnapshot() (gas: 108224)
+[PASS] test_fallbackCannotStandaloneWithoutPivotOrMain() (gas: 140213)
+[PASS] test_governanceConfiguredWideBoundsAcceptTwoXDeviation() (gas: 140275)
+[PASS] test_mainAcceptedOnlyWhenPivotIsActuallyUnconfiguredOrDisabled() (gas: 101707)
+[PASS] test_missingBoundConfigFailsClosedWithEnabledPivot() (gas: 3018163)
+[PASS] test_pauseBlocksReadsButNotUpdateOrSnapshot() (gas: 89226)
+[PASS] test_pivotInvalidUsesFinalMainFallbackComparison() (gas: 167250)
+[PASS] test_sameTransactionFirstValidPriceWins() (gas: 504133)
+[PASS] test_snapshotFailureIsSwallowedAndPriceStillCaches() (gas: 92147)
+[PASS] test_stalenessAndDecimalsRemainSourceResponsibilities() (gas: 38878)
+[PASS] test_validPivotRejectsMainAndAcceptsFallback() (gas: 159554)
+Suite result: ok. 18 passed; 0 failed; 0 skipped; finished in 3.43ms (2.42ms CPU time)
+
+Ran 1 test suite in 7.88ms (3.43ms CPU time): 18 tests passed, 0 failed, 0 skipped (18 total tests)

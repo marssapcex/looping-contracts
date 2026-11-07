@@ -1,0 +1,91 @@
+{
+  "provenance": "SOURCE_AND_EXECUTABLE_BYTECODE_MATCH_TO_GITHUB_DEPLOYMENT_ARTIFACTS_NOT_LIVE_CHAIN_VERIFIED",
+  "deployedSourceCommit": "edb889bd094d11e3c828e0d0e4f752d1bf005f4b",
+  "revisionSearch": {
+    "checkedRevisions": 130,
+    "matches": [
+      "edb889bd094d11e3c828e0d0e4f752d1bf005f4b"
+    ]
+  },
+  "resilientOracle": {
+    "artifactAddress": "0x90d840f463c4E341e37B1D51b1aB16Bc5b34865C",
+    "artifactDeploymentBlock": 51270703,
+    "artifactTransactionHash": "0x9fe357cab55dab1e4732690ba3ea38168362fb8773b82abce8641f8df1caac7b",
+    "compiler": "0.8.25+commit.b61c2a91",
+    "sourceHashes": [
+      {
+        "sourceName": "contracts/ResilientOracle.sol",
+        "expected": "0xc42d06b29b0b81aa51d0b9e9b9e98c09d855fae3d0824b64d43f95e0b49d284a",
+        "actual": "0xc42d06b29b0b81aa51d0b9e9b9e98c09d855fae3d0824b64d43f95e0b49d284a",
+        "match": true
+      },
+      {
+        "sourceName": "contracts/interfaces/ICappedOracle.sol",
+        "expected": "0xad239e65b5e92b3486418c5ccca120247702251f9724cd96657c3cfdc7fedc31",
+        "actual": "0xad239e65b5e92b3486418c5ccca120247702251f9724cd96657c3cfdc7fedc31",
+        "match": true
+      },
+      {
+        "sourceName": "contracts/interfaces/OracleInterface.sol",
+        "expected": "0xd3bbb7c9eef19e8f467342df6034ef95399a00964646fb8c82b438968ae3a8c0",
+        "actual": "0xd3bbb7c9eef19e8f467342df6034ef95399a00964646fb8c82b438968ae3a8c0",
+        "match": true
+      },
+      {
+        "sourceName": "contracts/interfaces/VBep20Interface.sol",
+        "expected": "0x6e71c3df86501df5c0e4bace1333c0c91f9f9cced252a54fb99eeda219b789d5",
+        "actual": "0x6e71c3df86501df5c0e4bace1333c0c91f9f9cced252a54fb99eeda219b789d5",
+        "match": true
+      },
+      {
+        "sourceName": "contracts/lib/Transient.sol",
+        "expected": "0x60d7133a48a757ee777cb9230e890ef489ffc33dcea9dadfcf5a8b72f9dd43aa",
+        "actual": "0x60d7133a48a757ee777cb9230e890ef489ffc33dcea9dadfcf5a8b72f9dd43aa",
+        "match": true
+      }
+    ],
+    "bytecode": {
+      "bytes": 8678,
+      "exactIncludingMetadata": false,
+      "executableMatch": true,
+      "metadataOnlyDifference": true,
+      "differingBytes": 32,
+      "ipfsDigestByteOffset": 8635
+    }
+  },
+  "boundValidator": {
+    "artifactAddress": "0xbE4176749a74320641e24102B2Af2Ca37FAF2DF1",
+    "artifactDeploymentBlock": 51270638,
+    "artifactTransactionHash": "0x2ccd49b997cf5578d5253dfb98b4ad4b82b84af342eded69b7821a33f1b02096",
+    "compiler": "0.8.25+commit.b61c2a91",
+    "sourceHashes": [
+      {
+        "sourceName": "contracts/interfaces/OracleInterface.sol",
+        "expected": "0xd3bbb7c9eef19e8f467342df6034ef95399a00964646fb8c82b438968ae3a8c0",
+        "actual": "0xd3bbb7c9eef19e8f467342df6034ef95399a00964646fb8c82b438968ae3a8c0",
+        "match": true
+      },
+      {
+        "sourceName": "contracts/interfaces/VBep20Interface.sol",
+        "expected": "0x6e71c3df86501df5c0e4bace1333c0c91f9f9cced252a54fb99eeda219b789d5",
+        "actual": "0x6e71c3df86501df5c0e4bace1333c0c91f9f9cced252a54fb99eeda219b789d5",
+        "match": true
+      },
+      {
+        "sourceName": "contracts/oracles/BoundValidator.sol",
+        "expected": "0xa3e304eca85c87de21b59df54527bc6e05dbf4e00c0318e2836c61d15e879c43",
+        "actual": "0xa3e304eca85c87de21b59df54527bc6e05dbf4e00c0318e2836c61d15e879c43",
+        "match": true
+      }
+    ],
+    "bytecode": {
+      "bytes": 3537,
+      "exactIncludingMetadata": false,
+      "executableMatch": true,
+      "metadataOnlyDifference": true,
+      "differingBytes": 32,
+      "ipfsDigestByteOffset": 3494
+    }
+  },
+  "liveChainCaveat": "No pinned-block RPC check has yet proved the current proxy implementation slots or on-chain code hashes."
+}

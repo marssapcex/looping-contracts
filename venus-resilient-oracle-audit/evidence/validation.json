@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "suppliedReconstructionTests": 29,
+  "deploymentArtifactMatchedTests": 18,
+  "exactSuppliedSourceExpectedCompileFailure": true,
+  "executableBytecodeMatchesDeploymentArtifacts": true,
+  "transientAssertions": {
+    "transient-evm.json": {
+      "sameTransactionFirstValidPriceWins": true,
+      "separateTransactionCacheCleared": true
+    },
+    "upstream-transient-evm.json": {
+      "sameTransactionFirstValidPriceWins": true,
+      "separateTransactionCacheCleared": true
+    }
+  },
+  "livePoolOrProfitClaim": false
+}

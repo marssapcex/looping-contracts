@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+exec node "$ROOT/venus-resilient-oracle-audit/scripts/solc-wrapper.cjs" "$@"

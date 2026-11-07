@@ -1,0 +1,8 @@
+Compiling 16 files with Solc 0.8.25
+Solc 0.8.25 finished in 531.79ms
+Error: Compiler run failed:
+Error (7920): Identifier not found or not unique.
+   --> /home/user/looping-contracts/venus-resilient-oracle-audit/reference/ResilientOracle.sol:156:61:
+    |
+156 |     function getPrice(address asset) external view override whenNotPaused returns (uint256) {
+    |                                                             ^^^^^^^^^^^^^

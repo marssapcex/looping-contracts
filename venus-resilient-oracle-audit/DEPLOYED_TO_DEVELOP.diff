@@ -1,0 +1,13 @@
+--- venus-resilient-oracle-audit/deployed-source/contracts/ResilientOracle.sol	2026-11-07 09:11:58.954225261 +0000
++++ venus-resilient-oracle-audit/upstream/contracts/ResilientOracle.sol	2026-11-07 09:02:38.620606755 +0000
+@@ -334,7 +334,9 @@
+ 
+     /**
+      * @notice Updates the capped oracle snapshot.
+-     * @dev Cache the asset price and return if already cached
++     * @dev Cache the asset price and return if already cached.
++     *      `updateSnapshot()` may revert for oracles other than `CorrelatedTokenOracle`;
++     *      the empty catch block intentionally swallows that revert and is harmless.
+      * @param asset asset address
+      */
+     function _updateAssetPrice(address asset) internal {

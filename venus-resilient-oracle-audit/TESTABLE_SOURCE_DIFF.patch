@@ -1,0 +1,79 @@
+--- a/reference/ResilientOracle.sol
++++ b/contracts/ResilientOracle.sol
+@@ -3,13 +3,14 @@
+ 
+ import "@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol";
+ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
++import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+ import { Transient } from "./lib/Transient.sol";
+ import { VBep20Interface } from "./interfaces/VBep20Interface.sol";
+ import { BoundValidatorInterface, ResilientOracleInterface, OracleInterface } from "./interfaces/OracleInterface.sol";
+ import { ICappedOracle } from "./interfaces/ICappedOracle.sol";
+ import { AccessControlledV8 } from "@venusprotocol/governance-contracts/contracts/Governance/AccessControlledV8.sol";
+ 
+-contract ResilientOracle is ResilientOracleInterface, Initializable, Ownable2StepUpgradeable, AccessControlledV8 {
++contract ResilientOracle is ResilientOracleInterface, Initializable, Ownable2StepUpgradeable, AccessControlledV8, PausableUpgradeable {
+     using Transient for *;
+ 
+     enum OracleRole {
+@@ -143,9 +144,10 @@
+         updateAssetPrice(asset);
+     }
+ 
+-    function updateAssetPrice(address asset) external override {
++    function updateAssetPrice(address asset) public override {
+         uint256 cachedPrice = _CACHE_SLOT.readCachedPrice(asset);
+         if (cachedPrice == 0) {
++            updateSnapshot(asset);
+             uint256 price = _getPrice(asset);
+             if (cachingEnabled) {
+                 _CACHE_SLOT.cachePrice(asset, price);
+@@ -153,7 +155,7 @@
+         }
+     }
+ 
+-    function getPrice(address asset) external view override whenNotPaused returns (uint256) {
++    function getPrice(address asset) public view override whenNotPaused returns (uint256) {
+         uint256 cachedPrice = _CACHE_SLOT.readCachedPrice(asset);
+         if (cachedPrice == 0) {
+             return _getPrice(asset);
+@@ -176,8 +178,7 @@
+         }
+     }
+ 
+-    function _getPrice(address asset) internal returns (uint256) {
+-        updateSnapshot(asset);
++    function _getPrice(address asset) internal view returns (uint256) {
+         uint256 pivotPrice = INVALID_PRICE;
+ 
+         address pivotOracle = tokenConfigs[asset].oracles[uint256(OracleRole.PIVOT)];
+@@ -187,7 +188,10 @@
+             } catch {}
+         }
+ 
+-        uint256 price = _getMainOraclePrice(asset, pivotPrice != INVALID_PRICE, pivotPrice);
++        (uint256 price, bool validated) = _getMainOraclePrice(asset, pivotPrice != INVALID_PRICE, pivotPrice);
++        if (!validated) {
++            price = INVALID_PRICE;
++        }
+ 
+         if (price == INVALID_PRICE && tokenConfigs[asset].enableFlagsForOracles[uint256(OracleRole.FALLBACK)]) {
+             price = _getFallbackOraclePrice(asset, pivotPrice);
+@@ -201,7 +205,7 @@
+         address asset,
+         bool pivotEnabled,
+         uint256 pivotPrice
+-    ) internal returns (uint256 mainOraclePrice, bool validated) {
++    ) internal view returns (uint256 mainOraclePrice, bool validated) {
+         if (tokenConfigs[asset].enableFlagsForOracles[uint256(OracleRole.MAIN)]) {
+             try OracleInterface(tokenConfigs[asset].oracles[uint256(OracleRole.MAIN)]).getPrice(asset) returns (uint256 returnedPrice) {
+                 mainOraclePrice = returnedPrice;
+@@ -230,7 +234,7 @@
+         }
+     }
+ 
+-    function _getFallbackOraclePrice(address asset, uint256 pivotPrice) internal returns (uint256 fallbackPrice) {
++    function _getFallbackOraclePrice(address asset, uint256 pivotPrice) internal view returns (uint256 fallbackPrice) {
+         address fallbackOracle = tokenConfigs[asset].oracles[uint256(OracleRole.FALLBACK)];
+         try OracleInterface(fallbackOracle).getPrice(asset) returns (uint256 priceFallback) {
+             fallbackPrice = priceFallback;

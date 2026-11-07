@@ -1,0 +1,27 @@
+{
+  "provenance": "DEPLOYMENT_METADATA_SOURCE_MATCH_NOT_CHAIN_VERIFIED",
+  "deployedSourceCommit": "edb889bd094d11e3c828e0d0e4f752d1bf005f4b",
+  "sourceHashMatchedDeploymentArtifact": true,
+  "chainId": "31337",
+  "permissionlessCaller": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "oracle": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+  "mainOracle": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "boundValidator": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+  "sameTransaction": {
+    "firstRead": "100",
+    "sourceAfterMutation": "200",
+    "secondRead": "100"
+  },
+  "separateTransactions": {
+    "cacheTransaction": "0x93c26de3b5cd51e201ace58af2edd453eb4bbfb5354153c4071d93a5f0bb43e0",
+    "cacheBlock": 11,
+    "readAfterCacheTransaction": "100",
+    "sourceMutationTransaction": "0x5791f4482ba8b1d4b82a98e8f20b364e7a9326777f863d42ce225eefc2f1b7dd",
+    "sourceMutationBlock": 12,
+    "readAfterSourceMutationTransaction": "200"
+  },
+  "assertions": {
+    "sameTransactionFirstValidPriceWins": true,
+    "separateTransactionCacheCleared": true
+  }
+}

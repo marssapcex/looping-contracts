@@ -1,0 +1,108 @@
+{
+  "resilientOracle": {
+    "bytes": 8678,
+    "exactIncludingMetadata": false,
+    "executableMatch": true,
+    "metadataOnlyDifference": true,
+    "differingBytes": 32,
+    "ipfsDigestByteOffset": 8635
+  },
+  "boundValidator": {
+    "bytes": 3537,
+    "exactIncludingMetadata": false,
+    "executableMatch": true,
+    "metadataOnlyDifference": true,
+    "differingBytes": 32,
+    "ipfsDigestByteOffset": 3494
+  },
+  "deployedSourceCommit": "edb889bd094d11e3c828e0d0e4f752d1bf005f4b"
+}
+Compiling 16 files with Solc 0.8.25
+Solc 0.8.25 finished in 531.79ms
+Error: Compiler run failed:
+Error (7920): Identifier not found or not unique.
+   --> /home/user/looping-contracts/venus-resilient-oracle-audit/reference/ResilientOracle.sol:156:61:
+    |
+156 |     function getPrice(address asset) external view override whenNotPaused returns (uint256) {
+    |                                                             ^^^^^^^^^^^^^
+EXPECTED_FAIL: supplied source does not compile; see evidence/supplied-compile.log
+{
+  "provenance": "DEPLOYMENT_METADATA_SOURCE_MATCH_NOT_CHAIN_VERIFIED",
+  "deployedSourceCommit": "edb889bd094d11e3c828e0d0e4f752d1bf005f4b",
+  "sourceHashMatchedDeploymentArtifact": true,
+  "chainId": "31337",
+  "permissionlessCaller": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "oracle": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+  "mainOracle": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "boundValidator": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+  "sameTransaction": {
+    "firstRead": "100",
+    "sourceAfterMutation": "200",
+    "secondRead": "100"
+  },
+  "separateTransactions": {
+    "cacheTransaction": "0x93c26de3b5cd51e201ace58af2edd453eb4bbfb5354153c4071d93a5f0bb43e0",
+    "cacheBlock": 11,
+    "readAfterCacheTransaction": "100",
+    "sourceMutationTransaction": "0x5791f4482ba8b1d4b82a98e8f20b364e7a9326777f863d42ce225eefc2f1b7dd",
+    "sourceMutationBlock": 12,
+    "readAfterSourceMutationTransaction": "200"
+  },
+  "assertions": {
+    "sameTransactionFirstValidPriceWins": true,
+    "separateTransactionCacheCleared": true
+  }
+}
+{
+  "provenance": "TESTABLE_RECONSTRUCTION_NOT_CHAIN_VERIFIED",
+  "chainId": "31337",
+  "permissionlessCaller": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+  "oracle": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
+  "mainOracle": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+  "validatorMode": "REJECT_ALL; no Pivot is configured, so acceptance proves validator is not consulted",
+  "sameTransaction": {
+    "firstRead": "100",
+    "sourceAfterMutation": "200",
+    "secondRead": "100"
+  },
+  "separateTransactions": {
+    "cacheTransaction": "0x6edc2774b3c47af2438360dfa638d7bc0d7e6876ab50db0f6cdbef0cd5fabcf2",
+    "cacheBlock": 21,
+    "readAfterCacheTransaction": "100",
+    "sourceMutationTransaction": "0x17059e224dabdf2ffbd94785cb0ac070563fc54cb44f7cb6f36ce87726a95fb9",
+    "sourceMutationBlock": 22,
+    "readAfterSourceMutationTransaction": "200"
+  },
+  "assertions": {
+    "sameTransactionFirstValidPriceWins": true,
+    "separateTransactionCacheCleared": true
+  }
+}
+{
+  "status": "PASS",
+  "suppliedReconstructionTests": 29,
+  "deploymentArtifactMatchedTests": 18,
+  "exactSuppliedSourceExpectedCompileFailure": true,
+  "executableBytecodeMatchesDeploymentArtifacts": true,
+  "transientAssertions": {
+    "transient-evm.json": {
+      "sameTransactionFirstValidPriceWins": true,
+      "separateTransactionCacheCleared": true
+    },
+    "upstream-transient-evm.json": {
+      "sameTransactionFirstValidPriceWins": true,
+      "separateTransactionCacheCleared": true
+    }
+  },
+  "livePoolOrProfitClaim": false
+}
+[PASS] test_validatorRevertFailsClosedWhenPivotExists() (gas: 160409)
+[PASS] test_zeroMainFallsBackButZeroFallbackCannotBeFinalPrice() (gas: 203365)
+Suite result: ok. 29 passed; 0 failed; 0 skipped; finished in 31.73ms (49.36ms CPU time)
+
+Ran 1 test suite in 32.65ms (31.73ms CPU time): 29 tests passed, 0 failed, 0 skipped (29 total tests)
+[PASS] test_stalenessAndDecimalsRemainSourceResponsibilities() (gas: 38878)
+[PASS] test_validPivotRejectsMainAndAcceptsFallback() (gas: 159554)
+Suite result: ok. 18 passed; 0 failed; 0 skipped; finished in 3.43ms (2.42ms CPU time)
+
+Ran 1 test suite in 7.88ms (3.43ms CPU time): 18 tests passed, 0 failed, 0 skipped (18 total tests)
