@@ -8,9 +8,9 @@ The active target is Mendi Finance lending on Linea at pinned source commit:
 134d766bb7a07c9485f180d7d5edeb1fd9e30828
 ```
 
-The strongest source-level lead is **missing freshness validation in `MixedPriceOracleV2`**, combined with a feasible Aave-flash-loan acquisition/mint/borrow path. However, upstream issue [#3](https://github.com/mendi-finance/lending-protocol/issues/3), opened on 2026-07-21, already publicly reports the same root cause and collateral-devaluation/borrow scenario in `MixedPriceOracleV3`. This audit therefore treats it as a **previously disclosed weakness and duplicate, not a new finding**. No pinned Linea market/feed state, DEX execution result, state-changing fork execution, withdrawal or net profit has been demonstrated.
+The strongest source-level lead is **missing freshness validation in the active `MixedPriceOracleV3`**, combined with an Aave-flash-loan acquisition/mint/borrow path. Upstream issue [#3](https://github.com/mendi-finance/lending-protocol/issues/3), opened on 2026-07-21, publicly reports the same root cause and collateral-devaluation/borrow scenario. That disclosure establishes provenance, **not a stopping condition**: a known bug remains an active candidate here if it is still unfixed and executable. No pinned complete DEX execution, state-changing fork repayment, liquid exit or net profit has yet been demonstrated.
 
-The old Pyth configuration must not be confused with the latest deployment. Constructor arguments for `MixedPriceOracleV2` encode all ten symbols as address feeds, so its current artifact path uses `_getChainlinkPrice()` rather than `_getPythPrice()` for the configured markets.
+The Unitroller proxy currently returns active oracle `0x05b1b5b09251355fdEb13c768987Ab750D2c6865`, verified on LineaScan as `MixedPriceOracleV3`; the older V2 artifact `0xD2Ed953C240edC59D57E5CFB527Eb768048Fa012` is not the active oracle. The active V3 source retains `latestAnswer()` without checking `updatedAt` or round completeness. Constructor arguments for the older V2 encode all ten symbols as address feeds, not Pyth IDs, and must not be confused with current V3 configuration.
 
 ## Deployment identities
 
@@ -31,7 +31,7 @@ The old Pyth configuration must not be confused with the latest deployment. Cons
 
 These are deployment-artifact identities, not substitutes for reading the current Unitroller implementation, active oracle and proxy slots at a pinned block.
 
-## Previously disclosed candidate: stale-but-accepted collateral/debt prices (duplicate)
+## Active candidate: stale-but-accepted collateral/debt prices (previously disclosed root cause)
 
 ### Source behavior
 
@@ -117,7 +117,7 @@ A dependency split exists:
 - current CToken keccak is `0x0b18b867...`;
 - the only source diff is the current first-mint lock of 1,000 cToken units to address zero.
 
-`artifact-matched/CToken-legacy.sol` preserves the artifact-supplied legacy source. The legacy first-mint issue is **not a new finding**: ScaleBit reported `CTO-1 First mintFresh Design Flaws`, status Acknowledged, and Mendi described an operational non-empty-market workaround. A live claim would additionally require current implementation and an exploitable empty/tiny-market state. Artifact history alone does not establish either.
+`artifact-matched/CToken-legacy.sol` preserves the artifact-supplied legacy source. The legacy first-mint issue is **previously disclosed**: ScaleBit reported `CTO-1 First mintFresh Design Flaws`, status Acknowledged, and Mendi described an operational non-empty-market workaround. It remains eligible for investigation under the same known-bug rule, but a live claim would additionally require current implementation and an exploitable empty/tiny-market state. Artifact history alone does not establish either.
 
 Provenance output: `evidence/source-provenance.json`.
 
@@ -245,7 +245,7 @@ The logged liquid delta is before gas. `MIN_FLASH_NET` should reserve gas and an
 
 ## Reporting decision
 
-Do not submit the missing-freshness root cause as new: upstream issue #3 already discloses it. Independently, a valid high-impact live demonstration would need the pinned stale quote, active consumer state, available flash/DEX liquidity, a successful state-changing fork and signed liquid net proceeds after every cost. At present the evidence supports a duplicate candidate and complete validation harness, not a new or live Mendi exploit.
+Do not describe the missing-freshness root cause as newly discovered: upstream issue #3 already discloses it. That disclosure does not end the exploit investigation. A valid high-impact live demonstration still needs the pinned stale quote, active consumer state, available flash/DEX liquidity, a successful state-changing fork and signed liquid net proceeds after every cost. At present the evidence supports an active known-bug candidate and a complete validation harness, not a validated live Mendi exploit.
 
 ## References
 

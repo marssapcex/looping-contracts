@@ -4,9 +4,9 @@ Target: Mendi lending on Linea, pinned at `134d766bb7a07c9485f180d7d5edeb1fd9e30
 
 ## Current result
 
-The prioritized lead is missing freshness validation in `MixedPriceOracleV2`: address-feed quotes use `latestAnswer()` without `updatedAt`/round checks, while the optional Pyth branch uses `getPriceUnsafe()`. The latest V2 constructor configures address feeds, not Pyth IDs.
+The prioritized lead is missing freshness validation in the active `MixedPriceOracleV3` at `0x05b1b5b09251355fdEb13c768987Ab750D2c6865`: address-feed quotes use `latestAnswer()` without `updatedAt`/round checks. The older V2 artifact is retained for exact-source tests and historical provenance; it is not the active Unitroller oracle.
 
-This root cause is **already publicly reported in upstream issue #3 for V3**, so it is a duplicate rather than a new finding. It is also not a proven live exploit: CF/caps/pause/cash, feed age, Aave liquidity and executable DEX quotes still need pinned Linea recon. No mainnet transaction or profit is claimed.
+This root cause is **already publicly reported in upstream issue #3**, but that does not disqualify it for this investigation. It remains a candidate if unfixed and exploitable. It is not yet a proven live exploit: pinned CF/caps/pause/cash, Aave liquidity, executable DEX quotes, complete repayment/exit and liquid net P&L are still required. No mainnet transaction or profit is claimed.
 
 See [REPORT.md](REPORT.md) for provenance, negative controls and the complete evidence boundary.
 

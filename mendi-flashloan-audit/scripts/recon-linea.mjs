@@ -22,7 +22,8 @@ const block = await provider.getBlock(blockTag);
 if (!block) throw new Error(`Block ${blockNumber} not found`);
 
 const UNITROLLER = '0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103';
-const EXPECTED_MIXED_V2 = '0xD2Ed953C240edC59D57E5CFB527Eb768048Fa012';
+const LEGACY_MIXED_V2 = '0xD2Ed953C240edC59D57E5CFB527Eb768048Fa012';
+const EXPECTED_MIXED_V3 = '0x05b1b5b09251355fdEb13c768987Ab750D2c6865';
 const PYTH = '0xA2aa501b19aff244D90cc15a4Cf739D2725B5729';
 const EIP1967_IMPLEMENTATION = '0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382f';
 
@@ -31,9 +32,9 @@ function artifact(relative) {
 }
 const comptrollerArtifact = artifact('Comptroller.json');
 const cTokenArtifact = artifact('CErc20Upgradable_WETH_Implementation.json');
+// V3 retains the V2 external ABI; its exact source is separately identified by the verified active address.
 const oracleArtifact = artifact('MixedPriceOracleV2.json');
 const comptroller = new ethers.Contract(UNITROLLER, comptrollerArtifact.abi, provider);
-const oracle = new ethers.Contract(EXPECTED_MIXED_V2, oracleArtifact.abi, provider);
 const pyth = new ethers.Contract(PYTH, [
   'function getPriceUnsafe(bytes32) view returns (int64 price, uint64 conf, int32 expo, uint256 publishTime)',
 ], provider);
@@ -108,7 +109,7 @@ const [implementation, pendingImplementation, admin, oracleAddress, closeFactor,
 const activeOracle = new ethers.Contract(oracleAddress, oracleArtifact.abi, provider);
 const markets = {};
 const configSymbols = new Set();
-const codeAddresses = new Set([UNITROLLER, implementation, oracleAddress, PYTH]);
+const codeAddresses = new Set([UNITROLLER, implementation, oracleAddress, LEGACY_MIXED_V2, PYTH]);
 
 for (const cTokenAddress of marketAddresses) {
   const cToken = new ethers.Contract(cTokenAddress, cTokenArtifact.abi, provider);
@@ -258,8 +259,9 @@ const evidence = {
   pendingImplementation,
   admin,
   oracle: oracleAddress,
-  expectedMixedV2: EXPECTED_MIXED_V2,
-  activeOracleMatchesArtifactAddress: oracleAddress.toLowerCase() === EXPECTED_MIXED_V2.toLowerCase(),
+  legacyMixedV2: LEGACY_MIXED_V2,
+  expectedMixedV3: EXPECTED_MIXED_V3,
+  activeOracleMatchesExpectedV3Address: oracleAddress.toLowerCase() === EXPECTED_MIXED_V3.toLowerCase(),
   closeFactor,
   liquidationIncentive,
   markets,
@@ -268,7 +270,7 @@ const evidence = {
   code,
   interpretation: {
     zeroCapsMeanUnlimitedNotClosed: true,
-    noFreshnessCheckInMixedPriceOracleV2Source: true,
+    noFreshnessCheckInMixedPriceOracleV3Source: true,
     staleFeedIsNotSufficientForProfit: true,
     requiredNextStep: 'Executable DEX/flash quotes and same-transaction fork PoC with repayment and liquid balance deltas',
   },
@@ -280,7 +282,7 @@ console.log(JSON.stringify({
   output,
   block: evidence.block,
   oracle: oracleAddress,
-  activeOracleMatchesArtifactAddress: evidence.activeOracleMatchesArtifactAddress,
+  activeOracleMatchesExpectedV3Address: evidence.activeOracleMatchesExpectedV3Address,
   markets: Object.fromEntries(Object.entries(markets).map(([symbol, item]) => [symbol, {
     collateralFactor: item.collateralFactor,
     supplyCap: item.supplyCap,

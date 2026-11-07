@@ -1,0 +1,117 @@
+name: Mendi pinned Linea fork
+
+on:
+  workflow_dispatch:
+    inputs:
+      block:
+        description: Historical Linea block number
+        required: true
+        default: "32540628"
+      rpc_url:
+        description: Optional single Linea archive RPC; blank tries public endpoints
+        required: false
+        default: ""
+  push:
+    branches:
+      - arena/ee2289ba-looping-contracts
+    paths:
+      - .github/workflows/mendi-linea-fork.yml
+      - mendi-flashloan-audit/**
+
+permissions:
+  contents: read
+
+jobs:
+  recon-and-fork:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      BLOCK: ${{ inputs.block || '32540628' }}
+    steps:
+      - name: Check out exact branch and forge-std
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install exact CI-only compiler and ABI dependencies
+        run: |
+          npm install --prefix .audit-tools/mendi-build --no-save --no-package-lock solc@0.8.10 @pythnetwork/pyth-sdk-solidity@2.2.1
+          npm install --prefix .audit-tools/venus-oracle-build --no-save --no-package-lock ethers@6.15.0
+
+      - name: Check scripts and compile exact-source tests
+        working-directory: mendi-flashloan-audit
+        run: |
+          node --check scripts/preflight-rpc.mjs
+          node --check scripts/recon-linea.mjs
+          node --check scripts/recon-execution.mjs
+          forge test -vvv
+          FOUNDRY_PROFILE=fork forge build --sizes
+
+      - name: Select an archive RPC at the pinned block
+        id: rpc
+        env:
+          REQUESTED_RPC: ${{ inputs.rpc_url }}
+        run: |
+          set -u
+          if [ -n "$REQUESTED_RPC" ]; then
+            CANDIDATES="$REQUESTED_RPC"
+          else
+            CANDIDATES="https://rpc.linea.build https://linea.drpc.org https://1rpc.io/linea https://linea-rpc.publicnode.com https://linea.blockpi.network/v1/rpc/public https://linea-mainnet.public.blastapi.io https://linea.decubate.com"
+          fi
+          : > "$RUNNER_TEMP/rpc-attempts.log"
+          SELECTED=""
+          for RPC in $CANDIDATES; do
+            echo "=== $RPC ===" | tee -a "$RUNNER_TEMP/rpc-attempts.log"
+            if RPC_URL="$RPC" BLOCK="$BLOCK" node mendi-flashloan-audit/scripts/preflight-rpc.mjs 2>&1 | tee -a "$RUNNER_TEMP/rpc-attempts.log"; then
+              SELECTED="$RPC"
+              break
+            fi
+          done
+          cp "$RUNNER_TEMP/rpc-attempts.log" mendi-flashloan-audit/evidence/rpc-preflight-${BLOCK}.log
+          if [ -z "$SELECTED" ]; then
+            echo "No public endpoint supplied pinned archive state and eth_call" >&2
+            exit 1
+          fi
+          echo "RPC_URL=$SELECTED" >> "$GITHUB_ENV"
+
+      - name: Run pinned market, oracle and feed recon
+        working-directory: mendi-flashloan-audit
+        run: |
+          set -o pipefail
+          RPC_URL="$RPC_URL" BLOCK="$BLOCK" node scripts/recon-linea.mjs 2>&1 | tee evidence/recon-linea-${BLOCK}.log
+
+      - name: Run pinned Aave liquidity and Uniswap quote recon
+        working-directory: mendi-flashloan-audit
+        run: |
+          set -o pipefail
+          RPC_URL="$RPC_URL" RECON="evidence/linea-recon-${BLOCK}.json" node scripts/recon-execution.mjs 2>&1 | tee evidence/recon-execution-${BLOCK}.log
+
+      - name: Execute state-changing Aave to Uniswap to Mendi fork harness
+        working-directory: mendi-flashloan-audit
+        env:
+          FOUNDRY_PROFILE: fork
+        run: |
+          set -o pipefail
+          RPC_URL="$RPC_URL" BLOCK="$BLOCK" forge test -vvvv --match-test testForkCandidate_flashMintBorrowExitRepayAndMeasureNet 2>&1 | tee evidence/fork-${BLOCK}.log
+
+      - name: Upload pinned evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mendi-linea-${{ env.BLOCK }}-${{ github.run_attempt }}
+          if-no-files-found: warn
+          retention-days: 14
+          path: |
+            mendi-flashloan-audit/evidence/*${{ env.BLOCK }}*
+            mendi-flashloan-audit/evidence/linea-recon-${{ env.BLOCK }}.json
+            mendi-flashloan-audit/evidence/linea-execution-${{ env.BLOCK }}.json
