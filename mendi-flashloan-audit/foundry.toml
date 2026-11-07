@@ -1,0 +1,19 @@
+[profile.default]
+src = 'test'
+test = 'test'
+out = 'out'
+libs = ['../lib']
+cache_path = '../.audit-tools/mendi-forge-cache'
+solc = 'scripts/solc'
+optimizer = true
+optimizer_runs = 200
+via_ir = true
+evm_version = 'london'
+remappings = [
+  'forge-std/=../lib/forge-std/src/',
+  '@pythnetwork/=../.audit-tools/mendi-build/node_modules/@pythnetwork/'
+]
+
+[profile.fork]
+src = 'poc'
+test = 'poc'

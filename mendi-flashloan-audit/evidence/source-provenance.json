@@ -1,0 +1,938 @@
+{
+  "upstreamCommit": "134d766bb7a07c9485f180d7d5edeb1fd9e30828",
+  "allMainSourcesMatch": true,
+  "checks": [
+    {
+      "artifact": "Comptroller.json",
+      "address": "0x1a11669Ecf91692440Da95CC8A12DE80B1C3D9e3",
+      "transactionHash": "0x7d6fd172178c02be56f0b27f80dfc05549413e2f1fcb8d2a0016cd4127199a0c",
+      "blockNumber": 216011,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/Comptroller.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MISMATCH",
+          "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/Comptroller.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x40900f78a990b7cd58875cde5bab3a94a8fed5f53a2ff2a99ceb78d166ccb478",
+          "localKeccak256": "0x40900f78a990b7cd58875cde5bab3a94a8fed5f53a2ff2a99ceb78d166ccb478"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerStorage.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x0f8dc5b0d08b5296f9d09687fdd6358340dd425f868546a9e57ba354a26b7cea",
+          "localKeccak256": "0x0f8dc5b0d08b5296f9d09687fdd6358340dd425f868546a9e57ba354a26b7cea"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        },
+        {
+          "sourcePath": "contracts/PriceOracle.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x2668c070ed3fb58f68ac470817e2f10a9dd8713eb9b11b02601f8aca904b9842",
+          "localKeccak256": "0x2668c070ed3fb58f68ac470817e2f10a9dd8713eb9b11b02601f8aca904b9842"
+        },
+        {
+          "sourcePath": "contracts/RewardDistributor.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xa8efe751c5d8a244607c4195e7c65554d96ac89536f2fe21d77104606b4fdda0",
+          "localKeccak256": "0xa8efe751c5d8a244607c4195e7c65554d96ac89536f2fe21d77104606b4fdda0"
+        },
+        {
+          "sourcePath": "contracts/Unitroller.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x17e959f9fbe309bcdebb6b1670e6204d9273d84d26126879f3db8f0d7e24a570",
+          "localKeccak256": "0x17e959f9fbe309bcdebb6b1670e6204d9273d84d26126879f3db8f0d7e24a570"
+        }
+      ]
+    },
+    {
+      "artifact": "Unitroller.json",
+      "address": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "transactionHash": "0xba0445e0ebdbfb101bee98687ecfbf8e598b845bfc6f4fb402645265d071db9e",
+      "blockNumber": 215960,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/Unitroller.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MISMATCH",
+          "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerStorage.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x0f8dc5b0d08b5296f9d09687fdd6358340dd425f868546a9e57ba354a26b7cea",
+          "localKeccak256": "0x0f8dc5b0d08b5296f9d09687fdd6358340dd425f868546a9e57ba354a26b7cea"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        },
+        {
+          "sourcePath": "contracts/PriceOracle.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x2668c070ed3fb58f68ac470817e2f10a9dd8713eb9b11b02601f8aca904b9842",
+          "localKeccak256": "0x2668c070ed3fb58f68ac470817e2f10a9dd8713eb9b11b02601f8aca904b9842"
+        },
+        {
+          "sourcePath": "contracts/Unitroller.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x17e959f9fbe309bcdebb6b1670e6204d9273d84d26126879f3db8f0d7e24a570",
+          "localKeccak256": "0x17e959f9fbe309bcdebb6b1670e6204d9273d84d26126879f3db8f0d7e24a570"
+        }
+      ]
+    },
+    {
+      "artifact": "MixedPriceOracleV2.json",
+      "address": "0xD2Ed953C240edC59D57E5CFB527Eb768048Fa012",
+      "transactionHash": "0x0aae2c7684ebb4616f93b1c5bf255d41dd8dca34dd8dc9209fb4475004e86c5e",
+      "blockNumber": 7256124,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/PriceOracle/MixedPriceOracleV2.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        },
+        {
+          "sourcePath": "contracts/PriceOracle.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x2668c070ed3fb58f68ac470817e2f10a9dd8713eb9b11b02601f8aca904b9842",
+          "localKeccak256": "0x2668c070ed3fb58f68ac470817e2f10a9dd8713eb9b11b02601f8aca904b9842"
+        },
+        {
+          "sourcePath": "contracts/PriceOracle/MixedPriceOracleV2.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x628502e3e6bef38f42a0a53c18ec223cc6c0bc1230cb91f6b5a017196a6e76ba",
+          "localKeccak256": "0x628502e3e6bef38f42a0a53c18ec223cc6c0bc1230cb91f6b5a017196a6e76ba"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_DAI_Implementation.json",
+      "address": "0xB52F4c3607Afb27147A8Bc8FF601B765003129A5",
+      "transactionHash": "0x6b3192231979810722a3f483f06103276bfa6cd4b2441b9d9af94c0a12c9f458",
+      "blockNumber": 410099,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/CErc20Upgradable.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CErc20.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63",
+          "localKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63"
+        },
+        {
+          "sourcePath": "contracts/CErc20Upgradable.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b",
+          "localKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b"
+        },
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_USDC_Implementation.json",
+      "address": "0x8cE9892329E04A86Ea25056Ba77BB9Aa60817045",
+      "transactionHash": "0xb00e85ab8e3837288c3d78bd0ddb02f59c457b4b063c7600e3d420f336272aa4",
+      "blockNumber": 216082,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/CErc20Upgradable.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CErc20.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63",
+          "localKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63"
+        },
+        {
+          "sourcePath": "contracts/CErc20Upgradable.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b",
+          "localKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b"
+        },
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MISMATCH",
+          "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_USDT_Implementation.json",
+      "address": "0x883100388d61ef6dAa147de45dEB04934FBCD40d",
+      "transactionHash": "0x7243455655ed950d9d4efbca72ff32ccf796f592191817c44c7ea9340f77f715",
+      "blockNumber": 216085,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/CErc20Upgradable.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CErc20.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63",
+          "localKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63"
+        },
+        {
+          "sourcePath": "contracts/CErc20Upgradable.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b",
+          "localKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b"
+        },
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MISMATCH",
+          "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_WBTC_Implementation.json",
+      "address": "0x1ce3023De380E9BbE14f32Cb56DCA4Ccb8f9c920",
+      "transactionHash": "0x29f3f493deff91132b645504399b342786a052f0467868b7dceb25d43fa1aa20",
+      "blockNumber": 861893,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/CErc20Upgradable.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CErc20.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63",
+          "localKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63"
+        },
+        {
+          "sourcePath": "contracts/CErc20Upgradable.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b",
+          "localKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b"
+        },
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_WETH_Implementation.json",
+      "address": "0x6E0C50657b610F4613B1C6B1DAE95262a3F6c4f7",
+      "transactionHash": "0x56e493e641f0b4579fa3e29307a41162a1f607263ab81877ff6640fad2df4ca3",
+      "blockNumber": 216067,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/CErc20Upgradable.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CErc20.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63",
+          "localKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63"
+        },
+        {
+          "sourcePath": "contracts/CErc20Upgradable.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b",
+          "localKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b"
+        },
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MISMATCH",
+          "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_ezETH_Implementation.json",
+      "address": "0x5A731dE58B5A4946DEC3cFB6B5DaB6b8a3865456",
+      "transactionHash": "0xed95fd99f91bfec61d0c256d929d4d708b27d8e8b54ac95b1239de87ce330df0",
+      "blockNumber": 2917108,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/CErc20Upgradable.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CErc20.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63",
+          "localKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63"
+        },
+        {
+          "sourcePath": "contracts/CErc20Upgradable.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b",
+          "localKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b"
+        },
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_weETH_Implementation.json",
+      "address": "0xd910EaE6Bab709Cf17491157BF422ff3215644AC",
+      "transactionHash": "0x1de1dd4c7b4945fd8088cba6d337f7d47f2e453e138d6d3d4ba7820c09a56db3",
+      "blockNumber": 4227526,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/CErc20Upgradable.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CErc20.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63",
+          "localKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63"
+        },
+        {
+          "sourcePath": "contracts/CErc20Upgradable.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b",
+          "localKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b"
+        },
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_wrsETH_Implementation.json",
+      "address": "0x801C4ca69D10770816CD37A5747D82fc2629216f",
+      "transactionHash": "0x371d2e01474285d5cdefe19b53945310c3f6997cfa8c85a3714255219535a69a",
+      "blockNumber": 5007818,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/CErc20Upgradable.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CErc20.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63",
+          "localKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63"
+        },
+        {
+          "sourcePath": "contracts/CErc20Upgradable.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b",
+          "localKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b"
+        },
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_wstETH_Implementation.json",
+      "address": "0x0A3B1e53CcC621E07D2A253Ff5816D1123fD5f0b",
+      "transactionHash": "0x5d79f9c77bccf36fe86475203469e506bbea2921e90c8cddb6c7314ef99739c7",
+      "blockNumber": 962317,
+      "compiler": "0.8.10+commit.fc410830",
+      "mainSource": "contracts/CErc20Upgradable.sol",
+      "mainSourceMatches": true,
+      "dependencies": [
+        {
+          "sourcePath": "contracts/CErc20.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63",
+          "localKeccak256": "0x9351574cea52dc98d9a908e4a72b99b32c684c6a67ed007eea589c2461edff63"
+        },
+        {
+          "sourcePath": "contracts/CErc20Upgradable.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b",
+          "localKeccak256": "0x02295f00745857be39e16d8d1393594a6002d894f2c0ed6c596e1e4c40b78e0b"
+        },
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        },
+        {
+          "sourcePath": "contracts/CTokenInterfaces.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96",
+          "localKeccak256": "0x6c027b28da36a488d820e6b13c6e5188a311c36c0af3fb24efd04d6dd0394b96"
+        },
+        {
+          "sourcePath": "contracts/ComptrollerInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55",
+          "localKeccak256": "0xab561397519328ed731d7b88d8d97f3fa2b3884cc8a22336534d2970c21dee55"
+        },
+        {
+          "sourcePath": "contracts/EIP20Interface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8",
+          "localKeccak256": "0xc58019a1ce3f7f282b5e5d4960922d1f5334872431808fd0c1e777f263871bb8"
+        },
+        {
+          "sourcePath": "contracts/EIP20NonStandardInterface.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7",
+          "localKeccak256": "0x5f5e2de8a10d9d9b11c1db605fc44764867e18a11ab5de205fb2cc8637500ae7"
+        },
+        {
+          "sourcePath": "contracts/ErrorReporter.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068",
+          "localKeccak256": "0x4964ec19c8bce9ca1b242c5163922ab16e1ea5667f10c6acc14741f15fbcc068"
+        },
+        {
+          "sourcePath": "contracts/ExponentialNoError.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96",
+          "localKeccak256": "0xdd2743eae171dccf2ba3dbb5f4ee0f206cac2b28901f61f7bb69218f15432e96"
+        },
+        {
+          "sourcePath": "contracts/InterestRateModel.sol",
+          "status": "MATCH",
+          "artifactKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654",
+          "localKeccak256": "0xf867441de0a49070bd508b664ffe9db5d0cb174d207b928f12478037e6aa6654"
+        }
+      ]
+    }
+  ],
+  "ctokenClasses": {
+    "CErc20Upgradable_DAI_Implementation.json": {
+      "address": "0xB52F4c3607Afb27147A8Bc8FF601B765003129A5",
+      "cTokenSourceStatus": "MATCH",
+      "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+      "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+    },
+    "CErc20Upgradable_USDC_Implementation.json": {
+      "address": "0x8cE9892329E04A86Ea25056Ba77BB9Aa60817045",
+      "cTokenSourceStatus": "MISMATCH",
+      "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+      "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+    },
+    "CErc20Upgradable_USDT_Implementation.json": {
+      "address": "0x883100388d61ef6dAa147de45dEB04934FBCD40d",
+      "cTokenSourceStatus": "MISMATCH",
+      "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+      "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+    },
+    "CErc20Upgradable_WBTC_Implementation.json": {
+      "address": "0x1ce3023De380E9BbE14f32Cb56DCA4Ccb8f9c920",
+      "cTokenSourceStatus": "MATCH",
+      "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+      "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+    },
+    "CErc20Upgradable_WETH_Implementation.json": {
+      "address": "0x6E0C50657b610F4613B1C6B1DAE95262a3F6c4f7",
+      "cTokenSourceStatus": "MISMATCH",
+      "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+      "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+    },
+    "CErc20Upgradable_ezETH_Implementation.json": {
+      "address": "0x5A731dE58B5A4946DEC3cFB6B5DaB6b8a3865456",
+      "cTokenSourceStatus": "MATCH",
+      "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+      "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+    },
+    "CErc20Upgradable_weETH_Implementation.json": {
+      "address": "0xd910EaE6Bab709Cf17491157BF422ff3215644AC",
+      "cTokenSourceStatus": "MATCH",
+      "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+      "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+    },
+    "CErc20Upgradable_wrsETH_Implementation.json": {
+      "address": "0x801C4ca69D10770816CD37A5747D82fc2629216f",
+      "cTokenSourceStatus": "MATCH",
+      "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+      "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+    },
+    "CErc20Upgradable_wstETH_Implementation.json": {
+      "address": "0x0A3B1e53CcC621E07D2A253Ff5816D1123fD5f0b",
+      "cTokenSourceStatus": "MATCH",
+      "artifactKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+      "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+    }
+  }
+}

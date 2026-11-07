@@ -1,0 +1,23 @@
+Compiling 33 files with Solc 0.8.10
+Solc 0.8.10 finished in 23.20s
+Compiler run successful!
+warning: invalid natspec tag '@member', custom tags must use format '@custom:name'
+   ╭▸ upstream/contracts/CTokenInterfaces.sol:95:5
+   │
+95 │ ┏     /**
+96 │ ┃      * @notice Container for borrow balance information
+97 │ ┃      * @member principal Total balance (with accrued interest), after applying the most recent balance-changing action
+98 │ ┃      * @member interestIndex Global borrowIndex as of the most recent balance-changing action
+99 │ ┃      */
+   ╰╴┗━━━━━━━┛
+
+
+Ran 5 tests for test/MixedPriceOracleV2.t.sol:MixedPriceOracleV2Test
+[PASS] testIncompleteRoundAndZeroAnsweredInRoundAreNotRejected() (gas: 42368)
+[PASS] testMissingConfigIsRejected() (gas: 178518)
+[PASS] testRecursiveLstRatioScaling() (gas: 62207)
+[PASS] testStaleOneYearOldChainlinkStyleAnswerIsAccepted() (gas: 47461)
+[PASS] testZeroAnswerIsRejected() (gas: 36680)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 1.51ms (594.36µs CPU time)
+
+Ran 1 test suite in 13.66ms (1.51ms CPU time): 5 tests passed, 0 failed, 0 skipped (5 total tests)

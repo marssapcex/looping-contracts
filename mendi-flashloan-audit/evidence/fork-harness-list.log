@@ -1,0 +1,7 @@
+Compiling 19 files with Solc 0.8.10
+Solc 0.8.10 finished in 20.81s
+Compiler run successful!
+poc/MendiStaleCollateralFork.t.sol
+  MendiStaleCollateralForkTest
+    testForkCandidate_flashMintBorrowExitRepayAndMeasureNet
+

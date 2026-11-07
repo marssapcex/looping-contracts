@@ -1,0 +1,79 @@
+{
+  "artifact": "MixedPriceOracleV2.json",
+  "address": "0xD2Ed953C240edC59D57E5CFB527Eb768048Fa012",
+  "transactionHash": "0x0aae2c7684ebb4616f93b1c5bf255d41dd8dca34dd8dc9209fb4475004e86c5e",
+  "constructorRows": [
+    {
+      "symbol": "meWETH",
+      "priceId": "0x0000000000000000000000003c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA",
+      "toSymbol": "USD",
+      "underlyingDecimals": 18,
+      "kind": "addressFeed"
+    },
+    {
+      "symbol": "meUSDC",
+      "priceId": "0x000000000000000000000000AADAa473C1bDF7317ec07c915680Af29DeBfdCb5",
+      "toSymbol": "USD",
+      "underlyingDecimals": 6,
+      "kind": "addressFeed"
+    },
+    {
+      "symbol": "meUSDT",
+      "priceId": "0x000000000000000000000000efCA2bbe0EdD0E22b2e0d2F8248E99F4bEf4A7dB",
+      "toSymbol": "USD",
+      "underlyingDecimals": 6,
+      "kind": "addressFeed"
+    },
+    {
+      "symbol": "meDAI",
+      "priceId": "0x0000000000000000000000005133D67c38AFbdd02997c14Abd8d83676B4e309A",
+      "toSymbol": "USD",
+      "underlyingDecimals": 18,
+      "kind": "addressFeed"
+    },
+    {
+      "symbol": "meWBTC",
+      "priceId": "0x0000000000000000000000007A99092816C8BD5ec8ba229e3a6E6Da1E628E1F9",
+      "toSymbol": "USD",
+      "underlyingDecimals": 8,
+      "kind": "addressFeed"
+    },
+    {
+      "symbol": "mewstETH",
+      "priceId": "0x0000000000000000000000008eCE1AbA32716FdDe8D6482bfd88E9a0ee01f565",
+      "toSymbol": "USD",
+      "underlyingDecimals": 18,
+      "kind": "addressFeed"
+    },
+    {
+      "symbol": "meezETH",
+      "priceId": "0x000000000000000000000000D707bD88A6AAe8174C1447af4C746D55676C84BA",
+      "toSymbol": "meWETH_api3",
+      "underlyingDecimals": 18,
+      "kind": "addressFeed"
+    },
+    {
+      "symbol": "meweETH",
+      "priceId": "0x0000000000000000000000001FBc7d24654b10c71fd74d3730d9Df17836181EF",
+      "toSymbol": "meWETH",
+      "underlyingDecimals": 18,
+      "kind": "addressFeed"
+    },
+    {
+      "symbol": "mewrsETH",
+      "priceId": "0x0000000000000000000000006feCd2f4798D37fBe64BFDe1eBeCaE3B3fB1Ab9B",
+      "toSymbol": "meWETH",
+      "underlyingDecimals": 18,
+      "kind": "addressFeed"
+    },
+    {
+      "symbol": "meWETH_api3",
+      "priceId": "0x00000000000000000000000014D8CA4d05cfd1EA4739AbAB06b28D8dC7C6d6cA",
+      "toSymbol": "USD",
+      "underlyingDecimals": 18,
+      "kind": "addressFeed"
+    }
+  ],
+  "addressFeedCount": 10,
+  "pythIdCount": 0
+}

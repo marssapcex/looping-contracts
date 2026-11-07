@@ -1,0 +1,100 @@
+{
+  "allMainSourcesMatch": true,
+  "artifacts": [
+    {
+      "artifact": "Comptroller.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": [
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MISMATCH",
+          "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        }
+      ]
+    },
+    {
+      "artifact": "Unitroller.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": [
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MISMATCH",
+          "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        }
+      ]
+    },
+    {
+      "artifact": "MixedPriceOracleV2.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": []
+    },
+    {
+      "artifact": "CErc20Upgradable_DAI_Implementation.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": []
+    },
+    {
+      "artifact": "CErc20Upgradable_USDC_Implementation.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": [
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MISMATCH",
+          "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_USDT_Implementation.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": [
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MISMATCH",
+          "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_WBTC_Implementation.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": []
+    },
+    {
+      "artifact": "CErc20Upgradable_WETH_Implementation.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": [
+        {
+          "sourcePath": "contracts/CToken.sol",
+          "status": "MISMATCH",
+          "artifactKeccak256": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+          "localKeccak256": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad"
+        }
+      ]
+    },
+    {
+      "artifact": "CErc20Upgradable_ezETH_Implementation.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": []
+    },
+    {
+      "artifact": "CErc20Upgradable_weETH_Implementation.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": []
+    },
+    {
+      "artifact": "CErc20Upgradable_wrsETH_Implementation.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": []
+    },
+    {
+      "artifact": "CErc20Upgradable_wstETH_Implementation.json",
+      "mainSourceMatches": true,
+      "mismatchedDependencies": []
+    }
+  ]
+}

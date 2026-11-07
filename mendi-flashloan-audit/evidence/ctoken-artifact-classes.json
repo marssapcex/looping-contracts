@@ -1,0 +1,56 @@
+{
+  "CErc20Upgradable_DAI_Implementation.json": {
+    "address": "0xB52F4c3607Afb27147A8Bc8FF601B765003129A5",
+    "ctokenKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "currentKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "matchesCurrent": true
+  },
+  "CErc20Upgradable_USDC_Implementation.json": {
+    "address": "0x8cE9892329E04A86Ea25056Ba77BB9Aa60817045",
+    "ctokenKeccak": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+    "currentKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "matchesCurrent": false
+  },
+  "CErc20Upgradable_USDT_Implementation.json": {
+    "address": "0x883100388d61ef6dAa147de45dEB04934FBCD40d",
+    "ctokenKeccak": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+    "currentKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "matchesCurrent": false
+  },
+  "CErc20Upgradable_WBTC_Implementation.json": {
+    "address": "0x1ce3023De380E9BbE14f32Cb56DCA4Ccb8f9c920",
+    "ctokenKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "currentKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "matchesCurrent": true
+  },
+  "CErc20Upgradable_WETH_Implementation.json": {
+    "address": "0x6E0C50657b610F4613B1C6B1DAE95262a3F6c4f7",
+    "ctokenKeccak": "0x3e60dea3fe833ddf55c2bdb57cd1aaf347e0b49fb5c61c92671e9cc9c6386a5a",
+    "currentKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "matchesCurrent": false
+  },
+  "CErc20Upgradable_ezETH_Implementation.json": {
+    "address": "0x5A731dE58B5A4946DEC3cFB6B5DaB6b8a3865456",
+    "ctokenKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "currentKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "matchesCurrent": true
+  },
+  "CErc20Upgradable_weETH_Implementation.json": {
+    "address": "0xd910EaE6Bab709Cf17491157BF422ff3215644AC",
+    "ctokenKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "currentKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "matchesCurrent": true
+  },
+  "CErc20Upgradable_wrsETH_Implementation.json": {
+    "address": "0x801C4ca69D10770816CD37A5747D82fc2629216f",
+    "ctokenKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "currentKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "matchesCurrent": true
+  },
+  "CErc20Upgradable_wstETH_Implementation.json": {
+    "address": "0x0A3B1e53CcC621E07D2A253Ff5816D1123fD5f0b",
+    "ctokenKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "currentKeccak": "0x0b18b8675878983017b1710a79f663c8ad35d3a5eff803d2539df1232a1811ad",
+    "matchesCurrent": true
+  }
+}
