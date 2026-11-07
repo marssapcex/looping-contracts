@@ -1,41 +1,47 @@
 No files changed, compilation skipped
 
 Ran 1 test for poc/MendiStaleCollateralFork.t.sol:MendiStaleCollateralForkTest
-[PASS] testForkCandidate_flashMintBorrowExitRepayAndMeasureNet() (gas: 4046824)
+[PASS] testForkCandidate_flashMintBorrowExitRepayAndMeasureNet() (gas: 4783326)
 Logs:
   diagnostic flash seed excluded from P&L 1000000000000000000
   flash token liquid net before gas -963366051872584047
   debt token liquid net before gas 0
   collateral received 396443
   debt received 100000000
+  Aave premium bps 5
+  Aave premium paid 500000000000000
   Aave principal plus premium repaid 1000500000000000000
   residual collateral cTokens 18353003
   residual borrow balance 100000000
   residual collateral/debt are not counted as liquid profit
+  gas reserve in flash token 1000000000000000
+  flash token liquid net after gas reserve -964366051872584047
 
 Traces:
-  [4259024] MendiStaleCollateralForkTest::testForkCandidate_flashMintBorrowExitRepayAndMeasureNet()
+  [4995526] MendiStaleCollateralForkTest::testForkCandidate_flashMintBorrowExitRepayAndMeasureNet()
     ├─ [0] VM::envString("RPC_URL") [staticcall]
     │   └─ ← [Return] <env var value>
     ├─ [0] VM::envUint("BLOCK") [staticcall]
     │   └─ ← [Return] <env var value>
     ├─ [0] VM::createSelectFork("<rpc url>", 32540628 [3.254e7])
     │   └─ ← [Return] 0
-    ├─ [0] VM::envOr("FLASH_TOKEN", 0x176211869cA2b568f2A7D4EE941E073a821EE1ff) [staticcall]
+    ├─ [0] VM::envOr("FLASH_TOKEN", 0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4) [staticcall]
     │   └─ ← [Return] <env var value>
     ├─ [0] VM::envOr("COLLATERAL_CTOKEN", 0x9be5e24F05bBAfC28Da814bD59284878b388a40f) [staticcall]
     │   └─ ← [Return] <env var value>
-    ├─ [0] VM::envOr("DEBT_CTOKEN", 0xf669C3C03D9fdF4339e19214A749E52616300E89) [staticcall]
+    ├─ [0] VM::envOr("DEBT_CTOKEN", 0xAd7f33984bed10518012013D4aB0458D37FEE6F3) [staticcall]
     │   └─ ← [Return] <env var value>
-    ├─ [0] VM::envOr("FLASH_AMOUNT", 1000000000 [1e9]) [staticcall]
+    ├─ [0] VM::envOr("FLASH_CTOKEN", 0x9be5e24F05bBAfC28Da814bD59284878b388a40f) [staticcall]
     │   └─ ← [Return] <env var value>
-    ├─ [0] VM::envOr("BORROW_AMOUNT", 100000000 [1e8]) [staticcall]
+    ├─ [0] VM::envOr("FLASH_AMOUNT", 1000000 [1e6]) [staticcall]
     │   └─ ← [Return] <env var value>
-    ├─ [0] VM::envOr("BUY_FEE", 3000) [staticcall]
+    ├─ [0] VM::envOr("BORROW_AMOUNT", 0) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envOr("BUY_FEE", 500) [staticcall]
     │   └─ ← [Return] <env var value>
     ├─ [0] VM::envOr("EXIT_FEE", 500) [staticcall]
     │   └─ ← [Return] <env var value>
-    ├─ [0] VM::envOr("REQUIRE_PROFIT", false) [staticcall]
+    ├─ [0] VM::envOr("REQUIRE_PROFIT", true) [staticcall]
     │   └─ ← [Return] <env var value>
     ├─ [0] VM::envOr("EXPECT_REVERT", false) [staticcall]
     │   └─ ← [Return] <env var value>
@@ -45,7 +51,7 @@ Traces:
     │   ├─ [2426] 0x8cE9892329E04A86Ea25056Ba77BB9Aa60817045::underlying() [delegatecall]
     │   │   └─ ← [Return] 0x176211869cA2b568f2A7D4EE941E073a821EE1ff
     │   └─ ← [Return] 0x176211869cA2b568f2A7D4EE941E073a821EE1ff
-    ├─ [1348358] → new MendiCandidateFlashBorrower@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    ├─ [1694918] → new MendiCandidateFlashBorrower@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
     │   ├─ [9672] 0x9be5e24F05bBAfC28Da814bD59284878b388a40f::underlying() [staticcall]
     │   │   ├─ [2426] 0x1ce3023De380E9BbE14f32Cb56DCA4Ccb8f9c920::underlying() [delegatecall]
     │   │   │   └─ ← [Return] 0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4
@@ -62,7 +68,7 @@ Traces:
     │   │   ├─ [2471] 0x8cE9892329E04A86Ea25056Ba77BB9Aa60817045::comptroller() [delegatecall]
     │   │   │   └─ ← [Return] 0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103
     │   │   └─ ← [Return] 0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103
-    │   └─ ← [Return] 5794 bytes of code
+    │   └─ ← [Return] 7415 bytes of code
     ├─ [0] VM::envOr("SEED_FLASH_AMOUNT", 0) [staticcall]
     │   └─ ← [Return] <env var value>
     ├─ [2534] 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f::balanceOf(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
@@ -99,10 +105,10 @@ Traces:
     │   ├─ [2529] 0xab838fe7d492C621a5B1b23952Af99Cc37a2E0d3::balanceOf(MendiStaleCollateralForkTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
     │   │   └─ ← [Return] 0
     │   └─ ← [Return] 0
-    ├─ [2412603] MendiCandidateFlashBorrower::execute()
-    │   ├─ [2357959] 0xc47b8C00b0f69a36fa203Ffeac0334874574a8Ac::flashLoanSimple(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f, 1000000000000000000 [1e18], 0x, 0)
-    │   │   ├─ [2352819] 0xF2a9096Bf98e1dd8fB31C4caCb2df5C982ec66CA::flashLoanSimple(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f, 1000000000000000000 [1e18], 0x, 0) [delegatecall]
-    │   │   │   ├─ [2345890] 0x6D414cd0d5eAf8C43200ac0c325A7E2Ad83B8be6::a1fe0e8d(1fd84a755d3a9c78ff8b3bd554246082782d06efd21cdf78c58b0ad75e892b9e00000000000000000000000000000000000000000000000000000000000000400000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f000000000000000000000000e5d7c2a44ffddf6b295a15c148167daaaf5cf34f000000000000000000000000b1532b76d054c9f9e61b25c4d91f69b4133e46710000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
+    ├─ [2435199] MendiCandidateFlashBorrower::execute()
+    │   ├─ [2380525] 0xc47b8C00b0f69a36fa203Ffeac0334874574a8Ac::flashLoanSimple(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f, 1000000000000000000 [1e18], 0x, 0)
+    │   │   ├─ [2375385] 0xF2a9096Bf98e1dd8fB31C4caCb2df5C982ec66CA::flashLoanSimple(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f, 1000000000000000000 [1e18], 0x, 0) [delegatecall]
+    │   │   │   ├─ [2368456] 0x6D414cd0d5eAf8C43200ac0c325A7E2Ad83B8be6::a1fe0e8d(1fd84a755d3a9c78ff8b3bd554246082782d06efd21cdf78c58b0ad75e892b9e00000000000000000000000000000000000000000000000000000000000000400000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f0000000000000000000000005615deb798bb3e4dfa0139dfa1b3d433cc23b72f000000000000000000000000e5d7c2a44ffddf6b295a15c148167daaaf5cf34f000000000000000000000000b1532b76d054c9f9e61b25c4d91f69b4133e46710000000000000000000000000000000000000000000000000de0b6b3a76400000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000050000000000000000000000000000000000000000000000000000000000000000) [delegatecall]
     │   │   │   │   ├─ [16081] 0x787897dF92703BB3Fc4d9Ee98e15C0b8130Bf163::totalSupply() [staticcall]
     │   │   │   │   │   ├─ [10968] 0x7b03821ac93Ff55d029A543B86c723aa3Ccb4faC::totalSupply() [delegatecall]
     │   │   │   │   │   │   ├─ [5987] 0xc47b8C00b0f69a36fa203Ffeac0334874574a8Ac::getReserveNormalizedIncome(0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f) [staticcall]
@@ -118,7 +124,7 @@ Traces:
     │   │   │   │   │   │   │   └─ ← [Return] true
     │   │   │   │   │   │   └─ ← [Stop]
     │   │   │   │   │   └─ ← [Return]
-    │   │   │   │   ├─ [2246383] MendiCandidateFlashBorrower::executeOperation(0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f, 1000000000000000000 [1e18], 500000000000000 [5e14], MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
+    │   │   │   │   ├─ [2268949] MendiCandidateFlashBorrower::executeOperation(0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f, 1000000000000000000 [1e18], 500000000000000 [5e14], MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x)
     │   │   │   │   │   ├─ [24420] 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f::approve(0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a, 1000000000000000000 [1e18])
     │   │   │   │   │   │   ├─ emit Approval(owner: MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: 0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a, amount: 1000000000000000000 [1e18])
     │   │   │   │   │   │   └─ ← [Return] true
@@ -229,7 +235,7 @@ Traces:
     │   │   │   │   │   │   │   │   │   │   │   ├─ [253] 0xEF34744d4c68499B1bc76F9Ee002Ba93a69a476b::decimals() [staticcall]
     │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 8
     │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 8
-    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000c9ee8eca31624af3284400000
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 999918170000000000000000000000 [9.999e29]
     │   │   │   │   │   │   │   │   │   ├─ [6169] 0x9be5e24F05bBAfC28Da814bD59284878b388a40f::getAccountSnapshot(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
     │   │   │   │   │   │   │   │   │   │   ├─ [5408] 0x1ce3023De380E9BbE14f32Cb56DCA4Ccb8f9c920::getAccountSnapshot(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
     │   │   │   │   │   │   │   │   │   │   │   ├─ [1219] 0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4::balanceOf(0x9be5e24F05bBAfC28Da814bD59284878b388a40f) [staticcall]
@@ -251,7 +257,7 @@ Traces:
     │   │   │   │   │   │   │   │   │   │   │   ├─ [253] 0xD71cD2e38B7F65421bB59A872cca021e685647CC::decimals() [staticcall]
     │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 8
     │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 8
-    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x00000000000000000000000000000000000025895a59100a87c12369cf600000
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 761331374920600000000000000000000 [7.613e32]
     │   │   │   │   │   │   │   │   │   ├─ [27176] 0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D::getAccountSnapshot(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
     │   │   │   │   │   │   │   │   │   │   ├─ [26415] 0x8cE9892329E04A86Ea25056Ba77BB9Aa60817045::getAccountSnapshot(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [delegatecall]
     │   │   │   │   │   │   │   │   │   │   │   ├─ [9726] 0x176211869cA2b568f2A7D4EE941E073a821EE1ff::balanceOf(0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D) [staticcall]
@@ -273,7 +279,7 @@ Traces:
     │   │   │   │   │   │   │   │   │   │   │   ├─ [253] 0xEF34744d4c68499B1bc76F9Ee002Ba93a69a476b::decimals() [staticcall]
     │   │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 8
     │   │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 8
-    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000c9ee8eca31624af3284400000
+    │   │   │   │   │   │   │   │   │   │   └─ ← [Return] 999918170000000000000000000000 [9.999e29]
     │   │   │   │   │   │   │   │   │   ├─ [13175] 0x3b9B9364Bf69761d308145371c38D9b558013d40::notifyBorrowIndex(0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D)
     │   │   │   │   │   │   │   │   │   │   ├─ [12429] 0x052932456A8FD199Cd33Be91312638A35c8B7Ca5::notifyBorrowIndex(0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D) [delegatecall]
     │   │   │   │   │   │   │   │   │   │   │   ├─ [3153] 0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D::borrowIndex() [staticcall]
@@ -404,6 +410,16 @@ Traces:
     │   └─ ← [Return] 100000000 [1e8]
     ├─ [0] console::log("debt received", 100000000 [1e8]) [staticcall]
     │   └─ ← [Stop]
+    ├─ [7523] 0xc47b8C00b0f69a36fa203Ffeac0334874574a8Ac::FLASHLOAN_PREMIUM_TOTAL() [staticcall]
+    │   ├─ [2410] 0xF2a9096Bf98e1dd8fB31C4caCb2df5C982ec66CA::FLASHLOAN_PREMIUM_TOTAL() [delegatecall]
+    │   │   └─ ← [Return] 5
+    │   └─ ← [Return] 5
+    ├─ [0] console::log("Aave premium bps", 5) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [2585] MendiCandidateFlashBorrower::lastFlashPremium() [staticcall]
+    │   └─ ← [Return] 500000000000000 [5e14]
+    ├─ [0] console::log("Aave premium paid", 500000000000000 [5e14]) [staticcall]
+    │   └─ ← [Stop]
     ├─ [2541] MendiCandidateFlashBorrower::lastFlashRepayment() [staticcall]
     │   └─ ← [Return] 1000500000000000000 [1e18]
     ├─ [0] console::log("Aave principal plus premium repaid", 1000500000000000000 [1e18]) [staticcall]
@@ -422,8 +438,52 @@ Traces:
     │   └─ ← [Stop]
     ├─ [0] console::log("residual collateral/debt are not counted as liquid profit") [staticcall]
     │   └─ ← [Stop]
+    ├─ [0] VM::envOr("GAS_RESERVE_WEI", 1000000000000000 [1e15]) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [9717] 0xAd7f33984bed10518012013D4aB0458D37FEE6F3::comptroller() [staticcall]
+    │   ├─ [2471] 0x6E0C50657b610F4613B1C6B1DAE95262a3F6c4f7::comptroller() [delegatecall]
+    │   │   └─ ← [Return] 0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103
+    │   └─ ← [Return] 0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103
+    ├─ [7635] 0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103::oracle() [staticcall]
+    │   ├─ [2449] 0x1a11669Ecf91692440Da95CC8A12DE80B1C3D9e3::oracle() [delegatecall]
+    │   │   └─ ← [Return] 0x05b1b5b09251355fdEb13c768987Ab750D2c6865
+    │   └─ ← [Return] 0x05b1b5b09251355fdEb13c768987Ab750D2c6865
+    ├─ [43546] 0x05b1b5b09251355fdEb13c768987Ab750D2c6865::getUnderlyingPrice(0xAd7f33984bed10518012013D4aB0458D37FEE6F3) [staticcall]
+    │   ├─ [10517] 0xAd7f33984bed10518012013D4aB0458D37FEE6F3::symbol() [staticcall]
+    │   │   ├─ [3265] 0x6E0C50657b610F4613B1C6B1DAE95262a3F6c4f7::symbol() [delegatecall]
+    │   │   │   └─ ← [Return] "meWETH"
+    │   │   └─ ← [Return] "meWETH"
+    │   ├─ [14620] 0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA::latestAnswer() [staticcall]
+    │   │   ├─ [7124] 0x0635163285C6ef5692167F18b799FB339DF064f8::latestAnswer() [staticcall]
+    │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000341b36f5e5
+    │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000341b36f5e5
+    │   ├─ [1095] 0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA::decimals() [staticcall]
+    │   │   ├─ [253] 0x0635163285C6ef5692167F18b799FB339DF064f8::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 8
+    │   │   └─ ← [Return] 8
+    │   └─ ← [Return] 2237948861170000000000 [2.237e21]
+    ├─ [43546] 0x05b1b5b09251355fdEb13c768987Ab750D2c6865::getUnderlyingPrice(0xAd7f33984bed10518012013D4aB0458D37FEE6F3) [staticcall]
+    │   ├─ [10517] 0xAd7f33984bed10518012013D4aB0458D37FEE6F3::symbol() [staticcall]
+    │   │   ├─ [3265] 0x6E0C50657b610F4613B1C6B1DAE95262a3F6c4f7::symbol() [delegatecall]
+    │   │   │   └─ ← [Return] "meWETH"
+    │   │   └─ ← [Return] "meWETH"
+    │   ├─ [14620] 0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA::latestAnswer() [staticcall]
+    │   │   ├─ [7124] 0x0635163285C6ef5692167F18b799FB339DF064f8::latestAnswer() [staticcall]
+    │   │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000341b36f5e5
+    │   │   └─ ← [Return] 0x000000000000000000000000000000000000000000000000000000341b36f5e5
+    │   ├─ [1095] 0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA::decimals() [staticcall]
+    │   │   ├─ [253] 0x0635163285C6ef5692167F18b799FB339DF064f8::decimals() [staticcall]
+    │   │   │   └─ ← [Return] 8
+    │   │   └─ ← [Return] 8
+    │   └─ ← [Return] 2237948861170000000000 [2.237e21]
+    ├─ [2534] 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f::balanceOf(MendiStaleCollateralForkTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   └─ ← [Return] 36633948127415953 [3.663e16]
+    ├─ [0] console::log("gas reserve in flash token", 1000000000000000 [1e15]) [staticcall]
+    │   └─ ← [Stop]
+    ├─ [0] console::log("flash token liquid net after gas reserve", -964366051872584047 [-9.643e17]) [staticcall]
+    │   └─ ← [Stop]
     └─ ← [Return]
 
-Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 261.98ms (261.46ms CPU time)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.16s (2.16s CPU time)
 
-Ran 1 test suite in 404.10ms (261.98ms CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+Ran 1 test suite in 2.92s (2.16s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

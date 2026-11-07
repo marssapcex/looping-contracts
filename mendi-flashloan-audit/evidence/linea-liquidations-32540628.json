@@ -619,8 +619,8 @@
             },
             "seizedCTokens": "1107695222",
             "seizedUnderlying": "258194",
-            "seizedUsd": "258172871984980000000000000000",
-            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "258172871984740950440910286946"
+            "seizedUsd": "258172871984980000",
+            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "19123312895266946"
           }
         ]
       }
@@ -698,8 +698,8 @@
             },
             "seizedCTokens": "1068952132",
             "seizedUnderlying": "249163",
-            "seizedUsd": "249142610991710000000000000000",
-            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "249142610991479311512014744997"
+            "seizedUsd": "249142610991710000",
+            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "18454123006454997"
           }
         ]
       }
@@ -842,7 +842,7 @@
             "collateralMarket": "meWETH",
             "borrowBalance": "430331",
             "maxRepay": "215165",
-            "repayUsd": "215147393048050000000000000000",
+            "repayUsd": "215147393048050000",
             "collateralCTokenBalance": "1077872",
             "collateralUnderlying": "231729614184372",
             "seizeResult": {
@@ -855,7 +855,7 @@
             "seizedCTokens": "482942",
             "seizedUnderlying": "103826765453995",
             "seizedUsd": "232358991506732808",
-            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "-215147393047817641008493267192"
+            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "17211598458682808"
           }
         ]
       }
@@ -988,8 +988,8 @@
             },
             "seizedCTokens": "1352424061",
             "seizedUnderlying": "315238",
-            "seizedUsd": "315212204074460000000000000000",
-            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "315212204074168135984332533337"
+            "seizedUsd": "315212204074460000",
+            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "23348188406993337"
           }
         ]
       }
@@ -1048,8 +1048,8 @@
           },
           "seizedCTokens": "1107695222",
           "seizedUnderlying": "258194",
-          "seizedUsd": "258172871984980000000000000000",
-          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "258172871984740950440910286946"
+          "seizedUsd": "258172871984980000",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "19123312895266946"
         }
       ]
     },
@@ -1083,8 +1083,8 @@
           },
           "seizedCTokens": "1068952132",
           "seizedUnderlying": "249163",
-          "seizedUsd": "249142610991710000000000000000",
-          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "249142610991479311512014744997"
+          "seizedUsd": "249142610991710000",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "18454123006454997"
         }
       ]
     },
@@ -1106,7 +1106,7 @@
           "collateralMarket": "meWETH",
           "borrowBalance": "430331",
           "maxRepay": "215165",
-          "repayUsd": "215147393048050000000000000000",
+          "repayUsd": "215147393048050000",
           "collateralCTokenBalance": "1077872",
           "collateralUnderlying": "231729614184372",
           "seizeResult": {
@@ -1119,7 +1119,7 @@
           "seizedCTokens": "482942",
           "seizedUnderlying": "103826765453995",
           "seizedUsd": "232358991506732808",
-          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "-215147393047817641008493267192"
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "17211598458682808"
         }
       ]
     },
@@ -1153,8 +1153,8 @@
           },
           "seizedCTokens": "1352424061",
           "seizedUnderlying": "315238",
-          "seizedUsd": "315212204074460000000000000000",
-          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "315212204074168135984332533337"
+          "seizedUsd": "315212204074460000",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "23348188406993337"
         }
       ]
     }
