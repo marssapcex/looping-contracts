@@ -34,8 +34,9 @@ jobs:
           SCAN_RANGE: ${{ inputs.scan_range || '500000' }}
         run: |
           node --check lendle-mantle-audit/scripts/triage.mjs
-          node lendle-mantle-audit/scripts/triage.mjs 2>&1 | tee lendle-mantle-audit/evidence/triage.log
+          node lendle-mantle-audit/scripts/triage.mjs 2>&1 | tee lendle-mantle-audit/evidence/triage.log || true
       - name: Persist evidence
+        if: always()
         run: |
           git config user.name "arena-bot"
           git config user.email "arena-bot@users.noreply.github.com"
