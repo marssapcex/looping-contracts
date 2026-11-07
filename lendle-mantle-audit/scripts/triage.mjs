@@ -17,12 +17,19 @@ const POOLS = {
 const POOL_ABI = [
   'function paused() view returns (bool)',
   'function getReservesList() view returns (address[])',
-  'function getReserveData(address) view returns (tuple(uint256 data) configuration,uint128 liquidityIndex,uint128 variableBorrowIndex,uint128 currentLiquidityRate,uint128 currentVariableBorrowRate,uint128 currentStableBorrowRate,uint40 lastUpdateTimestamp,address aTokenAddress,address stableDebtTokenAddress,address variableDebtTokenAddress,address interestRateStrategyAddress,uint8 id)',
-  'function getAddressesProvider() view returns (address)',
   'function getUserAccountData(address) view returns (uint256 totalCollateral,uint256 totalDebt,uint256 availableBorrows,uint256 currentLiquidationThreshold,uint256 ltv,uint256 healthFactor)',
   'event Borrow(address indexed reserve,address user,address indexed onBehalfOf,uint256 amount,uint256 borrowRateMode,uint256 borrowRate,uint16 indexed referralCode)',
 ];
-const PROVIDER_ABI = ['function getPriceOracle() view returns (address)'];
+const V2_RESERVE_ABI = [
+  ...POOL_ABI,
+  'function getAddressesProvider() view returns (address)',
+  'function getReserveData(address) view returns (tuple(uint256 data) configuration,uint128 liquidityIndex,uint128 variableBorrowIndex,uint128 currentLiquidityRate,uint128 currentVariableBorrowRate,uint128 currentStableBorrowRate,uint40 lastUpdateTimestamp,address aTokenAddress,address stableDebtTokenAddress,address variableDebtTokenAddress,address interestRateStrategyAddress,uint8 id)',
+];
+const V3_RESERVE_ABI = [
+  ...POOL_ABI,
+  'function getReserveData(address) view returns (tuple(uint256 data) configuration,uint128 liquidityIndex,uint128 currentLiquidityRate,uint128 variableBorrowIndex,uint128 currentVariableBorrowRate,uint128 currentStableBorrowRate,uint40 lastUpdateTimestamp,uint16 id,address aTokenAddress,address stableDebtTokenAddress,address variableDebtTokenAddress,address interestRateStrategyAddress,uint128 accruedToTreasury,uint128 unbacked,uint128 isolationModeTotalDebt)',
+];
+const PROVIDER_ABI = ['function getPriceOracle() view returns (address)','function getPool() view returns (address)'];
 const ORACLE_ABI = [
   'function getAssetPrice(address) view returns (uint256)',
   'function getSourceOfAsset(address) view returns (address)',
@@ -102,15 +109,25 @@ async function sourceInfo(address) {
   return value;
 }
 for (const [name, address] of Object.entries(POOLS)) {
-  const pool = new Contract(address, POOL_ABI, provider);
-  const result = { address, paused: await safe(() => pool.paused()), reserves: [], borrowers: { scanned: [], liquidatable: [] } };
-  const assets = await safe(() => pool.getReservesList(), []);
+  const isCore = name === 'core';
+  const inputProvider = new Contract(address, PROVIDER_ABI, provider);
+  const resolvedPool = isCore ? address : await safe(() => inputProvider.getPool());
+  const pool = resolvedPool ? new Contract(resolvedPool, isCore ? V2_RESERVE_ABI : V3_RESERVE_ABI, provider) : null;
+  const result = {
+    inputAddress: address,
+    inputRole: isCore ? 'Aave V2 LendingPool proxy' : 'Aave V3 PoolAddressesProvider',
+    address: resolvedPool,
+    version: isCore ? 'v2' : 'v3',
+    paused: pool ? await safe(() => pool.paused()) : null,
+    reserves: [], borrowers: { scanned: [], liquidatable: [] },
+  };
+  const assets = pool ? await safe(() => pool.getReservesList(), []) : [];
   let oracleAddress = null;
-  const addressesProvider = await safe(() => pool.getAddressesProvider());
+  const addressesProvider = address;
   if (addressesProvider) {
     oracleAddress = await safe(() => new Contract(addressesProvider, PROVIDER_ABI, provider).getPriceOracle());
   }
-  if (!oracleAddress && name === 'core') oracleAddress = '0x870c9692Ab04944C86ec6FEeF63F261226506EfC';
+  if (!oracleAddress && isCore) oracleAddress = '0x870c9692Ab04944C86ec6FEeF63F261226506EfC';
   result.oracle = oracleAddress;
   if (oracleAddress) {
     const oracle = new Contract(oracleAddress, ORACLE_ABI, provider);
@@ -142,6 +159,7 @@ for (const [name, address] of Object.entries(POOLS)) {
       active: flag(config, 56),
       frozen: flag(config, 57),
       borrowingEnabled: flag(config, 58),
+      paused: isCore ? null : flag(config, 60),
       ltvBps: str((config & 0xffffn) * 1n),
       liquidationThresholdBps: str(((config >> 16n) & 0xffffn) * 1n),
       liquidationBonusBps: str(((config >> 32n) & 0xffffn) * 1n),
@@ -152,6 +170,8 @@ for (const [name, address] of Object.entries(POOLS)) {
       stableDebtTotalSupply: str(stableDebt),
       variableDebtTotalSupply: str(variableDebt),
       oraclePrice: str(price),
+      cashBase: price == null ? null : str((cash * price) / 10n ** BigInt(decimals)),
+      debtBase: price == null ? null : str(((stableDebt + variableDebt) * price) / 10n ** BigInt(decimals)),
       source,
     });
   }
@@ -167,7 +187,7 @@ if (scanBorrowers) {
   for (const [name, address] of Object.entries(POOLS)) {
     const result = out.pools[name];
     if (!result.reserves.some((r) => BigInt(r.stableDebtTotalSupply) + BigInt(r.variableDebtTotalSupply) > 0n)) continue;
-    const pool = new Contract(address, POOL_ABI, provider);
+    const pool = new Contract(result.address, result.version === 'v2' ? V2_RESERVE_ABI : V3_RESERVE_ABI, provider);
     const borrowers = new Set();
     const to = BigInt(blockNumber);
     const from = to > scanRange ? to - scanRange : 0n;
