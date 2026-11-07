@@ -1,0 +1,1170 @@
+{
+  "provenance": "PINNED_LINEA_BORROWER_AND_LIQUIDATION_RECON_NOT_AN_EXPLOIT",
+  "rpcHost": "rpc.linea.build",
+  "block": {
+    "number": 32540628,
+    "hash": "0x19b1bf8e37420eed74f18b3b7908c13ce21f9679f7e9ad4372c48df3de5c6b9a",
+    "timestamp": 1794044311
+  },
+  "scan": {
+    "fromBlock": 30540628,
+    "toBlock": 32540628,
+    "initialChunk": 50000,
+    "completeWithoutChunkErrors": true,
+    "limitation": "Only accounts with a Borrow event in this range are screened; older dormant borrowers are not enumerated."
+  },
+  "borrowEventCount": 56,
+  "uniqueBorrowerCount": 27,
+  "borrowEvents": [
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x7Fb81399fc57555bb6e677E5D914Ab7Da187390d",
+      "borrowAmount": "312145",
+      "accountBorrowsAtEvent": "633954",
+      "totalBorrowsAtEvent": "110553968757",
+      "blockNumber": 30561536,
+      "transactionHash": "0xb201ac6993690a97bd6cab77fbce7a5943a6fa6b9d626e2104f278a73fc7e2fa",
+      "logIndex": 3
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0x7Fb81399fc57555bb6e677E5D914Ab7Da187390d",
+      "borrowAmount": "136158835552035",
+      "accountBorrowsAtEvent": "295590759631628",
+      "totalBorrowsAtEvent": "20246453260515234326",
+      "blockNumber": 30561574,
+      "transactionHash": "0x2f258c791657878b0dcd1d1a65edd561def2fcc353c7a1aacef4d500c542bf6c",
+      "logIndex": 3
+    },
+    {
+      "market": "0xf669C3C03D9fdF4339e19214A749E52616300E89",
+      "borrower": "0x3DacaCD33f394975ACbfBD63f097C67eB8d2F516",
+      "borrowAmount": "253441",
+      "accountBorrowsAtEvent": "9023041",
+      "totalBorrowsAtEvent": "76226786587",
+      "blockNumber": 30562466,
+      "transactionHash": "0xd979c30ed5342a079aeeca4b0d30978941e48d3413637b6ea0a12cb9cd6f9553",
+      "logIndex": 13
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x9f81A77E9c9AA056AD47E117d81aC640CA06b2de",
+      "borrowAmount": "1495982",
+      "accountBorrowsAtEvent": "33463899",
+      "totalBorrowsAtEvent": "110022879524",
+      "blockNumber": 30680847,
+      "transactionHash": "0x3af4d81793014667f51d42821c71294d473b312866495fb8ece74f0c368eb57c",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x9f81A77E9c9AA056AD47E117d81aC640CA06b2de",
+      "borrowAmount": "2415975",
+      "accountBorrowsAtEvent": "35879875",
+      "totalBorrowsAtEvent": "110025300419",
+      "blockNumber": 30680859,
+      "transactionHash": "0x364d993059bd92077c6903e6ae4e23b87242fb7fd7128bedfc908f6b8280e87f",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0xbF74cDB9a4940448619b6B4Ebd68259796E90DC7",
+      "borrowAmount": "6302981",
+      "accountBorrowsAtEvent": "73851226",
+      "totalBorrowsAtEvent": "109961182955",
+      "blockNumber": 30719974,
+      "transactionHash": "0x5bbcbfbe59b452e534e1b28462c316df84bf93d945dab200eb6177df7ed5d486",
+      "logIndex": 3
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0x663720b75ad00be9cdB8f0764952BE23Ef3d59E9",
+      "borrowAmount": "2166517383742980",
+      "accountBorrowsAtEvent": "19377784475413976",
+      "totalBorrowsAtEvent": "20058424745242583640",
+      "blockNumber": 30847105,
+      "transactionHash": "0x32aad09f1e5e87b7962a73f8f273d3c5bf86f5c8d212162a8294253c1bde4e99",
+      "logIndex": 5
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x9D55E3bABEeBF4e24EB857082586aC7d21DA0E4A",
+      "borrowAmount": "115000000",
+      "accountBorrowsAtEvent": "327780965",
+      "totalBorrowsAtEvent": "100345114962",
+      "blockNumber": 31090584,
+      "transactionHash": "0x5d5bab017c1aa4b39fbcfb4717a7699c9905424f15c10024b2136baa469674e2",
+      "logIndex": 5
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0xC521A76d84FB64E4F21A056651D566FA08d52E67",
+      "borrowAmount": "9135386",
+      "accountBorrowsAtEvent": "9135386",
+      "totalBorrowsAtEvent": "99786651810",
+      "blockNumber": 31161794,
+      "transactionHash": "0x8132137404dc3f84676a0fc3959300cc5dfa50a305d4ebe827a15efdbdc05532",
+      "logIndex": 4
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "20000000",
+      "accountBorrowsAtEvent": "484142229",
+      "totalBorrowsAtEvent": "99811925954",
+      "blockNumber": 31171764,
+      "transactionHash": "0xd3fa7c316e548c0af07c280586f23f0fff1a3aa3c381772c6b50fdc8b043047b",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "200000000",
+      "accountBorrowsAtEvent": "684256240",
+      "totalBorrowsAtEvent": "99100043097",
+      "blockNumber": 31213336,
+      "transactionHash": "0xf42226d0f3274f040b4d527bf263e06af7289109331fb573a04a507ea270ec01",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "30000000",
+      "accountBorrowsAtEvent": "714340688",
+      "totalBorrowsAtEvent": "98782496937",
+      "blockNumber": 31236119,
+      "transactionHash": "0x04d324e6bf5943b8d354e3200efd45ae0fb55a885c1fbe7244c4369a7e671049",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x4b9C306Cc94a0a420E4c018d946A0d22370Eb46a",
+      "borrowAmount": "296960",
+      "accountBorrowsAtEvent": "315936",
+      "totalBorrowsAtEvent": "98787010462",
+      "blockNumber": 31243519,
+      "transactionHash": "0x88b01df2d86cee70a431a29432dc0b410b9ab5da92cdac579621f4e8d669e885",
+      "logIndex": 6
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0x1b2630a35aCaAcbFe23e68a6F18cfFe00A15ecf6",
+      "borrowAmount": "538571551309682",
+      "accountBorrowsAtEvent": "812169149993887",
+      "totalBorrowsAtEvent": "19607518960640059804",
+      "blockNumber": 31245064,
+      "transactionHash": "0xe37b5ae75f5d30cfeeda7113700505b50fcc700c24204033c875b0bcc395a164",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "20000000",
+      "accountBorrowsAtEvent": "734438251",
+      "totalBorrowsAtEvent": "98815969478",
+      "blockNumber": 31260135,
+      "transactionHash": "0x9d7e76172bbfc0a5413be488ccb61255c1e401c4b8ed259baa2e04daaec03dcb",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "10000000",
+      "accountBorrowsAtEvent": "744441445",
+      "totalBorrowsAtEvent": "98826399337",
+      "blockNumber": 31260862,
+      "transactionHash": "0x321afc32cf6853d6b03303416274fcd51070d097f0797c0b8e8edde9166b6c71",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "15000000",
+      "accountBorrowsAtEvent": "759443441",
+      "totalBorrowsAtEvent": "98841664399",
+      "blockNumber": 31261275,
+      "transactionHash": "0xf7df1a553435bc04d8dfb61e7ddc5f1d100c215ce1b13da9c17f4d3f8d7a84c2",
+      "logIndex": 3
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0xBEE184B2783b2b864bE901B15ccC7d1252048370",
+      "borrowAmount": "3550909277639574",
+      "accountBorrowsAtEvent": "18107614160154835",
+      "totalBorrowsAtEvent": "19616100640456873637",
+      "blockNumber": 31267678,
+      "transactionHash": "0xa183aac0e0146c48947e4a4fa5a7e980512618be85e81886ca7da7664801a79b",
+      "logIndex": 3
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0xb5f6b63CDdc5A9fD61386979C57805a4B5569f01",
+      "borrowAmount": "162578612704843",
+      "accountBorrowsAtEvent": "1028122343260312",
+      "totalBorrowsAtEvent": "19622196810143699226",
+      "blockNumber": 31294310,
+      "transactionHash": "0xe04f2556e4730daab28aca28f3780691d9442b75bd4f7e57491d38e3f3ae57db",
+      "logIndex": 27
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x7a95d923898cd8254D0B68467846ef7B61095900",
+      "borrowAmount": "9100783",
+      "accountBorrowsAtEvent": "445384034",
+      "totalBorrowsAtEvent": "91272682223",
+      "blockNumber": 31347739,
+      "transactionHash": "0x78f2036a1e8bf8c6afd4b125f1ccaca12995335f2b32db56390a4e89ac42c220",
+      "logIndex": 8
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0xaA983Fe498c300094B708c3B48deDE9bd91A0183",
+      "borrowAmount": "108813571141360",
+      "accountBorrowsAtEvent": "109133446240970",
+      "totalBorrowsAtEvent": "18588310763442517774",
+      "blockNumber": 31367993,
+      "transactionHash": "0x83153240f0e922ff18da3ec2250ebebef7392318e080c3633b06d9fa6bd5eecc",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x03c7AFa444F2Fe2d5d8C2D1C3412165bd40eD336",
+      "borrowAmount": "321719",
+      "accountBorrowsAtEvent": "321719",
+      "totalBorrowsAtEvent": "90979925268",
+      "blockNumber": 31492928,
+      "transactionHash": "0xb975baf03de28c73716edec7feb78e62119641ae80dc6f44ea132485d1090a34",
+      "logIndex": 6
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0x027577e1DD4225800692c546E6f70Ea508Be615d",
+      "borrowAmount": "210969834997792",
+      "accountBorrowsAtEvent": "210975275991797",
+      "totalBorrowsAtEvent": "18243222406905535379",
+      "blockNumber": 31522333,
+      "transactionHash": "0xb187465e5e7b75e973b0284603e3bbab529d89ad41b372ba4fc6576c90db9563",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "50000000",
+      "accountBorrowsAtEvent": "810742572",
+      "totalBorrowsAtEvent": "90280317341",
+      "blockNumber": 31577481,
+      "transactionHash": "0xe09dd2da646812d131e569f86287f31877738fc3608b4eb27e18c36b2349d43f",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "15000000",
+      "accountBorrowsAtEvent": "825811043",
+      "totalBorrowsAtEvent": "90199179644",
+      "blockNumber": 31589680,
+      "transactionHash": "0x2bfab20d428b4beba0d959c686725b511cf96bd90a78cd1c3782b79115f9f29b",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "6000000",
+      "accountBorrowsAtEvent": "831933529",
+      "totalBorrowsAtEvent": "89917595859",
+      "blockNumber": 31610167,
+      "transactionHash": "0x57079c90bb35b90dab2bd8d62653efbdcb31c1b5e20077a6d53ec13b34f12760",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "11000000",
+      "accountBorrowsAtEvent": "842934356",
+      "totalBorrowsAtEvent": "89928685298",
+      "blockNumber": 31610292,
+      "transactionHash": "0x17e5ef9d805eb6f4d3c4bc3c9e27cc31653df298d327b8d98ebe98a1b7254e44",
+      "logIndex": 3
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0x129Ba4387833448530E99e722Db6CD91552E050a",
+      "borrowAmount": "209465873362388",
+      "accountBorrowsAtEvent": "521499292098177",
+      "totalBorrowsAtEvent": "18250366000587526092",
+      "blockNumber": 31618923,
+      "transactionHash": "0xbc133fe8d832767038899cf02155e7dd3a4b969c9501afacc4c33077e4fa76bd",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "11000000",
+      "accountBorrowsAtEvent": "853984510",
+      "totalBorrowsAtEvent": "89945036056",
+      "blockNumber": 31619113,
+      "transactionHash": "0x07726838e2107b612ce7b45fd717aabdbcd175a00fc44a0bf2135f4741c94941",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0xC58081ecD67949F8ACEb1630356551a79DC53202",
+      "borrowAmount": "7937938",
+      "accountBorrowsAtEvent": "27070465",
+      "totalBorrowsAtEvent": "89957378233",
+      "blockNumber": 31631536,
+      "transactionHash": "0x32f66f7bea116c6695cf9c865eb24c6530700c0722b07bc6fe8e45f5083dc3a1",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "205000000",
+      "accountBorrowsAtEvent": "905456621",
+      "totalBorrowsAtEvent": "89990165041",
+      "blockNumber": 31776500,
+      "transactionHash": "0x76ca5acd789e2c5c81aefec389a0ab4c8a5f87021328b3de17d49d06be313571",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "15000000",
+      "accountBorrowsAtEvent": "920934760",
+      "totalBorrowsAtEvent": "89770908174",
+      "blockNumber": 31865618,
+      "transactionHash": "0xf6e8c257d0faf7f99f35f314cb0bbd474e2f35dd1ad1400f2d1f2bdd31559abf",
+      "logIndex": 3
+    },
+    {
+      "market": "0xf669C3C03D9fdF4339e19214A749E52616300E89",
+      "borrower": "0x643727b5e3814C2AC9F96d278cB429DF98A581A5",
+      "borrowAmount": "219565704",
+      "accountBorrowsAtEvent": "624045798",
+      "totalBorrowsAtEvent": "48209546900",
+      "blockNumber": 31895836,
+      "transactionHash": "0xd42b365784f3a7d953473f00d458dba90ac8d43fc4c3a17bce625fcec9c064b4",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x91cfbde05B6cbe825d6BE010D8EC27ca8873DE3c",
+      "borrowAmount": "281406",
+      "accountBorrowsAtEvent": "428340",
+      "totalBorrowsAtEvent": "89574313879",
+      "blockNumber": 31915075,
+      "transactionHash": "0x6edcc14c65444fa6006f0552afad115062b35c542d0b6f33c483b1bd10ded195",
+      "logIndex": 3
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0x5d168CfC81cBA1fD88b985e4F98efe72c5C95ED1",
+      "borrowAmount": "176896110401145",
+      "accountBorrowsAtEvent": "176914526662752",
+      "totalBorrowsAtEvent": "18015236951337682611",
+      "blockNumber": 31917002,
+      "transactionHash": "0xa36f08b6e8a44dd65974fda4345f5086e285cc03f7e93f0a2ab081fe1156bad5",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x2247130bC890f03050375A95A0E145D92e618af7",
+      "borrowAmount": "1122384",
+      "accountBorrowsAtEvent": "29105101",
+      "totalBorrowsAtEvent": "89477998717",
+      "blockNumber": 31945348,
+      "transactionHash": "0x782e6422118c5e813008daa4eb74beb30260545bdf98854a9bf7bf1bb69952d4",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "215000000",
+      "accountBorrowsAtEvent": "1136541120",
+      "totalBorrowsAtEvent": "89571590436",
+      "blockNumber": 31957640,
+      "transactionHash": "0x4f0d1f38b92a5ae67797196ca96b5452f19a1d95bc75422be573f70116d7f34c",
+      "logIndex": 3
+    },
+    {
+      "market": "0xf669C3C03D9fdF4339e19214A749E52616300E89",
+      "borrower": "0x2B248C4477016b4C9CAbCD097BC5D7e44177DACE",
+      "borrowAmount": "6439172",
+      "accountBorrowsAtEvent": "25384326",
+      "totalBorrowsAtEvent": "47434723098",
+      "blockNumber": 31991859,
+      "transactionHash": "0xed15882317e148fe22a1bc77248c52f37946e5006753e918c8f5bcf875fc2581",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "31000000",
+      "accountBorrowsAtEvent": "967102799",
+      "totalBorrowsAtEvent": "89351038855",
+      "blockNumber": 32033616,
+      "transactionHash": "0xeebc4ebebfae237376f33665ee08bdaf0976c3e82ce5aa6788d834adce8e64c8",
+      "logIndex": 3
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0xBEE184B2783b2b864bE901B15ccC7d1252048370",
+      "borrowAmount": "362241174370097",
+      "accountBorrowsAtEvent": "18634562606620437",
+      "totalBorrowsAtEvent": "17757567837003428406",
+      "blockNumber": 32080996,
+      "transactionHash": "0xb920cd407bdeaac0aeabd890ea834fc6ea2699fcab2bb858474e68b117250823",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "50000000",
+      "accountBorrowsAtEvent": "1017623759",
+      "totalBorrowsAtEvent": "89048095816",
+      "blockNumber": 32110261,
+      "transactionHash": "0x1efe5f5c35590c0c44a33ecbfa64b45386ef1943f6981b3eec4e3129f4e6c5b0",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "100000000",
+      "accountBorrowsAtEvent": "1117643901",
+      "totalBorrowsAtEvent": "89149858406",
+      "blockNumber": 32113271,
+      "transactionHash": "0x223484bfe34f1bb5094197c90fe78b8a772b447674dd1b488ab52b26adf4ac46",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "100000000",
+      "accountBorrowsAtEvent": "1217652381",
+      "totalBorrowsAtEvent": "89250534864",
+      "blockNumber": 32114432,
+      "transactionHash": "0xdc91efdda27fb3391cbed49648e919449459a0a0de06cd7a01748fd98a1169df",
+      "logIndex": 6
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0x04bA6cA1bb8e6Fe45936B34FA6BcA3529842dd12",
+      "borrowAmount": "158538512557701",
+      "accountBorrowsAtEvent": "336520282106328",
+      "totalBorrowsAtEvent": "17743540451703149749",
+      "blockNumber": 32157688,
+      "transactionHash": "0x9f7e3d6b26ac061467bc2c00d3078c439a1c6eaa77ccac1dfd01370b27d9912a",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "50000000",
+      "accountBorrowsAtEvent": "1168046040",
+      "totalBorrowsAtEvent": "89223694289",
+      "blockNumber": 32163070,
+      "transactionHash": "0x8c71d90da28b080b663cf97084ebc3088d8c9ee3e567ecd5cf1d786079035c17",
+      "logIndex": 6
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "5000000",
+      "accountBorrowsAtEvent": "1173046288",
+      "totalBorrowsAtEvent": "89228713281",
+      "blockNumber": 32163099,
+      "transactionHash": "0x52dde07d6dbf98141a6d26518102f3dc07be897495531f73c5af529c0546948f",
+      "logIndex": 6
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "8000000",
+      "accountBorrowsAtEvent": "1181444733",
+      "totalBorrowsAtEvent": "89200546637",
+      "blockNumber": 32211781,
+      "transactionHash": "0xd6af11389b7d1d6a0a8e0ce723a503b722c1f13706c8c1ec32636a6e0fcabee8",
+      "logIndex": 8
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0xec8b567Cbbb669068020590Ff3f8fE4e89e4ab75",
+      "borrowAmount": "143679635568723",
+      "accountBorrowsAtEvent": "144232144480231",
+      "totalBorrowsAtEvent": "17637319007802471546",
+      "blockNumber": 32233545,
+      "transactionHash": "0x79c695f7601328268c775a1f8b56c23ccbfc72a961c1411289cd4c51485e3932",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "102000000",
+      "accountBorrowsAtEvent": "1283754594",
+      "totalBorrowsAtEvent": "89206441127",
+      "blockNumber": 32244928,
+      "transactionHash": "0xf7f218809842963b3f592dd329609dfb61eb1ac9c90aa3e2dca39403015f7355",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "50000000",
+      "accountBorrowsAtEvent": "1283760910",
+      "totalBorrowsAtEvent": "89207242487",
+      "blockNumber": 32246209,
+      "transactionHash": "0x90c0e060559089f805df628b51fb0420f8fc540a446c9b3f10fb3a487b45fcc5",
+      "logIndex": 3
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0xFf698b915374aF97479C3De18b528417E5664F4B",
+      "borrowAmount": "228868454738975",
+      "accountBorrowsAtEvent": "228868454739069",
+      "totalBorrowsAtEvent": "17653368206462484958",
+      "blockNumber": 32302665,
+      "transactionHash": "0x1028a84eac267047932f82583450ada1ba16ccf170d7539ae58d18d50afa6505",
+      "logIndex": 5
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "200000000",
+      "accountBorrowsAtEvent": "1077900478",
+      "totalBorrowsAtEvent": "88772911804",
+      "blockNumber": 32319908,
+      "transactionHash": "0xcb253a52840000a47126f598fa9cb323e5ca855c648b7e2ca2ceb65fced5d03a",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "25000000",
+      "accountBorrowsAtEvent": "1103989936",
+      "totalBorrowsAtEvent": "88690631776",
+      "blockNumber": 32452405,
+      "transactionHash": "0xfb8437c0d82ea4fea8e3c2b1160c9bef3712a2d9f5e044c43806f1d44d70005e",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "30000000",
+      "accountBorrowsAtEvent": "1134073579",
+      "totalBorrowsAtEvent": "88727351418",
+      "blockNumber": 32462371,
+      "transactionHash": "0x6736c3a453f5603ccdac792e2f94cbea36c17fc3f9305f0e4fc8ecabfb4f784e",
+      "logIndex": 3
+    },
+    {
+      "market": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "borrower": "0xEFd69c6902D7D11Da812490701cE84665C1c6F0C",
+      "borrowAmount": "463657885776784",
+      "accountBorrowsAtEvent": "463670481802631",
+      "totalBorrowsAtEvent": "17152217294760829255",
+      "blockNumber": 32490097,
+      "transactionHash": "0x42d06c377917d40707ba6baa7ea1d25b555437ba7a7eaf24e866499361a74707",
+      "logIndex": 3
+    },
+    {
+      "market": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "borrower": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "borrowAmount": "30000000",
+      "accountBorrowsAtEvent": "1164504678",
+      "totalBorrowsAtEvent": "88751914772",
+      "blockNumber": 32509241,
+      "transactionHash": "0x98060328c97e46cc31fd58b0c2efb8581189c1440562ce7cf6d6077357d006f2",
+      "logIndex": 3
+    }
+  ],
+  "logErrors": [],
+  "accounts": [
+    {
+      "account": "0x027577e1DD4225800692c546E6f70Ea508Be615d",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "0",
+          "68315152778154844"
+        ]
+      },
+      "detail": {
+        "account": "0x027577e1DD4225800692c546E6f70Ea508Be615d",
+        "errorCode": "0",
+        "liquidity": "0",
+        "shortfall": "68315152778154844",
+        "positions": [
+          {
+            "market": "meWETH",
+            "borrowBalance": "213632727036255",
+            "maxRepay": "106816363518127"
+          }
+        ],
+        "pairs": [
+          {
+            "debtMarket": "meWETH",
+            "collateralMarket": "meUSDC",
+            "borrowBalance": "213632727036255",
+            "maxRepay": "106816363518127",
+            "repayUsd": "239049559089713054",
+            "collateralCTokenBalance": "2068448036",
+            "collateralUnderlying": "482138",
+            "seizeResult": {
+              "ok": true,
+              "value": [
+                "0",
+                "1107695222"
+              ]
+            },
+            "seizedCTokens": "1107695222",
+            "seizedUnderlying": "258194",
+            "seizedUsd": "258172871984980000000000000000",
+            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "258172871984740950440910286946"
+          }
+        ]
+      }
+    },
+    {
+      "account": "0x03c7AFa444F2Fe2d5d8C2D1C3412165bd40eD336",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "77916881743805301",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x04bA6cA1bb8e6Fe45936B34FA6BcA3529842dd12",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "34041189626580263",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x129Ba4387833448530E99e722Db6CD91552E050a",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "306221986869745735",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x1b2630a35aCaAcbFe23e68a6F18cfFe00A15ecf6",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "0",
+          "361021022317697205"
+        ]
+      },
+      "detail": {
+        "account": "0x1b2630a35aCaAcbFe23e68a6F18cfFe00A15ecf6",
+        "errorCode": "0",
+        "liquidity": "0",
+        "shortfall": "361021022317697205",
+        "positions": [
+          {
+            "market": "meWETH",
+            "borrowBalance": "206160642888553",
+            "maxRepay": "103080321444276"
+          }
+        ],
+        "pairs": [
+          {
+            "debtMarket": "meWETH",
+            "collateralMarket": "meUSDC",
+            "borrowBalance": "206160642888553",
+            "maxRepay": "103080321444276",
+            "repayUsd": "230688487985255003",
+            "collateralCTokenBalance": "506562220",
+            "collateralUnderlying": "118075",
+            "seizeResult": {
+              "ok": true,
+              "value": [
+                "0",
+                "1068952132"
+              ]
+            },
+            "seizedCTokens": "1068952132",
+            "seizedUnderlying": "249163",
+            "seizedUsd": "249142610991710000000000000000",
+            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "249142610991479311512014744997"
+          }
+        ]
+      }
+    },
+    {
+      "account": "0x2247130bC890f03050375A95A0E145D92e618af7",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "0",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x2B248C4477016b4C9CAbCD097BC5D7e44177DACE",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "5844774374423650785",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x3DacaCD33f394975ACbfBD63f097C67eB8d2F516",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "159746849271139616",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x4b9C306Cc94a0a420E4c018d946A0d22370Eb46a",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "0",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x5d168CfC81cBA1fD88b985e4F98efe72c5C95ED1",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "8624435814313085",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x643727b5e3814C2AC9F96d278cB429DF98A581A5",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "118200032639177715446",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x663720b75ad00be9cdB8f0764952BE23Ef3d59E9",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "0",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x7Fb81399fc57555bb6e677E5D914Ab7Da187390d",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "52585554520212513",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x7a95d923898cd8254D0B68467846ef7B61095900",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "12006097868819485855",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x89967A15065ef498FC0Aad7c9009e6A03101c7E0",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "418620633306031673487",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x91cfbde05B6cbe825d6BE010D8EC27ca8873DE3c",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "0",
+          "15416565083646269"
+        ]
+      },
+      "detail": {
+        "account": "0x91cfbde05B6cbe825d6BE010D8EC27ca8873DE3c",
+        "errorCode": "0",
+        "liquidity": "0",
+        "shortfall": "15416565083646269",
+        "positions": [
+          {
+            "market": "meUSDC",
+            "borrowBalance": "430331",
+            "maxRepay": "215165"
+          }
+        ],
+        "pairs": [
+          {
+            "debtMarket": "meUSDC",
+            "collateralMarket": "meWETH",
+            "borrowBalance": "430331",
+            "maxRepay": "215165",
+            "repayUsd": "215147393048050000000000000000",
+            "collateralCTokenBalance": "1077872",
+            "collateralUnderlying": "231729614184372",
+            "seizeResult": {
+              "ok": true,
+              "value": [
+                "0",
+                "482942"
+              ]
+            },
+            "seizedCTokens": "482942",
+            "seizedUnderlying": "103826765453995",
+            "seizedUsd": "232358991506732808",
+            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "-215147393047817641008493267192"
+          }
+        ]
+      }
+    },
+    {
+      "account": "0x9D55E3bABEeBF4e24EB857082586aC7d21DA0E4A",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "0",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0x9f81A77E9c9AA056AD47E117d81aC640CA06b2de",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "136151409783673910",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0xBEE184B2783b2b864bE901B15ccC7d1252048370",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "1991013358168496268",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0xC521A76d84FB64E4F21A056651D566FA08d52E67",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "950419896807807809",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0xC58081ecD67949F8ACEb1630356551a79DC53202",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "5766073005220267311",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0xEFd69c6902D7D11Da812490701cE84665C1c6F0C",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "53967558295133879",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0xFf698b915374aF97479C3De18b528417E5664F4B",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "83627346281715186",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0xaA983Fe498c300094B708c3B48deDE9bd91A0183",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "16904638023392020",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0xb5f6b63CDdc5A9fD61386979C57805a4B5569f01",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "0",
+          "319823242171333528"
+        ]
+      },
+      "detail": {
+        "account": "0xb5f6b63CDdc5A9fD61386979C57805a4B5569f01",
+        "errorCode": "0",
+        "liquidity": "0",
+        "shortfall": "319823242171333528",
+        "positions": [
+          {
+            "market": "meWETH",
+            "borrowBalance": "260831711333100",
+            "maxRepay": "130415855666550"
+          }
+        ],
+        "pairs": [
+          {
+            "debtMarket": "meWETH",
+            "collateralMarket": "meUSDC",
+            "borrowBalance": "260831711333100",
+            "maxRepay": "130415855666550",
+            "repayUsd": "291864015667466663",
+            "collateralCTokenBalance": "1332100299",
+            "collateralUnderlying": "310501",
+            "seizeResult": {
+              "ok": true,
+              "value": [
+                "0",
+                "1352424061"
+              ]
+            },
+            "seizedCTokens": "1352424061",
+            "seizedUnderlying": "315238",
+            "seizedUsd": "315212204074460000000000000000",
+            "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "315212204074168135984332533337"
+          }
+        ]
+      }
+    },
+    {
+      "account": "0xbF74cDB9a4940448619b6B4Ebd68259796E90DC7",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "5864713361202874889",
+          "0"
+        ]
+      }
+    },
+    {
+      "account": "0xec8b567Cbbb669068020590Ff3f8fE4e89e4ab75",
+      "liquidityResult": {
+        "ok": true,
+        "value": [
+          "0",
+          "83086753154350714",
+          "0"
+        ]
+      }
+    }
+  ],
+  "liquidatable": [
+    {
+      "account": "0x027577e1DD4225800692c546E6f70Ea508Be615d",
+      "errorCode": "0",
+      "liquidity": "0",
+      "shortfall": "68315152778154844",
+      "positions": [
+        {
+          "market": "meWETH",
+          "borrowBalance": "213632727036255",
+          "maxRepay": "106816363518127"
+        }
+      ],
+      "pairs": [
+        {
+          "debtMarket": "meWETH",
+          "collateralMarket": "meUSDC",
+          "borrowBalance": "213632727036255",
+          "maxRepay": "106816363518127",
+          "repayUsd": "239049559089713054",
+          "collateralCTokenBalance": "2068448036",
+          "collateralUnderlying": "482138",
+          "seizeResult": {
+            "ok": true,
+            "value": [
+              "0",
+              "1107695222"
+            ]
+          },
+          "seizedCTokens": "1107695222",
+          "seizedUnderlying": "258194",
+          "seizedUsd": "258172871984980000000000000000",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "258172871984740950440910286946"
+        }
+      ]
+    },
+    {
+      "account": "0x1b2630a35aCaAcbFe23e68a6F18cfFe00A15ecf6",
+      "errorCode": "0",
+      "liquidity": "0",
+      "shortfall": "361021022317697205",
+      "positions": [
+        {
+          "market": "meWETH",
+          "borrowBalance": "206160642888553",
+          "maxRepay": "103080321444276"
+        }
+      ],
+      "pairs": [
+        {
+          "debtMarket": "meWETH",
+          "collateralMarket": "meUSDC",
+          "borrowBalance": "206160642888553",
+          "maxRepay": "103080321444276",
+          "repayUsd": "230688487985255003",
+          "collateralCTokenBalance": "506562220",
+          "collateralUnderlying": "118075",
+          "seizeResult": {
+            "ok": true,
+            "value": [
+              "0",
+              "1068952132"
+            ]
+          },
+          "seizedCTokens": "1068952132",
+          "seizedUnderlying": "249163",
+          "seizedUsd": "249142610991710000000000000000",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "249142610991479311512014744997"
+        }
+      ]
+    },
+    {
+      "account": "0x91cfbde05B6cbe825d6BE010D8EC27ca8873DE3c",
+      "errorCode": "0",
+      "liquidity": "0",
+      "shortfall": "15416565083646269",
+      "positions": [
+        {
+          "market": "meUSDC",
+          "borrowBalance": "430331",
+          "maxRepay": "215165"
+        }
+      ],
+      "pairs": [
+        {
+          "debtMarket": "meUSDC",
+          "collateralMarket": "meWETH",
+          "borrowBalance": "430331",
+          "maxRepay": "215165",
+          "repayUsd": "215147393048050000000000000000",
+          "collateralCTokenBalance": "1077872",
+          "collateralUnderlying": "231729614184372",
+          "seizeResult": {
+            "ok": true,
+            "value": [
+              "0",
+              "482942"
+            ]
+          },
+          "seizedCTokens": "482942",
+          "seizedUnderlying": "103826765453995",
+          "seizedUsd": "232358991506732808",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "-215147393047817641008493267192"
+        }
+      ]
+    },
+    {
+      "account": "0xb5f6b63CDdc5A9fD61386979C57805a4B5569f01",
+      "errorCode": "0",
+      "liquidity": "0",
+      "shortfall": "319823242171333528",
+      "positions": [
+        {
+          "market": "meWETH",
+          "borrowBalance": "260831711333100",
+          "maxRepay": "130415855666550"
+        }
+      ],
+      "pairs": [
+        {
+          "debtMarket": "meWETH",
+          "collateralMarket": "meUSDC",
+          "borrowBalance": "260831711333100",
+          "maxRepay": "130415855666550",
+          "repayUsd": "291864015667466663",
+          "collateralCTokenBalance": "1332100299",
+          "collateralUnderlying": "310501",
+          "seizeResult": {
+            "ok": true,
+            "value": [
+              "0",
+              "1352424061"
+            ]
+          },
+          "seizedCTokens": "1352424061",
+          "seizedUnderlying": "315238",
+          "seizedUsd": "315212204074460000000000000000",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "315212204074168135984332533337"
+        }
+      ]
+    }
+  ],
+  "closeFactor": "500000000000000000",
+  "liquidationIncentive": "1080000000000000000",
+  "interpretation": {
+    "shortfallUsesActiveUnitrollerAndPinnedOracle": true,
+    "grossEdgeIsNotNetProfit": true,
+    "requiresFlashLiquidityRealExitRepaymentAndGas": true,
+    "noMainnetTransactionOrProfit": true
+  }
+}

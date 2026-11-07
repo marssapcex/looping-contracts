@@ -1,0 +1,152 @@
+{
+  "output": "/home/runner/work/looping-contracts/looping-contracts/mendi-flashloan-audit/evidence/linea-liquidations-32540628.json",
+  "block": {
+    "number": 32540628,
+    "hash": "0x19b1bf8e37420eed74f18b3b7908c13ce21f9679f7e9ad4372c48df3de5c6b9a",
+    "timestamp": 1794044311
+  },
+  "scan": {
+    "fromBlock": 30540628,
+    "toBlock": 32540628,
+    "initialChunk": 50000,
+    "completeWithoutChunkErrors": true,
+    "limitation": "Only accounts with a Borrow event in this range are screened; older dormant borrowers are not enumerated."
+  },
+  "borrowEventCount": 56,
+  "uniqueBorrowerCount": 27,
+  "logErrors": [],
+  "liquidatable": [
+    {
+      "account": "0x027577e1DD4225800692c546E6f70Ea508Be615d",
+      "shortfall": "68315152778154844",
+      "positions": [
+        {
+          "market": "meWETH",
+          "borrowBalance": "213632727036255",
+          "maxRepay": "106816363518127"
+        }
+      ],
+      "pairs": [
+        {
+          "debtMarket": "meWETH",
+          "collateralMarket": "meUSDC",
+          "borrowBalance": "213632727036255",
+          "maxRepay": "106816363518127",
+          "repayUsd": "239049559089713054",
+          "collateralCTokenBalance": "2068448036",
+          "collateralUnderlying": "482138",
+          "seizeResult": {
+            "ok": true,
+            "value": [
+              "0",
+              "1107695222"
+            ]
+          },
+          "seizedCTokens": "1107695222",
+          "seizedUnderlying": "258194",
+          "seizedUsd": "258172871984980000000000000000",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "258172871984740950440910286946"
+        }
+      ]
+    },
+    {
+      "account": "0x1b2630a35aCaAcbFe23e68a6F18cfFe00A15ecf6",
+      "shortfall": "361021022317697205",
+      "positions": [
+        {
+          "market": "meWETH",
+          "borrowBalance": "206160642888553",
+          "maxRepay": "103080321444276"
+        }
+      ],
+      "pairs": [
+        {
+          "debtMarket": "meWETH",
+          "collateralMarket": "meUSDC",
+          "borrowBalance": "206160642888553",
+          "maxRepay": "103080321444276",
+          "repayUsd": "230688487985255003",
+          "collateralCTokenBalance": "506562220",
+          "collateralUnderlying": "118075",
+          "seizeResult": {
+            "ok": true,
+            "value": [
+              "0",
+              "1068952132"
+            ]
+          },
+          "seizedCTokens": "1068952132",
+          "seizedUnderlying": "249163",
+          "seizedUsd": "249142610991710000000000000000",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "249142610991479311512014744997"
+        }
+      ]
+    },
+    {
+      "account": "0x91cfbde05B6cbe825d6BE010D8EC27ca8873DE3c",
+      "shortfall": "15416565083646269",
+      "positions": [
+        {
+          "market": "meUSDC",
+          "borrowBalance": "430331",
+          "maxRepay": "215165"
+        }
+      ],
+      "pairs": [
+        {
+          "debtMarket": "meUSDC",
+          "collateralMarket": "meWETH",
+          "borrowBalance": "430331",
+          "maxRepay": "215165",
+          "repayUsd": "215147393048050000000000000000",
+          "collateralCTokenBalance": "1077872",
+          "collateralUnderlying": "231729614184372",
+          "seizeResult": {
+            "ok": true,
+            "value": [
+              "0",
+              "482942"
+            ]
+          },
+          "seizedCTokens": "482942",
+          "seizedUnderlying": "103826765453995",
+          "seizedUsd": "232358991506732808",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "-215147393047817641008493267192"
+        }
+      ]
+    },
+    {
+      "account": "0xb5f6b63CDdc5A9fD61386979C57805a4B5569f01",
+      "shortfall": "319823242171333528",
+      "positions": [
+        {
+          "market": "meWETH",
+          "borrowBalance": "260831711333100",
+          "maxRepay": "130415855666550"
+        }
+      ],
+      "pairs": [
+        {
+          "debtMarket": "meWETH",
+          "collateralMarket": "meUSDC",
+          "borrowBalance": "260831711333100",
+          "maxRepay": "130415855666550",
+          "repayUsd": "291864015667466663",
+          "collateralCTokenBalance": "1332100299",
+          "collateralUnderlying": "310501",
+          "seizeResult": {
+            "ok": true,
+            "value": [
+              "0",
+              "1352424061"
+            ]
+          },
+          "seizedCTokens": "1352424061",
+          "seizedUnderlying": "315238",
+          "seizedUsd": "315212204074460000000000000000",
+          "grossLiquidationEdgeUsdBeforeFlashExitAndGas": "315212204074168135984332533337"
+        }
+      ]
+    }
+  ]
+}
