@@ -8,5 +8,7 @@
   "flashPremiumBps": "5",
   "successfulQuotes": 18,
   "totalQuotes": 128,
-  "candidates": []
+  "candidates": [],
+  "sameAssetQuoteCount": 231,
+  "sameAssetCandidates": []
 }
