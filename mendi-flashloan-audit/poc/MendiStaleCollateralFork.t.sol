@@ -38,7 +38,6 @@ interface ISwapRouter02Like {
         address tokenOut;
         uint24 fee;
         address recipient;
-        uint256 deadline;
         uint256 amountIn;
         uint256 amountOutMinimum;
         uint160 sqrtPriceLimitX96;
@@ -123,8 +122,14 @@ contract MendiCandidateFlashBorrower {
         require(initiator == address(this), "wrong flash initiator");
         require(asset == address(flashToken) && amount == flashAmount, "unexpected flash asset/amount");
 
-        _swap(address(flashToken), address(collateralToken), flashAmount, buyFee);
-        uint256 collateralReceived = collateralToken.balanceOf(address(this));
+        uint256 collateralReceived;
+        if (address(flashToken) == address(collateralToken)) {
+            // Direct stale-collateral strategy: no acquisition swap and no buy-side slippage.
+            collateralReceived = flashAmount;
+        } else {
+            _swap(address(flashToken), address(collateralToken), flashAmount, buyFee);
+            collateralReceived = collateralToken.balanceOf(address(this));
+        }
         require(collateralReceived != 0, "no collateral received");
 
         address[] memory markets = new address[](1);
@@ -163,7 +168,6 @@ contract MendiCandidateFlashBorrower {
             tokenOut: tokenOut,
             fee: fee,
             recipient: address(this),
-            deadline: block.timestamp + 3600,
             amountIn: amountIn,
             amountOutMinimum: 0,
             sqrtPriceLimitX96: 0
