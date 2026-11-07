@@ -46,6 +46,11 @@ const urls = (process.env.MANTLE_RPCS || [
   'https://mantle-rpc.publicnode.com',
   'https://mantle.publicnode.com',
   'https://1rpc.io/mantle',
+  'https://mantle.drpc.org',
+  'https://mantle-mainnet.public.blastapi.io',
+  'https://rpc.ankr.com/mantle',
+  'https://endpoints.omniatech.io/v1/mantle/mainnet/public',
+  'https://mantle.api.onfinality.io/public',
 ].join(',')).split(',');
 let provider;
 let rpcHost;
