@@ -1,0 +1,53 @@
+name: Lendle Mantle read-only triage
+
+on:
+  workflow_dispatch:
+    inputs:
+      scan_range:
+        description: Borrow-event blocks per pool
+        required: false
+        default: "500000"
+  push:
+    branches: [arena/ee2289ba-looping-contracts]
+    paths:
+      - .github/workflows/lendle-mantle-triage.yml
+      - lendle-mantle-audit/scripts/triage.mjs
+
+permissions:
+  contents: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: arena/ee2289ba-looping-contracts
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save --no-package-lock ethers@6.13.5
+      - name: Check and run current-state triage
+        env:
+          SCAN_RANGE: ${{ inputs.scan_range || '500000' }}
+        run: |
+          node --check lendle-mantle-audit/scripts/triage.mjs
+          node lendle-mantle-audit/scripts/triage.mjs 2>&1 | tee lendle-mantle-audit/evidence/triage.log
+      - name: Persist evidence
+        run: |
+          git config user.name "arena-bot"
+          git config user.email "arena-bot@users.noreply.github.com"
+          git add lendle-mantle-audit/scripts/triage.mjs lendle-mantle-audit/evidence
+          if ! git diff --cached --quiet; then
+            git commit -m "Add Lendle Mantle triage evidence [skip ci]"
+            git pull --rebase origin arena/ee2289ba-looping-contracts
+            git push origin arena/ee2289ba-looping-contracts
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lendle-mantle-triage
+          path: lendle-mantle-audit/evidence/
+          if-no-files-found: ignore
