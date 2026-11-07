@@ -1,0 +1,46 @@
+POOL core paused false reserves 11
+RESERVE core USDC active true frozen true cash 38543.408163 debt 2966608834 price 999620000000000000
+RESERVE core USDT active true frozen true cash 39453.748432 debt 1510918992 price 998712142857142900
+RESERVE core WBTC active true frozen true cash 0.0331593 debt 818713 price 75992787287651040000000
+RESERVE core WETH active true frozen true cash 8.017411707533683442 debt 271420168618669915 price 2238980000000000000000
+RESERVE core WMNT active true frozen true cash 17941.704843382730417764 debt 8584393613831945847546 price 454185960186997100
+RESERVE core mETH active true frozen true cash 9.674697665880344954 debt 1578114226024672721 price 2468218387062742494110
+RESERVE core USDe active true frozen true cash 5353.602193620459358925 debt 784009985170529413072 price 999528150000000000
+RESERVE core FBTC active true frozen true cash 0.03091795 debt 2155223 price 75781000000000000000000
+RESERVE core cmETH active true frozen true cash 6.351139380575113588 debt 218829310274020351 price 2468218387062742494110
+RESERVE core AUSD active true frozen true cash 1160.420542 debt 9269161308 price 1000003697190117000
+RESERVE core sUSDe active true frozen true cash 9.913388820056005477 debt 0 price 1256371240922514001
+POOL mETH/WETH paused null reserves 2
+RESERVE mETH/WETH mETH active true frozen true cash 0.000820784668889552 debt 0 price 247189863046
+RESERVE mETH/WETH WETH active true frozen true cash 0.004467845730037357 debt 632431860902972 price 223814316189
+POOL cmETH/WETH paused null reserves 2
+RESERVE cmETH/WETH cmETH active true frozen true cash 0.048550976811404699 debt 0 price 247189863046
+RESERVE cmETH/WETH WETH active true frozen true cash 0.013357023500473429 debt 0 price 223814316189
+POOL FBTC/WETH paused null reserves 2
+RESERVE FBTC/WETH FBTC active true frozen true cash 0.0000009 debt 0 price null
+RESERVE FBTC/WETH WETH active true frozen true cash 0.000386222539004193 debt 599909514 price 223814316189
+POOL MNT/WETH paused null reserves 2
+RESERVE MNT/WETH WMNT active true frozen true cash 6.692634010171106985 debt 0 price 45464286
+RESERVE MNT/WETH WETH active true frozen true cash 0.001365168583186371 debt 22713162403908 price 223814316189
+POOL sUSDe/USDe paused null reserves 2
+RESERVE sUSDe/USDe sUSDe active true frozen true cash 1.352506869200402919 debt 0 price 125568594
+RESERVE sUSDe/USDe USDe active true frozen true cash 7.546166854537928559 debt 0 price 99899309
+POOL mETH/USDe paused null reserves 2
+RESERVE mETH/USDe mETH active true frozen true cash 0.014096154155397051 debt 0 price 247189863046
+RESERVE mETH/USDe USDe active true frozen true cash 36.171178062572713253 debt 15376946769468104595 price 99899309
+POOL cmETH/USDe paused null reserves 2
+RESERVE cmETH/USDe cmETH active true frozen true cash 0.002100988499666186 debt 0 price 247189863046
+RESERVE cmETH/USDe USDe active true frozen true cash 431.860311831252512968 debt 0 price 99899309
+POOL FBTC/USDe paused null reserves 2
+RESERVE FBTC/USDe FBTC active true frozen true cash 0.00000056 debt 0 price null
+RESERVE FBTC/USDe USDe active true frozen true cash 0.185541380171752846 debt 0 price 99899309
+POOL MNT/USDe paused null reserves 2
+RESERVE MNT/USDe WMNT active true frozen true cash 109.048566595626082794 debt 0 price 45464286
+RESERVE MNT/USDe USDe active true frozen true cash 10.099483403265104663 debt 41179784631923069 price 99899309
+BORROWERS core 0 liquidatable 0
+BORROWERS mETH/WETH 0 liquidatable 0
+BORROWERS FBTC/WETH 0 liquidatable 0
+BORROWERS MNT/WETH 0 liquidatable 0
+BORROWERS mETH/USDe 0 liquidatable 0
+BORROWERS MNT/USDe 0 liquidatable 0
+EVIDENCE /home/runner/work/looping-contracts/looping-contracts/lendle-mantle-audit/evidence/triage-102964156.json
