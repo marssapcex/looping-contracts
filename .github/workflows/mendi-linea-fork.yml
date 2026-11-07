@@ -54,6 +54,7 @@ jobs:
           node --check scripts/preflight-rpc.mjs
           node --check scripts/recon-linea.mjs
           node --check scripts/recon-execution.mjs
+          node --check scripts/recon-liquidations.mjs
           forge test -vvv
           FOUNDRY_PROFILE=fork forge build --sizes
 
@@ -111,6 +112,12 @@ jobs:
         run: |
           set -o pipefail
           RPC_URL="$RPC_URL" BLOCK="$BLOCK" forge test -vvvv --match-test testForkCandidate_flashMintBorrowExitRepayAndMeasureNet 2>&1 | tee evidence/fork-${BLOCK}.log
+
+      - name: Screen pinned borrowers for liquidation paths
+        working-directory: mendi-flashloan-audit
+        run: |
+          set -o pipefail
+          RPC_URL="$RPC_URL" RECON="evidence/linea-recon-${BLOCK}.json" node scripts/recon-liquidations.mjs 2>&1 | tee evidence/recon-liquidations-${BLOCK}.log
 
       - name: Persist only pinned evidence for sandbox review
         if: always()
