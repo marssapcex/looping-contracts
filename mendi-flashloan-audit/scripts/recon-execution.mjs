@@ -31,7 +31,11 @@ const FLASH = {
   USDC: { amountIn: 1_000n * 10n ** 6n },
   USDT: { amountIn: 1_000n * 10n ** 6n },
   WBTC: { amountIn: 10n ** 6n }, // 0.01 WBTC, 8 decimals
+  wstETH: { amountIn: 10n ** 18n },
+  ezETH: { amountIn: 10n ** 18n },
+  weETH: { amountIn: 10n ** 18n },
 };
+const GAS_RESERVE_WEI = BigInt(process.env.GAS_RESERVE_WEI ?? '1000000000000000');
 
 const pool = new ethers.Contract(AAVE_POOL, [
   'function FLASHLOAN_PREMIUM_TOTAL() view returns (uint128)',
@@ -179,6 +183,90 @@ const candidates = quotes.filter(item => item.candidateOnly).sort((a, b) => {
   const bn = b.bestDebt.upperBoundNetBeforeExitAndGas;
   return an === bn ? 0 : an > bn ? -1 : 1;
 });
+
+// Flash the collateral itself: this removes the acquisition swap and directly tests whether
+// Mendi's oracle/CF permits enough debt to buy back the flash asset after every explicit cost.
+const sameAssetQuotes = [];
+const wethUsdPrice = resultBigInt(byUnderlyingSymbol.get('WETH')?.usdPriceResult) ?? 0n;
+const gasReserveUsd = (GAS_RESERVE_WEI * wethUsdPrice) / 10n ** 18n;
+for (const [flashSymbol, flash] of Object.entries(FLASH)) {
+  const collateral = byUnderlyingSymbol.get(flashSymbol.toUpperCase());
+  if (!collateral) continue;
+  const collateralUsdPrice = resultBigInt(collateral.usdPriceResult);
+  const reserve = aaveReserves[collateral.symbol];
+  const flashFee = (flash.amountIn * flashPremiumBps + 9_999n) / 10_000n;
+  const repayment = flash.amountIn + flashFee;
+  const gasReserveFlash = collateralUsdPrice && collateralUsdPrice > 0n
+    ? (gasReserveUsd * 10n ** BigInt(collateral.underlyingDecimals)) / collateralUsdPrice
+    : undefined;
+  const routeStops = [...collateral.collateralStops];
+  if (!premiumResult.ok) routeStops.push('FLASH_PREMIUM_UNKNOWN');
+  if (reserve?.active !== true || reserve?.paused !== false || reserve?.flashLoanEnabled !== true) routeStops.push('FLASH_RESERVE_INELIGIBLE');
+  if (reserve?.availableLiquidity === undefined || reserve.availableLiquidity < flash.amountIn) routeStops.push('FLASH_LIQUIDITY_SHORTFALL');
+  if (collateralUsdPrice === undefined || collateralUsdPrice === 0n) routeStops.push('COLLATERAL_PRICE_UNKNOWN');
+  if (BigInt(collateral.supplyCapacity) < flash.amountIn) routeStops.push('SUPPLY_CAPACITY_SHORTFALL');
+  if (gasReserveFlash === undefined) routeStops.push('GAS_RESERVE_CONVERSION_UNKNOWN');
+  const collateralOracleValueUsd = collateralUsdPrice === undefined ? undefined : usdValue(flash.amountIn, collateral.underlyingDecimals, collateralUsdPrice);
+  const weightedCollateralUsd = collateralOracleValueUsd === undefined ? undefined : (collateralOracleValueUsd * BigInt(collateral.collateralFactor)) / 10n ** 18n;
+
+  for (const debt of marketList) {
+    const debtUsdPrice = resultBigInt(debt.usdPriceResult);
+    const debtStops = [...debt.debtStops];
+    if (debtUsdPrice === undefined || debtUsdPrice === 0n) debtStops.push('DEBT_PRICE_UNKNOWN');
+    let candidateAmount = 0n;
+    if (weightedCollateralUsd !== undefined && debtUsdPrice !== undefined && debtUsdPrice > 0n) {
+      const maxBorrowByLiquidity = (weightedCollateralUsd * 10n ** BigInt(debt.underlyingDecimals)) / debtUsdPrice;
+      candidateAmount = [maxBorrowByLiquidity, BigInt(debt.cash), BigInt(debt.borrowCapacity)].reduce((a, b) => a < b ? a : b);
+    }
+    if (candidateAmount === 0n) debtStops.push('ZERO_CANDIDATE_BORROW');
+    const sameToken = debt.underlying.toLowerCase() === collateral.underlying.toLowerCase();
+    const exitFees = sameToken ? [0] : FEE_TIERS;
+    for (const exitFee of exitFees) {
+      const quoteResult = sameToken
+        ? { ok: true, value: [candidateAmount, 0n, 0, 0n], synthetic: 'SAME_ASSET_NO_EXIT_SWAP' }
+        : await capture(() => quoter.getFunction('quoteExactInputSingle').staticCall({
+          tokenIn: debt.underlying,
+          tokenOut: collateral.underlying,
+          amountIn: candidateAmount,
+          fee: exitFee,
+          sqrtPriceLimitX96: 0,
+        }, { blockTag }));
+      const amountOut = quoteResult.ok ? quoteResult.value[0] : undefined;
+      const netFlashBeforeGas = amountOut === undefined ? undefined : amountOut - repayment;
+      const netFlashAfterGasReserve = netFlashBeforeGas === undefined || gasReserveFlash === undefined ? undefined : netFlashBeforeGas - gasReserveFlash;
+      const item = {
+        strategy: 'FLASH_COLLATERAL_MINT_BORROW_EXIT_REPAY',
+        collateral: collateral.symbol,
+        collateralUnderlying: collateral.underlying,
+        debt: debt.symbol,
+        debtUnderlying: debt.underlying,
+        flashAmount: flash.amountIn,
+        flashFee,
+        repayment,
+        candidateAmount,
+        exitFee,
+        quoteResult,
+        amountOut,
+        collateralOracleValueUsd,
+        weightedCollateralUsd,
+        gasReserveWei: GAS_RESERVE_WEI,
+        gasReserveUsd,
+        gasReserveFlash,
+        netFlashBeforeGas,
+        netFlashAfterGasReserve,
+        routeStops,
+        debtStops,
+      };
+      item.profitableCandidateOnly = Boolean(item.netFlashAfterGasReserve !== undefined && item.netFlashAfterGasReserve > 0n && routeStops.length === 0 && debtStops.length === 0);
+      sameAssetQuotes.push(item);
+    }
+  }
+}
+const sameAssetCandidates = sameAssetQuotes.filter(item => item.profitableCandidateOnly).sort((a, b) => {
+  const an = a.netFlashAfterGasReserve;
+  const bn = b.netFlashAfterGasReserve;
+  return an === bn ? 0 : an > bn ? -1 : 1;
+});
 const evidence = {
   provenance: 'PINNED_LINEA_EXECUTION_SCREENING_NOT_AN_EXPLOIT',
   baseRecon: RECON,
@@ -192,9 +280,13 @@ const evidence = {
   aaveReserves,
   quotes,
   candidates,
+  sameAssetQuotes,
+  sameAssetCandidates,
+  gasReserve: { wei: GAS_RESERVE_WEI, usd: gasReserveUsd, wethUsdPrice },
   interpretation: {
     positiveUpperBoundRequiresForkProof: true,
     netBeforeDebtExitSlippageAndGas: true,
+    sameAssetNetIncludesFlashPremiumExitQuoteAndGasReserve: true,
     directSinglePoolQuotesOnly: true,
     noMainnetTransactionOrProfit: true,
   },
@@ -217,4 +309,6 @@ console.log(JSON.stringify({
     weightedCollateralUsd: item.weightedCollateralUsd,
     bestDebt: item.bestDebt,
   })),
+  sameAssetQuoteCount: sameAssetQuotes.length,
+  sameAssetCandidates,
 }, jsonReplacer, 2));
