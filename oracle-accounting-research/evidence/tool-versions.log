@@ -1,0 +1,6 @@
+forge Version: 1.7.1
+solc 0.8.10+commit.fc410830.Emscripten.clang
+web3 8.0.0
+eth-tester 0.14.0b1
+py-evm 0.12.1b1
+eth-utils 6.0.0

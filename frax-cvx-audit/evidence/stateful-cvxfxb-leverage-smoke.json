@@ -1,0 +1,20 @@
+{
+  "mode": "EXACT_PRODUCTION_BYTECODE_LEVERAGE_STATEFUL_WITH_MOCK_DEBT",
+  "seed": 61617,
+  "sequences": 2,
+  "steps_per_sequence": 8,
+  "successful_transactions_including_setup": 48,
+  "action_totals": {
+    "deposit": 1,
+    "mint": 6,
+    "redeem": 1,
+    "withdraw": 3,
+    "donate": 1,
+    "transfer": 0,
+    "delegated_redeem": 3,
+    "oracle_rebalance": 1,
+    "explicit_rebalance": 0
+  },
+  "status": "PASS",
+  "scope": "Leverage call paths and accounting only. 1:1 debt/sFRAX, unrestricted liquidity, no interest/liquidations/yield; no current-mainnet claim."
+}

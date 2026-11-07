@@ -1,0 +1,18 @@
+{
+  "mode": "EXACT_PRODUCTION_BYTECODE_PAUSED_ZERO_DEBT_ERC4626_STATEFUL",
+  "seed": 3851,
+  "sequences": 32,
+  "steps_per_sequence": 128,
+  "successful_transactions_including_setup": 5226,
+  "action_totals": {
+    "deposit": 845,
+    "mint": 615,
+    "redeem": 590,
+    "withdraw": 647,
+    "donate": 404,
+    "transfer": 588,
+    "delegated_redeem": 407
+  },
+  "status": "PASS",
+  "scope": "Share/asset accounting only. No leverage, oracle, sFRAX-yield, or current-mainnet claim."
+}

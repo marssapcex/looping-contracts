@@ -19,3 +19,7 @@ ignition/deployments/chain-31337
 .vscode
 
 out/
+.audit-tools/
+
+__pycache__/
+*.py[cod]

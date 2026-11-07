@@ -1,0 +1,501 @@
+'forge clean' running (wd: /home/user/looping-contracts/ellipsis-audit)
+'forge config --json' running
+'forge build --build-info --deny never contracts' running (wd: /home/user/looping-contracts/ellipsis-audit)
+INFO:Detectors:
+Detector: divide-before-multiply
+LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180) performs a multiplication on the result of a division:
+	- reward = duration.mul(rewardsPerSecond).mul(allocPoints[_pid]).div(totalAP) (contracts/LpTokenStaker.sol#176)
+	- accRewardPerShare = accRewardPerShare.add(reward.mul(1e12).div(lpSupply)) (contracts/LpTokenStaker.sol#177)
+LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213) performs a multiplication on the result of a division:
+	- reward = duration.mul(rewardsPerSecond).mul(_allocPoint).div(_totalAllocPoint) (contracts/LpTokenStaker.sol#210)
+	- pool.accRewardPerShare = pool.accRewardPerShare.add(reward.mul(1e12).div(lpSupply)) (contracts/LpTokenStaker.sol#211)
+MultiFeeDistribution.stake(uint256,bool) (contracts/MultiFeeDistribution.sol#265-285) performs a multiplication on the result of a division:
+	- unlockTime = block.timestamp.div(rewardsDuration).mul(rewardsDuration).add(lockDuration) (contracts/MultiFeeDistribution.sol#273)
+MultiFeeDistribution.mint(address,uint256) (contracts/MultiFeeDistribution.sol#290-307) performs a multiplication on the result of a division:
+	- unlockTime = block.timestamp.div(rewardsDuration).mul(rewardsDuration).add(lockDuration) (contracts/MultiFeeDistribution.sol#296)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply
+INFO:Detectors:
+Detector: incorrect-equality
+LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213) uses a dangerous strict equality:
+	- lpSupply == 0 || _totalAllocPoint == 0 (contracts/LpTokenStaker.sol#205)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+INFO:Detectors:
+Detector: reentrancy-no-eth
+Reentrancy in LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239):
+	External calls:
+	- rewardMinter.mint(msg.sender,pending) (contracts/LpTokenStaker.sol#225)
+	- pool.lpToken.safeTransferFrom(address(msg.sender),address(this),_amount) (contracts/LpTokenStaker.sol#227-231)
+	State variables written after the call(s):
+	- pool.allocPoint = pool.allocPoint.add(_amount) (contracts/LpTokenStaker.sol#235)
+	LpTokenStaker.poolInfo (contracts/LpTokenStaker.sol#46) can be used in cross function reentrancies:
+	- LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157)
+	- LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213)
+	- LpTokenStaker.addPool(IERC20,uint256) (contracts/LpTokenStaker.sol#110-122)
+	- LpTokenStaker.claim(uint256[]) (contracts/LpTokenStaker.sol#290-302)
+	- LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180)
+	- LpTokenStaker.constructor(uint128[],uint128[],IERC20) (contracts/LpTokenStaker.sol#69-95)
+	- LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239)
+	- LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286)
+	- LpTokenStaker.poolInfo (contracts/LpTokenStaker.sol#46)
+	- LpTokenStaker.poolLength() (contracts/LpTokenStaker.sol#159-161)
+	- LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262)
+	- user.amount = user.amount.add(_amount) (contracts/LpTokenStaker.sol#232)
+	LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52) can be used in cross function reentrancies:
+	- LpTokenStaker.claim(uint256[]) (contracts/LpTokenStaker.sol#290-302)
+	- LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180)
+	- LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239)
+	- LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286)
+	- LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52)
+	- LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262)
+	- user.rewardDebt = user.amount.mul(pool.accRewardPerShare).div(1e12) (contracts/LpTokenStaker.sol#233)
+	LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52) can be used in cross function reentrancies:
+	- LpTokenStaker.claim(uint256[]) (contracts/LpTokenStaker.sol#290-302)
+	- LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180)
+	- LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239)
+	- LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286)
+	- LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52)
+	- LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262)
+Reentrancy in LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286):
+	External calls:
+	- pool.lpToken.safeTransfer(address(msg.sender),amount) (contracts/LpTokenStaker.sol#269)
+	State variables written after the call(s):
+	- pool.allocPoint = pool.allocPoint.sub(amount) (contracts/LpTokenStaker.sol#276)
+	LpTokenStaker.poolInfo (contracts/LpTokenStaker.sol#46) can be used in cross function reentrancies:
+	- LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157)
+	- LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213)
+	- LpTokenStaker.addPool(IERC20,uint256) (contracts/LpTokenStaker.sol#110-122)
+	- LpTokenStaker.claim(uint256[]) (contracts/LpTokenStaker.sol#290-302)
+	- LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180)
+	- LpTokenStaker.constructor(uint128[],uint128[],IERC20) (contracts/LpTokenStaker.sol#69-95)
+	- LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239)
+	- LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286)
+	- LpTokenStaker.poolInfo (contracts/LpTokenStaker.sol#46)
+	- LpTokenStaker.poolLength() (contracts/LpTokenStaker.sol#159-161)
+	- LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262)
+	- pool.allocPoint = 0 (contracts/LpTokenStaker.sol#278)
+	LpTokenStaker.poolInfo (contracts/LpTokenStaker.sol#46) can be used in cross function reentrancies:
+	- LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157)
+	- LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213)
+	- LpTokenStaker.addPool(IERC20,uint256) (contracts/LpTokenStaker.sol#110-122)
+	- LpTokenStaker.claim(uint256[]) (contracts/LpTokenStaker.sol#290-302)
+	- LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180)
+	- LpTokenStaker.constructor(uint128[],uint128[],IERC20) (contracts/LpTokenStaker.sol#69-95)
+	- LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239)
+	- LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286)
+	- LpTokenStaker.poolInfo (contracts/LpTokenStaker.sol#46)
+	- LpTokenStaker.poolLength() (contracts/LpTokenStaker.sol#159-161)
+	- LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262)
+	- user.amount = 0 (contracts/LpTokenStaker.sol#271)
+	LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52) can be used in cross function reentrancies:
+	- LpTokenStaker.claim(uint256[]) (contracts/LpTokenStaker.sol#290-302)
+	- LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180)
+	- LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239)
+	- LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286)
+	- LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52)
+	- LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262)
+	- user.rewardDebt = 0 (contracts/LpTokenStaker.sol#272)
+	LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52) can be used in cross function reentrancies:
+	- LpTokenStaker.claim(uint256[]) (contracts/LpTokenStaker.sol#290-302)
+	- LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180)
+	- LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239)
+	- LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286)
+	- LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52)
+	- LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262)
+Reentrancy in MultiFeeDistribution.exit() (contracts/MultiFeeDistribution.sol#371-385):
+	External calls:
+	- stakingToken.safeTransfer(msg.sender,amount) (contracts/MultiFeeDistribution.sol#380)
+	State variables written after the call(s):
+	- _notifyReward(address(stakingToken),penaltyAmount) (contracts/MultiFeeDistribution.sol#382)
+		- rewardData[_rewardsToken].rewardRate = reward.div(rewardsDuration) (contracts/MultiFeeDistribution.sol#414)
+		- rewardData[_rewardsToken].rewardRate = reward.add(leftover).div(rewardsDuration) (contracts/MultiFeeDistribution.sol#418)
+		- rewardData[_rewardsToken].lastUpdateTime = block.timestamp (contracts/MultiFeeDistribution.sol#421)
+		- rewardData[_rewardsToken].periodFinish = block.timestamp.add(rewardsDuration) (contracts/MultiFeeDistribution.sol#422)
+	MultiFeeDistribution.rewardData (contracts/MultiFeeDistribution.sol#49) can be used in cross function reentrancies:
+	- MultiFeeDistribution._notifyReward(address,uint256) (contracts/MultiFeeDistribution.sol#412-424)
+	- MultiFeeDistribution._rewardPerToken(address,uint256) (contracts/MultiFeeDistribution.sol#118-128)
+	- MultiFeeDistribution.addReward(address,address) (contracts/MultiFeeDistribution.sol#93-104)
+	- MultiFeeDistribution.approveRewardDistributor(address,address,bool) (contracts/MultiFeeDistribution.sol#107-114)
+	- MultiFeeDistribution.constructor(address,address[]) (contracts/MultiFeeDistribution.sol#76-88)
+	- MultiFeeDistribution.getRewardForDuration(address) (contracts/MultiFeeDistribution.sol#151-153)
+	- MultiFeeDistribution.lastTimeRewardApplicable(address) (contracts/MultiFeeDistribution.sol#141-143)
+	- MultiFeeDistribution.recoverERC20(address,uint256) (contracts/MultiFeeDistribution.sol#437-442)
+	- MultiFeeDistribution.rewardData (contracts/MultiFeeDistribution.sol#49)
+	- MultiFeeDistribution.updateReward(address) (contracts/MultiFeeDistribution.sol#446-470)
+Reentrancy in MultiFeeDistribution.getReward() (contracts/MultiFeeDistribution.sol#358-368):
+	External calls:
+	- IERC20(_rewardsToken).safeTransfer(msg.sender,reward) (contracts/MultiFeeDistribution.sol#364)
+	State variables written after the call(s):
+	- rewards[msg.sender][_rewardsToken] = 0 (contracts/MultiFeeDistribution.sol#363)
+	MultiFeeDistribution.rewards (contracts/MultiFeeDistribution.sol#64) can be used in cross function reentrancies:
+	- MultiFeeDistribution._earned(address,address,uint256,uint256) (contracts/MultiFeeDistribution.sol#130-139)
+	- MultiFeeDistribution.getReward() (contracts/MultiFeeDistribution.sol#358-368)
+	- MultiFeeDistribution.rewards (contracts/MultiFeeDistribution.sol#64)
+	- MultiFeeDistribution.updateReward(address) (contracts/MultiFeeDistribution.sol#446-470)
+Reentrancy in MultiFeeDistribution.notifyRewardAmount(address,uint256) (contracts/MultiFeeDistribution.sol#426-434):
+	External calls:
+	- IERC20(_rewardsToken).safeTransferFrom(msg.sender,address(this),reward) (contracts/MultiFeeDistribution.sol#431)
+	State variables written after the call(s):
+	- _notifyReward(_rewardsToken,reward) (contracts/MultiFeeDistribution.sol#432)
+		- rewardData[_rewardsToken].rewardRate = reward.div(rewardsDuration) (contracts/MultiFeeDistribution.sol#414)
+		- rewardData[_rewardsToken].rewardRate = reward.add(leftover).div(rewardsDuration) (contracts/MultiFeeDistribution.sol#418)
+		- rewardData[_rewardsToken].lastUpdateTime = block.timestamp (contracts/MultiFeeDistribution.sol#421)
+		- rewardData[_rewardsToken].periodFinish = block.timestamp.add(rewardsDuration) (contracts/MultiFeeDistribution.sol#422)
+	MultiFeeDistribution.rewardData (contracts/MultiFeeDistribution.sol#49) can be used in cross function reentrancies:
+	- MultiFeeDistribution._notifyReward(address,uint256) (contracts/MultiFeeDistribution.sol#412-424)
+	- MultiFeeDistribution._rewardPerToken(address,uint256) (contracts/MultiFeeDistribution.sol#118-128)
+	- MultiFeeDistribution.addReward(address,address) (contracts/MultiFeeDistribution.sol#93-104)
+	- MultiFeeDistribution.approveRewardDistributor(address,address,bool) (contracts/MultiFeeDistribution.sol#107-114)
+	- MultiFeeDistribution.constructor(address,address[]) (contracts/MultiFeeDistribution.sol#76-88)
+	- MultiFeeDistribution.getRewardForDuration(address) (contracts/MultiFeeDistribution.sol#151-153)
+	- MultiFeeDistribution.lastTimeRewardApplicable(address) (contracts/MultiFeeDistribution.sol#141-143)
+	- MultiFeeDistribution.recoverERC20(address,uint256) (contracts/MultiFeeDistribution.sol#437-442)
+	- MultiFeeDistribution.rewardData (contracts/MultiFeeDistribution.sol#49)
+	- MultiFeeDistribution.updateReward(address) (contracts/MultiFeeDistribution.sol#446-470)
+Reentrancy in LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262):
+	External calls:
+	- rewardMinter.mint(msg.sender,pending) (contracts/LpTokenStaker.sol#252)
+	State variables written after the call(s):
+	- pool.allocPoint = pool.allocPoint.sub(_amount) (contracts/LpTokenStaker.sol#257)
+	LpTokenStaker.poolInfo (contracts/LpTokenStaker.sol#46) can be used in cross function reentrancies:
+	- LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157)
+	- LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213)
+	- LpTokenStaker.addPool(IERC20,uint256) (contracts/LpTokenStaker.sol#110-122)
+	- LpTokenStaker.claim(uint256[]) (contracts/LpTokenStaker.sol#290-302)
+	- LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180)
+	- LpTokenStaker.constructor(uint128[],uint128[],IERC20) (contracts/LpTokenStaker.sol#69-95)
+	- LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239)
+	- LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286)
+	- LpTokenStaker.poolInfo (contracts/LpTokenStaker.sol#46)
+	- LpTokenStaker.poolLength() (contracts/LpTokenStaker.sol#159-161)
+	- LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262)
+	- user.amount = user.amount.sub(_amount) (contracts/LpTokenStaker.sol#254)
+	LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52) can be used in cross function reentrancies:
+	- LpTokenStaker.claim(uint256[]) (contracts/LpTokenStaker.sol#290-302)
+	- LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180)
+	- LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239)
+	- LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286)
+	- LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52)
+	- LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262)
+	- user.rewardDebt = user.amount.mul(pool.accRewardPerShare).div(1e12) (contracts/LpTokenStaker.sol#255)
+	LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52) can be used in cross function reentrancies:
+	- LpTokenStaker.claim(uint256[]) (contracts/LpTokenStaker.sol#290-302)
+	- LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180)
+	- LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239)
+	- LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286)
+	- LpTokenStaker.userInfo (contracts/LpTokenStaker.sol#52)
+	- LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262)
+Reentrancy in MultiFeeDistribution.withdraw(uint256) (contracts/MultiFeeDistribution.sol#312-355):
+	External calls:
+	- stakingToken.safeTransfer(msg.sender,amount) (contracts/MultiFeeDistribution.sol#350)
+	State variables written after the call(s):
+	- _notifyReward(address(stakingToken),penaltyAmount) (contracts/MultiFeeDistribution.sol#352)
+		- rewardData[_rewardsToken].rewardRate = reward.div(rewardsDuration) (contracts/MultiFeeDistribution.sol#414)
+		- rewardData[_rewardsToken].rewardRate = reward.add(leftover).div(rewardsDuration) (contracts/MultiFeeDistribution.sol#418)
+		- rewardData[_rewardsToken].lastUpdateTime = block.timestamp (contracts/MultiFeeDistribution.sol#421)
+		- rewardData[_rewardsToken].periodFinish = block.timestamp.add(rewardsDuration) (contracts/MultiFeeDistribution.sol#422)
+	MultiFeeDistribution.rewardData (contracts/MultiFeeDistribution.sol#49) can be used in cross function reentrancies:
+	- MultiFeeDistribution._notifyReward(address,uint256) (contracts/MultiFeeDistribution.sol#412-424)
+	- MultiFeeDistribution._rewardPerToken(address,uint256) (contracts/MultiFeeDistribution.sol#118-128)
+	- MultiFeeDistribution.addReward(address,address) (contracts/MultiFeeDistribution.sol#93-104)
+	- MultiFeeDistribution.approveRewardDistributor(address,address,bool) (contracts/MultiFeeDistribution.sol#107-114)
+	- MultiFeeDistribution.constructor(address,address[]) (contracts/MultiFeeDistribution.sol#76-88)
+	- MultiFeeDistribution.getRewardForDuration(address) (contracts/MultiFeeDistribution.sol#151-153)
+	- MultiFeeDistribution.lastTimeRewardApplicable(address) (contracts/MultiFeeDistribution.sol#141-143)
+	- MultiFeeDistribution.recoverERC20(address,uint256) (contracts/MultiFeeDistribution.sol#437-442)
+	- MultiFeeDistribution.rewardData (contracts/MultiFeeDistribution.sol#49)
+	- MultiFeeDistribution.updateReward(address) (contracts/MultiFeeDistribution.sol#446-470)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-2
+INFO:Detectors:
+Detector: uninitialized-local
+MultiFeeDistribution.earnedBalances(address).idx (contracts/MultiFeeDistribution.sol#195) is a local variable never initialized
+MultiFeeDistribution.withdrawExpiredLocks().amount (contracts/MultiFeeDistribution.sol#391) is a local variable never initialized
+MultiFeeDistribution.withdrawableBalance(address).amountWithoutPenalty (contracts/MultiFeeDistribution.sol#244) is a local variable never initialized
+LpTokenStaker.claim(uint256[]).pending (contracts/LpTokenStaker.sol#292) is a local variable never initialized
+MultiFeeDistribution.lockedBalances(address).idx (contracts/MultiFeeDistribution.sol#219) is a local variable never initialized
+MultiFeeDistribution.withdraw(uint256).penaltyAmount (contracts/MultiFeeDistribution.sol#315) is a local variable never initialized
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables
+INFO:Detectors:
+Detector: unused-return
+LpTokenStaker.addOracle(Oracle) (contracts/LpTokenStaker.sol#125-128) ignores return value by _oracle.latestAnswer() (contracts/LpTokenStaker.sol#126)
+MultiFeeDistribution.mint(address,uint256) (contracts/MultiFeeDistribution.sol#290-307) ignores return value by stakingToken.mint(address(this),amount) (contracts/MultiFeeDistribution.sol#305)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+INFO:Detectors:
+Detector: shadowing-local
+MultiFeeDistribution.claimableRewards(address).rewards (contracts/MultiFeeDistribution.sol#156) shadows:
+	- MultiFeeDistribution.rewards (contracts/MultiFeeDistribution.sol#64) (state variable)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#local-variable-shadowing
+INFO:Detectors:
+Detector: calls-loop
+LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157) has external calls inside a loop: latestPrices[i] = uint256(oracles[i].latestAnswer()) (contracts/LpTokenStaker.sol#141)
+	Calls stack containing the loop:
+		LpTokenStaker.addPool(IERC20,uint256)
+		LpTokenStaker._massUpdatePools()
+LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213) has external calls inside a loop: lpSupply = pool.lpToken.balanceOf(address(this)) (contracts/LpTokenStaker.sol#204)
+	Calls stack containing the loop:
+		LpTokenStaker.addPool(IERC20,uint256)
+		LpTokenStaker._massUpdatePools()
+LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157) has external calls inside a loop: latestPrices[i] = uint256(oracles[i].latestAnswer()) (contracts/LpTokenStaker.sol#141)
+	Calls stack containing the loop:
+		LpTokenStaker.claimableReward(uint256,address)
+LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157) has external calls inside a loop: latestPrices[i] = uint256(oracles[i].latestAnswer()) (contracts/LpTokenStaker.sol#141)
+	Calls stack containing the loop:
+		LpTokenStaker.deposit(uint256,uint256)
+		LpTokenStaker._massUpdatePools()
+LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213) has external calls inside a loop: lpSupply = pool.lpToken.balanceOf(address(this)) (contracts/LpTokenStaker.sol#204)
+	Calls stack containing the loop:
+		LpTokenStaker.deposit(uint256,uint256)
+		LpTokenStaker._massUpdatePools()
+LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157) has external calls inside a loop: latestPrices[i] = uint256(oracles[i].latestAnswer()) (contracts/LpTokenStaker.sol#141)
+	Calls stack containing the loop:
+		LpTokenStaker.withdraw(uint256,uint256)
+		LpTokenStaker._massUpdatePools()
+LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213) has external calls inside a loop: lpSupply = pool.lpToken.balanceOf(address(this)) (contracts/LpTokenStaker.sol#204)
+	Calls stack containing the loop:
+		LpTokenStaker.withdraw(uint256,uint256)
+		LpTokenStaker._massUpdatePools()
+LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157) has external calls inside a loop: latestPrices[i] = uint256(oracles[i].latestAnswer()) (contracts/LpTokenStaker.sol#141)
+	Calls stack containing the loop:
+		LpTokenStaker.claim(uint256[])
+		LpTokenStaker._massUpdatePools()
+LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213) has external calls inside a loop: lpSupply = pool.lpToken.balanceOf(address(this)) (contracts/LpTokenStaker.sol#204)
+	Calls stack containing the loop:
+		LpTokenStaker.claim(uint256[])
+		LpTokenStaker._massUpdatePools()
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation/#calls-inside-a-loop
+INFO:Detectors:
+Detector: reentrancy-benign
+Reentrancy in LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239):
+	External calls:
+	- rewardMinter.mint(msg.sender,pending) (contracts/LpTokenStaker.sol#225)
+	- pool.lpToken.safeTransferFrom(address(msg.sender),address(this),_amount) (contracts/LpTokenStaker.sol#227-231)
+	State variables written after the call(s):
+	- totalAllocPoint = totalAllocPoint.add(_amount) (contracts/LpTokenStaker.sol#236)
+Reentrancy in LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286):
+	External calls:
+	- pool.lpToken.safeTransfer(address(msg.sender),amount) (contracts/LpTokenStaker.sol#269)
+	State variables written after the call(s):
+	- totalAllocPoint = totalAllocPoint.sub(amount) (contracts/LpTokenStaker.sol#281)
+	- totalAllocPoint = 0 (contracts/LpTokenStaker.sol#283)
+Reentrancy in LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262):
+	External calls:
+	- rewardMinter.mint(msg.sender,pending) (contracts/LpTokenStaker.sol#252)
+	State variables written after the call(s):
+	- totalAllocPoint = totalAllocPoint.sub(_amount) (contracts/LpTokenStaker.sol#258)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-3
+INFO:Detectors:
+Detector: reentrancy-events
+Reentrancy in LpTokenStaker.deposit(uint256,uint256) (contracts/LpTokenStaker.sol#216-239):
+	External calls:
+	- rewardMinter.mint(msg.sender,pending) (contracts/LpTokenStaker.sol#225)
+	- pool.lpToken.safeTransferFrom(address(msg.sender),address(this),_amount) (contracts/LpTokenStaker.sol#227-231)
+	Event emitted after the call(s):
+	- Deposit(msg.sender,_pid,_amount) (contracts/LpTokenStaker.sol#238)
+Reentrancy in LpTokenStaker.emergencyWithdraw(uint256) (contracts/LpTokenStaker.sol#265-286):
+	External calls:
+	- pool.lpToken.safeTransfer(address(msg.sender),amount) (contracts/LpTokenStaker.sol#269)
+	Event emitted after the call(s):
+	- EmergencyWithdraw(msg.sender,_pid,amount) (contracts/LpTokenStaker.sol#270)
+Reentrancy in MultiFeeDistribution.exit() (contracts/MultiFeeDistribution.sol#371-385):
+	External calls:
+	- stakingToken.safeTransfer(msg.sender,amount) (contracts/MultiFeeDistribution.sol#380)
+	- getReward() (contracts/MultiFeeDistribution.sol#384)
+		- returndata = address(token).functionCall(data,SafeERC20: low-level call failed) (node_modules/@openzeppelin/contracts/token/ERC20/SafeERC20.sol#69)
+		- (success,returndata) = target.call{value: value}(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#119)
+		- IERC20(_rewardsToken).safeTransfer(msg.sender,reward) (contracts/MultiFeeDistribution.sol#364)
+	External calls sending eth:
+	- getReward() (contracts/MultiFeeDistribution.sol#384)
+		- (success,returndata) = target.call{value: value}(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#119)
+	Event emitted after the call(s):
+	- RewardPaid(msg.sender,_rewardsToken,reward) (contracts/MultiFeeDistribution.sol#365)
+		- getReward() (contracts/MultiFeeDistribution.sol#384)
+Reentrancy in MultiFeeDistribution.mint(address,uint256) (contracts/MultiFeeDistribution.sol#290-307):
+	External calls:
+	- stakingToken.mint(address(this),amount) (contracts/MultiFeeDistribution.sol#305)
+	Event emitted after the call(s):
+	- Staked(user,amount) (contracts/MultiFeeDistribution.sol#306)
+Reentrancy in MultiFeeDistribution.notifyRewardAmount(address,uint256) (contracts/MultiFeeDistribution.sol#426-434):
+	External calls:
+	- IERC20(_rewardsToken).safeTransferFrom(msg.sender,address(this),reward) (contracts/MultiFeeDistribution.sol#431)
+	Event emitted after the call(s):
+	- RewardAdded(reward) (contracts/MultiFeeDistribution.sol#433)
+Reentrancy in MultiFeeDistribution.recoverERC20(address,uint256) (contracts/MultiFeeDistribution.sol#437-442):
+	External calls:
+	- IERC20(tokenAddress).safeTransfer(owner(),tokenAmount) (contracts/MultiFeeDistribution.sol#440)
+	Event emitted after the call(s):
+	- Recovered(tokenAddress,tokenAmount) (contracts/MultiFeeDistribution.sol#441)
+Reentrancy in LpTokenStaker.withdraw(uint256,uint256) (contracts/LpTokenStaker.sol#242-262):
+	External calls:
+	- rewardMinter.mint(msg.sender,pending) (contracts/LpTokenStaker.sol#252)
+	- pool.lpToken.safeTransfer(address(msg.sender),_amount) (contracts/LpTokenStaker.sol#260)
+	Event emitted after the call(s):
+	- Withdraw(msg.sender,_pid,_amount) (contracts/LpTokenStaker.sol#261)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-4
+INFO:Detectors:
+Detector: timestamp
+LpTokenStaker.start() (contracts/LpTokenStaker.sol#98-101) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool)(startTime == 0) (contracts/LpTokenStaker.sol#99)
+LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157) uses timestamp for comparisons
+	Dangerous comparisons:
+	- pid < length (contracts/LpTokenStaker.sol#147)
+LpTokenStaker.claimableReward(uint256,address) (contracts/LpTokenStaker.sol#164-180) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp > pool.lastRewardTime && lpSupply != 0 (contracts/LpTokenStaker.sol#174)
+LpTokenStaker._massUpdatePools() (contracts/LpTokenStaker.sol#183-196) uses timestamp for comparisons
+	Dangerous comparisons:
+	- pid < allocPoints.length (contracts/LpTokenStaker.sol#185)
+	- startTime > 0 && length > 0 (contracts/LpTokenStaker.sol#189)
+	- block.timestamp.sub(startTime) > e.startTimeOffset (contracts/LpTokenStaker.sol#191)
+LpTokenStaker._updatePool(uint256,uint256,uint256) (contracts/LpTokenStaker.sol#199-213) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp <= pool.lastRewardTime (contracts/LpTokenStaker.sol#201)
+	- lpSupply == 0 || _totalAllocPoint == 0 (contracts/LpTokenStaker.sol#205)
+MultiFeeDistribution.unlockedBalance(address) (contracts/MultiFeeDistribution.sol#174-184) uses timestamp for comparisons
+	Dangerous comparisons:
+	- earnings[i].unlockTime > block.timestamp (contracts/MultiFeeDistribution.sol#178)
+MultiFeeDistribution.earnedBalances(address) (contracts/MultiFeeDistribution.sol#188-207) uses timestamp for comparisons
+	Dangerous comparisons:
+	- earnings[i].unlockTime > block.timestamp (contracts/MultiFeeDistribution.sol#197)
+MultiFeeDistribution.lockedBalances(address) (contracts/MultiFeeDistribution.sol#210-233) uses timestamp for comparisons
+	Dangerous comparisons:
+	- locks[i].unlockTime > block.timestamp (contracts/MultiFeeDistribution.sol#221)
+MultiFeeDistribution.withdrawableBalance(address) (contracts/MultiFeeDistribution.sol#236-259) uses timestamp for comparisons
+	Dangerous comparisons:
+	- userEarnings[user][i].unlockTime > block.timestamp (contracts/MultiFeeDistribution.sol#249)
+MultiFeeDistribution.stake(uint256,bool) (contracts/MultiFeeDistribution.sol#265-285) uses timestamp for comparisons
+	Dangerous comparisons:
+	- idx == 0 || userLocks[msg.sender][idx - 1].unlockTime < unlockTime (contracts/MultiFeeDistribution.sol#275)
+MultiFeeDistribution.mint(address,uint256) (contracts/MultiFeeDistribution.sol#290-307) uses timestamp for comparisons
+	Dangerous comparisons:
+	- idx == 0 || earnings[idx - 1].unlockTime < unlockTime (contracts/MultiFeeDistribution.sol#300)
+MultiFeeDistribution.withdraw(uint256) (contracts/MultiFeeDistribution.sol#312-355) uses timestamp for comparisons
+	Dangerous comparisons:
+	- penaltyAmount == 0 && userEarnings[msg.sender][i].unlockTime > block.timestamp (contracts/MultiFeeDistribution.sol#327)
+MultiFeeDistribution.withdrawExpiredLocks() (contracts/MultiFeeDistribution.sol#388-408) uses timestamp for comparisons
+	Dangerous comparisons:
+	- locks[length - 1].unlockTime <= block.timestamp (contracts/MultiFeeDistribution.sol#393)
+	- locks[i].unlockTime > block.timestamp (contracts/MultiFeeDistribution.sol#398)
+MultiFeeDistribution._notifyReward(address,uint256) (contracts/MultiFeeDistribution.sol#412-424) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp >= rewardData[_rewardsToken].periodFinish (contracts/MultiFeeDistribution.sol#413)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+INFO:Detectors:
+Detector: assembly
+Address.isContract(address) (node_modules/@openzeppelin/contracts/utils/Address.sol#26-35) uses assembly
+	- INLINE ASM (node_modules/@openzeppelin/contracts/utils/Address.sol#33)
+Address._verifyCallResult(bool,bytes,string) (node_modules/@openzeppelin/contracts/utils/Address.sol#171-188) uses assembly
+	- INLINE ASM (node_modules/@openzeppelin/contracts/utils/Address.sol#180-183)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage
+INFO:Detectors:
+Detector: pragma
+3 different versions of Solidity are used:
+	- Version constraint 0.7.6 is used by:
+		-0.7.6 (contracts/LpTokenStaker.sol#2)
+		-0.7.6 (contracts/MultiFeeDistribution.sol#1)
+	- Version constraint >=0.6.0<0.8.0 is used by:
+		->=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/access/Ownable.sol#3)
+		->=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/math/Math.sol#3)
+		->=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/math/SafeMath.sol#3)
+		->=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#3)
+		->=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/SafeERC20.sol#3)
+		->=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/utils/Context.sol#3)
+		->=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol#3)
+	- Version constraint >=0.6.2<0.8.0 is used by:
+		->=0.6.2<0.8.0 (node_modules/@openzeppelin/contracts/utils/Address.sol#3)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+INFO:Detectors:
+Detector: costly-loop
+MultiFeeDistribution.withdraw(uint256) (contracts/MultiFeeDistribution.sol#312-355) has costly operations inside a loop:
+	- delete userEarnings[msg.sender] (contracts/MultiFeeDistribution.sol#332)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#costly-operations-inside-a-loop
+INFO:Detectors:
+Detector: solc-version
+Version constraint 0.7.6 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- FullInlinerNonExpressionSplitArgumentEvaluationOrder
+	- MissingSideEffectsOnSelectorAccess
+	- AbiReencodingHeadOverflowWithStaticArrayCleanup
+	- DirtyBytesArrayToStorage
+	- DataLocationChangeInInternalOverride
+	- NestedCalldataArrayAbiReencodingSizeValidation
+	- SignedImmutables
+	- ABIDecodeTwoDimensionalArrayMemory
+	- KeccakCaching.
+It is used by:
+	- 0.7.6 (contracts/LpTokenStaker.sol#2)
+	- 0.7.6 (contracts/MultiFeeDistribution.sol#1)
+Version constraint >=0.6.0<0.8.0 is too complex.
+It is used by:
+	- >=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/access/Ownable.sol#3)
+	- >=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/math/Math.sol#3)
+	- >=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/math/SafeMath.sol#3)
+	- >=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#3)
+	- >=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/token/ERC20/SafeERC20.sol#3)
+	- >=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/utils/Context.sol#3)
+	- >=0.6.0<0.8.0 (node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol#3)
+Version constraint >=0.6.2<0.8.0 is too complex.
+It is used by:
+	- >=0.6.2<0.8.0 (node_modules/@openzeppelin/contracts/utils/Address.sol#3)
+solc-0.7.6 is an outdated solc version. Use a more recent version (at least 0.8.0), if possible.
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+INFO:Detectors:
+Detector: low-level-calls
+Low level call in Address.sendValue(address,uint256) (node_modules/@openzeppelin/contracts/utils/Address.sol#53-59):
+	- (success,None) = recipient.call{value: amount}() (node_modules/@openzeppelin/contracts/utils/Address.sol#57)
+Low level call in Address.functionCallWithValue(address,bytes,uint256,string) (node_modules/@openzeppelin/contracts/utils/Address.sol#114-121):
+	- (success,returndata) = target.call{value: value}(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#119)
+Low level call in Address.functionStaticCall(address,bytes,string) (node_modules/@openzeppelin/contracts/utils/Address.sol#139-145):
+	- (success,returndata) = target.staticcall(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#143)
+Low level call in Address.functionDelegateCall(address,bytes,string) (node_modules/@openzeppelin/contracts/utils/Address.sol#163-169):
+	- (success,returndata) = target.delegatecall(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#167)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+INFO:Detectors:
+Detector: missing-inheritance
+MultiFeeDistribution (contracts/MultiFeeDistribution.sol#18-480) should inherit from Minter (contracts/LpTokenStaker.sol#9-11)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-inheritance
+INFO:Detectors:
+Detector: naming-convention
+Parameter LpTokenStaker.setMinter(Minter)._rewardMinter (contracts/LpTokenStaker.sol#103) is not in mixedCase
+Parameter LpTokenStaker.addPool(IERC20,uint256)._lpToken (contracts/LpTokenStaker.sol#110) is not in mixedCase
+Parameter LpTokenStaker.addPool(IERC20,uint256)._oracleIndex (contracts/LpTokenStaker.sol#110) is not in mixedCase
+Parameter LpTokenStaker.addOracle(Oracle)._oracle (contracts/LpTokenStaker.sol#125) is not in mixedCase
+Parameter LpTokenStaker.claimableReward(uint256,address)._pid (contracts/LpTokenStaker.sol#164) is not in mixedCase
+Parameter LpTokenStaker.claimableReward(uint256,address)._user (contracts/LpTokenStaker.sol#164) is not in mixedCase
+Parameter LpTokenStaker.deposit(uint256,uint256)._pid (contracts/LpTokenStaker.sol#216) is not in mixedCase
+Parameter LpTokenStaker.deposit(uint256,uint256)._amount (contracts/LpTokenStaker.sol#216) is not in mixedCase
+Parameter LpTokenStaker.withdraw(uint256,uint256)._pid (contracts/LpTokenStaker.sol#242) is not in mixedCase
+Parameter LpTokenStaker.withdraw(uint256,uint256)._amount (contracts/LpTokenStaker.sol#242) is not in mixedCase
+Parameter LpTokenStaker.emergencyWithdraw(uint256)._pid (contracts/LpTokenStaker.sol#265) is not in mixedCase
+Parameter LpTokenStaker.claim(uint256[])._pids (contracts/LpTokenStaker.sol#290) is not in mixedCase
+Parameter MultiFeeDistribution.addReward(address,address)._rewardsToken (contracts/MultiFeeDistribution.sol#94) is not in mixedCase
+Parameter MultiFeeDistribution.addReward(address,address)._distributor (contracts/MultiFeeDistribution.sol#95) is not in mixedCase
+Parameter MultiFeeDistribution.approveRewardDistributor(address,address,bool)._rewardsToken (contracts/MultiFeeDistribution.sol#108) is not in mixedCase
+Parameter MultiFeeDistribution.approveRewardDistributor(address,address,bool)._distributor (contracts/MultiFeeDistribution.sol#109) is not in mixedCase
+Parameter MultiFeeDistribution.approveRewardDistributor(address,address,bool)._approved (contracts/MultiFeeDistribution.sol#110) is not in mixedCase
+Parameter MultiFeeDistribution.lastTimeRewardApplicable(address)._rewardsToken (contracts/MultiFeeDistribution.sol#141) is not in mixedCase
+Parameter MultiFeeDistribution.rewardPerToken(address)._rewardsToken (contracts/MultiFeeDistribution.sol#145) is not in mixedCase
+Parameter MultiFeeDistribution.getRewardForDuration(address)._rewardsToken (contracts/MultiFeeDistribution.sol#151) is not in mixedCase
+Parameter MultiFeeDistribution.notifyRewardAmount(address,uint256)._rewardsToken (contracts/MultiFeeDistribution.sol#426) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+INFO:Detectors:
+Detector: redundant-statements
+Redundant expression "this (node_modules/@openzeppelin/contracts/utils/Context.sol#21)" inContext (node_modules/@openzeppelin/contracts/utils/Context.sol#15-24)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#redundant-statements
+INFO:Detectors:
+Detector: too-many-digits
+LpTokenStaker._getAllocPoints() (contracts/LpTokenStaker.sol#136-157) uses literals with too many digits:
+	- latestPrices[0] = 100000000 (contracts/LpTokenStaker.sol#139)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#too-many-digits
+INFO:Detectors:
+Detector: unindexed-event-address
+Event MultiFeeDistribution.RewardsDurationUpdated(address,uint256) (contracts/MultiFeeDistribution.sol#478) has address parameters but no indexed parameters
+Event MultiFeeDistribution.Recovered(address,uint256) (contracts/MultiFeeDistribution.sol#479) has address parameters but no indexed parameters
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unindexed-event-address-parameters
+INFO:Detectors:
+Detector: cache-array-length
+Loop condition i < oracles.length (contracts/LpTokenStaker.sol#140) should use cached array length instead of referencing `length` member of the storage array.
+ Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#cache-array-length
+INFO:Detectors:
+Detector: immutable-states
+MultiFeeDistribution.stakingToken (contracts/MultiFeeDistribution.sol#47) should be immutable 
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-immutable
+INFO:Slither:contracts analyzed (13 contracts with 102 detectors), 94 result(s) found

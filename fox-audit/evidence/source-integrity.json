@@ -1,0 +1,76 @@
+{
+  "source_provenance": {
+    "repository": "sanbir/evm-hack-registry",
+    "commit": "a35f3640aae29f3b1f40441dfa2ab350f04c0bce",
+    "directory": "2026-08-FoxMarket_exp/sources"
+  },
+  "compiler": "v0.8.28+commit.7893614a",
+  "optimizer": {
+    "enabled": true,
+    "runs": 200
+  },
+  "local_build": {
+    "viaIR": true,
+    "evmVersion": "cancun",
+    "note": "viaIR required to compile supplied initializer; not asserted from metadata alone"
+  },
+  "bytecode_comparison": "NOT RUN: BSC RPC TLS handshake failed; exact sources are mechanism-matched to registry and canonical pinned incident",
+  "records": [
+    {
+      "name": "FoxLpBondsPool",
+      "path": "contracts/FoxLpBondsPool.sol",
+      "sha256": "9d0e492c589860c28112720c37f9101aed84d285d4a371df1e17a4dea84ef99a",
+      "implementation_or_address": "0x58E2A853BB14e46BefD3148bd4280370fEA4655A",
+      "proxy": "0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0"
+    },
+    {
+      "name": "FoxPoolBase",
+      "path": "contracts/FoxPoolBase.sol",
+      "sha256": "0f6c1a516c8aec7c4b4c0b61d99592b9a8fc58944f5a5587d59e0fa797867fa7",
+      "implementation_or_address": "0x58E2A853BB14e46BefD3148bd4280370fEA4655A",
+      "proxy": "same implementation"
+    },
+    {
+      "name": "Treasury",
+      "path": "contracts/Treasury.sol",
+      "sha256": "6f35c3bc2a5234301dedc13f19cd7b585258d212a5462cbb89eb1089694f91d0",
+      "implementation_or_address": "0x87614D97808DcDEcB069fe8489848fa1C001e04D",
+      "proxy": "0x361d08ff43761E6a7E8Fcabe48048AE9010801cc"
+    },
+    {
+      "name": "Fox",
+      "path": "contracts/Fox.sol",
+      "sha256": "6c95831c25394712ad246ccd5b17e2de933423d054cccef8ec7e920f44590bc9",
+      "implementation_or_address": "0xdF81d50c6657487D19B66A1b5375E35A804Abb93",
+      "proxy": "not a proxy in scope"
+    },
+    {
+      "name": "StakedFox",
+      "path": "contracts/StakedFox.sol",
+      "sha256": "3398e9c6b1165f798f1b3f5fd9e0c313719e545150d31ae1b31432545567bd28",
+      "implementation_or_address": "0x1ACfB89f020305EAf8c90493E76A846a4149C00A",
+      "proxy": "not a proxy in scope"
+    },
+    {
+      "name": "RewardFox",
+      "path": "contracts/RewardFox.sol",
+      "sha256": "479743dd7609573e2dcbef311acc7e03459149f9d2bb3f129df0226226b49d48",
+      "implementation_or_address": "0x0FF6a23CfaA850242ce50639243c999b5b693E65",
+      "proxy": "not a proxy in scope"
+    },
+    {
+      "name": "Referral",
+      "path": "contracts/Referral.sol",
+      "sha256": "e689dae0aa227c791a87f5eb6c51945599b4752204f76618f52edffcabaa3223",
+      "implementation_or_address": "0x6d4174E48e6a930d6acc2BE5139607b1eB08EE60",
+      "proxy": "0xAa237ABB282Ae5476c1D22dE7e84fa7cbeEeDC9F"
+    },
+    {
+      "name": "Log",
+      "path": "contracts/Log.sol",
+      "sha256": "49a0b978eb2150995aad618108e054161147235b1d9b539f149895ddc3d46698",
+      "implementation_or_address": "0xF9b59f62E4fE55C5851E3b947236cb5958446F84",
+      "proxy": "not a proxy in scope"
+    }
+  ]
+}

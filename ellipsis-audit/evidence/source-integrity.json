@@ -1,0 +1,44 @@
+{
+  "deployed_solidity_commit": "0e22a202e52bbf6d439e296e0cbe4da307720df0",
+  "upstream_ellipsis_head_reviewed_not_target": "6bdf7788020695b72034f5c9f1fda11c5e3cefb7",
+  "bsc_contract_database_commit": "7f04f769d370ea91c581748a74896497ea919a9c",
+  "note": "Solidity target bodies come from BscScan flattened source and match the initial Ellipsis commit. Current upstream HEAD contains later changes and is not the deployed target. Vyper token comparison ignores only its final newline; Curve is byte-identical.",
+  "records": [
+    {
+      "name": "MultiFeeDistribution",
+      "canonical_path": "contracts/MultiFeeDistribution.sol",
+      "deployed_reference_path": "reference/MultiFeeDistribution.deployed.sol",
+      "target_code_exact_match_ignoring_final_newline": true,
+      "canonical_file_sha256": "09476aa5ce6fc53d6cc9f4cfdd07d514d0007b6c3f9fb3ac13872b02e6351cd8",
+      "deployed_file_sha256": "54a72346c44d0be24ccf1a58dd2c73f5e18c440e05b16ca0877568ff34edc613",
+      "target_code_sha256": "3e7349265f845b853ab7161711953a855e2aa6c2f5c9fa602d034ca101caa5ae"
+    },
+    {
+      "name": "LpTokenStaker",
+      "canonical_path": "contracts/LpTokenStaker.sol",
+      "deployed_reference_path": "reference/LpTokenStaker.deployed.sol",
+      "target_code_exact_match_ignoring_final_newline": true,
+      "canonical_file_sha256": "ad0e76fe7c7385983c3c20ab699294d4b3b40eee756553d358120ba4087b74a5",
+      "deployed_file_sha256": "10ab3a6ba9cd218acfe16401b723335153f38e82b10b58aa0f3c6b727ccff26d",
+      "target_code_sha256": "1830b7e3d4d632cced00224ce58211abebc2341df5766186fb67b23b177edfbc"
+    },
+    {
+      "name": "EllipsisToken",
+      "canonical_path": "vyper/EllipsisToken.vy",
+      "deployed_reference_path": "reference/EllipsisToken.deployed.vy",
+      "target_code_exact_match_ignoring_final_newline": true,
+      "canonical_file_sha256": "6d97478845abf02eb1ba45fb80e62c2f7f2a9cb7fbd12796de2fec6d481a8ba6",
+      "deployed_file_sha256": "622d04b413f7ba0cf3a75306b120ca27fed8d75b18042d1e37f37047444131ca",
+      "target_code_sha256": "2c05af483f1316cee2369e3fa72131a48399169a7aacb76ef818033274c56aed"
+    },
+    {
+      "name": "CurveCryptoSwap2ETH",
+      "canonical_path": "vyper/CurveCryptoSwap2ETH.vy",
+      "deployed_reference_path": "reference/CurveCryptoSwap2ETH.deployed.vy",
+      "target_code_exact_match_ignoring_final_newline": true,
+      "canonical_file_sha256": "c0daa65444b09cc96b5dcd6fd0cc0ae0114a90a9af9536b99ff6a49fd68afc52",
+      "deployed_file_sha256": "c0daa65444b09cc96b5dcd6fd0cc0ae0114a90a9af9536b99ff6a49fd68afc52",
+      "target_code_sha256": "d0397491b0005d6f2219079c79321ea4517c38a10fe345b181dd8c4f57467f26"
+    }
+  ]
+}

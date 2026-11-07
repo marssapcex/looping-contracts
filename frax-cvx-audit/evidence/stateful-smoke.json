@@ -1,0 +1,41 @@
+{
+  "mode": "EXACT_PRODUCTION_BYTECODE_STATEFUL_MODEL_AND_CONSERVATION",
+  "compiler": "0.8.10+commit.fc410830; optimizer 200",
+  "seed": 12648430,
+  "sequences_per_contract": 2,
+  "steps_per_sequence": 8,
+  "successful_transactions_including_setup": 95,
+  "sandwich_negative_control": {
+    "victim_pending": 100000000000000000000,
+    "attacker_pending": 0
+  },
+  "multi_rewards": [
+    {
+      "funded": 0,
+      "claimed": 0,
+      "contract_balance": 0,
+      "supply": 695980000000000000000000
+    },
+    {
+      "funded": 62559000000000000000000,
+      "claimed": 62558999999999998770544,
+      "contract_balance": 1229456,
+      "supply": 1008941000000000000000000
+    }
+  ],
+  "staked_cvx_fxs": [
+    {
+      "donated": 13991000000000000000000,
+      "claimed": 13990999999999999994033,
+      "contract_balance": 5967,
+      "supply": 1203559093932883619845632
+    },
+    {
+      "donated": 110474000000000000000000,
+      "claimed": 0,
+      "contract_balance": 110474000000000000000000,
+      "supply": 0
+    }
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,61 @@
+Collecting slither-analyzer
+  Downloading slither_analyzer-0.11.6-py3-none-any.whl (765 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 765.0/765.0 kB 21.0 MB/s eta 0:00:00
+Collecting crytic-compile<0.5.0,>=0.4.2
+  Downloading crytic_compile-0.4.2-py3-none-any.whl (96 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 97.0/97.0 kB 47.9 MB/s eta 0:00:00
+Requirement already satisfied: eth-abi>=5.0.1 in ./.audit-tools/venv/lib/python3.11/site-packages (from slither-analyzer) (6.0.0)
+Requirement already satisfied: eth-typing>=5.0.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from slither-analyzer) (6.0.0)
+Requirement already satisfied: eth-utils>=5.0.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from slither-analyzer) (6.0.0)
+Collecting packaging
+  Downloading packaging-26.3-py3-none-any.whl (129 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 130.0/130.0 kB 61.6 MB/s eta 0:00:00
+Collecting prettytable>=3.10.2
+  Downloading prettytable-3.18.0-py3-none-any.whl (37 kB)
+Requirement already satisfied: pycryptodome>=3.4.6 in ./.audit-tools/venv/lib/python3.11/site-packages (from slither-analyzer) (3.24.1)
+Requirement already satisfied: web3<8,>=7.10 in ./.audit-tools/venv/lib/python3.11/site-packages (from slither-analyzer) (7.16.0)
+Collecting cbor2
+  Downloading cbor2-6.2.0.post2-cp311-cp311-manylinux_2_28_x86_64.whl (471 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 471.2/471.2 kB 60.8 MB/s eta 0:00:00
+Collecting solc-select>=1.0.4
+  Downloading solc_select-1.2.0-py3-none-any.whl (36 kB)
+Requirement already satisfied: parsimonious<0.11.0,>=0.10.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-abi>=5.0.1->slither-analyzer) (0.10.0)
+Requirement already satisfied: typing_extensions>=4.5.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-typing>=5.0.0->slither-analyzer) (4.16.0)
+Requirement already satisfied: eth-hash>=0.3.1 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-utils>=5.0.0->slither-analyzer) (0.8.0)
+Requirement already satisfied: cytoolz>=0.10.1 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-utils>=5.0.0->slither-analyzer) (1.2.0)
+Requirement already satisfied: pydantic<3,>=2.0.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-utils>=5.0.0->slither-analyzer) (2.14.3)
+Collecting wcwidth>=0.3.5
+  Downloading wcwidth-0.9.4-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (785 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 785.9/785.9 kB 82.9 MB/s eta 0:00:00
+Requirement already satisfied: eth-account>=0.13.6 in ./.audit-tools/venv/lib/python3.11/site-packages (from web3<8,>=7.10->slither-analyzer) (0.14.0)
+Requirement already satisfied: hexbytes>=1.2.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from web3<8,>=7.10->slither-analyzer) (2.0.0)
+Requirement already satisfied: aiohttp>=3.7.4.post0 in ./.audit-tools/venv/lib/python3.11/site-packages (from web3<8,>=7.10->slither-analyzer) (3.14.5)
+Requirement already satisfied: requests>=2.23.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from web3<8,>=7.10->slither-analyzer) (2.34.2)
+Requirement already satisfied: types-requests>=2.0.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from web3<8,>=7.10->slither-analyzer) (2.33.0.20261030)
+Requirement already satisfied: websockets<16.0.0,>=10.0.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from web3<8,>=7.10->slither-analyzer) (15.0.1)
+Requirement already satisfied: pyunormalize>=15.0.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from web3<8,>=7.10->slither-analyzer) (18.0.0)
+Requirement already satisfied: aiohappyeyeballs>=2.5.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from aiohttp>=3.7.4.post0->web3<8,>=7.10->slither-analyzer) (2.7.1)
+Requirement already satisfied: aiosignal>=1.4.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from aiohttp>=3.7.4.post0->web3<8,>=7.10->slither-analyzer) (1.4.0)
+Requirement already satisfied: attrs>=17.3.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from aiohttp>=3.7.4.post0->web3<8,>=7.10->slither-analyzer) (26.1.0)
+Requirement already satisfied: frozenlist>=1.1.1 in ./.audit-tools/venv/lib/python3.11/site-packages (from aiohttp>=3.7.4.post0->web3<8,>=7.10->slither-analyzer) (1.8.0)
+Requirement already satisfied: multidict<8.0,>=4.5 in ./.audit-tools/venv/lib/python3.11/site-packages (from aiohttp>=3.7.4.post0->web3<8,>=7.10->slither-analyzer) (7.2.1)
+Requirement already satisfied: propcache>=0.2.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from aiohttp>=3.7.4.post0->web3<8,>=7.10->slither-analyzer) (0.5.4)
+Requirement already satisfied: yarl<2.0,>=1.25.1 in ./.audit-tools/venv/lib/python3.11/site-packages (from aiohttp>=3.7.4.post0->web3<8,>=7.10->slither-analyzer) (1.25.1)
+Requirement already satisfied: toolz>=0.8.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from cytoolz>=0.10.1->eth-utils>=5.0.0->slither-analyzer) (1.2.0)
+Requirement already satisfied: bitarray>=2.4 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-account>=0.13.6->web3<8,>=7.10->slither-analyzer) (3.12.3)
+Requirement already satisfied: eth-keyfile>=0.10 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-account>=0.13.6->web3<8,>=7.10->slither-analyzer) (0.10.0)
+Requirement already satisfied: eth-keys>=0.5 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-account>=0.13.6->web3<8,>=7.10->slither-analyzer) (0.8.0)
+Requirement already satisfied: eth-rlp>=3 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-account>=0.13.6->web3<8,>=7.10->slither-analyzer) (3.0.0)
+Requirement already satisfied: rlp>=2 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-account>=0.13.6->web3<8,>=7.10->slither-analyzer) (5.0.0)
+Requirement already satisfied: ckzg>=2 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-account>=0.13.6->web3<8,>=7.10->slither-analyzer) (2.1.8)
+Requirement already satisfied: regex>=2022.3.15 in ./.audit-tools/venv/lib/python3.11/site-packages (from parsimonious<0.11.0,>=0.10.0->eth-abi>=5.0.1->slither-analyzer) (2026.9.29)
+Requirement already satisfied: annotated-types>=0.6.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from pydantic<3,>=2.0.0->eth-utils>=5.0.0->slither-analyzer) (0.8.0)
+Requirement already satisfied: pydantic-core==2.50.4 in ./.audit-tools/venv/lib/python3.11/site-packages (from pydantic<3,>=2.0.0->eth-utils>=5.0.0->slither-analyzer) (2.50.4)
+Requirement already satisfied: typing-inspection>=0.4.4 in ./.audit-tools/venv/lib/python3.11/site-packages (from pydantic<3,>=2.0.0->eth-utils>=5.0.0->slither-analyzer) (0.4.5)
+Requirement already satisfied: charset_normalizer<4,>=2 in ./.audit-tools/venv/lib/python3.11/site-packages (from requests>=2.23.0->web3<8,>=7.10->slither-analyzer) (3.5.2)
+Requirement already satisfied: idna<4,>=2.5 in ./.audit-tools/venv/lib/python3.11/site-packages (from requests>=2.23.0->web3<8,>=7.10->slither-analyzer) (3.20)
+Requirement already satisfied: urllib3<3,>=1.26 in ./.audit-tools/venv/lib/python3.11/site-packages (from requests>=2.23.0->web3<8,>=7.10->slither-analyzer) (2.8.0)
+Requirement already satisfied: certifi>=2023.5.7 in ./.audit-tools/venv/lib/python3.11/site-packages (from requests>=2.23.0->web3<8,>=7.10->slither-analyzer) (2026.10.23)
+Requirement already satisfied: py_ecc>=5.2.0 in ./.audit-tools/venv/lib/python3.11/site-packages (from eth-keyfile>=0.10->eth-account>=0.13.6->web3<8,>=7.10->slither-analyzer) (8.0.0)
+Installing collected packages: wcwidth, packaging, cbor2, solc-select, prettytable, crytic-compile, slither-analyzer
+Successfully installed cbor2-6.2.0.post2 crytic-compile-0.4.2 packaging-26.3 prettytable-3.18.0 slither-analyzer-0.11.6 solc-select-1.2.0 wcwidth-0.9.4

@@ -1,0 +1,31 @@
+Source: user-executed Foundry output supplied in chat; not independently rerun by the auditor.
+Pool: 0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0
+Pinned BSC block: 132016403
+Test: test_current_status
+
+[PASS] test_current_status() (gas: 901555)
+Logs:
+  FORK_BLOCK 132016403
+  POOL 0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0
+  TREASURY 0x361d08ff43761E6a7E8Fcabe48048AE9010801cc
+  PAIR 0xAAb18bCDEe287AEA288c0560612cAadf7c328803
+  STAKE_DAYS 540
+  STAKE_OK false
+  SALE_OK false
+  REVERT_OR_STATUS_REASON
+  0x08c379a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000c556e617574686f72697a65640000000000000000000000000000000000000000
+  QUOTE_BEFORE_RAW 634743
+  QUOTE_AFTER_RAW 634743
+  STAKE_AMOUNT_FOX_RAW 0
+  INVITER_FOX_RAW 0
+  ATTACKER_USDT_AFTER_RAW 450000000000000000000000000
+  ATTACKER_PNL_USDT_RAW_SIGNED
+  0
+  PAIR_USDT_DELTA_RAW_SIGNED
+  0
+  MODEL_ONLY: deal() capital; flash-loan fees and gas excluded
+
+Decoded revert: Error("Unauthorized").
+Interpretation: at this exact pin, the new caller is blocked by the stake onlyOperator guard.
+The old permissionless path did not execute. This is an access-control/configuration mitigation observation, not proof that the internal stake/reward arithmetic was changed.
+The diagnostic test passes even when stake fails; PASS is not an exploit-success assertion.

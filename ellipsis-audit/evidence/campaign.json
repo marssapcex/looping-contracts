@@ -1,0 +1,33 @@
+{
+  "model_only": true,
+  "mainnet_promotion": false,
+  "pin_block": null,
+  "why_no_pin": "Both BSC RPC endpoints fail TLS; screenshots contain no block number.",
+  "rows_total": 2880,
+  "rows_executed_local_model": 2160,
+  "rows_skipped_tier_d": 720,
+  "counterexamples_local_model": 168,
+  "states": 10,
+  "strategies": 9,
+  "tiers": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "tier_d_rule": "Run only with measured TVL >= $1e9; protocol-wide TVL was not measured, so D is skipped.",
+  "canonical_counterexample": "S0-T0-A-seed0",
+  "canonical_real_evm_replay": "poc/StakingPoC.t.sol:test_LOCAL_LEAD_stale_emission_withdrawal_and_signed_pnl",
+  "cost_model": "Gas and flash-loan cost set to zero in model units; no USD value or mainnet P&L is asserted.",
+  "rounding_policy": "Dust-only rounding is out of scope; no row is promoted."
+}

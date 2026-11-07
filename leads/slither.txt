@@ -1,0 +1,58 @@
+'forge clean' running (wd: /home/user/looping-contracts)
+'forge config --json' running
+'forge build --build-info --deny never --skip ./poc/** ./script/** --force' running (wd: /home/user/looping-contracts)
+INFO:Printers:
+Compiled with Foundry
+Total number of contracts in source files: 20
+Number of contracts in dependencies: 10
+Source lines of code (SLOC) in source files: 1612
+Source lines of code (SLOC) in dependencies: 275
+Number of  assembly lines: 0
+Number of optimization issues: 8
+Number of informational issues: 94
+Number of low issues: 34
+Number of medium issues: 17
+Number of high issues: 5
+
+Use: Openzeppelin-Ownable
+ERCs: ERC20, ERC165, ERC1363
+
++------------------------+-------------+------+------------+--------------+--------------------+
+| Name                   | # functions | ERCS | ERC20 info | Complex code | Features           |
++------------------------+-------------+------+------------+--------------+--------------------+
+| Looping                | 26          |      |            | No           | Send ETH           |
+|                        |             |      |            |              | Tokens interaction |
+| StrategyManager        | 15          |      |            | No           | Receive ETH        |
+|                        |             |      |            |              | Send ETH           |
+|                        |             |      |            |              | Tokens interaction |
+|                        |             |      |            |              | Assembly           |
+| StrategyManagerFactory | 14          |      |            | No           |                    |
+| DataTypes              | 0           |      |            | No           |                    |
+| IAToken                | 2           |      |            | No           |                    |
+| IDebtToken             | 2           |      |            | No           |                    |
+| ILiquidSwap            | 2           |      |            | No           | Receive ETH        |
+| IOracle                | 9           |      |            | No           |                    |
+| IPool                  | 45          |      |            | No           |                    |
+| IPoolAddressesProvider | 19          |      |            | No           |                    |
+| ISwapper               | 1           |      |            | No           |                    |
+| IUiPoolDataProviderV3  | 3           |      |            | No           |                    |
+| IWrappedHlpDepositor   | 1           |      |            | No           |                    |
+| IWrappedHype           | 2           |      |            | No           | Receive ETH        |
+| GluexAdapter           | 11          |      |            | No           | Receive ETH        |
+|                        |             |      |            |              | Send ETH           |
+|                        |             |      |            |              | Tokens interaction |
+|                        |             |      |            |              | Assembly           |
+| HypertradeAdapter      | 22          |      |            | No           | Receive ETH        |
+|                        |             |      |            |              | Send ETH           |
+|                        |             |      |            |              | Tokens interaction |
+|                        |             |      |            |              | Assembly           |
+| LiquidSwapAdapter      | 24          |      |            | No           | Receive ETH        |
+|                        |             |      |            |              | Send ETH           |
+|                        |             |      |            |              | Tokens interaction |
+|                        |             |      |            |              | Assembly           |
+| UiDataProvider         | 5           |      |            | No           | Tokens interaction |
+| wHlpZapper             | 22          |      |            | No           | Receive ETH        |
+|                        |             |      |            |              | Send ETH           |
+|                        |             |      |            |              | Tokens interaction |
++------------------------+-------------+------+------------+--------------+--------------------+
+INFO:Slither:. analyzed (30 contracts)

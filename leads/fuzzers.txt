@@ -1,0 +1,7 @@
+tool_unavailable: echidna
+No Echidna binary was installed. GitHub release-asset downloads resolve to release-assets.githubusercontent.com, which is blocked in this sandbox. Foundry fuzz was used instead.
+
+tool_unavailable: medusa
+No Medusa binary was installed. GitHub release-asset downloads resolve to release-assets.githubusercontent.com, which is blocked in this sandbox. Foundry fuzz was used instead.
+
+Executed Foundry model fuzz evidence: run.log:111,291,300,309 (1,701,000 total passing runs). This is not Echidna/Medusa coverage and not a pinned mainnet campaign.

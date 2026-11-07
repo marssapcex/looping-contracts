@@ -1,0 +1,399 @@
+'forge clean' running (wd: /home/user/looping-contracts)
+'forge config --json' running
+'forge build --build-info --deny never --skip ./poc/** ./script/** --force' running (wd: /home/user/looping-contracts)
+INFO:Detectors:
+Detector: arbitrary-send-erc20
+Looping._executeClosePosition(bytes,address) (contracts/Looping.sol#187-221) uses arbitrary from in transferFrom: hYieldToken.safeTransferFrom(user,address(this),withdrawAmount) (contracts/Looping.sol#214)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#arbitrary-from-in-transferfrom
+INFO:Detectors:
+Detector: reentrancy-balance
+Reentrancy in wHlpZapper.zapInHypertrade(address,uint256,bytes,uint256,uint256,uint256) (contracts/periphery/wHlpZapper.sol#133-183):
+	External call allowing reentrancy:
+	- (success,None) = hyperTradeRouterAddress.call{value: msg.value}(swapData) (contracts/periphery/wHlpZapper.sol#163-165)
+	Balance read before the call:
+	- balanceBefore = IERC20(USDT0).balanceOf(address(this)) (contracts/periphery/wHlpZapper.sol#161)
+	Possible stale balance used after the call in a condition:
+	- require(bool,string)(receivedUSDT0 >= amountOutMin,wHlpZapper: insufficient amount out) (contracts/periphery/wHlpZapper.sol#170-173)
+		- stale variable `receivedUSDT0`
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities
+INFO:Detectors:
+Detector: unchecked-transfer
+StrategyManager.cleanOutTokens(address[]) (contracts/StrategyManager.sol#57-67) ignores return value by IERC20(tokens[i]).transfer(owner(),balance) (contracts/StrategyManager.sol#64)
+LiquidSwapAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/LiquidSwapAdapter.sol#37-79) ignores return value by IERC20(tokenIn).transferFrom(msg.sender,address(this),amountIn) (contracts/periphery/LiquidSwapAdapter.sol#59-61)
+LiquidSwapAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/LiquidSwapAdapter.sol#37-79) ignores return value by IERC20(tokenOut).transfer(to,balanceOut) (contracts/periphery/LiquidSwapAdapter.sol#79)
+wHlpZapper.zapIn(address,uint256,uint256,uint256,uint256,address[],ILiquidSwap.Swap[][],uint256,uint256) (contracts/periphery/wHlpZapper.sol#84-124) ignores return value by IERC20(tokenIn).transferFrom(msg.sender,address(this),amountIn) (contracts/periphery/wHlpZapper.sol#97)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unchecked-transfer
+INFO:Detectors:
+Detector: incorrect-equality
+GluexAdapter._loadSwapData(address,address) (contracts/periphery/GluexAdapter.sol#100-135) uses a dangerous strict equality:
+	- require(bool,string)(storedBlock == block.number,GluexAdapter: path not set in this block) (contracts/periphery/GluexAdapter.sol#109-112)
+HypertradeAdapter._loadSwapData(address,address) (contracts/periphery/HypertradeAdapter.sol#101-120) uses a dangerous strict equality:
+	- require(bool,string)(storedBlock == block.number,HypertradeAdapter: path not set in this block) (contracts/periphery/HypertradeAdapter.sol#107)
+LiquidSwapAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/LiquidSwapAdapter.sol#37-79) uses a dangerous strict equality:
+	- require(bool,string)(lastUpdate == block.number,Swapper: path not set) (contracts/periphery/LiquidSwapAdapter.sol#54-56)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+INFO:Detectors:
+Detector: uninitialized-local
+UiDataProvider.getStrategy(address,address,address).vars (contracts/periphery/UiDataProvider.sol#135) is a local variable never initialized
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables
+INFO:Detectors:
+Detector: unused-return
+Looping._executeClosePosition(bytes,address) (contracts/Looping.sol#187-221) ignores return value by IPool(msg.sender).repay(debtAsset,repaymentAmount,2,user) (contracts/Looping.sol#211)
+Looping._executeClosePosition(bytes,address) (contracts/Looping.sol#187-221) ignores return value by IPool(msg.sender).withdraw(yieldAsset,withdrawAmount,address(this)) (contracts/Looping.sol#217)
+StrategyManager.withdrawAllFromPool(address[]) (contracts/StrategyManager.sol#69-73) ignores return value by IPool(pool).withdraw(tokens[i],type()(uint256).max,owner()) (contracts/StrategyManager.sol#71)
+GluexAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/GluexAdapter.sol#62-94) ignores return value by IERC20(tokenIn).approve(address(gluex),amountIn) (contracts/periphery/GluexAdapter.sol#79)
+HypertradeAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/HypertradeAdapter.sol#71-99) ignores return value by IERC20(tokenIn).approve(hyperTradeRouterAddress,amountIn) (contracts/periphery/HypertradeAdapter.sol#87)
+LiquidSwapAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/LiquidSwapAdapter.sol#37-79) ignores return value by IERC20(tokenIn).approve(address(liquidSwapRouter),amountIn) (contracts/periphery/LiquidSwapAdapter.sol#61-62)
+LiquidSwapAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/LiquidSwapAdapter.sol#37-79) ignores return value by liquidSwapRouter.executeSwaps(tokens,amountIn,amountOutMin,amountOutMin,hops,0,owner()) (contracts/periphery/LiquidSwapAdapter.sol#62-68)
+UiDataProvider.getUsdValues(IPool,address) (contracts/periphery/UiDataProvider.sol#187-204) ignores return value by (_totalCollateralBase,_totalDebtBase,None,_currentLiquidationThreshold,None,_healthFactor) = pool.getUserAccountData(_manager) (contracts/periphery/UiDataProvider.sol#192-199)
+wHlpZapper.zapIn(address,uint256,uint256,uint256,uint256,address[],ILiquidSwap.Swap[][],uint256,uint256) (contracts/periphery/wHlpZapper.sol#84-124) ignores return value by IERC20(tokenIn).approve(liquidSwapRouterAddress,amountIn) (contracts/periphery/wHlpZapper.sol#98)
+wHlpZapper.zapIn(address,uint256,uint256,uint256,uint256,address[],ILiquidSwap.Swap[][],uint256,uint256) (contracts/periphery/wHlpZapper.sol#84-124) ignores return value by ILiquidSwap(liquidSwapRouterAddress).executeSwaps(tokens,amountIn,amountOutMin,expectedAmountOut,hops,feeBps,owner()) (contracts/periphery/wHlpZapper.sol#100-108)
+wHlpZapper.zapIn(address,uint256,uint256,uint256,uint256,address[],ILiquidSwap.Swap[][],uint256,uint256) (contracts/periphery/wHlpZapper.sol#84-124) ignores return value by IERC20(USDT0).approve(address(depositor),balanceOut) (contracts/periphery/wHlpZapper.sol#116)
+wHlpZapper.zapInHypertrade(address,uint256,bytes,uint256,uint256,uint256) (contracts/periphery/wHlpZapper.sol#133-183) ignores return value by IERC20(tokenIn).approve(hyperTradeRouterAddress,amountIn) (contracts/periphery/wHlpZapper.sol#158)
+wHlpZapper.zapInHypertrade(address,uint256,bytes,uint256,uint256,uint256) (contracts/periphery/wHlpZapper.sol#133-183) ignores return value by IERC20(USDT0).approve(address(depositor),receivedUSDT0) (contracts/periphery/wHlpZapper.sol#175)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+INFO:Detectors:
+Detector: shadowing-local
+Looping.constructor(address[],address[],address)._owner (contracts/Looping.sol#28) shadows:
+	- Ownable._owner (node_modules/@openzeppelin/contracts/access/Ownable.sol#21) (state variable)
+StrategyManager.constructor(address,address,address,address)._owner (contracts/StrategyManager.sol#28) shadows:
+	- Ownable._owner (node_modules/@openzeppelin/contracts/access/Ownable.sol#21) (state variable)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#local-variable-shadowing
+INFO:Detectors:
+Detector: missing-zero-check
+Looping.constructor(address[],address[],address)._owner (contracts/Looping.sol#28) lacks a zero-check on :
+		- referralAddress = _owner (contracts/Looping.sol#36)
+Looping.setReferralAddress(address)._newReferralAddress (contracts/Looping.sol#297) lacks a zero-check on :
+		- referralAddress = _newReferralAddress (contracts/Looping.sol#298)
+StrategyManager.constructor(address,address,address,address)._pool (contracts/StrategyManager.sol#29) lacks a zero-check on :
+		- pool = _pool (contracts/StrategyManager.sol#33)
+StrategyManager.constructor(address,address,address,address)._yieldAsset (contracts/StrategyManager.sol#30) lacks a zero-check on :
+		- yieldAsset = _yieldAsset (contracts/StrategyManager.sol#34)
+StrategyManager.constructor(address,address,address,address)._debtAsset (contracts/StrategyManager.sol#31) lacks a zero-check on :
+		- debtAsset = _debtAsset (contracts/StrategyManager.sol#35)
+StrategyManager.executeCall(address,uint256,bytes,bool).target (contracts/StrategyManager.sol#43) lacks a zero-check on :
+		- (success,returnData) = target.call{value: value}(data) (contracts/StrategyManager.sol#44)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-address-validation
+INFO:Detectors:
+Detector: calls-loop
+StrategyManager.executeCall(address,uint256,bytes,bool) (contracts/StrategyManager.sol#43-49) has external calls inside a loop: (success,returnData) = target.call{value: value}(data) (contracts/StrategyManager.sol#44)
+	Calls stack containing the loop:
+		StrategyManager.executeMultiCall(StrategyManager.Call[])
+StrategyManager.cleanOutTokens(address[]) (contracts/StrategyManager.sol#57-67) has external calls inside a loop: (sent,None) = owner().call{value: address(this).balance}() (contracts/StrategyManager.sol#60)
+StrategyManager.cleanOutTokens(address[]) (contracts/StrategyManager.sol#57-67) has external calls inside a loop: balance = IERC20(tokens[i]).balanceOf(address(this)) (contracts/StrategyManager.sol#63)
+StrategyManager.cleanOutTokens(address[]) (contracts/StrategyManager.sol#57-67) has external calls inside a loop: IERC20(tokens[i]).transfer(owner(),balance) (contracts/StrategyManager.sol#64)
+StrategyManager.withdrawAllFromPool(address[]) (contracts/StrategyManager.sol#69-73) has external calls inside a loop: IPool(pool).withdraw(tokens[i],type()(uint256).max,owner()) (contracts/StrategyManager.sol#71)
+UiDataProvider.getUserStrategies(address,address) (contracts/periphery/UiDataProvider.sol#52-77) has external calls inside a loop: userStrategyArray[i] = UserStrategy({manager:managers[i],pool:manager.pool(),yieldAsset:manager.yieldAsset(),debtAsset:manager.debtAsset(),yieldSymbol:IERC20Metadata(manager.yieldAsset()).symbol(),debtSymbol:IERC20Metadata(manager.debtAsset()).symbol()}) (contracts/periphery/UiDataProvider.sol#61-68)
+UiDataProvider.getStrategy(address,bool) (contracts/periphery/UiDataProvider.sol#109-122) has external calls inside a loop: yieldAssetAddrInv = manager.debtAsset() (contracts/periphery/UiDataProvider.sol#114)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+UiDataProvider.getStrategy(address,bool) (contracts/periphery/UiDataProvider.sol#109-122) has external calls inside a loop: debtAssetAddrInv = manager.yieldAsset() (contracts/periphery/UiDataProvider.sol#115)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+UiDataProvider.getStrategy(address,address,address) (contracts/periphery/UiDataProvider.sol#124-184) has external calls inside a loop: pool = IPool(manager.pool()) (contracts/periphery/UiDataProvider.sol#126)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+UiDataProvider.getStrategy(address,address,address) (contracts/periphery/UiDataProvider.sol#124-184) has external calls inside a loop: oracleAddress = IPoolAddressesProvider(pool.ADDRESSES_PROVIDER()).getPriceOracle() (contracts/periphery/UiDataProvider.sol#128)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+UiDataProvider.getStrategy(address,address,address) (contracts/periphery/UiDataProvider.sol#124-184) has external calls inside a loop: vars.yieldReserve = pool.getReserveData(yieldAsset) (contracts/periphery/UiDataProvider.sol#137)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+UiDataProvider.getStrategy(address,address,address) (contracts/periphery/UiDataProvider.sol#124-184) has external calls inside a loop: vars.debtReserve = pool.getReserveData(debtAsset) (contracts/periphery/UiDataProvider.sol#138)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+UiDataProvider.getStrategy(address,address,address) (contracts/periphery/UiDataProvider.sol#124-184) has external calls inside a loop: vars.debtPrice = oracle.getAssetPrice(debtAsset) (contracts/periphery/UiDataProvider.sol#143)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+UiDataProvider.getStrategy(address,address,address) (contracts/periphery/UiDataProvider.sol#124-184) has external calls inside a loop: vars.yieldPrice = oracle.getAssetPrice(yieldAsset) (contracts/periphery/UiDataProvider.sol#144)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+UiDataProvider.getStrategy(address,address,address) (contracts/periphery/UiDataProvider.sol#124-184) has external calls inside a loop: yieldValueUsd = vars.aYieldToken.balanceOf(_manager) * vars.yieldPrice (contracts/periphery/UiDataProvider.sol#146)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+UiDataProvider.getStrategy(address,address,address) (contracts/periphery/UiDataProvider.sol#124-184) has external calls inside a loop: debtValueUsd = vars.variableDebtToken.balanceOf(_manager) * vars.debtPrice (contracts/periphery/UiDataProvider.sol#147)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+UiDataProvider.getStrategy(address,address,address) (contracts/periphery/UiDataProvider.sol#124-184) has external calls inside a loop: balances = Balances({debtBalance:vars.variableDebtToken.balanceOf(_manager),yieldBalance:vars.aYieldToken.balanceOf(_manager),debtValueUsd:debtValueUsd,yieldValueUsd:yieldValueUsd}) (contracts/periphery/UiDataProvider.sol#155-160)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+UiDataProvider.getUsdValues(IPool,address) (contracts/periphery/UiDataProvider.sol#187-204) has external calls inside a loop: (_totalCollateralBase,_totalDebtBase,None,_currentLiquidationThreshold,None,_healthFactor) = pool.getUserAccountData(_manager) (contracts/periphery/UiDataProvider.sol#192-199)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+		UiDataProvider.getStrategy(address,address,address)
+UiDataProvider.getStrategy(address,address,address) (contracts/periphery/UiDataProvider.sol#124-184) has external calls inside a loop: StrategyDetailed({manager:_manager,pool:address(pool),yieldAsset:yieldAsset,debtAsset:debtAsset,healthFactor:healthFactor,positionValueUsd:positionValueUsd,leverage:leverage,liquidationThreshold:currentLiquidationThreshold,yieldLiquidityRate:vars.yieldReserve.currentLiquidityRate,debtVariableBorrowRate:vars.debtReserve.currentVariableBorrowRate,yieldSymbol:IERC20Metadata(yieldAsset).symbol(),debtSymbol:IERC20Metadata(debtAsset).symbol(),balances:balances}) (contracts/periphery/UiDataProvider.sol#169-183)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+		UiDataProvider.getStrategy(address,bool)
+UiDataProvider.getStrategy(address,bool) (contracts/periphery/UiDataProvider.sol#109-122) has external calls inside a loop: yieldAssetAddr = manager.yieldAsset() (contracts/periphery/UiDataProvider.sol#119)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+UiDataProvider.getStrategy(address,bool) (contracts/periphery/UiDataProvider.sol#109-122) has external calls inside a loop: debtAssetAddr = manager.debtAsset() (contracts/periphery/UiDataProvider.sol#120)
+	Calls stack containing the loop:
+		UiDataProvider.getUserStrategiesDetailed(address,address)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation/#calls-inside-a-loop
+INFO:Detectors:
+Detector: timestamp
+GluexAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/GluexAdapter.sol#62-94) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(block.timestamp < deadline,GluexAdapter: expired) (contracts/periphery/GluexAdapter.sol#70)
+HypertradeAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/HypertradeAdapter.sol#71-99) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(block.timestamp < deadline,HypertradeAdapter: expired) (contracts/periphery/HypertradeAdapter.sol#79)
+LiquidSwapAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/LiquidSwapAdapter.sol#37-79) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(block.timestamp < deadline,Swapper: expired) (contracts/periphery/LiquidSwapAdapter.sol#46-48)
+wHlpZapper.zapIn(address,uint256,uint256,uint256,uint256,address[],ILiquidSwap.Swap[][],uint256,uint256) (contracts/periphery/wHlpZapper.sol#84-124) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(block.timestamp < deadline,wHlpZapper: expired) (contracts/periphery/wHlpZapper.sol#95)
+wHlpZapper.zapInHypertrade(address,uint256,bytes,uint256,uint256,uint256) (contracts/periphery/wHlpZapper.sol#133-183) uses timestamp for comparisons
+	Dangerous comparisons:
+	- require(bool,string)(block.timestamp < deadline,wHlpZapper: expired) (contracts/periphery/wHlpZapper.sol#141)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+INFO:Detectors:
+Detector: assembly
+StrategyManager._revertWithReason(bytes) (contracts/StrategyManager.sol#75-84) uses assembly
+	- INLINE ASM (contracts/StrategyManager.sol#77-80)
+GluexAdapter.setSwapPath(address,address,bytes) (contracts/periphery/GluexAdapter.sol#29-52) uses assembly
+	- INLINE ASM (contracts/periphery/GluexAdapter.sol#38-41)
+	- INLINE ASM (contracts/periphery/GluexAdapter.sol#47-50)
+GluexAdapter._loadSwapData(address,address) (contracts/periphery/GluexAdapter.sol#100-135) uses assembly
+	- INLINE ASM (contracts/periphery/GluexAdapter.sol#106-108)
+	- INLINE ASM (contracts/periphery/GluexAdapter.sol#116-118)
+	- INLINE ASM (contracts/periphery/GluexAdapter.sol#125-127)
+	- INLINE ASM (contracts/periphery/GluexAdapter.sol#129-131)
+HypertradeAdapter.setSwapPath(address,address,bytes) (contracts/periphery/HypertradeAdapter.sol#47-68) uses assembly
+	- INLINE ASM (contracts/periphery/HypertradeAdapter.sol#55-58)
+	- INLINE ASM (contracts/periphery/HypertradeAdapter.sol#63-66)
+HypertradeAdapter._loadSwapData(address,address) (contracts/periphery/HypertradeAdapter.sol#101-120) uses assembly
+	- INLINE ASM (contracts/periphery/HypertradeAdapter.sol#106)
+	- INLINE ASM (contracts/periphery/HypertradeAdapter.sol#110)
+	- INLINE ASM (contracts/periphery/HypertradeAdapter.sol#116)
+	- INLINE ASM (contracts/periphery/HypertradeAdapter.sol#117)
+LiquidSwapAdapter.setSwapPath(address[],address,address,ILiquidSwap.Swap[][]) (contracts/periphery/LiquidSwapAdapter.sol#24-37) uses assembly
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#32-34)
+LiquidSwapAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/LiquidSwapAdapter.sol#37-79) uses assembly
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#51-53)
+LiquidSwapAdapter._storeTokens(bytes32,address[]) (contracts/periphery/LiquidSwapAdapter.sol#88-105) uses assembly
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#97-98)
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#101-104)
+LiquidSwapAdapter._storeHops(bytes32,ILiquidSwap.Swap[][]) (contracts/periphery/LiquidSwapAdapter.sol#105-153) uses assembly
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#115)
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#122-123)
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#138-152)
+LiquidSwapAdapter._loadTokens(bytes32) (contracts/periphery/LiquidSwapAdapter.sol#153-172) uses assembly
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#162-163)
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#167-171)
+LiquidSwapAdapter._loadHops(bytes32) (contracts/periphery/LiquidSwapAdapter.sol#173-231) uses assembly
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#182-183)
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#192-194)
+	- INLINE ASM (contracts/periphery/LiquidSwapAdapter.sol#209-223)
+SafeERC20._callOptionalReturn(IERC20,bytes) (node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#160-178) uses assembly
+	- INLINE ASM (node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#163-173)
+SafeERC20._callOptionalReturnBool(IERC20,bytes) (node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#188-198) uses assembly
+	- INLINE ASM (node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#192-196)
+Address._revert(bytes) (node_modules/@openzeppelin/contracts/utils/Address.sol#138-149) uses assembly
+	- INLINE ASM (node_modules/@openzeppelin/contracts/utils/Address.sol#142-145)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage
+INFO:Detectors:
+Detector: pragma
+4 different versions of Solidity are used:
+	- Version constraint 0.8.24 is used by:
+		-0.8.24 (contracts/Looping.sol#2)
+		-0.8.24 (contracts/StrategyManager.sol#2)
+		-0.8.24 (contracts/StrategyManagerFactory.sol#2)
+		-0.8.24 (contracts/periphery/GluexAdapter.sol#2)
+		-0.8.24 (contracts/periphery/HypertradeAdapter.sol#2)
+		-0.8.24 (contracts/periphery/LiquidSwapAdapter.sol#1-2)
+		-0.8.24 (contracts/periphery/UiDataProvider.sol#2)
+		-0.8.24 (contracts/periphery/wHlpZapper.sol#2)
+	- Version constraint ^0.8.0 is used by:
+		-^0.8.0 (contracts/interfaces/DataTypes.sol#2)
+		-^0.8.0 (contracts/interfaces/IAToken.sol#2)
+		-^0.8.0 (contracts/interfaces/IDebtToken.sol#2)
+		-^0.8.0 (contracts/interfaces/IOracle.sol#2)
+		-^0.8.0 (contracts/interfaces/IPool.sol#2)
+		-^0.8.0 (contracts/interfaces/IPoolAddressesProvider.sol#2)
+		-^0.8.0 (contracts/interfaces/ISwapper.sol#2)
+	- Version constraint ^0.8.10 is used by:
+		-^0.8.10 (contracts/interfaces/IUiPoolDataProviderV3.sol#2)
+	- Version constraint ^0.8.20 is used by:
+		-^0.8.20 (node_modules/@openzeppelin/contracts/access/Ownable.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/interfaces/IERC1363.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/interfaces/IERC165.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/interfaces/IERC20.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/utils/Address.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/utils/Context.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/utils/Errors.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol#4)
+		-^0.8.20 (node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol#4)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used
+INFO:Detectors:
+Detector: solc-version
+Version constraint ^0.8.0 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- FullInlinerNonExpressionSplitArgumentEvaluationOrder
+	- MissingSideEffectsOnSelectorAccess
+	- AbiReencodingHeadOverflowWithStaticArrayCleanup
+	- DirtyBytesArrayToStorage
+	- DataLocationChangeInInternalOverride
+	- NestedCalldataArrayAbiReencodingSizeValidation
+	- SignedImmutables
+	- ABIDecodeTwoDimensionalArrayMemory
+	- KeccakCaching.
+It is used by:
+	- ^0.8.0 (contracts/interfaces/DataTypes.sol#2)
+	- ^0.8.0 (contracts/interfaces/IAToken.sol#2)
+	- ^0.8.0 (contracts/interfaces/IDebtToken.sol#2)
+	- ^0.8.0 (contracts/interfaces/IOracle.sol#2)
+	- ^0.8.0 (contracts/interfaces/IPool.sol#2)
+	- ^0.8.0 (contracts/interfaces/IPoolAddressesProvider.sol#2)
+	- ^0.8.0 (contracts/interfaces/ISwapper.sol#2)
+Version constraint ^0.8.10 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- VerbatimInvalidDeduplication
+	- FullInlinerNonExpressionSplitArgumentEvaluationOrder
+	- MissingSideEffectsOnSelectorAccess
+	- AbiReencodingHeadOverflowWithStaticArrayCleanup
+	- DirtyBytesArrayToStorage
+	- DataLocationChangeInInternalOverride
+	- NestedCalldataArrayAbiReencodingSizeValidation.
+It is used by:
+	- ^0.8.10 (contracts/interfaces/IUiPoolDataProviderV3.sol#2)
+Version constraint ^0.8.20 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html)
+	- VerbatimInvalidDeduplication
+	- FullInlinerNonExpressionSplitArgumentEvaluationOrder
+	- MissingSideEffectsOnSelectorAccess.
+It is used by:
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/access/Ownable.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/interfaces/IERC1363.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/interfaces/IERC165.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/interfaces/IERC20.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/utils/Address.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/utils/Context.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/utils/Errors.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol#4)
+	- ^0.8.20 (node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol#4)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity
+INFO:Detectors:
+Detector: low-level-calls
+Low level call in Looping.rescueTokens(address,uint256) (contracts/Looping.sol#302-309):
+	- (success,None) = address(msg.sender).call{value: _amount}() (contracts/Looping.sol#304)
+Low level call in StrategyManager.executeCall(address,uint256,bytes,bool) (contracts/StrategyManager.sol#43-49):
+	- (success,returnData) = target.call{value: value}(data) (contracts/StrategyManager.sol#44)
+Low level call in StrategyManager.cleanOutTokens(address[]) (contracts/StrategyManager.sol#57-67):
+	- (sent,None) = owner().call{value: address(this).balance}() (contracts/StrategyManager.sol#60)
+Low level call in GluexAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/GluexAdapter.sol#62-94):
+	- (success,None) = gluex.call(gluexCallData) (contracts/periphery/GluexAdapter.sol#81)
+Low level call in HypertradeAdapter.swapExactTokensForTokensSupportingFeeOnTransferTokens(uint256,uint256,address[],address,address,uint256) (contracts/periphery/HypertradeAdapter.sol#71-99):
+	- (success,None) = hyperTradeRouterAddress.call(swapCallData) (contracts/periphery/HypertradeAdapter.sol#89)
+Low level call in wHlpZapper.zapInHypertrade(address,uint256,bytes,uint256,uint256,uint256) (contracts/periphery/wHlpZapper.sol#133-183):
+	- (success,None) = hyperTradeRouterAddress.call{value: msg.value}(swapData) (contracts/periphery/wHlpZapper.sol#163-165)
+Low level call in wHlpZapper.rescueTokens(address,uint256) (contracts/periphery/wHlpZapper.sol#186-193):
+	- (success,None) = address(msg.sender).call{value: _amount}() (contracts/periphery/wHlpZapper.sol#188)
+Low level call in Address.sendValue(address,uint256) (node_modules/@openzeppelin/contracts/utils/Address.sol#33-42):
+	- (success,None) = recipient.call{value: amount}() (node_modules/@openzeppelin/contracts/utils/Address.sol#38)
+Low level call in Address.functionCallWithValue(address,bytes,uint256) (node_modules/@openzeppelin/contracts/utils/Address.sol#75-81):
+	- (success,returndata) = target.call{value: value}(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#79)
+Low level call in Address.functionStaticCall(address,bytes) (node_modules/@openzeppelin/contracts/utils/Address.sol#87-90):
+	- (success,returndata) = target.staticcall(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#88)
+Low level call in Address.functionDelegateCall(address,bytes) (node_modules/@openzeppelin/contracts/utils/Address.sol#96-99):
+	- (success,returndata) = target.delegatecall(data) (node_modules/@openzeppelin/contracts/utils/Address.sol#97)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls
+INFO:Detectors:
+Detector: missing-inheritance
+GluexAdapter (contracts/periphery/GluexAdapter.sol#14-148) should inherit from ISwapper (contracts/interfaces/ISwapper.sol#4-14)
+HypertradeAdapter (contracts/periphery/HypertradeAdapter.sol#15-128) should inherit from ISwapper (contracts/interfaces/ISwapper.sol#4-14)
+LiquidSwapAdapter (contracts/periphery/LiquidSwapAdapter.sol#14-232) should inherit from ISwapper (contracts/interfaces/ISwapper.sol#4-14)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-inheritance
+INFO:Detectors:
+Detector: naming-convention
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._pool (contracts/Looping.sol#56) is not in mixedCase
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._swapper (contracts/Looping.sol#57) is not in mixedCase
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._debtAsset (contracts/Looping.sol#58) is not in mixedCase
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._yieldAsset (contracts/Looping.sol#59) is not in mixedCase
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._initialAmount (contracts/Looping.sol#60) is not in mixedCase
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._flashloanAmount (contracts/Looping.sol#61) is not in mixedCase
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._minAmountOut (contracts/Looping.sol#62) is not in mixedCase
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._path (contracts/Looping.sol#63) is not in mixedCase
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._startWithYield (contracts/Looping.sol#64) is not in mixedCase
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._minInitialAmountOut (contracts/Looping.sol#65) is not in mixedCase
+Parameter Looping.openPosition(address,address,address,address,uint256,uint256,uint256,address[],bool,uint256,uint256)._deadline (contracts/Looping.sol#66) is not in mixedCase
+Parameter Looping.closePosition(address,address,address,address,uint256,uint256,address[],uint256,uint256)._pool (contracts/Looping.sol#102) is not in mixedCase
+Parameter Looping.closePosition(address,address,address,address,uint256,uint256,address[],uint256,uint256)._swapper (contracts/Looping.sol#103) is not in mixedCase
+Parameter Looping.closePosition(address,address,address,address,uint256,uint256,address[],uint256,uint256)._debtAsset (contracts/Looping.sol#104) is not in mixedCase
+Parameter Looping.closePosition(address,address,address,address,uint256,uint256,address[],uint256,uint256)._yieldAsset (contracts/Looping.sol#105) is not in mixedCase
+Parameter Looping.closePosition(address,address,address,address,uint256,uint256,address[],uint256,uint256)._flashloanAmount (contracts/Looping.sol#106) is not in mixedCase
+Parameter Looping.closePosition(address,address,address,address,uint256,uint256,address[],uint256,uint256)._minAmountOut (contracts/Looping.sol#107) is not in mixedCase
+Parameter Looping.closePosition(address,address,address,address,uint256,uint256,address[],uint256,uint256)._path (contracts/Looping.sol#108) is not in mixedCase
+Parameter Looping.closePosition(address,address,address,address,uint256,uint256,address[],uint256,uint256)._withdrawAmount (contracts/Looping.sol#109) is not in mixedCase
+Parameter Looping.closePosition(address,address,address,address,uint256,uint256,address[],uint256,uint256)._deadline (contracts/Looping.sol#110) is not in mixedCase
+Parameter Looping.setPool(address,bool)._pool (contracts/Looping.sol#287) is not in mixedCase
+Parameter Looping.setPool(address,bool)._isApproved (contracts/Looping.sol#287) is not in mixedCase
+Parameter Looping.setSwapper(address,bool)._swapper (contracts/Looping.sol#292) is not in mixedCase
+Parameter Looping.setSwapper(address,bool)._isApproved (contracts/Looping.sol#292) is not in mixedCase
+Parameter Looping.setReferralAddress(address)._newReferralAddress (contracts/Looping.sol#297) is not in mixedCase
+Parameter Looping.rescueTokens(address,uint256)._token (contracts/Looping.sol#302) is not in mixedCase
+Parameter Looping.rescueTokens(address,uint256)._amount (contracts/Looping.sol#302) is not in mixedCase
+Parameter StrategyManagerFactory.createStrategyManager(address,address,address)._pool (contracts/StrategyManagerFactory.sol#25) is not in mixedCase
+Parameter StrategyManagerFactory.createStrategyManager(address,address,address)._yieldAsset (contracts/StrategyManagerFactory.sol#25) is not in mixedCase
+Parameter StrategyManagerFactory.createStrategyManager(address,address,address)._debtAsset (contracts/StrategyManagerFactory.sol#25) is not in mixedCase
+Parameter StrategyManagerFactory.getUserStrategyManagers(address)._user (contracts/StrategyManagerFactory.sol#41) is not in mixedCase
+Parameter StrategyManagerFactory.getUserStrategyManager(address,address,address,address)._user (contracts/StrategyManagerFactory.sol#46) is not in mixedCase
+Parameter StrategyManagerFactory.getUserStrategyManager(address,address,address,address)._pool (contracts/StrategyManagerFactory.sol#46) is not in mixedCase
+Parameter StrategyManagerFactory.getUserStrategyManager(address,address,address,address)._yieldAsset (contracts/StrategyManagerFactory.sol#46) is not in mixedCase
+Parameter StrategyManagerFactory.getUserStrategyManager(address,address,address,address)._debtAsset (contracts/StrategyManagerFactory.sol#46) is not in mixedCase
+Function IPriceOracleGetter.BASE_CURRENCY() (contracts/interfaces/IOracle.sol#17) is not in mixedCase
+Function IPriceOracleGetter.BASE_CURRENCY_UNIT() (contracts/interfaces/IOracle.sol#24) is not in mixedCase
+Function IOracle.ADDRESSES_PROVIDER() (contracts/interfaces/IOracle.sol#64) is not in mixedCase
+Function IPool.ADDRESSES_PROVIDER() (contracts/interfaces/IPool.sol#643) is not in mixedCase
+Function IPool.MAX_STABLE_RATE_BORROW_SIZE_PERCENT() (contracts/interfaces/IPool.sol#706) is not in mixedCase
+Function IPool.FLASHLOAN_PREMIUM_TOTAL() (contracts/interfaces/IPool.sol#712) is not in mixedCase
+Function IPool.BRIDGE_PROTOCOL_FEE() (contracts/interfaces/IPool.sol#718) is not in mixedCase
+Function IPool.FLASHLOAN_PREMIUM_TO_PROTOCOL() (contracts/interfaces/IPool.sol#724) is not in mixedCase
+Function IPool.MAX_NUMBER_RESERVES() (contracts/interfaces/IPool.sol#730) is not in mixedCase
+Variable GluexAdapter.WHYPE (contracts/periphery/GluexAdapter.sol#21-22) is not in mixedCase
+Parameter HypertradeAdapter.setHyperTradeRouter(address)._router (contracts/periphery/HypertradeAdapter.sol#40) is not in mixedCase
+Variable HypertradeAdapter.WHYPE (contracts/periphery/HypertradeAdapter.sol#22-23) is not in mixedCase
+Variable LiquidSwapAdapter.WHYPE (contracts/periphery/LiquidSwapAdapter.sol#19-22) is not in mixedCase
+Parameter UiDataProvider.getUserStrategies(address,address)._factory (contracts/periphery/UiDataProvider.sol#52) is not in mixedCase
+Parameter UiDataProvider.getUserStrategies(address,address)._user (contracts/periphery/UiDataProvider.sol#52) is not in mixedCase
+Parameter UiDataProvider.getUserStrategiesDetailed(address,address)._factory (contracts/periphery/UiDataProvider.sol#79) is not in mixedCase
+Parameter UiDataProvider.getUserStrategiesDetailed(address,address)._user (contracts/periphery/UiDataProvider.sol#79) is not in mixedCase
+Parameter UiDataProvider.getStrategy(address,bool)._manager (contracts/periphery/UiDataProvider.sol#109) is not in mixedCase
+Parameter UiDataProvider.getStrategy(address,bool)._invert (contracts/periphery/UiDataProvider.sol#109) is not in mixedCase
+Parameter UiDataProvider.getStrategy(address,address,address)._manager (contracts/periphery/UiDataProvider.sol#124) is not in mixedCase
+Parameter UiDataProvider.getUsdValues(IPool,address)._manager (contracts/periphery/UiDataProvider.sol#187) is not in mixedCase
+Contract wHlpZapper (contracts/periphery/wHlpZapper.sol#16-197) is not in CapWords
+Parameter wHlpZapper.setLiquidSwapRouter(address)._router (contracts/periphery/wHlpZapper.sol#63) is not in mixedCase
+Parameter wHlpZapper.setHyperTradeRouter(address)._router (contracts/periphery/wHlpZapper.sol#70) is not in mixedCase
+Parameter wHlpZapper.rescueTokens(address,uint256)._token (contracts/periphery/wHlpZapper.sol#186) is not in mixedCase
+Parameter wHlpZapper.rescueTokens(address,uint256)._amount (contracts/periphery/wHlpZapper.sol#186) is not in mixedCase
+Variable wHlpZapper.USDT0 (contracts/periphery/wHlpZapper.sol#30) is not in mixedCase
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions
+INFO:Detectors:
+Detector: constable-states
+GluexAdapter.WHYPE (contracts/periphery/GluexAdapter.sol#21-22) should be constant 
+GluexAdapter.gluex (contracts/periphery/GluexAdapter.sol#18) should be constant 
+HypertradeAdapter.WHYPE (contracts/periphery/HypertradeAdapter.sol#22-23) should be constant 
+LiquidSwapAdapter.WHYPE (contracts/periphery/LiquidSwapAdapter.sol#19-22) should be constant 
+LiquidSwapAdapter.liquidSwapRouter (contracts/periphery/LiquidSwapAdapter.sol#16-19) should be constant 
+wHlpZapper.USDT0 (contracts/periphery/wHlpZapper.sol#30) should be constant 
+wHlpZapper.communityCode (contracts/periphery/wHlpZapper.sol#33) should be constant 
+wHlpZapper.depositor (contracts/periphery/wHlpZapper.sol#26-27) should be constant 
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-constant
+INFO:Slither:. analyzed (30 contracts with 102 detectors), 159 result(s) found

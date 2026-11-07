@@ -1,0 +1,166 @@
+FoxLpBondsPool audit run — 2026-11-06
+RPC eth_chainId attempts: bsc-dataseed.binance.org and bsc-rpc.publicnode.com both curl 35 SSL_ERROR_SYSCALL before chain query.
+tool_unavailable: Foundry 1.7.1 release download reached release-assets.githubusercontent.com and returned EOF; local exact-source execution continued with PyEVM.
+tool_unavailable: Slither compilation: Foundry auto-detection lacks forge; forced solc-js then failed because solc-js has no native --combined-json option. See evidence/slither.log.
+Exact local tools: solc 0.8.28+commit.7893614a.Emscripten.clang; web3 7.16.0; eth-tester 0.13.0b1; py-evm 0.12.1b1.
+Source registry: sanbir/evm-hack-registry a35f3640aae29f3b1f40441dfa2ab350f04c0bce.
+Canonical incident PoC: SunWeb3Sec/DeFiHackLabs PR 1209, merge 04a31c7c5c4dcb1b6ff75c283c9b9b6bf54ef988.
+Historical incident: BSC block 116169049; pinned fork block 116169048; tx 0x8e1775cbfd44db29744cc6687ff1822d2c47321de6e94062f789ad6181ad5514.
+solc 0.8.28+commit.7893614a.Emscripten.clang; compiled 57 contracts; optimizer 200; cancun
+
+===== CANONICAL LOCAL EXACT-SOURCE EVM REPLAY =====
+{
+  "mode": "LOCAL_EXACT_SOURCE_PANCAKE_AND_FLASH_LIQUIDITY_MODEL",
+  "compiler": "0.8.28+commit.7893614a; optimizer 200; viaIR true; cancun",
+  "war_chest_usdt_raw": "450000000000000000000000000",
+  "stake_days": 540,
+  "raw_spot_usdt_per_fox": "5603812687200652594",
+  "discounted_pretrade_quote": "5436258687853353081",
+  "posttrade_quote": "36230017044034683496808",
+  "stake_amount_fox_raw": "82777517744964801045863495",
+  "inviter_fox_raw": "2483325532348944031375904",
+  "attacker_usdt_before_raw": "450000000000000000000000000",
+  "attacker_usdt_after_raw": "450530941023056701789655683",
+  "attacker_net_usdt_raw": "530941023056701789655683",
+  "attacker_fox_after_raw": "0",
+  "pair_usdt_delta_raw": "-530941023056701789655683",
+  "pair_fox_delta_raw": "1937293249913492937164752",
+  "pair_reserves_after_stake": [
+    "12092572687469146778493",
+    "452786697198864505157273333",
+    "0"
+  ],
+  "staked_fox_pool_raw": "82777517744964801045863495",
+  "treasury_retained_fox_raw": "82777517744964801045863495",
+  "reward_fox_distributor_raw": "9105526951946128115044984",
+  "dead_lp_raw": "1161336703772842300652916",
+  "gas_used_total_including_setup": 16017425,
+  "gas_price_wei": 1000000000,
+  "gas_cost_wei_total_including_setup": 16017425000000000,
+  "flash_loan_fee_usdt": 0,
+  "notes": "Owner referral binding and minted war chest are tagged local setup surrogates. Real deployed Solidity bodies execute through ERC1967 proxies. Pair is a faithful 0.25%-fee model without feeTo; LP mint amount can differ from mainnet while price/P&L does not. Discount endpoints are fixed at 299 bps solely to match the registry pinned quote; live endpoint storage is not claimed. USDT P&L is before native gas; gas is printed separately in wei and flash-loan fees are zero in this model.",
+  "war_chest_usdt_display": "450000000",
+  "stake_amount_fox_display": "82777517.744964801045863495",
+  "inviter_fox_display": "2483325.532348944031375904",
+  "attacker_usdt_after_display": "450530941.023056701789655683",
+  "attacker_net_usdt_display": "530941.023056701789655683",
+  "pair_usdt_delta_display": "-530941.023056701789655683"
+}
+
+===== SMALL-STAKE CONTROL =====
+{
+  "mode": "LOCAL_EXACT_SOURCE_PANCAKE_AND_FLASH_LIQUIDITY_MODEL",
+  "compiler": "0.8.28+commit.7893614a; optimizer 200; viaIR true; cancun",
+  "war_chest_usdt_raw": "1000000000000000000000",
+  "stake_days": 540,
+  "raw_spot_usdt_per_fox": "5603812687200652594",
+  "discounted_pretrade_quote": "5436258687853353081",
+  "posttrade_quote": "5438207213098490178",
+  "stake_amount_fox_raw": "183950039433255113435",
+  "inviter_fox_raw": "5518501182997653403",
+  "attacker_usdt_before_raw": "1000000000000000000000",
+  "attacker_usdt_after_raw": "31322584671900250096",
+  "attacker_net_usdt_raw": "-968677415328099749904",
+  "attacker_fox_after_raw": "0",
+  "pair_usdt_delta_raw": "968677415328099749904",
+  "pair_fox_delta_raw": "5380538653422712068",
+  "pair_reserves_after_stake": [
+    "496041716814196640205248",
+    "2787696038352161046694244",
+    "0"
+  ],
+  "staked_fox_pool_raw": "183950039433255113435",
+  "treasury_retained_fox_raw": "183950039433255113435",
+  "reward_fox_distributor_raw": "20234504337658062477",
+  "dead_lp_raw": "210424894997986727739",
+  "gas_used_total_including_setup": 15985658,
+  "gas_price_wei": 1000000000,
+  "gas_cost_wei_total_including_setup": 15985658000000000,
+  "flash_loan_fee_usdt": 0,
+  "notes": "Owner referral binding and minted war chest are tagged local setup surrogates. Real deployed Solidity bodies execute through ERC1967 proxies. Pair is a faithful 0.25%-fee model without feeTo; LP mint amount can differ from mainnet while price/P&L does not. Discount endpoints are fixed at 299 bps solely to match the registry pinned quote; live endpoint storage is not claimed. USDT P&L is before native gas; gas is printed separately in wei and flash-loan fees are zero in this model.",
+  "war_chest_usdt_display": "1000",
+  "stake_amount_fox_display": "183.950039433255113435",
+  "inviter_fox_display": "5.518501182997653403",
+  "attacker_usdt_after_display": "31.322584671900250096",
+  "attacker_net_usdt_display": "-968.677415328099749904",
+  "pair_usdt_delta_display": "968.677415328099749904"
+}
+
+===== NO-LIQUID-INVITER CONTROL =====
+{
+  "mode": "LOCAL_EXACT_SOURCE_PANCAKE_AND_FLASH_LIQUIDITY_MODEL",
+  "compiler": "0.8.28+commit.7893614a; optimizer 200; viaIR true; cancun",
+  "war_chest_usdt_raw": "450000000000000000000000000",
+  "stake_days": 179,
+  "raw_spot_usdt_per_fox": "5603812687200652594",
+  "discounted_pretrade_quote": "5436258687853353081",
+  "posttrade_quote": "36230017044034683496808",
+  "stake_amount_fox_raw": "82777517744964801045863495",
+  "inviter_fox_raw": "0",
+  "attacker_usdt_before_raw": "450000000000000000000000000",
+  "attacker_usdt_after_raw": "0",
+  "attacker_net_usdt_raw": "-450000000000000000000000000",
+  "attacker_fox_after_raw": "0",
+  "pair_usdt_delta_raw": "450000000000000000000000000",
+  "pair_fox_delta_raw": "-483949144126727493426755",
+  "pair_reserves_after_stake": [
+    "12092572687469146778493",
+    "452786697198864505157273333",
+    "0"
+  ],
+  "staked_fox_pool_raw": "82777517744964801045863495",
+  "treasury_retained_fox_raw": "82777517744964801045863495",
+  "reward_fox_distributor_raw": "0",
+  "dead_lp_raw": "1161336703772842300652916",
+  "gas_used_total_including_setup": 15757900,
+  "gas_price_wei": 1000000000,
+  "gas_cost_wei_total_including_setup": 15757900000000000,
+  "flash_loan_fee_usdt": 0,
+  "notes": "Owner referral binding and minted war chest are tagged local setup surrogates. Real deployed Solidity bodies execute through ERC1967 proxies. Pair is a faithful 0.25%-fee model without feeTo; LP mint amount can differ from mainnet while price/P&L does not. Discount endpoints are fixed at 299 bps solely to match the registry pinned quote; live endpoint storage is not claimed. USDT P&L is before native gas; gas is printed separately in wei and flash-loan fees are zero in this model.",
+  "war_chest_usdt_display": "450000000",
+  "stake_amount_fox_display": "82777517.744964801045863495",
+  "inviter_fox_display": "0",
+  "attacker_usdt_after_display": "0",
+  "attacker_net_usdt_display": "-450000000",
+  "pair_usdt_delta_display": "450000000"
+}
+
+===== EIGHT-SEED EXACT-SOURCE EVM VS MODEL =====
+passed=8 failed=0
+seed=0 quote=5436258687853353081 inviterFOX=2483325532348944031375904 netUSDT=530941023056701789655683 pairUSDTDelta=-530941023056701789655683
+seed=1 quote=5435715172873716490 inviterFOX=2483573839072754966394609 netUSDT=530773495664274627341025 pairUSDTDelta=-530773495664274627341025
+seed=2 quote=5435171875212707292 inviterFOX=2483822096145151422303310 netUSDT=530605925346084494755596 pairUSDTDelta=-530605925346084494755596
+seed=3 quote=5434628794740012760 inviterFOX=2484070303581024356272339 netUSDT=530438312102545785838316 pairUSDTDelta=-530438312102545785838316
+seed=4 quote=5434085931325424335 inviterFOX=2484318461395258770848506 netUSDT=530270655934072915182399 pairUSDTDelta=-530270655934072915182399
+seed=5 quote=5433543284838837519 inviterFOX=2484566569602733718273275 netUSDT=530102956841080319246939 pairUSDTDelta=-530102956841080319246939
+seed=6 quote=5433000855150251773 inviterFOX=2484814628218322302571009 netUSDT=529935214823982455556027 pairUSDTDelta=-529935214823982455556027
+seed=7 quote=5432458642129770414 inviterFOX=2485062637256891682148813 netUSDT=529767429883193802361528 pairUSDTDelta=-529767429883193802361528
+
+===== CAMPAIGN =====
+{
+  "mode": "LOCAL_INTEGER_MODEL_NOT_MAINNET_REPLAY",
+  "rows": 2880,
+  "counts": {
+    "EXECUTED_LOCAL_MODEL": 1536,
+    "REJECTED_ONLY_STAKING_POOL": 240,
+    "SKIPPED_TVL_NOT_MEASURED_GE_1E9": 720,
+    "SKIPPED_ZERO_RESERVE": 384
+  },
+  "positive_local_counterexamples": 320,
+  "canonical_row": "S0-C-A-seed0",
+  "canonical_real_evm_replay": "scripts/replay.py --case canonical; evidence/canonical-replay.json",
+  "canonical_profit_usdt_raw": "530941023056701789655683",
+  "gas": "0 model USDT; real EVM native gas reported separately",
+  "flash_loan_cost": "0 model USDT; live incident net is sourced separately",
+  "tier_D": "SKIPPED_TVL_NOT_MEASURED_GE_1E9"
+}
+Third-party pinned-fork evidence (not this session's RPC run): reference/registry-pinned-fork-output.txt:455 logs 530941.023056701789655683 USDT profit; line 460 pins 116169048; line 779 logs raw gain; line 794 passes.
+Canonical original-calldata evidence: reference/FoxLpBondsPool_exp.canonical.sol:79-100 forks 116169048, calls original attack 0x3A82A2A77061017927e5331fFFd07c0308a1D2DA with exact calldata, and asserts approximately 112976 USDT gain.
+Live trace values from canonical source comments: 481974785.536796421654333021 USDT flash aggregation; 91319059 FOX treasury mint; 2659778 FOX inviter reward; 2593283 FOX net sold; 482652334 USDT sale output; 112976.12 USDT net to attack contract.
+L2Beat incident JSON: gross pair USDT loss 677549.050517106599255604, USD 676520.83; this is distinct from attacker net and local model profit.
+Local gas: canonical total including all deployment/setup is 16017425 gas at 1 gwei = 0.016017425 BNB; USDT P&L is reported before this separately denominated gas. Flash-loan fee is zero only in the local model.
+Final: FINDING-001 is historical incident-backed and locally reproduced. No claim about current exploitability after the incident block.
+Incident reserves used by local model: USDT=2786697198864505157273333; FOX=496041716814196640205248 (registry pinned trace, not current screenshot pair).
+Final build after fork-test inclusion: 57 contracts compiled; canonical, small, and no-inviter replays rerun successfully with unchanged results.
+
+2026-11-06 user current-fork replay: block 132016403, pool 0x9fa6D8a13b35E051BFc145918db0111dEc13D1A0; stake reverted Error("Unauthorized"); no inviter FOX, sale, P&L, or pair delta. Diagnostic test PASS is not exploit success. Evidence: evidence/current-user-replay.log. User-executed, not independently rerun.

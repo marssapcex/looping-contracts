@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "entries": 49,
+  "years": {
+    "2019": 1,
+    "2020": 5,
+    "2021": 2,
+    "2022": 6,
+    "2023": 5,
+    "2024": 5,
+    "2025": 4,
+    "2026": 21
+  },
+  "confidence": {
+    "A": 12,
+    "B": 35,
+    "C": 2
+  },
+  "reuse": {
+    "COMPARATOR_2026_NO_REPRODUCTION": 3,
+    "COMPARATOR_NOT_EXTERNAL_FEED": 3,
+    "EXCLUDED_2026_REPRODUCTION": 17,
+    "HISTORICAL_REFERENCE_ONLY": 25,
+    "LOW_CONFIDENCE_NO_REPRODUCTION": 1
+  },
+  "raw_balance_or_cap": 13,
+  "spike_or_deviation_check": 42,
+  "issuer_affiliate_asset": 3,
+  "pinned_reproducer_value": 48,
+  "source_urls_unique": 47,
+  "note": "Schema and reproduction-label validation only; not fork verification or a claim that every public incident is exhaustively enumerated."
+}

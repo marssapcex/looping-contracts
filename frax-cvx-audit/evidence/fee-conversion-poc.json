@@ -1,0 +1,48 @@
+{
+  "mode": "LOCAL_PRODUCTION_BYTECODE_CONDITIONAL_CONFIG_POC",
+  "production_contracts": [
+    "FeeDepositV2",
+    "FeeDeposit (differential control)",
+    "FxsDepositor",
+    "cvxFxsToken"
+  ],
+  "mocked_external_dependencies": [
+    "FXS token",
+    "FeeRegistry",
+    "vlCVX reward sink",
+    "lock staker"
+  ],
+  "configuration": {
+    "lockIncentive_bps": 30,
+    "convertVlcvxRewards": true,
+    "UseDistributors": false,
+    "feeDeposit_fxs_raw": "1000000000000000000000",
+    "callerIncentive_bps": 100,
+    "feeRegistry": {
+      "totalFees": 1700,
+      "cvxIncentive": 700,
+      "platformIncentive": 0
+    }
+  },
+  "no_lock_deposit_fxs_raw": "1000000000000000000000",
+  "accrued_lock_incentive_raw": "3000000000000000000",
+  "converted_cvx_rewards_raw": "407647058823529411764",
+  "reward_sink_notified_cvxfxs_raw": "407647058823529411764",
+  "fee_deposit_trapped_cvxfxs_raw": "3000000000000000000",
+  "trapped_equals_accrued_incentive": true,
+  "permissionless_caller": "0x1efF47bc3a10a45D4B230B5d10E37751FE6AA718",
+  "caller_fxs_delta_raw": "10000000000000000000",
+  "caller_delta_is_designed_distribution_incentive_not_exploit_pnl": true,
+  "owner_rescue_cvxfxs_rejected": true,
+  "repeat_distribution_trapped_delta_raw": "0",
+  "rescue_path": "None: rescueToken rejects cvxFxs and conversion notifies only new cvxRewards.",
+  "legacy_fee_deposit_control": {
+    "additional_reward_sink_notified_cvxfxs_raw": "410647058823529411764",
+    "expected_cvx_rewards_plus_incentive_raw": "410647058823529411764",
+    "remaining_cvxfxs_raw": "0",
+    "status": "PASS_NO_TRAPPING_IN_LEGACY_FULL_BALANCE_SWEEP"
+  },
+  "impact_scope": "Conditional protocol reward/yield trapping, not permissionless attacker profit.",
+  "successful_transactions": 23,
+  "status": "PASS_COUNTEREXAMPLE_REPRODUCED"
+}

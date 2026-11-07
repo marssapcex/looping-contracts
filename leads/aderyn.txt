@@ -1,0 +1,5 @@
+tool_unavailable: aderyn
+Installation attempted: npm install --no-save @cyfrin/aderyn@0.6.8
+Result: postinstall failed while downloading https://github.com/cyfrin/aderyn/releases/download/aderyn-v0.6.8/aderyn-x86_64-unknown-linux-gnu.tar.xz
+Reported error: unable to verify the first certificate
+No aderyn detector result is claimed.

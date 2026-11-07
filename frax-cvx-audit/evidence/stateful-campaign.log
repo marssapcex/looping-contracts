@@ -1,0 +1,15 @@
+{
+  "mode": "EXACT_PRODUCTION_BYTECODE_STATEFUL_MODEL_AND_CONSERVATION",
+  "compiler": "0.8.10+commit.fc410830; optimizer 200",
+  "seed": 12648430,
+  "sequences_per_contract": 32,
+  "steps_per_sequence": 128,
+  "successful_transactions_including_setup": 9374,
+  "sandwich_negative_control": {
+    "victim_pending": 100000000000000000000,
+    "attacker_pending": 0
+  },
+  "status": "PASS"
+}
+Multi totals: {'funded': 22479244000000000000000000, 'claimed': 22104781451418923777312761, 'contract_balance': 374462548581076222687239}
+Staked totals: {'donated': 44884391000000000000000000, 'claimed': 41542548435038286163922026, 'contract_balance': 3341842564961713836077974}

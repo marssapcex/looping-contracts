@@ -1,0 +1,48 @@
+Compiling 1 files with Solc 0.8.24
+Solc 0.8.24 finished in 26.26s
+Compiler run successful with warnings:
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/ILiquidSwap.sol
+
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/IWrappedHlpDepositor.sol
+
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/IWrappedHype.sol
+
+Warning (2018): Function state mutability can be restricted to view
+   --> contracts/periphery/GluexAdapter.sol:100:5:
+    |
+100 |     function _loadSwapData(address tokenIn, address tokenOut) internal returns (bytes memory) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> contracts/periphery/HypertradeAdapter.sol:101:5:
+    |
+101 |     function _loadSwapData(address tokenIn, address tokenOut) internal returns (bytes memory) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> poc/Mocks.sol:124:5:
+    |
+124 |     function executeSwaps(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 7 tests for poc/OracleAccountingBoundaries.t.sol:OracleAccountingBoundariesTest
+[PASS] test_CircularRouteDoubleCountAndTerminalCheck() (gas: 440419)
+[PASS] test_DeviationAndInstantPpsControls() (gas: 309832)
+[PASS] test_DonationRaisesExistingClaimsDespiteMintCap() (gas: 949925)
+Logs:
+  raw_cash_represented_after_donation=180 cap=100 self_donation_profit_not_claimed
+
+[PASS] test_LoopingCorrectRouteExecutesAndWrongTerminalRevertsWithoutVictimDelta() (gas: 8196147)
+[PASS] test_LoopingWrongTerminalCannotSupplyDeclaredYield() (gas: 8179932)
+[PASS] test_UnsignedProofAndWrongSignerRejectedOnlyByGuard() (gas: 470951)
+[PASS] test_ZeroCapActiveNavDonationVsRemovalControl() (gas: 1536925)
+Logs:
+  nav_attacker_input=100 stale_cost=0 payout=145 pnl_before_gas=45 victim_liquid=55
+
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 3.62ms (4.65ms CPU time)
+
+Ran 1 test suite in 13.38ms (3.62ms CPU time): 7 tests passed, 0 failed, 0 skipped (7 total tests)

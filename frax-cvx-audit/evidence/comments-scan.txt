@@ -1,0 +1,26 @@
+frax-cvx-audit/contracts/Booster.sol:55:        //TODO: consider moving to a module so dont have to set everything again if upgraded
+frax-cvx-audit/contracts/Booster.sol:269:        //should be a bit cheaper than call above since there should be no token transfers in second call
+frax-cvx-audit/contracts/PoolRegistry.sol:99:    //each user must call changeRewards on vault to update to new contract
+frax-cvx-audit/contracts/PoolUtilities.sol:75:            // Need to use proxy-wide FRAX balance if applicable, to prevent exploiting
+frax-cvx-audit/contracts/StakingProxyUniV3.sol:180:    //there should never be an erc721 on this address but since it is a receiver, allow owner to extract any
+frax-cvx-audit/contracts/TreasuryManagerFrax.sol:176:        //pull (cvx should be sent directly, not have pull access)
+frax-cvx-audit/contracts/TreasuryManagerFrax.sol:221:        //reset kek map as this locked state should be removed on farm side
+frax-cvx-audit/contracts/TreasuryManagerFrax.sol:252:        //reset kek map as this locked state should be removed on farm side
+frax-cvx-audit/contracts/fraxtal/StakedCvxFxs.sol:259:        //in order to forward, must be called by the account itself
+frax-cvx-audit/contracts/fraxtal/cvxFXB.sol:114:        //deployment should send the outstanding amount
+frax-cvx-audit/contracts/fraxtal/cvxFXB.sol:405:        //thus in fxb case should be above 1.0 and trend down to 1.0 at maturity
+frax-cvx-audit/contracts/fraxtal/cvxFXBRateCalc.sol:163:    //calculate what util bounds should be used
+frax-cvx-audit/contracts/fraxtal/cvxFXBRateCalc.sol:173:            //should never be a situation where low is better than high but current isnt
+frax-cvx-audit/contracts/fraxtal/cvxFXBRateCalc.sol:183:    //helper function to check if updateBalances() should be called
+frax-cvx-audit/contracts/fraxtal/cvxToken.sol:13:     * This function call must use less than 30 000 gas.
+frax-cvx-audit/contracts/interfaces/INonfungiblePositionManager.sol:116:    /// deadline The time by which the transaction must be included to effect the change
+frax-cvx-audit/contracts/interfaces/INonfungiblePositionManager.sol:140:    /// amount0Min The minimum amount of token0 that should be accounted for the burned liquidity,
+frax-cvx-audit/contracts/interfaces/INonfungiblePositionManager.sol:141:    /// amount1Min The minimum amount of token1 that should be accounted for the burned liquidity,
+frax-cvx-audit/contracts/interfaces/INonfungiblePositionManager.sol:142:    /// deadline The time by which the transaction must be included to effect the change
+frax-cvx-audit/contracts/interfaces/INonfungiblePositionManager.sol:159:    /// recipient The account that should receive the tokens,
+frax-cvx-audit/contracts/interfaces/INonfungiblePositionManager.sol:166:    /// @notice Burns a token ID, which deletes it from the NFT contract. The token must have 0 liquidity and all tokens
+frax-cvx-audit/contracts/interfaces/INonfungiblePositionManager.sol:167:    /// must be collected first.
+frax-cvx-audit/contracts/testing/IDebugInterfaces.sol:89:interface ICurveGaugeDebug {
+frax-cvx-audit/contracts/testing/IDebugInterfaces.sol:98:interface IWalletCheckerDebug{
+frax-cvx-audit/contracts/testing/TestPool_Erc20.sol:131:    // If this were not internal, and source_address had an infinite approve, this could be exploitable
+frax-cvx-audit/contracts/testing/TestPool_UniV3.sol:247:    // If this were not internal, and source_address had an infinite approve, this could be exploitable

@@ -1,0 +1,174 @@
+{
+  "mode": "LOCAL_PRODUCTION_BYTECODE_CONDITIONAL_STAKING_DEFICIT",
+  "production_contracts": [
+    "cvxFxsStaking",
+    "FxsDepositor",
+    "cvxFxsToken"
+  ],
+  "mocked_external_dependencies": [
+    "FXS token",
+    "lock staker"
+  ],
+  "configuration": {
+    "tested_lock_incentive_bps": [
+      30,
+      0
+    ],
+    "user_supplied_etherscan_screenshot_lock_incentive_bps": 0,
+    "screenshot_block_number": null,
+    "pinned_mainnet_configuration_verified": false
+  },
+  "scenarios": [
+    {
+      "label": "1000 FXS demonstration",
+      "successful_transactions_including_setup": 20,
+      "attack_amount_fxs_raw": "1000000000000000000000",
+      "lock_incentive_bps": 30,
+      "expected_fee_raw": "3000000000000000000",
+      "pool_before": {
+        "supply_raw": "1000000000000000000000",
+        "cvxfxs_backing_raw": "1000000000000000000000"
+      },
+      "pool_after_attacker_deposit": {
+        "supply_raw": "2000000000000000000000",
+        "cvxfxs_backing_raw": "1997000000000000000000",
+        "deficit_raw": "3000000000000000000"
+      },
+      "attacker": {
+        "address": "0x1efF47bc3a10a45D4B230B5d10E37751FE6AA718",
+        "fxs_delta_raw": "-1000000000000000000000",
+        "cvxfxs_delta_raw": "1000000000000000000000",
+        "honest_direct_cvxfxs_baseline_raw": "997000000000000000000",
+        "gross_advantage_over_direct_baseline_cvxfxs_raw": "3000000000000000000",
+        "approve_deposit_withdraw_gas_cost_wei": "258768000000000"
+      },
+      "pool_after_attacker_withdrawal": {
+        "supply_raw": "1000000000000000000000",
+        "cvxfxs_backing_raw": "997000000000000000000"
+      },
+      "victim": {
+        "address": "0x6813Eb9362372EEF6200f3b1dbC3f819671cBA69",
+        "initial_shares_raw": "1000000000000000000000",
+        "full_withdrawal_reverted_for_insufficient_pool_backing": true,
+        "cvxfxs_delta_from_partial_withdrawal_raw": "997000000000000000000",
+        "residual_unbacked_shares_raw": "3000000000000000000"
+      },
+      "honest_direct_control_cvxfxs_received_raw": "997000000000000000000",
+      "net_pnl_status": "UNPRICED: gross cvxFXS advantage is measured; FXS/cvxFXS swap proceeds and gas-to-token conversion are not established."
+    },
+    {
+      "label": "minimum integer amount with 30 bps fee rounding to one wei",
+      "successful_transactions_including_setup": 20,
+      "attack_amount_fxs_raw": "334",
+      "lock_incentive_bps": 30,
+      "expected_fee_raw": "1",
+      "pool_before": {
+        "supply_raw": "1000000000000000000000",
+        "cvxfxs_backing_raw": "1000000000000000000000"
+      },
+      "pool_after_attacker_deposit": {
+        "supply_raw": "1000000000000000000334",
+        "cvxfxs_backing_raw": "1000000000000000000333",
+        "deficit_raw": "1"
+      },
+      "attacker": {
+        "address": "0x1efF47bc3a10a45D4B230B5d10E37751FE6AA718",
+        "fxs_delta_raw": "-334",
+        "cvxfxs_delta_raw": "334",
+        "honest_direct_cvxfxs_baseline_raw": "333",
+        "gross_advantage_over_direct_baseline_cvxfxs_raw": "1",
+        "approve_deposit_withdraw_gas_cost_wei": "258588000000000"
+      },
+      "pool_after_attacker_withdrawal": {
+        "supply_raw": "1000000000000000000000",
+        "cvxfxs_backing_raw": "999999999999999999999"
+      },
+      "victim": {
+        "address": "0x6813Eb9362372EEF6200f3b1dbC3f819671cBA69",
+        "initial_shares_raw": "1000000000000000000000",
+        "full_withdrawal_reverted_for_insufficient_pool_backing": true,
+        "cvxfxs_delta_from_partial_withdrawal_raw": "999999999999999999999",
+        "residual_unbacked_shares_raw": "1"
+      },
+      "honest_direct_control_cvxfxs_received_raw": "333",
+      "net_pnl_status": "UNPRICED: gross cvxFXS advantage is measured; FXS/cvxFXS swap proceeds and gas-to-token conversion are not established."
+    },
+    {
+      "label": "negative boundary: fee rounds to zero",
+      "successful_transactions_including_setup": 20,
+      "attack_amount_fxs_raw": "333",
+      "lock_incentive_bps": 30,
+      "expected_fee_raw": "0",
+      "pool_before": {
+        "supply_raw": "1000000000000000000000",
+        "cvxfxs_backing_raw": "1000000000000000000000"
+      },
+      "pool_after_attacker_deposit": {
+        "supply_raw": "1000000000000000000333",
+        "cvxfxs_backing_raw": "1000000000000000000333",
+        "deficit_raw": "0"
+      },
+      "attacker": {
+        "address": "0x1efF47bc3a10a45D4B230B5d10E37751FE6AA718",
+        "fxs_delta_raw": "-333",
+        "cvxfxs_delta_raw": "333",
+        "honest_direct_cvxfxs_baseline_raw": "333",
+        "gross_advantage_over_direct_baseline_cvxfxs_raw": "0",
+        "approve_deposit_withdraw_gas_cost_wei": "239810000000000"
+      },
+      "pool_after_attacker_withdrawal": {
+        "supply_raw": "1000000000000000000000",
+        "cvxfxs_backing_raw": "1000000000000000000000"
+      },
+      "victim": {
+        "address": "0x6813Eb9362372EEF6200f3b1dbC3f819671cBA69",
+        "initial_shares_raw": "1000000000000000000000",
+        "full_withdrawal_reverted_for_insufficient_pool_backing": false,
+        "cvxfxs_delta_from_partial_withdrawal_raw": "1000000000000000000000",
+        "residual_unbacked_shares_raw": "0"
+      },
+      "honest_direct_control_cvxfxs_received_raw": "333",
+      "net_pnl_status": "UNPRICED: gross cvxFXS advantage is measured; FXS/cvxFXS swap proceeds and gas-to-token conversion are not established."
+    },
+    {
+      "label": "zero-incentive control matching user-supplied Etherscan screenshot",
+      "successful_transactions_including_setup": 20,
+      "attack_amount_fxs_raw": "1000000000000000000000",
+      "lock_incentive_bps": 0,
+      "expected_fee_raw": "0",
+      "pool_before": {
+        "supply_raw": "1000000000000000000000",
+        "cvxfxs_backing_raw": "1000000000000000000000"
+      },
+      "pool_after_attacker_deposit": {
+        "supply_raw": "2000000000000000000000",
+        "cvxfxs_backing_raw": "2000000000000000000000",
+        "deficit_raw": "0"
+      },
+      "attacker": {
+        "address": "0x1efF47bc3a10a45D4B230B5d10E37751FE6AA718",
+        "fxs_delta_raw": "-1000000000000000000000",
+        "cvxfxs_delta_raw": "1000000000000000000000",
+        "honest_direct_cvxfxs_baseline_raw": "1000000000000000000000",
+        "gross_advantage_over_direct_baseline_cvxfxs_raw": "0",
+        "approve_deposit_withdraw_gas_cost_wei": "237880000000000"
+      },
+      "pool_after_attacker_withdrawal": {
+        "supply_raw": "1000000000000000000000",
+        "cvxfxs_backing_raw": "1000000000000000000000"
+      },
+      "victim": {
+        "address": "0x6813Eb9362372EEF6200f3b1dbC3f819671cBA69",
+        "initial_shares_raw": "1000000000000000000000",
+        "full_withdrawal_reverted_for_insufficient_pool_backing": false,
+        "cvxfxs_delta_from_partial_withdrawal_raw": "1000000000000000000000",
+        "residual_unbacked_shares_raw": "0"
+      },
+      "honest_direct_control_cvxfxs_received_raw": "1000000000000000000000",
+      "net_pnl_status": "UNPRICED: gross cvxFXS advantage is measured; FXS/cvxFXS swap proceeds and gas-to-token conversion are not established."
+    }
+  ],
+  "status": "PASS_CONDITIONAL_DEFICIT_AND_REAL_WITHDRAWAL_REPRODUCED",
+  "promotion_status": "NOT_A_CURRENT_MAINNET_FINDING: zero-incentive control has no deficit; nonzero-fee behavior is latent/conditional only. Screenshot is not block-pinned fork evidence.",
+  "successful_transactions_including_setup_all_scenarios": 80
+}

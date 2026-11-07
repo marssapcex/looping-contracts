@@ -1,0 +1,461 @@
+ELLIPSIS AUDIT run.log; MODELS ARE NOT MAINNET FORKS
+date=2026-11-06; chain=BSC; pin_block=UNAVAILABLE_NO_BSC_ARCHIVE
+solc=0.7.6+commit.7338295f; vyper_token=0.2.11+commit.5db35ef; vyper_curve=0.3.4+commit.f31f0ec
+RPC eth_chainId https://bsc-dataseed.binance.org => curl 35 SSL_ERROR_SYSCALL
+RPC eth_chainId https://bsc-rpc.publicnode.com => curl 35 SSL_ERROR_SYSCALL
+tool_unavailable: vulnchain corpus absent; no incident IDs or loss claims used
+tool_note: Foundry Solar lint supports Solidity >=0.8 only; exact solc and Slither used instead
+command: FOUNDRY_PROFILE=ci forge test --match-path poc/*.t.sol --fuzz-seed <0..7> -vvv
+===== FUZZ_SEED=0 =====
+Compiling 1 files with Solc 0.7.6
+Solc 0.7.6 finished in 1.15s
+Compiler run successful with warnings:
+Warning (8760): This declaration has the same name as another declaration.
+poc/CurvePoC.t.sol:11:9: Warning: This declaration has the same name as another declaration.
+        uint256 mid_fee,
+        ^-------------^
+poc/CurvePoC.t.sol:31:5: The other declaration is here:
+    function mid_fee() external view returns (uint256);
+    ^-------------------------------------------------^
+
+Ran 5 tests for poc/CurvePoC.t.sol:CurvePoC
+[PASS] testFuzz_swap_quote_execution(uint256) (runs: 1000, μ: 132869, ~: 120066)
+[PASS] test_extended_callback_reentry_rejected() (gas: 504223)
+Logs:
+  EXACT_VYPER callback nested exchange rejected=1; no drain P&L 0
+
+[PASS] test_get_dy_matches_real_exchange() (gas: 158578)
+Logs:
+  EXACT_VYPER normal swap dx raw 1e18 1000000000000000000000
+  EXACT_VYPER normal swap dy raw 1e18 999494929353142191340
+
+[PASS] test_initialize_cannot_run_twice() (gas: 11977)
+[PASS] test_proportional_withdrawal_burns_lp_and_returns_coins() (gas: 105936)
+Logs:
+  EXACT_VYPER withdrawal LP cost raw 1e18 100000000000000000000000
+  EXACT_VYPER withdrawal coin0 raw 1e18 99999999999999999999999
+  EXACT_VYPER withdrawal coin1 raw 1e18 99999999999999999999999
+
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 201.88ms (199.18ms CPU time)
+
+Ran 8 tests for poc/StakingPoC.t.sol:StakingPoC
+[PASS] testFuzz_STATE0_stale_emission_counterexample(uint256) (runs: 1000, μ: 337039, ~: 337039)
+[PASS] testFuzz_deposit_withdraw_principal(uint256) (runs: 1000, μ: 98064, ~: 98064)
+[PASS] test_CONTROL_on_time_emission_boundaries() (gas: 477508)
+Logs:
+  CONTROL on-time net model EPS withdrawal 60000000000000000000000
+
+[PASS] test_LOCAL_LEAD_stale_emission_withdrawal_and_signed_pnl() (gas: 414806)
+Logs:
+  MODEL_ONLY pin_block=UNAVAILABLE_NO_BSC_ARCHIVE
+  MODEL_ONLY state=STATE0 exact deployed Solidity; mock LP/EPS units=1e18
+  attacker LP delta (raw 1e18 units) 0
+  attacker EPS gross withdrawal delta (raw 1e18 units) 100000000000000000000000
+  attacker gas/flash-loan cost (model EPS units) 0
+  attacker net P&L (model EPS units, USD unmeasured) 100000000000000000000000
+  protocol retained EPS delta (raw 1e18 units) 100000000000000000000000
+  victim EPS delta (raw 1e18 units) 0
+  victim LP delta (raw 1e18 units) 0
+  schedule-correct gross EPS (raw 1e18 units) 120000000000000000000000
+  excess EPS withdrawal vs control (raw 1e18 units) 40000000000000000000000
+
+[PASS] test_duplicate_claim_does_not_double_mint() (gas: 473346)
+[PASS] test_expired_lock_principal_conserved() (gas: 118592)
+[PASS] test_unauthorized_mint_reverts() (gas: 12886)
+[PASS] test_view_wrong_msg_sender_is_not_withdrawal() (gas: 458176)
+Logs:
+  VIEW_ONLY wrong-account unlockedBalance; no token movement 7920000000000000000000
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 381.53ms (381.73ms CPU time)
+
+Ran 2 test suites in 384.57ms (583.41ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+===== FUZZ_SEED=1 =====
+No files changed, compilation skipped
+
+Ran 5 tests for poc/CurvePoC.t.sol:CurvePoC
+[PASS] testFuzz_swap_quote_execution(uint256) (runs: 1000, μ: 131824, ~: 120027)
+[PASS] test_extended_callback_reentry_rejected() (gas: 504223)
+Logs:
+  EXACT_VYPER callback nested exchange rejected=1; no drain P&L 0
+
+[PASS] test_get_dy_matches_real_exchange() (gas: 158578)
+Logs:
+  EXACT_VYPER normal swap dx raw 1e18 1000000000000000000000
+  EXACT_VYPER normal swap dy raw 1e18 999494929353142191340
+
+[PASS] test_initialize_cannot_run_twice() (gas: 11977)
+[PASS] test_proportional_withdrawal_burns_lp_and_returns_coins() (gas: 105936)
+Logs:
+  EXACT_VYPER withdrawal LP cost raw 1e18 100000000000000000000000
+  EXACT_VYPER withdrawal coin0 raw 1e18 99999999999999999999999
+  EXACT_VYPER withdrawal coin1 raw 1e18 99999999999999999999999
+
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 188.26ms (186.23ms CPU time)
+
+Ran 8 tests for poc/StakingPoC.t.sol:StakingPoC
+[PASS] testFuzz_STATE0_stale_emission_counterexample(uint256) (runs: 1000, μ: 337039, ~: 337039)
+[PASS] testFuzz_deposit_withdraw_principal(uint256) (runs: 1000, μ: 98064, ~: 98064)
+[PASS] test_CONTROL_on_time_emission_boundaries() (gas: 477508)
+Logs:
+  CONTROL on-time net model EPS withdrawal 60000000000000000000000
+
+[PASS] test_LOCAL_LEAD_stale_emission_withdrawal_and_signed_pnl() (gas: 414806)
+Logs:
+  MODEL_ONLY pin_block=UNAVAILABLE_NO_BSC_ARCHIVE
+  MODEL_ONLY state=STATE0 exact deployed Solidity; mock LP/EPS units=1e18
+  attacker LP delta (raw 1e18 units) 0
+  attacker EPS gross withdrawal delta (raw 1e18 units) 100000000000000000000000
+  attacker gas/flash-loan cost (model EPS units) 0
+  attacker net P&L (model EPS units, USD unmeasured) 100000000000000000000000
+  protocol retained EPS delta (raw 1e18 units) 100000000000000000000000
+  victim EPS delta (raw 1e18 units) 0
+  victim LP delta (raw 1e18 units) 0
+  schedule-correct gross EPS (raw 1e18 units) 120000000000000000000000
+  excess EPS withdrawal vs control (raw 1e18 units) 40000000000000000000000
+
+[PASS] test_duplicate_claim_does_not_double_mint() (gas: 473346)
+[PASS] test_expired_lock_principal_conserved() (gas: 118592)
+[PASS] test_unauthorized_mint_reverts() (gas: 12886)
+[PASS] test_view_wrong_msg_sender_is_not_withdrawal() (gas: 458176)
+Logs:
+  VIEW_ONLY wrong-account unlockedBalance; no token movement 7920000000000000000000
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 294.85ms (295.38ms CPU time)
+
+Ran 2 test suites in 301.11ms (483.10ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+===== FUZZ_SEED=2 =====
+No files changed, compilation skipped
+
+Ran 5 tests for poc/CurvePoC.t.sol:CurvePoC
+[PASS] testFuzz_swap_quote_execution(uint256) (runs: 1000, μ: 131935, ~: 119998)
+[PASS] test_extended_callback_reentry_rejected() (gas: 504223)
+Logs:
+  EXACT_VYPER callback nested exchange rejected=1; no drain P&L 0
+
+[PASS] test_get_dy_matches_real_exchange() (gas: 158578)
+Logs:
+  EXACT_VYPER normal swap dx raw 1e18 1000000000000000000000
+  EXACT_VYPER normal swap dy raw 1e18 999494929353142191340
+
+[PASS] test_initialize_cannot_run_twice() (gas: 11977)
+[PASS] test_proportional_withdrawal_burns_lp_and_returns_coins() (gas: 105936)
+Logs:
+  EXACT_VYPER withdrawal LP cost raw 1e18 100000000000000000000000
+  EXACT_VYPER withdrawal coin0 raw 1e18 99999999999999999999999
+  EXACT_VYPER withdrawal coin1 raw 1e18 99999999999999999999999
+
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 192.48ms (190.47ms CPU time)
+
+Ran 8 tests for poc/StakingPoC.t.sol:StakingPoC
+[PASS] testFuzz_STATE0_stale_emission_counterexample(uint256) (runs: 1000, μ: 337039, ~: 337039)
+[PASS] testFuzz_deposit_withdraw_principal(uint256) (runs: 1000, μ: 98064, ~: 98064)
+[PASS] test_CONTROL_on_time_emission_boundaries() (gas: 477508)
+Logs:
+  CONTROL on-time net model EPS withdrawal 60000000000000000000000
+
+[PASS] test_LOCAL_LEAD_stale_emission_withdrawal_and_signed_pnl() (gas: 414806)
+Logs:
+  MODEL_ONLY pin_block=UNAVAILABLE_NO_BSC_ARCHIVE
+  MODEL_ONLY state=STATE0 exact deployed Solidity; mock LP/EPS units=1e18
+  attacker LP delta (raw 1e18 units) 0
+  attacker EPS gross withdrawal delta (raw 1e18 units) 100000000000000000000000
+  attacker gas/flash-loan cost (model EPS units) 0
+  attacker net P&L (model EPS units, USD unmeasured) 100000000000000000000000
+  protocol retained EPS delta (raw 1e18 units) 100000000000000000000000
+  victim EPS delta (raw 1e18 units) 0
+  victim LP delta (raw 1e18 units) 0
+  schedule-correct gross EPS (raw 1e18 units) 120000000000000000000000
+  excess EPS withdrawal vs control (raw 1e18 units) 40000000000000000000000
+
+[PASS] test_duplicate_claim_does_not_double_mint() (gas: 473346)
+[PASS] test_expired_lock_principal_conserved() (gas: 118592)
+[PASS] test_unauthorized_mint_reverts() (gas: 12886)
+[PASS] test_view_wrong_msg_sender_is_not_withdrawal() (gas: 458176)
+Logs:
+  VIEW_ONLY wrong-account unlockedBalance; no token movement 7920000000000000000000
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 306.59ms (307.08ms CPU time)
+
+Ran 2 test suites in 315.22ms (499.07ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+===== FUZZ_SEED=3 =====
+No files changed, compilation skipped
+
+Ran 5 tests for poc/CurvePoC.t.sol:CurvePoC
+[PASS] testFuzz_swap_quote_execution(uint256) (runs: 1000, μ: 133101, ~: 120463)
+[PASS] test_extended_callback_reentry_rejected() (gas: 504223)
+Logs:
+  EXACT_VYPER callback nested exchange rejected=1; no drain P&L 0
+
+[PASS] test_get_dy_matches_real_exchange() (gas: 158578)
+Logs:
+  EXACT_VYPER normal swap dx raw 1e18 1000000000000000000000
+  EXACT_VYPER normal swap dy raw 1e18 999494929353142191340
+
+[PASS] test_initialize_cannot_run_twice() (gas: 11977)
+[PASS] test_proportional_withdrawal_burns_lp_and_returns_coins() (gas: 105936)
+Logs:
+  EXACT_VYPER withdrawal LP cost raw 1e18 100000000000000000000000
+  EXACT_VYPER withdrawal coin0 raw 1e18 99999999999999999999999
+  EXACT_VYPER withdrawal coin1 raw 1e18 99999999999999999999999
+
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 183.33ms (181.44ms CPU time)
+
+Ran 8 tests for poc/StakingPoC.t.sol:StakingPoC
+[PASS] testFuzz_STATE0_stale_emission_counterexample(uint256) (runs: 1000, μ: 337039, ~: 337039)
+[PASS] testFuzz_deposit_withdraw_principal(uint256) (runs: 1000, μ: 98064, ~: 98064)
+[PASS] test_CONTROL_on_time_emission_boundaries() (gas: 477508)
+Logs:
+  CONTROL on-time net model EPS withdrawal 60000000000000000000000
+
+[PASS] test_LOCAL_LEAD_stale_emission_withdrawal_and_signed_pnl() (gas: 414806)
+Logs:
+  MODEL_ONLY pin_block=UNAVAILABLE_NO_BSC_ARCHIVE
+  MODEL_ONLY state=STATE0 exact deployed Solidity; mock LP/EPS units=1e18
+  attacker LP delta (raw 1e18 units) 0
+  attacker EPS gross withdrawal delta (raw 1e18 units) 100000000000000000000000
+  attacker gas/flash-loan cost (model EPS units) 0
+  attacker net P&L (model EPS units, USD unmeasured) 100000000000000000000000
+  protocol retained EPS delta (raw 1e18 units) 100000000000000000000000
+  victim EPS delta (raw 1e18 units) 0
+  victim LP delta (raw 1e18 units) 0
+  schedule-correct gross EPS (raw 1e18 units) 120000000000000000000000
+  excess EPS withdrawal vs control (raw 1e18 units) 40000000000000000000000
+
+[PASS] test_duplicate_claim_does_not_double_mint() (gas: 473346)
+[PASS] test_expired_lock_principal_conserved() (gas: 118592)
+[PASS] test_unauthorized_mint_reverts() (gas: 12886)
+[PASS] test_view_wrong_msg_sender_is_not_withdrawal() (gas: 458176)
+Logs:
+  VIEW_ONLY wrong-account unlockedBalance; no token movement 7920000000000000000000
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 291.75ms (292.24ms CPU time)
+
+Ran 2 test suites in 299.97ms (475.08ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+===== FUZZ_SEED=4 =====
+No files changed, compilation skipped
+
+Ran 5 tests for poc/CurvePoC.t.sol:CurvePoC
+[PASS] testFuzz_swap_quote_execution(uint256) (runs: 1000, μ: 133275, ~: 127209)
+[PASS] test_extended_callback_reentry_rejected() (gas: 504223)
+Logs:
+  EXACT_VYPER callback nested exchange rejected=1; no drain P&L 0
+
+[PASS] test_get_dy_matches_real_exchange() (gas: 158578)
+Logs:
+  EXACT_VYPER normal swap dx raw 1e18 1000000000000000000000
+  EXACT_VYPER normal swap dy raw 1e18 999494929353142191340
+
+[PASS] test_initialize_cannot_run_twice() (gas: 11977)
+[PASS] test_proportional_withdrawal_burns_lp_and_returns_coins() (gas: 105936)
+Logs:
+  EXACT_VYPER withdrawal LP cost raw 1e18 100000000000000000000000
+  EXACT_VYPER withdrawal coin0 raw 1e18 99999999999999999999999
+  EXACT_VYPER withdrawal coin1 raw 1e18 99999999999999999999999
+
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 189.36ms (187.47ms CPU time)
+
+Ran 8 tests for poc/StakingPoC.t.sol:StakingPoC
+[PASS] testFuzz_STATE0_stale_emission_counterexample(uint256) (runs: 1000, μ: 337039, ~: 337039)
+[PASS] testFuzz_deposit_withdraw_principal(uint256) (runs: 1000, μ: 98064, ~: 98064)
+[PASS] test_CONTROL_on_time_emission_boundaries() (gas: 477508)
+Logs:
+  CONTROL on-time net model EPS withdrawal 60000000000000000000000
+
+[PASS] test_LOCAL_LEAD_stale_emission_withdrawal_and_signed_pnl() (gas: 414806)
+Logs:
+  MODEL_ONLY pin_block=UNAVAILABLE_NO_BSC_ARCHIVE
+  MODEL_ONLY state=STATE0 exact deployed Solidity; mock LP/EPS units=1e18
+  attacker LP delta (raw 1e18 units) 0
+  attacker EPS gross withdrawal delta (raw 1e18 units) 100000000000000000000000
+  attacker gas/flash-loan cost (model EPS units) 0
+  attacker net P&L (model EPS units, USD unmeasured) 100000000000000000000000
+  protocol retained EPS delta (raw 1e18 units) 100000000000000000000000
+  victim EPS delta (raw 1e18 units) 0
+  victim LP delta (raw 1e18 units) 0
+  schedule-correct gross EPS (raw 1e18 units) 120000000000000000000000
+  excess EPS withdrawal vs control (raw 1e18 units) 40000000000000000000000
+
+[PASS] test_duplicate_claim_does_not_double_mint() (gas: 473346)
+[PASS] test_expired_lock_principal_conserved() (gas: 118592)
+[PASS] test_unauthorized_mint_reverts() (gas: 12886)
+[PASS] test_view_wrong_msg_sender_is_not_withdrawal() (gas: 458176)
+Logs:
+  VIEW_ONLY wrong-account unlockedBalance; no token movement 7920000000000000000000
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 306.96ms (307.68ms CPU time)
+
+Ran 2 test suites in 315.07ms (496.32ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+===== FUZZ_SEED=5 =====
+No files changed, compilation skipped
+
+Ran 5 tests for poc/CurvePoC.t.sol:CurvePoC
+[PASS] testFuzz_swap_quote_execution(uint256) (runs: 1000, μ: 133961, ~: 120463)
+[PASS] test_extended_callback_reentry_rejected() (gas: 504223)
+Logs:
+  EXACT_VYPER callback nested exchange rejected=1; no drain P&L 0
+
+[PASS] test_get_dy_matches_real_exchange() (gas: 158578)
+Logs:
+  EXACT_VYPER normal swap dx raw 1e18 1000000000000000000000
+  EXACT_VYPER normal swap dy raw 1e18 999494929353142191340
+
+[PASS] test_initialize_cannot_run_twice() (gas: 11977)
+[PASS] test_proportional_withdrawal_burns_lp_and_returns_coins() (gas: 105936)
+Logs:
+  EXACT_VYPER withdrawal LP cost raw 1e18 100000000000000000000000
+  EXACT_VYPER withdrawal coin0 raw 1e18 99999999999999999999999
+  EXACT_VYPER withdrawal coin1 raw 1e18 99999999999999999999999
+
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 187.08ms (185.20ms CPU time)
+
+Ran 8 tests for poc/StakingPoC.t.sol:StakingPoC
+[PASS] testFuzz_STATE0_stale_emission_counterexample(uint256) (runs: 1000, μ: 337039, ~: 337039)
+[PASS] testFuzz_deposit_withdraw_principal(uint256) (runs: 1000, μ: 98064, ~: 98064)
+[PASS] test_CONTROL_on_time_emission_boundaries() (gas: 477508)
+Logs:
+  CONTROL on-time net model EPS withdrawal 60000000000000000000000
+
+[PASS] test_LOCAL_LEAD_stale_emission_withdrawal_and_signed_pnl() (gas: 414806)
+Logs:
+  MODEL_ONLY pin_block=UNAVAILABLE_NO_BSC_ARCHIVE
+  MODEL_ONLY state=STATE0 exact deployed Solidity; mock LP/EPS units=1e18
+  attacker LP delta (raw 1e18 units) 0
+  attacker EPS gross withdrawal delta (raw 1e18 units) 100000000000000000000000
+  attacker gas/flash-loan cost (model EPS units) 0
+  attacker net P&L (model EPS units, USD unmeasured) 100000000000000000000000
+  protocol retained EPS delta (raw 1e18 units) 100000000000000000000000
+  victim EPS delta (raw 1e18 units) 0
+  victim LP delta (raw 1e18 units) 0
+  schedule-correct gross EPS (raw 1e18 units) 120000000000000000000000
+  excess EPS withdrawal vs control (raw 1e18 units) 40000000000000000000000
+
+[PASS] test_duplicate_claim_does_not_double_mint() (gas: 473346)
+[PASS] test_expired_lock_principal_conserved() (gas: 118592)
+[PASS] test_unauthorized_mint_reverts() (gas: 12886)
+[PASS] test_view_wrong_msg_sender_is_not_withdrawal() (gas: 458176)
+Logs:
+  VIEW_ONLY wrong-account unlockedBalance; no token movement 7920000000000000000000
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 308.21ms (308.99ms CPU time)
+
+Ran 2 test suites in 315.33ms (495.29ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+===== FUZZ_SEED=6 =====
+No files changed, compilation skipped
+
+Ran 5 tests for poc/CurvePoC.t.sol:CurvePoC
+[PASS] testFuzz_swap_quote_execution(uint256) (runs: 1000, μ: 132389, ~: 120061)
+[PASS] test_extended_callback_reentry_rejected() (gas: 504223)
+Logs:
+  EXACT_VYPER callback nested exchange rejected=1; no drain P&L 0
+
+[PASS] test_get_dy_matches_real_exchange() (gas: 158578)
+Logs:
+  EXACT_VYPER normal swap dx raw 1e18 1000000000000000000000
+  EXACT_VYPER normal swap dy raw 1e18 999494929353142191340
+
+[PASS] test_initialize_cannot_run_twice() (gas: 11977)
+[PASS] test_proportional_withdrawal_burns_lp_and_returns_coins() (gas: 105936)
+Logs:
+  EXACT_VYPER withdrawal LP cost raw 1e18 100000000000000000000000
+  EXACT_VYPER withdrawal coin0 raw 1e18 99999999999999999999999
+  EXACT_VYPER withdrawal coin1 raw 1e18 99999999999999999999999
+
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 192.32ms (190.50ms CPU time)
+
+Ran 8 tests for poc/StakingPoC.t.sol:StakingPoC
+[PASS] testFuzz_STATE0_stale_emission_counterexample(uint256) (runs: 1000, μ: 337039, ~: 337039)
+[PASS] testFuzz_deposit_withdraw_principal(uint256) (runs: 1000, μ: 98064, ~: 98064)
+[PASS] test_CONTROL_on_time_emission_boundaries() (gas: 477508)
+Logs:
+  CONTROL on-time net model EPS withdrawal 60000000000000000000000
+
+[PASS] test_LOCAL_LEAD_stale_emission_withdrawal_and_signed_pnl() (gas: 414806)
+Logs:
+  MODEL_ONLY pin_block=UNAVAILABLE_NO_BSC_ARCHIVE
+  MODEL_ONLY state=STATE0 exact deployed Solidity; mock LP/EPS units=1e18
+  attacker LP delta (raw 1e18 units) 0
+  attacker EPS gross withdrawal delta (raw 1e18 units) 100000000000000000000000
+  attacker gas/flash-loan cost (model EPS units) 0
+  attacker net P&L (model EPS units, USD unmeasured) 100000000000000000000000
+  protocol retained EPS delta (raw 1e18 units) 100000000000000000000000
+  victim EPS delta (raw 1e18 units) 0
+  victim LP delta (raw 1e18 units) 0
+  schedule-correct gross EPS (raw 1e18 units) 120000000000000000000000
+  excess EPS withdrawal vs control (raw 1e18 units) 40000000000000000000000
+
+[PASS] test_duplicate_claim_does_not_double_mint() (gas: 473346)
+[PASS] test_expired_lock_principal_conserved() (gas: 118592)
+[PASS] test_unauthorized_mint_reverts() (gas: 12886)
+[PASS] test_view_wrong_msg_sender_is_not_withdrawal() (gas: 458176)
+Logs:
+  VIEW_ONLY wrong-account unlockedBalance; no token movement 7920000000000000000000
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 298.69ms (299.17ms CPU time)
+
+Ran 2 test suites in 307.54ms (491.01ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+===== FUZZ_SEED=7 =====
+No files changed, compilation skipped
+
+Ran 5 tests for poc/CurvePoC.t.sol:CurvePoC
+[PASS] testFuzz_swap_quote_execution(uint256) (runs: 1000, μ: 132421, ~: 120056)
+[PASS] test_extended_callback_reentry_rejected() (gas: 504223)
+Logs:
+  EXACT_VYPER callback nested exchange rejected=1; no drain P&L 0
+
+[PASS] test_get_dy_matches_real_exchange() (gas: 158578)
+Logs:
+  EXACT_VYPER normal swap dx raw 1e18 1000000000000000000000
+  EXACT_VYPER normal swap dy raw 1e18 999494929353142191340
+
+[PASS] test_initialize_cannot_run_twice() (gas: 11977)
+[PASS] test_proportional_withdrawal_burns_lp_and_returns_coins() (gas: 105936)
+Logs:
+  EXACT_VYPER withdrawal LP cost raw 1e18 100000000000000000000000
+  EXACT_VYPER withdrawal coin0 raw 1e18 99999999999999999999999
+  EXACT_VYPER withdrawal coin1 raw 1e18 99999999999999999999999
+
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 186.25ms (184.12ms CPU time)
+
+Ran 8 tests for poc/StakingPoC.t.sol:StakingPoC
+[PASS] testFuzz_STATE0_stale_emission_counterexample(uint256) (runs: 1000, μ: 337039, ~: 337039)
+[PASS] testFuzz_deposit_withdraw_principal(uint256) (runs: 1000, μ: 98064, ~: 98064)
+[PASS] test_CONTROL_on_time_emission_boundaries() (gas: 477508)
+Logs:
+  CONTROL on-time net model EPS withdrawal 60000000000000000000000
+
+[PASS] test_LOCAL_LEAD_stale_emission_withdrawal_and_signed_pnl() (gas: 414806)
+Logs:
+  MODEL_ONLY pin_block=UNAVAILABLE_NO_BSC_ARCHIVE
+  MODEL_ONLY state=STATE0 exact deployed Solidity; mock LP/EPS units=1e18
+  attacker LP delta (raw 1e18 units) 0
+  attacker EPS gross withdrawal delta (raw 1e18 units) 100000000000000000000000
+  attacker gas/flash-loan cost (model EPS units) 0
+  attacker net P&L (model EPS units, USD unmeasured) 100000000000000000000000
+  protocol retained EPS delta (raw 1e18 units) 100000000000000000000000
+  victim EPS delta (raw 1e18 units) 0
+  victim LP delta (raw 1e18 units) 0
+  schedule-correct gross EPS (raw 1e18 units) 120000000000000000000000
+  excess EPS withdrawal vs control (raw 1e18 units) 40000000000000000000000
+
+[PASS] test_duplicate_claim_does_not_double_mint() (gas: 473346)
+[PASS] test_expired_lock_principal_conserved() (gas: 118592)
+[PASS] test_unauthorized_mint_reverts() (gas: 12886)
+[PASS] test_view_wrong_msg_sender_is_not_withdrawal() (gas: 458176)
+Logs:
+  VIEW_ONLY wrong-account unlockedBalance; no token movement 7920000000000000000000
+
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 309.63ms (310.34ms CPU time)
+
+Ran 2 test suites in 315.53ms (495.89ms CPU time): 13 tests passed, 0 failed, 0 skipped (13 total tests)
+===== FINAL AGGREGATES =====
+13 tests passed per seed; 8 seeds; 104 passing test instances; 0 failures
+24,000 fuzz executions = 3 fuzz tests * 1,000 runs * 8 seeds
+Campaign: 2,880 rows = 10 states * 9 strategies * 4 tiers * 8 seeds
+Campaign: 2,160 executed local-model rows; 720 tier-D skips (TVL >= $1e9 not measured)
+Campaign: 168 local counterexamples; canonical S0-T0-A-seed0 replayed by real EVM transactions at run.log:48-60
+Slither: 13 contracts, 102 detectors, 94 results; triage in CANDIDATES.md; evidence/slither.log:501
+Promotion result: 0 FINDINGs; 2 LEADs; no pinned BSC withdrawal or mainnet P&L
+tool_unavailable: echidna binary unavailable and no supported reachable release source; Foundry fuzz used
+tool_unavailable: medusa binary unavailable and no supported reachable release source; Foundry fuzz used
+tool_unavailable: aderyn GitHub release download failed certificate verification; exact solc/Slither/Foundry used
+Vyper regeneration: exact versions and all four bytecode/runtime SHA-256 hashes unchanged; scripts/compile-vyper.sh

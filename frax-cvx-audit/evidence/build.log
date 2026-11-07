@@ -1,0 +1,22 @@
+Warning: Function state mutability can be restricted to view
+  --> contracts/StakingProxyERC20.sol:84:5:
+   |
+84 |     function earned() external override returns (address[] memory token_addresses, uint256[] memory total_earned) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Function state mutability can be restricted to view
+   --> contracts/StakingProxyERC20Joint.sol:119:5:
+    |
+119 |     function earned() external override returns (address[] memory token_addresses, uint256[] memory total_earned) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Warning: Function state mutability can be restricted to view
+  --> contracts/StakingProxyUniV3.sol:93:5:
+   |
+93 |     function earned() external override returns (address[] memory token_addresses, uint256[] memory total_earned) {
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+solc 0.8.10+commit.fc410830.Emscripten.clang; compiled 165 contracts from 117 source files; optimizer 200

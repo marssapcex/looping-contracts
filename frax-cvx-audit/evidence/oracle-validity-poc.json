@@ -1,0 +1,49 @@
+{
+  "mode": "LOCAL_PRODUCTION_BYTECODE_CONDITIONAL_ORACLE_VALIDITY",
+  "production_contract": "cvxFXBSwapper",
+  "source_behavior": "processRewards ignores the boolean returned by IFraxLend.updateExchangeRate and executes exchange regardless.",
+  "mocked_external_dependencies": [
+    "Fraxlend oracle validity/rate",
+    "FRAX",
+    "FXB",
+    "Curve exchange"
+  ],
+  "false_validity_scenario": {
+    "isBorrowAllowed_returned_by_mock": false,
+    "oracle_rate_raw": "500000000000000000",
+    "actual_mock_exchange_output_rate_raw": "1000000000000000000",
+    "process_rewards_caller": "0x6813Eb9362372EEF6200f3b1dbC3f819671cBA69",
+    "lender_update_calls": 1,
+    "exchange_calls_despite_returned_flag": 1,
+    "frax_pulled_raw": "100000000000000000000",
+    "minimum_out_raw": "49500000000000000000",
+    "fxb_delivered_to_cvxfxb_raw": "100000000000000000000",
+    "attacker_frax_delta_raw": "0",
+    "attacker_fxb_delta_raw": "0",
+    "gas_used": 224310,
+    "attacker_profit": false
+  },
+  "true_validity_control": {
+    "isBorrowAllowed_returned_by_mock": true,
+    "oracle_rate_raw": "500000000000000000",
+    "actual_mock_exchange_output_rate_raw": "1000000000000000000",
+    "process_rewards_caller": "0x6813Eb9362372EEF6200f3b1dbC3f819671cBA69",
+    "lender_update_calls": 1,
+    "exchange_calls_despite_returned_flag": 1,
+    "frax_pulled_raw": "100000000000000000000",
+    "minimum_out_raw": "49500000000000000000",
+    "fxb_delivered_to_cvxfxb_raw": "100000000000000000000",
+    "attacker_frax_delta_raw": "0",
+    "attacker_fxb_delta_raw": "0",
+    "gas_used": 224310,
+    "attacker_profit": false
+  },
+  "status": "PASS_CONDITIONAL_FALSE_FLAG_STILL_SWAPS_AND_TRUE_CONTROL",
+  "promotion_status": "LEAD_ONLY_NOT_A_CURRENT_MAINNET_FINDING: no deployed oracle state, stale price, sandwich/MEV proceeds, or positive attacker net P&L established.",
+  "required_mainnet_conditions": [
+    "Pinned deployment and exchange identity.",
+    "A permissionless call while updateExchangeRate returns false or a stale/manipulable rate.",
+    "Actual executable output and MEV/sandwich loss measured against a correct-validity control.",
+    "Signed protocol and attacker deltas including gas and swap costs."
+  ]
+}

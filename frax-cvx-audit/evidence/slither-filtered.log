@@ -1,0 +1,389 @@
+
+Detector: arbitrary-send-erc20
+TreasuryManager.swap(uint256,uint256) (contracts/TreasuryManager.sol#117-129) uses arbitrary from in transferFrom: IERC20(fxs).safeTransferFrom(treasury,address(this),_amount) (contracts/TreasuryManager.sol#123)
+TreasuryManager.convert(uint256,bool) (contracts/TreasuryManager.sol#131-142) uses arbitrary from in transferFrom: IERC20(fxs).safeTransferFrom(treasury,address(this),_amount) (contracts/TreasuryManager.sol#133)
+TreasuryManager.addToPool(uint256,uint256,uint256) (contracts/TreasuryManager.sol#145-161) uses arbitrary from in transferFrom: IERC20(cvxFxs).safeTransferFrom(treasury,address(this),_cvxFxsAmount) (contracts/TreasuryManager.sol#150)
+TreasuryManager.addToPool(uint256,uint256,uint256) (contracts/TreasuryManager.sol#145-161) uses arbitrary from in transferFrom: IERC20(fxs).safeTransferFrom(treasury,address(this),_fxsAmount) (contracts/TreasuryManager.sol#149)
+TreasuryManagerFrax.swapWStethToFrxEth(uint256,uint256,bool) (contracts/TreasuryManagerFrax.sol#151-170) uses arbitrary from in transferFrom: IERC20(wsteth).safeTransferFrom(treasury,address(this),_amount) (contracts/TreasuryManagerFrax.sol#155)
+TreasuryManagerFrax.addToPool(uint256,uint256,uint256,uint256,uint256,uint256) (contracts/TreasuryManagerFrax.sol#173-206) uses arbitrary from in transferFrom: IERC20(frxeth).safeTransferFrom(treasury,address(this),_frxethAmount) (contracts/TreasuryManagerFrax.sol#178)
+TreasuryManagerFrax.addToPool(uint256,uint256,uint256,uint256,uint256,uint256) (contracts/TreasuryManagerFrax.sol#173-206) uses arbitrary from in transferFrom: IERC20(sfrxeth).safeTransferFrom(treasury,address(this),_sfrxethAmount) (contracts/TreasuryManagerFrax.sol#183)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#arbitrary-from-in-transferfrom
+
+Detector: unchecked-transfer
+FeeReceiverCvxFxs.processFees() (contracts/FeeReceiverCvxFxs.sol#49-75) ignores return value by IERC20(fxs).transfer(platformReceiver,platformRewards) (contracts/FeeReceiverCvxFxs.sol#55)
+FeeReceiverPlatform.processFees() (contracts/FeeReceiverPlatform.sol#25-36) ignores return value by IERC20(fxs).transfer(treasury,tokenbalance) (contracts/FeeReceiverPlatform.sol#30)
+FeeReceiverVeFxs.processFees() (contracts/FeeReceiverVeFxs.sol#57-74) ignores return value by IERC20(fxs).transfer(platformReceiver,platformRewards) (contracts/FeeReceiverVeFxs.sol#63)
+FeeReceiverVeFxs.processFees() (contracts/FeeReceiverVeFxs.sol#57-74) ignores return value by IERC20(fxs).transfer(forwardAddress,tokenbalance) (contracts/FeeReceiverVeFxs.sol#71)
+GaugeExtraRewardDistributor.distributeReward(address) (contracts/GaugeExtraRewardDistributor.sol#45-74) ignores return value by IERC20(crv).transfer(farm,reward_tally) (contracts/GaugeExtraRewardDistributor.sol#61)
+GaugeExtraRewardDistributor.distributeReward(address) (contracts/GaugeExtraRewardDistributor.sol#45-74) ignores return value by IERC20(cvx).transfer(farm,reward_tally) (contracts/GaugeExtraRewardDistributor.sol#70)
+StakingProxyBase._processFxs() (contracts/StakingProxyBase.sol#128-145) ignores return value by IERC20(fxs).transfer(IFeeRegistry(feeRegistry).getFeeDepositor(usingProxy),sendAmount) (contracts/StakingProxyBase.sol#137)
+StakingProxyBase._processFxs() (contracts/StakingProxyBase.sol#128-145) ignores return value by IERC20(fxs).transfer(owner,sendAmount) (contracts/StakingProxyBase.sol#143)
+StakingProxyConvex.withdrawLockedAndUnwrap(bytes32) (contracts/StakingProxyConvex.sol#170-180) ignores return value by IERC20(curveLpToken).transfer(owner,IERC20(curveLpToken).balanceOf(address(this))) (contracts/StakingProxyConvex.sol#176)
+StakingProxyERC20Joint._processFxsJoint() (contracts/StakingProxyERC20Joint.sol#201-223) ignores return value by IERC20(fxs).transfer(depositAddress,feeAmount) (contracts/StakingProxyERC20Joint.sol#209)
+StakingProxyERC20Joint._processFxsJoint() (contracts/StakingProxyERC20Joint.sol#201-223) ignores return value by IERC20(fxs).transfer(depositAddress,feeAmount) (contracts/StakingProxyERC20Joint.sol#215)
+StakingProxyERC20Joint._processFxsJoint() (contracts/StakingProxyERC20Joint.sol#201-223) ignores return value by IERC20(fxs).transfer(owner,fxsBalance) (contracts/StakingProxyERC20Joint.sol#221)
+StakedCvxFxs._insertRewardToken(address) (contracts/fraxtal/StakedCvxFxs.sol#82-117) ignores return value by IERC20(_token).transfer(address(this),0) (contracts/fraxtal/StakedCvxFxs.sol#102)
+cvxFXB.processRewards() (contracts/fraxtal/cvxFXB.sol#515-541) ignores return value by IERC20(frax).transfer(feeCollector,feeamount) (contracts/fraxtal/cvxFXB.sol#531)
+cvxFXB.processRewards() (contracts/fraxtal/cvxFXB.sol#515-541) ignores return value by IERC20(frax).transfer(swapper,fraxbalance) (contracts/fraxtal/cvxFXB.sol#536)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unchecked-transfer
+
+Detector: uninitialized-state
+StakingProxyBase.stakingToken (contracts/StakingProxyBase.sol#23) is never initialized. It is used in:
+	- StakingProxyBase.execute(address,bytes) (contracts/StakingProxyBase.sol#176-193)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-state-variables
+
+Detector: divide-before-multiply
+FxsDepositor.initialLock() (contracts/FxsDepositor.sol#47-63) performs a multiplication on the result of a division:
+	- unlockInWeeks = (unlockAt / WEEK) * WEEK (contracts/FxsDepositor.sol#54)
+FxsDepositor._lockFxs() (contracts/FxsDepositor.sol#66-90) performs a multiplication on the result of a division:
+	- unlockInWeeks = (unlockAt / WEEK) * WEEK (contracts/FxsDepositor.sol#83)
+GaugeExtraRewardDistributor.distributeReward(address) (contracts/GaugeExtraRewardDistributor.sol#45-74) performs a multiplication on the result of a division:
+	- periodLength = ((block.timestamp + duration) / duration * duration) - IFraxFarmERC20(_farm).periodFinish() (contracts/GaugeExtraRewardDistributor.sol#54)
+PoolUtilities.veFXSMultiplier(address) (contracts/PoolUtilities.sol#62-91) performs a multiplication on the result of a division:
+	- user_vefxs_fraction = (vefxs_bal_to_use * 1e18) / veFXS_needed_for_max_boost (contracts/PoolUtilities.sol#79)
+	- mult_optn_2 = (user_vefxs_fraction * vefxs_max_multiplier) / 1e18 (contracts/PoolUtilities.sol#81)
+FraxtalFpisLocker.constructor(address,address,address) (contracts/fraxtal/FraxtalFpisLocker.sol#28-35) performs a multiplication on the result of a division:
+	- unlockInWeeks = (unlockAt / WEEK) * WEEK (contracts/fraxtal/FraxtalFpisLocker.sol#33)
+FraxtalFpisLocker.nextUnlock() (contracts/fraxtal/FraxtalFpisLocker.sol#72-76) performs a multiplication on the result of a division:
+	- unlockInWeeks = (unlockAt / WEEK) * WEEK (contracts/fraxtal/FraxtalFpisLocker.sol#74)
+FraxtalFpisLocker.increaseLockTime() (contracts/fraxtal/FraxtalFpisLocker.sol#78-88) performs a multiplication on the result of a division:
+	- unlockInWeeks = (unlockAt / WEEK) * WEEK (contracts/fraxtal/FraxtalFpisLocker.sol#80)
+FraxtalFxsDepositor.increaseLockTime() (contracts/fraxtal/FraxtalFxsDepositor.sol#61-71) performs a multiplication on the result of a division:
+	- unlockInWeeks = (unlockAt / WEEK) * WEEK (contracts/fraxtal/FraxtalFxsDepositor.sol#63)
+FraxtalPoolUtilities.stakedCvxFxsRewardRates() (contracts/fraxtal/FraxtalPoolUtilities.sol#27-56) performs a multiplication on the result of a division:
+	- yieldRate = yieldRate * convexVefxs / totalVefxs (contracts/fraxtal/FraxtalPoolUtilities.sol#43)
+	- ratePerStakedCvxfxs = yieldRate * 1e18 / supplyStkCvxfxs (contracts/fraxtal/FraxtalPoolUtilities.sol#45)
+FraxtalPoolUtilities.stakedCvxFxsRewardRates() (contracts/fraxtal/FraxtalPoolUtilities.sol#27-56) performs a multiplication on the result of a division:
+	- extrarate = extrarate * weightForCvxfxs / extraSupply (contracts/fraxtal/FraxtalPoolUtilities.sol#53)
+	- rates[0] += extrarate * 1e18 / supplyStkCvxfxs (contracts/fraxtal/FraxtalPoolUtilities.sol#54)
+cvxFXB.convertToSharesRoundUp(uint256) (contracts/fraxtal/cvxFXB.sol#348-357) performs a multiplication on the result of a division:
+	- shares = _assets * totalSupply() / totalAssets() (contracts/fraxtal/cvxFXB.sol#352)
+	- shares * totalAssets() / totalSupply() < _assets (contracts/fraxtal/cvxFXB.sol#353)
+cvxFXB.convertToAssetsRoundUp(uint256) (contracts/fraxtal/cvxFXB.sol#359-368) performs a multiplication on the result of a division:
+	- assets = totalAssets() * _shares / totalSupply() (contracts/fraxtal/cvxFXB.sol#361)
+	- assets * totalSupply() / totalAssets() < _shares (contracts/fraxtal/cvxFXB.sol#362)
+cvxFXBRateCalc.sfraxRates() (contracts/fraxtal/cvxFXBRateCalc.sol#82-90) performs a multiplication on the result of a division:
+	- fraxPerSecond = rdata.rewardCycleAmount / REWARDS_CYCLE_LENGTH (contracts/fraxtal/cvxFXBRateCalc.sol#87)
+	- fraxPerSecond = fraxPerSecond * 1e18 / sfraxtotal (contracts/fraxtal/cvxFXBRateCalc.sol#88)
+cvxFXBRateCalc.rewardsPerSecond() (contracts/fraxtal/cvxFXBRateCalc.sol#119-161) performs a multiplication on the result of a division:
+	- borrowablelow = totalAsset.amount * lowUtil / UTIL_PREC (contracts/fraxtal/cvxFXBRateCalc.sol#143)
+	- lowRate *= borrowablelow (contracts/fraxtal/cvxFXBRateCalc.sol#148)
+cvxFXBRateCalc.rewardsPerSecond() (contracts/fraxtal/cvxFXBRateCalc.sol#119-161) performs a multiplication on the result of a division:
+	- borrowablecurrent = totalAsset.amount * currentUtil / UTIL_PREC (contracts/fraxtal/cvxFXBRateCalc.sol#144)
+	- currentRate *= borrowablecurrent (contracts/fraxtal/cvxFXBRateCalc.sol#149)
+cvxFXBRateCalc.rewardsPerSecond() (contracts/fraxtal/cvxFXBRateCalc.sol#119-161) performs a multiplication on the result of a division:
+	- borrowablehigh = totalAsset.amount * highUtil / UTIL_PREC (contracts/fraxtal/cvxFXBRateCalc.sol#145)
+	- highRate *= borrowablehigh (contracts/fraxtal/cvxFXBRateCalc.sol#150)
+cvxFXBRateCalc.rewardsPerSecond() (contracts/fraxtal/cvxFXBRateCalc.sol#119-161) performs a multiplication on the result of a division:
+	- borrowablelow = totalAsset.amount * lowUtil / UTIL_PREC (contracts/fraxtal/cvxFXBRateCalc.sol#143)
+	- borrowablelow = fRate * borrowablelow (contracts/fraxtal/cvxFXBRateCalc.sol#153)
+cvxFXBRateCalc.rewardsPerSecond() (contracts/fraxtal/cvxFXBRateCalc.sol#119-161) performs a multiplication on the result of a division:
+	- borrowablecurrent = totalAsset.amount * currentUtil / UTIL_PREC (contracts/fraxtal/cvxFXBRateCalc.sol#144)
+	- borrowablecurrent = fRate * borrowablecurrent (contracts/fraxtal/cvxFXBRateCalc.sol#154)
+cvxFXBRateCalc.rewardsPerSecond() (contracts/fraxtal/cvxFXBRateCalc.sol#119-161) performs a multiplication on the result of a division:
+	- borrowablehigh = totalAsset.amount * highUtil / UTIL_PREC (contracts/fraxtal/cvxFXBRateCalc.sol#145)
+	- borrowablehigh = fRate * borrowablehigh (contracts/fraxtal/cvxFXBRateCalc.sol#155)
+cvxFXBRateCalc.calcBorrowUpdate() (contracts/fraxtal/cvxFXBRateCalc.sol#184-238) performs a multiplication on the result of a division:
+	- bbound = maxborrow * ICvxFxb(cvxfxb).borrowBound() / UTIL_PREC (contracts/fraxtal/cvxFXBRateCalc.sol#201)
+	- bbound * 1e18 / borrowamount >= BORROW_MORE_DIFF (contracts/fraxtal/cvxFXBRateCalc.sol#218)
+cvxFXBSwapper.processRewards() (contracts/fraxtal/cvxFXBSwapper.sol#77-92) performs a multiplication on the result of a division:
+	- minOut = fbal * exchangeRate / EXCHANGE_PRECISION (contracts/fraxtal/cvxFXBSwapper.sol#85)
+	- minOut = minOut * slippage / 1e18 (contracts/fraxtal/cvxFXBSwapper.sol#86)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply
+
+Detector: incorrect-equality
+FxsDepositor._lockFxs() (contracts/FxsDepositor.sol#66-90) uses a dangerous strict equality:
+	- fxsBalanceStaker == 0 (contracts/FxsDepositor.sol#74)
+FxsDepositor.initialLock() (contracts/FxsDepositor.sol#47-63) uses a dangerous strict equality:
+	- vefxs == 0 || vefxs == locked (contracts/FxsDepositor.sol#52)
+StakingProxyBase._processExtraRewards() (contracts/StakingProxyBase.sol#148-160) uses a dangerous strict equality:
+	- bal == 0 && userLiq > 0 (contracts/StakingProxyBase.sol#154)
+TreasuryManagerFrax.addToPool(uint256,uint256,uint256,uint256,uint256,uint256) (contracts/TreasuryManagerFrax.sol#173-206) uses a dangerous strict equality:
+	- kek == bytes32(0) (contracts/TreasuryManagerFrax.sol#197)
+cvxFxsStaking._rewardPerToken(address) (contracts/cvxFxsStaking.sol#159-171) uses a dangerous strict equality:
+	- totalSupply() == 0 (contracts/cvxFxsStaking.sol#160)
+FraxtalFxsDepositor._lockFxs() (contracts/fraxtal/FraxtalFxsDepositor.sol#42-59) uses a dangerous strict equality:
+	- fxsBalanceStaker == 0 (contracts/fraxtal/FraxtalFxsDepositor.sol#50)
+StakedCvxFxs._insertRewardToken(address) (contracts/fraxtal/StakedCvxFxs.sol#82-117) uses a dangerous strict equality:
+	- rewardMap[_token] == 0 (contracts/fraxtal/StakedCvxFxs.sol#89)
+cvxFXB.convertToShares(uint256) (contracts/fraxtal/cvxFXB.sol#332-338) uses a dangerous strict equality:
+	- totalSupply() == 0 (contracts/fraxtal/cvxFXB.sol#333)
+cvxFXB.convertToSharesRoundUp(uint256) (contracts/fraxtal/cvxFXB.sol#348-357) uses a dangerous strict equality:
+	- totalSupply() == 0 (contracts/fraxtal/cvxFXB.sol#349)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
+
+Detector: reentrancy-no-eth
+Reentrancy in StakedCvxFxs._calcRewardIntegral(uint256,address,address) (contracts/fraxtal/StakedCvxFxs.sol#146-187):
+	External calls:
+	- IERC20(reward.reward_token).safeTransfer(_claimTo,receiveable) (contracts/fraxtal/StakedCvxFxs.sol#171)
+	State variables written after the call(s):
+	- reward_integral_for[reward.reward_token][_account] = reward.reward_integral (contracts/fraxtal/StakedCvxFxs.sol#179)
+	StakedCvxFxs.reward_integral_for (contracts/fraxtal/StakedCvxFxs.sol#41) can be used in cross function reentrancies:
+	- StakedCvxFxs._calcRewardIntegral(uint256,address,address) (contracts/fraxtal/StakedCvxFxs.sol#146-187)
+	- StakedCvxFxs.reward_integral_for (contracts/fraxtal/StakedCvxFxs.sol#41)
+	- reward.reward_remaining = bal (contracts/fraxtal/StakedCvxFxs.sol#185)
+	StakedCvxFxs.rewards (contracts/fraxtal/StakedCvxFxs.sol#40) can be used in cross function reentrancies:
+	- StakedCvxFxs._calcRewardIntegral(uint256,address,address) (contracts/fraxtal/StakedCvxFxs.sol#146-187)
+	- StakedCvxFxs._checkpoint(address,address) (contracts/fraxtal/StakedCvxFxs.sol#196-205)
+	- StakedCvxFxs._insertRewardToken(address) (contracts/fraxtal/StakedCvxFxs.sol#82-117)
+	- StakedCvxFxs.earned(address) (contracts/fraxtal/StakedCvxFxs.sol#215-237)
+	- StakedCvxFxs.rewardLength() (contracts/fraxtal/StakedCvxFxs.sol#141-143)
+	- StakedCvxFxs.rewards (contracts/fraxtal/StakedCvxFxs.sol#40)
+Reentrancy in FxsDepositor._lockFxs() (contracts/FxsDepositor.sol#66-90):
+	External calls:
+	- IERC20(fxs).safeTransfer(staker,fxsBalance) (contracts/FxsDepositor.sol#69)
+	- IStaker(staker).increaseAmount(fxsBalanceStaker) (contracts/FxsDepositor.sol#79)
+	- IStaker(staker).increaseTime(unlockAt) (contracts/FxsDepositor.sol#87)
+	State variables written after the call(s):
+	- unlockTime = unlockInWeeks (contracts/FxsDepositor.sol#88)
+	FxsDepositor.unlockTime (contracts/FxsDepositor.sol#26) can be used in cross function reentrancies:
+	- FxsDepositor._lockFxs() (contracts/FxsDepositor.sol#66-90)
+	- FxsDepositor.initialLock() (contracts/FxsDepositor.sol#47-63)
+	- FxsDepositor.unlockTime (contracts/FxsDepositor.sol#26)
+Reentrancy in PoolRegistry.addPool(address,address,address) (contracts/PoolRegistry.sol#75-96):
+	External calls:
+	- rewards = IProxyFactory(proxyFactory).clone(rewardImplementation) (contracts/PoolRegistry.sol#82)
+	- IRewards(rewards).initialize(poolInfo.length,rewardsStartActive) (contracts/PoolRegistry.sol#83)
+	State variables written after the call(s):
+	- poolInfo.push(PoolInfo({implementation:_implementation,stakingAddress:_stakingAddress,stakingToken:_stakingToken,rewardsAddress:rewards,active:1})) (contracts/PoolRegistry.sol#86-94)
+	PoolRegistry.poolInfo (contracts/PoolRegistry.sol#15) can be used in cross function reentrancies:
+	- PoolRegistry.addPool(address,address,address) (contracts/PoolRegistry.sol#75-96)
+	- PoolRegistry.addUserVault(uint256,address) (contracts/PoolRegistry.sol#118-137)
+	- PoolRegistry.createNewPoolRewards(uint256) (contracts/PoolRegistry.sol#100-109)
+	- PoolRegistry.deactivatePool(uint256) (contracts/PoolRegistry.sol#112-115)
+	- PoolRegistry.poolInfo (contracts/PoolRegistry.sol#15)
+	- PoolRegistry.poolLength() (contracts/PoolRegistry.sol#65-67)
+Reentrancy in PoolRegistry.addUserVault(uint256,address) (contracts/PoolRegistry.sol#118-137):
+	External calls:
+	- vault = IProxyFactory(proxyFactory).clone(pool.implementation) (contracts/PoolRegistry.sol#125)
+	State variables written after the call(s):
+	- vaultMap[_pid][_user] = vault (contracts/PoolRegistry.sol#127)
+	PoolRegistry.vaultMap (contracts/PoolRegistry.sol#16) can be used in cross function reentrancies:
+	- PoolRegistry.addUserVault(uint256,address) (contracts/PoolRegistry.sol#118-137)
+	- PoolRegistry.vaultMap (contracts/PoolRegistry.sol#16)
+Reentrancy in StakingProxyBase.changeRewards(address) (contracts/StakingProxyBase.sol#59-78):
+	External calls:
+	- IRewards(rewards).withdraw(owner,bal) (contracts/StakingProxyBase.sol#65)
+	- IRewards(rewards).getReward(owner) (contracts/StakingProxyBase.sol#67)
+	State variables written after the call(s):
+	- rewards = _rewardsAddress (contracts/StakingProxyBase.sol#74)
+	StakingProxyBase.rewards (contracts/StakingProxyBase.sol#24) can be used in cross function reentrancies:
+	- StakingProxyBase._checkpointRewards() (contracts/StakingProxyBase.sol#110-125)
+	- StakingProxyBase.changeRewards(address) (contracts/StakingProxyBase.sol#59-78)
+	- StakingProxyBase.execute(address,bytes) (contracts/StakingProxyBase.sol#176-193)
+	- StakingProxyBase.initialize(address,address,address,address) (contracts/StakingProxyBase.sol#52-57)
+	- StakingProxyBase.rewards (contracts/StakingProxyBase.sol#24)
+Reentrancy in MultiRewards.getReward(address) (contracts/MultiRewards.sol#201-215):
+	External calls:
+	- IERC20(_rewardsToken).safeTransfer(_forward,reward) (contracts/MultiRewards.sol#207)
+	State variables written after the call(s):
+	- rewards[msg.sender][_rewardsToken] = 0 (contracts/MultiRewards.sol#206)
+	MultiRewards.rewards (contracts/MultiRewards.sol#46) can be used in cross function reentrancies:
+	- MultiRewards._earned(address,address,uint256) (contracts/MultiRewards.sol#161-167)
+	- MultiRewards.getReward(address) (contracts/MultiRewards.sol#201-215)
+	- MultiRewards.rewards (contracts/MultiRewards.sol#46)
+	- MultiRewards.updateReward(address) (contracts/MultiRewards.sol#266-278)
+Reentrancy in cvxFxsStaking.getReward(address) (contracts/cvxFxsStaking.sol#216-230):
+	External calls:
+	- IERC20(_rewardsToken).safeTransfer(rewardRedirect[_address],reward) (contracts/cvxFxsStaking.sol#223)
+	- IERC20(_rewardsToken).safeTransfer(_address,reward) (contracts/cvxFxsStaking.sol#225)
+	State variables written after the call(s):
+	- rewards[_address][_rewardsToken] = 0 (contracts/cvxFxsStaking.sol#221)
+	cvxFxsStaking.rewards (contracts/cvxFxsStaking.sol#50) can be used in cross function reentrancies:
+	- cvxFxsStaking._earned(address,address,uint256) (contracts/cvxFxsStaking.sol#173-179)
+	- cvxFxsStaking._updateReward(address) (contracts/cvxFxsStaking.sol#291-302)
+	- cvxFxsStaking.rewards (contracts/cvxFxsStaking.sol#50)
+Reentrancy in cvxFxsStaking.getReward(address,address) (contracts/cvxFxsStaking.sol#233-246):
+	External calls:
+	- IERC20(_rewardsToken).safeTransfer(_forwardTo,reward) (contracts/cvxFxsStaking.sol#242)
+	State variables written after the call(s):
+	- rewards[_address][_rewardsToken] = 0 (contracts/cvxFxsStaking.sol#241)
+	cvxFxsStaking.rewards (contracts/cvxFxsStaking.sol#50) can be used in cross function reentrancies:
+	- cvxFxsStaking._earned(address,address,uint256) (contracts/cvxFxsStaking.sol#173-179)
+	- cvxFxsStaking._updateReward(address) (contracts/cvxFxsStaking.sol#291-302)
+	- cvxFxsStaking.rewards (contracts/cvxFxsStaking.sol#50)
+Reentrancy in FraxtalFpisLocker.increaseLockTime() (contracts/fraxtal/FraxtalFpisLocker.sol#78-88):
+	External calls:
+	- IBooster(_currentBooster()).increaseFpisUnlockTime(uint128(unlockAt),0) (contracts/fraxtal/FraxtalFpisLocker.sol#84)
+	State variables written after the call(s):
+	- unlockTime = unlockInWeeks (contracts/fraxtal/FraxtalFpisLocker.sol#85)
+	FraxtalFpisLocker.unlockTime (contracts/fraxtal/FraxtalFpisLocker.sol#23) can be used in cross function reentrancies:
+	- FraxtalFpisLocker.constructor(address,address,address) (contracts/fraxtal/FraxtalFpisLocker.sol#28-35)
+	- FraxtalFpisLocker.increaseLockTime() (contracts/fraxtal/FraxtalFpisLocker.sol#78-88)
+	- FraxtalFpisLocker.unlockTime (contracts/fraxtal/FraxtalFpisLocker.sol#23)
+Reentrancy in FraxtalFxsDepositor.increaseLockTime() (contracts/fraxtal/FraxtalFxsDepositor.sol#61-71):
+	External calls:
+	- IFraxtalVoteEscrow(_currentBooster()).increaseUnlockTime(uint128(unlockAt),0) (contracts/fraxtal/FraxtalFxsDepositor.sol#67)
+	State variables written after the call(s):
+	- unlockTime = unlockInWeeks (contracts/fraxtal/FraxtalFxsDepositor.sol#68)
+	FraxtalFxsDepositor.unlockTime (contracts/fraxtal/FraxtalFxsDepositor.sol#26) can be used in cross function reentrancies:
+	- FraxtalFxsDepositor.increaseLockTime() (contracts/fraxtal/FraxtalFxsDepositor.sol#61-71)
+	- FraxtalFxsDepositor.unlockTime (contracts/fraxtal/FraxtalFxsDepositor.sol#26)
+Reentrancy in cvxFXB.migrate() (contracts/fraxtal/cvxFXB.sol#169-202):
+	External calls:
+	- _repayShares(IFraxLend(fraxlend).userBorrowShares(address(this))) (contracts/fraxtal/cvxFXB.sol#174)
+		- IERC4626(sfraxVault).redeem(IERC20(sfrax).balanceOf(address(this)),address(this),address(this)) (contracts/fraxtal/cvxFXB.sol#467)
+		- IFraxLend(fraxlend).repayAsset(_shares,address(this)) (contracts/fraxtal/cvxFXB.sol#469)
+	- IFraxLend(fraxlend).removeCollateral(IFraxLend(fraxlend).userCollateralBalance(address(this)),address(this)) (contracts/fraxtal/cvxFXB.sol#176)
+	- IERC20(stakingToken).safeTransfer(migrationContract,IERC20(stakingToken).balanceOf(address(this))) (contracts/fraxtal/cvxFXB.sol#178)
+	State variables written after the call(s):
+	- fraxlend = IMigrator(migrationContract).fraxlend() (contracts/fraxtal/cvxFXB.sol#180)
+	cvxFXB.fraxlend (contracts/fraxtal/cvxFXB.sol#35) can be used in cross function reentrancies:
+	- cvxFXB._addCollateral() (contracts/fraxtal/cvxFXB.sol#431-436)
+	- cvxFXB._borrow(uint256) (contracts/fraxtal/cvxFXB.sol#448-462)
+	- cvxFXB._removeCollateral(uint256) (contracts/fraxtal/cvxFXB.sol#438-446)
+	- cvxFXB._repayShares(uint256) (contracts/fraxtal/cvxFXB.sol#464-471)
+	- cvxFXB.constructor(address,address,address,address,address,address) (contracts/fraxtal/cvxFXB.sol#88-116)
+	- cvxFXB.fraxlend (contracts/fraxtal/cvxFXB.sol#35)
+	- cvxFXB.getProfit() (contracts/fraxtal/cvxFXB.sol#546-552)
+	- cvxFXB.maxBorrowable(uint256,uint256) (contracts/fraxtal/cvxFXB.sol#396-429)
+	- cvxFXB.migrate() (contracts/fraxtal/cvxFXB.sol#169-202)
+	- cvxFXB.processRewards() (contracts/fraxtal/cvxFXB.sol#515-541)
+	- cvxFXB.setPaused(bool) (contracts/fraxtal/cvxFXB.sol#212-219)
+	- cvxFXB.totalAssets() (contracts/fraxtal/cvxFXB.sol#327-330)
+	- cvxFXB.updateBalances() (contracts/fraxtal/cvxFXB.sol#474-509)
+	- stakingToken = IFraxLend(fraxlend).collateralContract() (contracts/fraxtal/cvxFXB.sol#181)
+	cvxFXB.stakingToken (contracts/fraxtal/cvxFXB.sol#34) can be used in cross function reentrancies:
+	- cvxFXB._addCollateral() (contracts/fraxtal/cvxFXB.sol#431-436)
+	- cvxFXB._borrow(uint256) (contracts/fraxtal/cvxFXB.sol#448-462)
+	- cvxFXB._removeCollateral(uint256) (contracts/fraxtal/cvxFXB.sol#438-446)
+	- cvxFXB.asset() (contracts/fraxtal/cvxFXB.sol#323-325)
+	- cvxFXB.constructor(address,address,address,address,address,address) (contracts/fraxtal/cvxFXB.sol#88-116)
+	- cvxFXB.deposit(uint256,address) (contracts/fraxtal/cvxFXB.sol#262-273)
+	- cvxFXB.migrate() (contracts/fraxtal/cvxFXB.sol#169-202)
+	- cvxFXB.mint(uint256,address) (contracts/fraxtal/cvxFXB.sol#275-286)
+	- cvxFXB.redeem(uint256,address,address) (contracts/fraxtal/cvxFXB.sol#288-303)
+	- cvxFXB.stakingToken (contracts/fraxtal/cvxFXB.sol#34)
+	- cvxFXB.totalAssets() (contracts/fraxtal/cvxFXB.sol#327-330)
+	- cvxFXB.withdraw(uint256,address,address) (contracts/fraxtal/cvxFXB.sol#305-320)
+Reentrancy in cvxFXB.migrate() (contracts/fraxtal/cvxFXB.sol#169-202):
+	External calls:
+	- _repayShares(IFraxLend(fraxlend).userBorrowShares(address(this))) (contracts/fraxtal/cvxFXB.sol#174)
+		- IERC4626(sfraxVault).redeem(IERC20(sfrax).balanceOf(address(this)),address(this),address(this)) (contracts/fraxtal/cvxFXB.sol#467)
+		- IFraxLend(fraxlend).repayAsset(_shares,address(this)) (contracts/fraxtal/cvxFXB.sol#469)
+	- IFraxLend(fraxlend).removeCollateral(IFraxLend(fraxlend).userCollateralBalance(address(this)),address(this)) (contracts/fraxtal/cvxFXB.sol#176)
+	- IERC20(stakingToken).safeTransfer(migrationContract,IERC20(stakingToken).balanceOf(address(this))) (contracts/fraxtal/cvxFXB.sol#178)
+	- IMigrator(migrationContract).migrate() (contracts/fraxtal/cvxFXB.sol#183)
+	- IERC20(stakingToken).approve(fraxlend,type()(uint256).max) (contracts/fraxtal/cvxFXB.sol#185)
+	- IERC20(frax).approve(fraxlend,type()(uint256).max) (contracts/fraxtal/cvxFXB.sol#186)
+	State variables written after the call(s):
+	- migrationContract = address(0) (contracts/fraxtal/cvxFXB.sol#189)
+	cvxFXB.migrationContract (contracts/fraxtal/cvxFXB.sol#48) can be used in cross function reentrancies:
+	- cvxFXB.migrate() (contracts/fraxtal/cvxFXB.sol#169-202)
+	- cvxFXB.migrationContract (contracts/fraxtal/cvxFXB.sol#48)
+	- cvxFXB.setMigrationContract(address) (contracts/fraxtal/cvxFXB.sol#163-167)
+Reentrancy in TreasuryManagerFrax.removeAsLP(uint256) (contracts/TreasuryManagerFrax.sol#248-277):
+	External calls:
+	- IConvexVault(vault).withdrawLockedAndUnwrap(kekmap[_slot]) (contracts/TreasuryManagerFrax.sol#250)
+	State variables written after the call(s):
+	- kekmap[_slot] = bytes32(0) (contracts/TreasuryManagerFrax.sol#253)
+	TreasuryManagerFrax.kekmap (contracts/TreasuryManagerFrax.sol#44) can be used in cross function reentrancies:
+	- TreasuryManagerFrax.addToPool(uint256,uint256,uint256,uint256,uint256,uint256) (contracts/TreasuryManagerFrax.sol#173-206)
+	- TreasuryManagerFrax.kekmap (contracts/TreasuryManagerFrax.sol#44)
+	- TreasuryManagerFrax.lockLonger(uint256,uint256) (contracts/TreasuryManagerFrax.sol#208-213)
+	- TreasuryManagerFrax.removeAsLP(uint256) (contracts/TreasuryManagerFrax.sol#248-277)
+	- TreasuryManagerFrax.removeFromPool(uint256,uint256) (contracts/TreasuryManagerFrax.sol#215-246)
+Reentrancy in TreasuryManagerFrax.removeFromPool(uint256,uint256) (contracts/TreasuryManagerFrax.sol#215-246):
+	External calls:
+	- IConvexVault(vault).withdrawLockedAndUnwrap(kekmap[_slot]) (contracts/TreasuryManagerFrax.sol#219)
+	State variables written after the call(s):
+	- kekmap[_slot] = bytes32(0) (contracts/TreasuryManagerFrax.sol#222)
+	TreasuryManagerFrax.kekmap (contracts/TreasuryManagerFrax.sol#44) can be used in cross function reentrancies:
+	- TreasuryManagerFrax.addToPool(uint256,uint256,uint256,uint256,uint256,uint256) (contracts/TreasuryManagerFrax.sol#173-206)
+	- TreasuryManagerFrax.kekmap (contracts/TreasuryManagerFrax.sol#44)
+	- TreasuryManagerFrax.lockLonger(uint256,uint256) (contracts/TreasuryManagerFrax.sol#208-213)
+	- TreasuryManagerFrax.removeAsLP(uint256) (contracts/TreasuryManagerFrax.sol#248-277)
+	- TreasuryManagerFrax.removeFromPool(uint256,uint256) (contracts/TreasuryManagerFrax.sol#215-246)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-2
+
+Detector: tautology
+FxsDepositor.setFees(uint256) (contracts/FxsDepositor.sol#39-45) contains a tautology or contradiction:
+	- _lockIncentive >= 0 && _lockIncentive <= 30 (contracts/FxsDepositor.sol#42)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#tautology-or-contradiction
+
+Detector: uninitialized-local
+PoolUtilities.earned(address,address,address,address).convexrewardCnt (contracts/PoolUtilities.sol#116) is a local variable never initialized
+PoolUtilities.earned(address,address,address,address).extraRewardsLength (contracts/PoolUtilities.sol#128) is a local variable never initialized
+VaultEarnedView.earned(address,address,address,address).extraRewardsLength (contracts/VaultEarnedView.sol#29) is a local variable never initialized
+PoolRegistry.addPool(address,address,address).rewards (contracts/PoolRegistry.sol#80) is a local variable never initialized
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables
+
+Detector: unused-return
+Booster._proxyCall(address,bytes) (contracts/Booster.sol#87-90) ignores return value by (success,None) = IStaker(proxy).execute(_to,uint256(0),_data) (contracts/Booster.sol#88)
+ConvexPoolRegistry.addPoolInfo(address) (contracts/ConvexPoolRegistry.sol#41-56) ignores return value by (_lptoken,_token,_gauge,_crvRewards,None,None) = ConvexCurvePools(convexCurveBooster).poolInfo(convexPid) (contracts/ConvexPoolRegistry.sol#46)
+FeeBridge.constructor(address,address,address,address,uint256,address) (contracts/FeeBridge.sol#32-42) ignores return value by IERC20(l1token).approve(_bridge,type()(uint256).max) (contracts/FeeBridge.sol#41)
+FeeDeposit.constructor() (contracts/FeeDeposit.sol#39-43) ignores return value by IERC20(fxs).approve(fxsDeposit,type()(uint256).max) (contracts/FeeDeposit.sol#41)
+FeeDeposit.constructor() (contracts/FeeDeposit.sol#39-43) ignores return value by IERC20(cvxFxs).approve(vlcvx,type()(uint256).max) (contracts/FeeDeposit.sol#42)
+FeeDepositV2.constructor() (contracts/FeeDepositV2.sol#46-50) ignores return value by IERC20(fxs).approve(fxsDeposit,type()(uint256).max) (contracts/FeeDepositV2.sol#48)
+FeeDepositV2.constructor() (contracts/FeeDepositV2.sol#46-50) ignores return value by IERC20(cvxFxs).approve(vlcvx,type()(uint256).max) (contracts/FeeDepositV2.sol#49)
+FeeReceiverCvxFxs.constructor(address,address,uint256) (contracts/FeeReceiverCvxFxs.sol#29-35) ignores return value by IERC20(fxs).approve(rewardAddress,type()(uint256).max) (contracts/FeeReceiverCvxFxs.sol#33)
+FeeReceiverCvxFxs.constructor(address,address,uint256) (contracts/FeeReceiverCvxFxs.sol#29-35) ignores return value by IERC20(cvx).approve(rewardAddress,type()(uint256).max) (contracts/FeeReceiverCvxFxs.sol#34)
+FeeReceiverVlCvx.constructor() (contracts/FeeReceiverVlCvx.sol#19-21) ignores return value by IERC20(fxs).approve(vlcvx,type()(uint256).max) (contracts/FeeReceiverVlCvx.sol#20)
+FxsDepositor.initialLock() (contracts/FxsDepositor.sol#47-63) ignores return value by IStaker(staker).release() (contracts/FxsDepositor.sol#57)
+FxsDepositor.initialLock() (contracts/FxsDepositor.sol#47-63) ignores return value by IStaker(staker).createLock(fxsBalanceStaker,unlockAt) (contracts/FxsDepositor.sol#60)
+FxsDepositor._lockFxs() (contracts/FxsDepositor.sol#66-90) ignores return value by IStaker(staker).increaseAmount(fxsBalanceStaker) (contracts/FxsDepositor.sol#79)
+FxsDepositor._lockFxs() (contracts/FxsDepositor.sol#66-90) ignores return value by IStaker(staker).increaseTime(unlockAt) (contracts/FxsDepositor.sol#87)
+PoolUtilities.isConvexWrapper(address) (contracts/PoolUtilities.sol#93-99) ignores return value by IConvexWrapperV2(_wrapper).convexToken() (contracts/PoolUtilities.sol#94-96)
+PoolUtilities.earnedByOwner(uint256,address) (contracts/PoolUtilities.sol#101-104) ignores return value by (None,staking,token,rewards,None) = IPoolRegistry(poolRegistry).poolInfo(_pid) (contracts/PoolUtilities.sol#102)
+PoolUtilities.earned(uint256,address) (contracts/PoolUtilities.sol#106-109) ignores return value by (None,staking,token,rewards,None) = IPoolRegistry(poolRegistry).poolInfo(_pid) (contracts/PoolUtilities.sol#107)
+StakingProxyBase._checkpointFarm() (contracts/StakingProxyBase.sol#86-89) ignores return value by IFraxFarmBase(stakingAddress).getReward(address(this)) (contracts/StakingProxyBase.sol#88)
+StakingProxyBase.execute(address,bytes) (contracts/StakingProxyBase.sol#176-193) ignores return value by (None,None,None,None,shutdown) = IPoolRegistry(poolRegistry).poolInfo(IRewards(rewards).poolId()) (contracts/StakingProxyBase.sol#186)
+StakingProxyConvex.initialize(address,address,address,address) (contracts/StakingProxyConvex.sol#34-50) ignores return value by (_lptoken,_token,None,None,None,None) = ICurveConvex(convexCurveBooster).poolInfo(IConvexWrapperV2(_stakingToken).convexPoolId()) (contracts/StakingProxyConvex.sol#41)
+StakingProxyConvex.initialize(address,address,address,address) (contracts/StakingProxyConvex.sol#34-50) ignores return value by IERC20(_stakingToken).approve(_stakingAddress,type()(uint256).max) (contracts/StakingProxyConvex.sol#47)
+StakingProxyConvex.initialize(address,address,address,address) (contracts/StakingProxyConvex.sol#34-50) ignores return value by IERC20(_lptoken).approve(_stakingToken,type()(uint256).max) (contracts/StakingProxyConvex.sol#48)
+StakingProxyConvex.initialize(address,address,address,address) (contracts/StakingProxyConvex.sol#34-50) ignores return value by IERC20(_token).approve(_stakingToken,type()(uint256).max) (contracts/StakingProxyConvex.sol#49)
+StakingProxyConvex.withdrawLocked(bytes32) (contracts/StakingProxyConvex.sol#160-166) ignores return value by IFraxFarmERC20_V2(stakingAddress).withdrawLocked(_kek_id,msg.sender,false) (contracts/StakingProxyConvex.sol#162)
+StakingProxyConvex.withdrawLockedAndUnwrap(bytes32) (contracts/StakingProxyConvex.sol#170-180) ignores return value by IFraxFarmERC20_V2(stakingAddress).withdrawLocked(_kek_id,address(this),false) (contracts/StakingProxyConvex.sol#172)
+StakingProxyConvex.getReward(bool) (contracts/StakingProxyConvex.sol#233-264) ignores return value by IFraxFarmERC20_V2(stakingAddress).getReward(address(this)) (contracts/StakingProxyConvex.sol#238)
+StakingProxyConvex.getReward(bool,address[]) (contracts/StakingProxyConvex.sol#270-288) ignores return value by IFraxFarmERC20_V2(stakingAddress).getReward(address(this)) (contracts/StakingProxyConvex.sol#275)
+StakingProxyERC20.initialize(address,address,address,address) (contracts/StakingProxyERC20.sol#24-32) ignores return value by IERC20(stakingToken).approve(_stakingAddress,type()(uint256).max) (contracts/StakingProxyERC20.sol#31)
+StakingProxyERC20.getReward(bool) (contracts/StakingProxyERC20.sol#124-142) ignores return value by IFraxFarmERC20_V2(stakingAddress).getReward(address(this)) (contracts/StakingProxyERC20.sol#128)
+StakingProxyERC20.getReward(bool,address[]) (contracts/StakingProxyERC20.sol#148-163) ignores return value by IFraxFarmERC20_V2(stakingAddress).getReward(address(this)) (contracts/StakingProxyERC20.sol#152)
+StakingProxyERC20Joint.initialize(address,address,address,address) (contracts/StakingProxyERC20Joint.sol#41-55) ignores return value by IERC20(stakingToken).approve(_stakingAddress,type()(uint256).max) (contracts/StakingProxyERC20Joint.sol#54)
+StakingProxyERC20Joint.getReward(bool) (contracts/StakingProxyERC20Joint.sol#159-177) ignores return value by IFraxFarmERC20NoReturn(stakingAddress).getReward(address(this)) (contracts/StakingProxyERC20Joint.sol#163)
+StakingProxyERC20Joint.getReward(bool,address[]) (contracts/StakingProxyERC20Joint.sol#183-198) ignores return value by IFraxFarmERC20NoReturn(stakingAddress).getReward(address(this)) (contracts/StakingProxyERC20Joint.sol#187)
+StakingProxyUniV3.getReward(bool) (contracts/StakingProxyUniV3.sol#133-154) ignores return value by IFraxFarmUniV3(stakingAddress).getReward(address(this),false) (contracts/StakingProxyUniV3.sol#139)
+StakingProxyUniV3.getReward(bool) (contracts/StakingProxyUniV3.sol#133-154) ignores return value by IFraxFarmUniV3(stakingAddress).getReward(owner,true) (contracts/StakingProxyUniV3.sol#140)
+StakingProxyUniV3.getReward(bool,address[]) (contracts/StakingProxyUniV3.sol#160-178) ignores return value by IFraxFarmUniV3(stakingAddress).getReward(address(this),false) (contracts/StakingProxyUniV3.sol#166)
+StakingProxyUniV3.getReward(bool,address[]) (contracts/StakingProxyUniV3.sol#160-178) ignores return value by IFraxFarmUniV3(stakingAddress).getReward(owner,true) (contracts/StakingProxyUniV3.sol#167)
+TreasuryManager.swap(uint256,uint256) (contracts/TreasuryManager.sol#117-129) ignores return value by ICurveExchange(exchange).exchange(0,1,_amount,_minAmountOut,treasury) (contracts/TreasuryManager.sol#126)
+TreasuryManager.addToPool(uint256,uint256,uint256) (contracts/TreasuryManager.sol#145-161) ignores return value by ICurveExchange(exchange).add_liquidity(amounts,_minAmountOut,address(this)) (contracts/TreasuryManager.sol#154)
+TreasuryManager.addToPool(uint256,uint256,uint256) (contracts/TreasuryManager.sol#145-161) ignores return value by IConvexDeposits(booster).deposit(pid,lpBalance,true) (contracts/TreasuryManager.sol#158)
+TreasuryManager.removeFromPool(uint256,uint256) (contracts/TreasuryManager.sol#163-197) ignores return value by ICurveExchange(exchange).remove_liquidity_one_coin(IERC20(exchange).balanceOf(address(this)),int128(1),_minAmountOut,treasury) (contracts/TreasuryManager.sol#170)
+TreasuryManagerFrax.swapWStethToFrxEth(uint256,uint256,bool) (contracts/TreasuryManagerFrax.sol#151-170) ignores return value by wrappedSteth(wsteth).unwrap(_amount) (contracts/TreasuryManagerFrax.sol#157)
+TreasuryManagerFrax.swapWStethToFrxEth(uint256,uint256,bool) (contracts/TreasuryManagerFrax.sol#151-170) ignores return value by ICurveExchange(stethfrxeth).exchange(0,1,IERC20(steth).balanceOf(address(this)),_minAmountOut,address(this)) (contracts/TreasuryManagerFrax.sol#161)
+TreasuryManagerFrax.swapWStethToFrxEth(uint256,uint256,bool) (contracts/TreasuryManagerFrax.sol#151-170) ignores return value by IERC4626(sfrxeth).deposit(IERC20(frxeth).balanceOf(address(this)),treasury) (contracts/TreasuryManagerFrax.sol#163)
+TreasuryManagerFrax.swapWStethToFrxEth(uint256,uint256,bool) (contracts/TreasuryManagerFrax.sol#151-170) ignores return value by ICurveExchange(stethfrxeth).exchange(0,1,IERC20(steth).balanceOf(address(this)),_minAmountOut,treasury) (contracts/TreasuryManagerFrax.sol#166)
+TreasuryManagerFrax.addToPool(uint256,uint256,uint256,uint256,uint256,uint256) (contracts/TreasuryManagerFrax.sol#173-206) ignores return value by IERC4626(sfrxeth).redeem(IERC4626(sfrxeth).maxRedeem(address(this)),address(this),address(this)) (contracts/TreasuryManagerFrax.sol#184)
+TreasuryManagerFrax.addToPool(uint256,uint256,uint256,uint256,uint256,uint256) (contracts/TreasuryManagerFrax.sol#173-206) ignores return value by ICurveExchange(curvepool).add_liquidity(amounts,_minAmountOut,false,address(this)) (contracts/TreasuryManagerFrax.sol#191)
+TreasuryManagerFrax.removeFromPool(uint256,uint256) (contracts/TreasuryManagerFrax.sol#215-246) ignores return value by ICurveExchange(curvepool).remove_liquidity_one_coin(IERC20(lptoken).balanceOf(address(this)),uint256(1),_minAmountOut,false,treasury) (contracts/TreasuryManagerFrax.sol#225)
+cvxFxsStaking.constructor() (contracts/cvxFxsStaking.sol#54-59) ignores return value by IERC20(fxs).approve(fxsDepositor,type()(uint256).max) (contracts/cvxFxsStaking.sol#58)
+FraxtalBooster._proxyCall(address,bytes) (contracts/fraxtal/FraxtalBooster.sol#69-72) ignores return value by (success,None) = IStaker(proxy).execute(_to,uint256(0),_data) (contracts/fraxtal/FraxtalBooster.sol#70)
+FraxtalBooster.setExtraDistro(address,address) (contracts/fraxtal/FraxtalBooster.sol#132-139) ignores return value by IERC20(vefxsFeeToken).approve(extraRewardDistribution,type()(uint256).max) (contracts/fraxtal/FraxtalBooster.sol#137)
+FraxtalBooster.claimFees() (contracts/fraxtal/FraxtalBooster.sol#203-230) ignores return value by IRewardDistribution(extraRewardDistribution).queueNewRewards(bridgeBalance) (contracts/fraxtal/FraxtalBooster.sol#224)
+FraxtalFxsDepositor.deposit(uint256,address) (contracts/fraxtal/FraxtalFxsDepositor.sol#78-95) ignores return value by IERC4626(_stakeAddress).deposit(_amount,msg.sender) (contracts/fraxtal/FraxtalFxsDepositor.sol#92)
+cvxFXB.constructor(address,address,address,address,address,address) (contracts/fraxtal/cvxFXB.sol#88-116) ignores return value by IERC20(frax).approve(sfraxVault,type()(uint256).max) (contracts/fraxtal/cvxFXB.sol#108)
+cvxFXB.constructor(address,address,address,address,address,address) (contracts/fraxtal/cvxFXB.sol#88-116) ignores return value by IERC20(sfrax).approve(sfraxVault,type()(uint256).max) (contracts/fraxtal/cvxFXB.sol#109)
+cvxFXB.constructor(address,address,address,address,address,address) (contracts/fraxtal/cvxFXB.sol#88-116) ignores return value by IERC20(frax).approve(fraxlend,type()(uint256).max) (contracts/fraxtal/cvxFXB.sol#110)
+cvxFXB.constructor(address,address,address,address,address,address) (contracts/fraxtal/cvxFXB.sol#88-116) ignores return value by IERC20(stakingToken).approve(fraxlend,type()(uint256).max) (contracts/fraxtal/cvxFXB.sol#111)
+cvxFXB.migrate() (contracts/fraxtal/cvxFXB.sol#169-202) ignores return value by IERC20(stakingToken).approve(fraxlend,type()(uint256).max) (contracts/fraxtal/cvxFXB.sol#185)
+cvxFXB.migrate() (contracts/fraxtal/cvxFXB.sol#169-202) ignores return value by IERC20(frax).approve(fraxlend,type()(uint256).max) (contracts/fraxtal/cvxFXB.sol#186)
+cvxFXB.maxBorrowable(uint256,uint256) (contracts/fraxtal/cvxFXB.sol#396-429) ignores return value by (None,None,exchangeRate) = IDualOracle(exInfo.oracle).getPrices() (contracts/fraxtal/cvxFXB.sol#399)
+cvxFXB.maxBorrowable(uint256,uint256) (contracts/fraxtal/cvxFXB.sol#396-429) ignores return value by (None,None,None,None,totalAsset,totalBorrow) = IFraxLend(fraxlend).previewAddInterest() (contracts/fraxtal/cvxFXB.sol#413)
+cvxFXB._borrow(uint256) (contracts/fraxtal/cvxFXB.sol#448-462) ignores return value by (isBorrowAllowed,None,None) = IFraxLend(fraxlend).updateExchangeRate() (contracts/fraxtal/cvxFXB.sol#451)
+cvxFXB._borrow(uint256) (contracts/fraxtal/cvxFXB.sol#448-462) ignores return value by IFraxLend(fraxlend).borrowAsset(_amount,IERC20(stakingToken).balanceOf(address(this)),address(this)) (contracts/fraxtal/cvxFXB.sol#454)
+cvxFXB._borrow(uint256) (contracts/fraxtal/cvxFXB.sol#448-462) ignores return value by IERC4626(sfraxVault).deposit(fraxbalance,address(this)) (contracts/fraxtal/cvxFXB.sol#460)
+cvxFXB._repayShares(uint256) (contracts/fraxtal/cvxFXB.sol#464-471) ignores return value by IERC4626(sfraxVault).redeem(IERC20(sfrax).balanceOf(address(this)),address(this),address(this)) (contracts/fraxtal/cvxFXB.sol#467)
+cvxFXB._repayShares(uint256) (contracts/fraxtal/cvxFXB.sol#464-471) ignores return value by IFraxLend(fraxlend).repayAsset(_shares,address(this)) (contracts/fraxtal/cvxFXB.sol#469)
+cvxFXBRateCalc.fraxlendCurrentUtil() (contracts/fraxtal/cvxFXBRateCalc.sol#47-53) ignores return value by (totalborrow,None) = IFraxLend(fraxlend).totalBorrow() (contracts/fraxtal/cvxFXBRateCalc.sol#49)
+cvxFXBRateCalc.currentRatesPerSupply() (contracts/fraxtal/cvxFXBRateCalc.sol#55-80) ignores return value by (lendrate,None) = IRateCalculatorV2(rateContract).getNewRate(0,fraxlendCurrentUtil(),rateInfo.fullUtilizationRate) (contracts/fraxtal/cvxFXBRateCalc.sol#59-63)
+cvxFXBRateCalc.fraxlendRates() (contracts/fraxtal/cvxFXBRateCalc.sol#92-117) ignores return value by (lowRate,None) = IRateCalculatorV2(rateContract).getNewRate(0,lowUtil,rateInfo.fullUtilizationRate) (contracts/fraxtal/cvxFXBRateCalc.sol#102-106)
+cvxFXBRateCalc.fraxlendRates() (contracts/fraxtal/cvxFXBRateCalc.sol#92-117) ignores return value by (currentRate,None) = IRateCalculatorV2(rateContract).getNewRate(0,currentUtil,rateInfo.fullUtilizationRate) (contracts/fraxtal/cvxFXBRateCalc.sol#107-111)
+cvxFXBRateCalc.fraxlendRates() (contracts/fraxtal/cvxFXBRateCalc.sol#92-117) ignores return value by (highRate,None) = IRateCalculatorV2(rateContract).getNewRate(0,highUtil,rateInfo.fullUtilizationRate) (contracts/fraxtal/cvxFXBRateCalc.sol#112-116)
+cvxFXBRateCalc.rewardsPerSecond() (contracts/fraxtal/cvxFXBRateCalc.sol#119-161) ignores return value by (None,None,None,None,totalAsset,None) = IFraxLend(fraxlend).previewAddInterest() (contracts/fraxtal/cvxFXBRateCalc.sol#139)
+cvxFXBRateCalc.calcBorrowUpdate() (contracts/fraxtal/cvxFXBRateCalc.sol#184-238) ignores return value by (None,lowexchangeRate,highexchangeRate) = IDualOracle(exInfo.oracle).getPrices() (contracts/fraxtal/cvxFXBRateCalc.sol#223)
+cvxFXBSwapper.constructor(address,address,address,address,address) (contracts/fraxtal/cvxFXBSwapper.sol#37-48) ignores return value by IERC20(frax).approve(exchange,type()(uint256).max) (contracts/fraxtal/cvxFXBSwapper.sol#47)
+cvxFXBSwapper.processRewards() (contracts/fraxtal/cvxFXBSwapper.sol#77-92) ignores return value by (None,None,exchangeRate) = IFraxLend(fraxlend).updateExchangeRate() (contracts/fraxtal/cvxFXBSwapper.sol#82)
+cvxFXBSwapper.processRewards() (contracts/fraxtal/cvxFXBSwapper.sol#77-92) ignores return value by ICurveExchange(exchange).exchange(0,1,fbal,minOut,cvxfxb) (contracts/fraxtal/cvxFXBSwapper.sol#89)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-return
+frax-cvx-audit/evidence/crytic-export.json analyzed (150 contracts with 59 detectors), 148 result(s) found

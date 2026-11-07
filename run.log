@@ -1,0 +1,608 @@
+Compiling 2 files with Solc 0.8.24
+Solc 0.8.24 finished in 23.69s
+Compiler run successful with warnings:
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/ILiquidSwap.sol
+
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/IWrappedHlpDepositor.sol
+
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/IWrappedHype.sol
+
+Warning (2018): Function state mutability can be restricted to view
+   --> contracts/periphery/GluexAdapter.sol:100:5:
+    |
+100 |     function _loadSwapData(address tokenIn, address tokenOut) internal returns (bytes memory) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> contracts/periphery/HypertradeAdapter.sol:101:5:
+    |
+101 |     function _loadSwapData(address tokenIn, address tokenOut) internal returns (bytes memory) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> poc/Mocks.sol:124:5:
+    |
+124 |     function executeSwaps(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 7 tests for poc/AdapterBalanceDrain.t.sol:AdapterBalanceDrainTest
+[PASS] test_Model_GluexZeroInputSweep_AssertProfit() (gas: 1361647)
+Logs:
+  block 1
+  Gluex
+  delta_attacker_token_units 1000000
+  delta_protocol_token_units -1000000
+  delta_victim_LP_token_units -1000000
+  PnL_attacker_token_units 1000000
+  gas_used_native_fee_not_converted 81357
+  mainnet_fork_proven false
+
+[PASS] test_Model_HypertradeZapperDonationNotCredited() (gas: 4808828)
+Logs:
+  negative_control=wHlpZapper.zapInHypertrade attacker_shares=0 residual_unchanged= 1000000
+
+[PASS] test_Model_HypertradeZeroInputSweep_AssertProfit() (gas: 1611494)
+Logs:
+  block 1
+  Hypertrade
+  delta_attacker_token_units 1000000
+  delta_protocol_token_units -1000000
+  delta_victim_LP_token_units -1000000
+  PnL_attacker_token_units 1000000
+  gas_used_native_fee_not_converted 81423
+  mainnet_fork_proven false
+
+[PASS] test_Model_LiquidZeroInputSweep_AssertProfit() (gas: 2155077)
+Logs:
+  block 1
+  LiquidSwap
+  delta_attacker_token_units 1000000
+  delta_protocol_token_units -1000000
+  delta_victim_LP_token_units -1000000
+  PnL_attacker_token_units 1000000
+  gas_used_native_fee_not_converted 89916
+  mainnet_fork_proven false
+
+[PASS] test_Model_NativeRouterRefundBecomesSweepableWhypeResidual() (gas: 2974559)
+Logs:
+  native_refund_residual_delta_attacker_WHYPE_units 1000000000000000000
+  native_refund_residual_delta_protocol_WHYPE_units -1000000000000000000
+  native_refund_residual_PnL_attacker_WHYPE_units 1000000000000000000
+  mainnet_fork_proven false
+
+[PASS] test_Model_SelfDonationHasZeroPnL_NotAFinding() (gas: 1582510)
+Logs:
+  rejected_self_donation: delta_attacker_net=0 token units; gas makes realized PnL negative
+
+[PASS] test_Model_ZapperZeroInputSweep_AssertProfit() (gas: 5558610)
+Logs:
+  block 1
+  wHlpZapper.zapIn
+  delta_attacker_token_units 1000000
+  delta_protocol_token_units -1000000
+  delta_victim_LP_token_units -1000000
+  PnL_attacker_token_units 1000000
+  gas_used_native_fee_not_converted 257432
+  mainnet_fork_proven false
+
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 5.14ms (3.99ms CPU time)
+
+Ran 7 tests for poc/Guards.t.sol:GuardsTest
+[PASS] test_CallbackFromNonPoolRevertsWithoutDeltas() (gas: 39932)
+[PASS] test_CallbackWithWrongInitiatorRevertsWithoutVictimDelta() (gas: 50849)
+[PASS] test_FactoryAssignsStrategyToActualCaller() (gas: 3309765)
+[PASS] test_OpenAndCloseEncodeCallerNotVictim() (gas: 135728)
+Logs:
+  cross_user_close_delta_victim_debt=0 delta_victim_yield=0
+
+[PASS] test_StrategyManagerPermissionlessSinksRevert() (gas: 1148119)
+[PASS] test_TransientRouteDoesNotCrossBlocks() (gas: 1477396)
+[PASS] test_UnknownSelectorCannotCallLoopingSink() (gas: 6454)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 5.66ms (4.23ms CPU time)
+
+Warning: the following cheatcode(s) are deprecated and will be removed in future versions:
+  snapshot(): replaced by `snapshotState`
+  revertTo(uint256): replaced by `revertToState`
+Ran 2 tests for poc/Campaign.t.sol:CampaignTest
+[PASS] testFuzz_ModelResidualDrain(uint256,uint8) (runs: 1000, μ: 4278324, ~: 4277547)
+[PASS] test_ModelCapitalMatrix_3Tiers_8Seeds() (gas: 7663887)
+Logs:
+  campaign seed 0
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 1000000000000000000000000
+    delta_protocol_mUSD_units -1000000000000000000000000
+    delta_residual_source_mUSD_units -1000000000000000000000000
+    PnL_attacker_mUSD_units_before_native_gas 1000000000000000000000000
+  campaign seed 1
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999999
+    delta_protocol_mUSD_units -999999999999999999999999
+    delta_residual_source_mUSD_units -999999999999999999999999
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999999
+  campaign seed 2
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999998
+    delta_protocol_mUSD_units -999999999999999999999998
+    delta_residual_source_mUSD_units -999999999999999999999998
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999998
+  campaign seed 3
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999997
+    delta_protocol_mUSD_units -999999999999999999999997
+    delta_residual_source_mUSD_units -999999999999999999999997
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999997
+  campaign seed 4
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999996
+    delta_protocol_mUSD_units -999999999999999999999996
+    delta_residual_source_mUSD_units -999999999999999999999996
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999996
+  campaign seed 5
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999995
+    delta_protocol_mUSD_units -999999999999999999999995
+    delta_residual_source_mUSD_units -999999999999999999999995
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999995
+  campaign seed 6
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999994
+    delta_protocol_mUSD_units -999999999999999999999994
+    delta_residual_source_mUSD_units -999999999999999999999994
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999994
+  campaign seed 7
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999993
+    delta_protocol_mUSD_units -999999999999999999999993
+    delta_residual_source_mUSD_units -999999999999999999999993
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999993
+  campaign seed 0
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 10000000000000000000000000
+    delta_protocol_mUSD_units -10000000000000000000000000
+    delta_residual_source_mUSD_units -10000000000000000000000000
+    PnL_attacker_mUSD_units_before_native_gas 10000000000000000000000000
+  campaign seed 1
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999999
+    delta_protocol_mUSD_units -9999999999999999999999999
+    delta_residual_source_mUSD_units -9999999999999999999999999
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999999
+  campaign seed 2
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999998
+    delta_protocol_mUSD_units -9999999999999999999999998
+    delta_residual_source_mUSD_units -9999999999999999999999998
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999998
+  campaign seed 3
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999997
+    delta_protocol_mUSD_units -9999999999999999999999997
+    delta_residual_source_mUSD_units -9999999999999999999999997
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999997
+  campaign seed 4
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999996
+    delta_protocol_mUSD_units -9999999999999999999999996
+    delta_residual_source_mUSD_units -9999999999999999999999996
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999996
+  campaign seed 5
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999995
+    delta_protocol_mUSD_units -9999999999999999999999995
+    delta_residual_source_mUSD_units -9999999999999999999999995
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999995
+  campaign seed 6
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999994
+    delta_protocol_mUSD_units -9999999999999999999999994
+    delta_residual_source_mUSD_units -9999999999999999999999994
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999994
+  campaign seed 7
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999993
+    delta_protocol_mUSD_units -9999999999999999999999993
+    delta_residual_source_mUSD_units -9999999999999999999999993
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999993
+  campaign seed 0
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 100000000000000000000000000
+    delta_protocol_mUSD_units -100000000000000000000000000
+    delta_residual_source_mUSD_units -100000000000000000000000000
+    PnL_attacker_mUSD_units_before_native_gas 100000000000000000000000000
+  campaign seed 1
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999999
+    delta_protocol_mUSD_units -99999999999999999999999999
+    delta_residual_source_mUSD_units -99999999999999999999999999
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999999
+  campaign seed 2
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999998
+    delta_protocol_mUSD_units -99999999999999999999999998
+    delta_residual_source_mUSD_units -99999999999999999999999998
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999998
+  campaign seed 3
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999997
+    delta_protocol_mUSD_units -99999999999999999999999997
+    delta_residual_source_mUSD_units -99999999999999999999999997
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999997
+  campaign seed 4
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999996
+    delta_protocol_mUSD_units -99999999999999999999999996
+    delta_residual_source_mUSD_units -99999999999999999999999996
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999996
+  campaign seed 5
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999995
+    delta_protocol_mUSD_units -99999999999999999999999995
+    delta_residual_source_mUSD_units -99999999999999999999999995
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999995
+  campaign seed 6
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999994
+    delta_protocol_mUSD_units -99999999999999999999999994
+    delta_residual_source_mUSD_units -99999999999999999999999994
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999994
+  campaign seed 7
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999993
+    delta_protocol_mUSD_units -99999999999999999999999993
+    delta_residual_source_mUSD_units -99999999999999999999999993
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999993
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 214.92ms (223.53ms CPU time)
+
+Ran 3 test suites in 223.33ms (225.71ms CPU time): 16 tests passed, 0 failed, 0 skipped (16 total tests)
+
+$ forge test --match-test testFuzz_ModelResidualDrain --fuzz-runs 200000 --fuzz-seed 0xA11CE -vvv
+No files changed, compilation skipped
+
+Ran 1 test for poc/Campaign.t.sol:CampaignTest
+[PASS] testFuzz_ModelResidualDrain(uint256,uint8) (runs: 200000, μ: 4278291, ~: 4277547)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 40.41s (40.41s CPU time)
+
+Ran 1 test suite in 40.42s (40.41s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+
+$ forge test --match-test testFuzz_ModelResidualDrain --fuzz-runs 500000 --fuzz-seed 0xB -vvv
+No files changed, compilation skipped
+
+Ran 1 test for poc/Campaign.t.sol:CampaignTest
+[PASS] testFuzz_ModelResidualDrain(uint256,uint8) (runs: 500000, μ: 4278293, ~: 4277547)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 102.29s (102.29s CPU time)
+
+Ran 1 test suite in 102.29s (102.29s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+
+$ forge test --match-test testFuzz_ModelResidualDrain --fuzz-runs 1000000 --fuzz-seed 0xC -vvv
+No files changed, compilation skipped
+
+Ran 1 test for poc/Campaign.t.sol:CampaignTest
+[PASS] testFuzz_ModelResidualDrain(uint256,uint8) (runs: 1000000, μ: 4278296, ~: 4277547)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 198.22s (198.22s CPU time)
+
+Ran 1 test suite in 198.22s (198.22s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
+
+$ FOUNDRY_PROFILE=ci forge test --match-path poc/*.t.sol -vvv (tracked submodule + scripts/solc reproduction)
+Compiling 21 files with Solc 0.8.24
+Solc 0.8.24 finished in 33.72s
+Compiler run successful with warnings:
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/ILiquidSwap.sol
+
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/IWrappedHlpDepositor.sol
+
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/IWrappedHype.sol
+
+Warning (2018): Function state mutability can be restricted to view
+   --> contracts/periphery/GluexAdapter.sol:100:5:
+    |
+100 |     function _loadSwapData(address tokenIn, address tokenOut) internal returns (bytes memory) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> contracts/periphery/HypertradeAdapter.sol:101:5:
+    |
+101 |     function _loadSwapData(address tokenIn, address tokenOut) internal returns (bytes memory) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> poc/Mocks.sol:124:5:
+    |
+124 |     function executeSwaps(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> poc/AdapterBalanceDrain.t.sol:189:5:
+    |
+189 |     function _assertDrain(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 7 tests for poc/AdapterBalanceDrain.t.sol:AdapterBalanceDrainTest
+[PASS] test_Model_GluexZeroInputSweep_AssertProfit() (gas: 1375005)
+Logs:
+  block 1
+  Gluex
+  delta_attacker_token_units 1000000
+  delta_protocol_token_units -1000000
+  delta_victim_LP_token_units -1000000
+  PnL_attacker_token_units 1000000
+  gas_used_native_fee_not_converted 81836
+  mainnet_fork_proven false
+
+[PASS] test_Model_HypertradeZapperDonationNotCredited() (gas: 4814696)
+Logs:
+  negative_control=wHlpZapper.zapInHypertrade attacker_shares=0 residual_unchanged= 1000000
+
+[PASS] test_Model_HypertradeZeroInputSweep_AssertProfit() (gas: 1624373)
+Logs:
+  block 1
+  Hypertrade
+  delta_attacker_token_units 1000000
+  delta_protocol_token_units -1000000
+  delta_victim_LP_token_units -1000000
+  PnL_attacker_token_units 1000000
+  gas_used_native_fee_not_converted 81902
+  mainnet_fork_proven false
+
+[PASS] test_Model_LiquidZeroInputSweep_AssertProfit() (gas: 2168435)
+Logs:
+  block 1
+  LiquidSwap
+  delta_attacker_token_units 1000000
+  delta_protocol_token_units -1000000
+  delta_victim_LP_token_units -1000000
+  PnL_attacker_token_units 1000000
+  gas_used_native_fee_not_converted 90395
+  mainnet_fork_proven false
+
+[PASS] test_Model_NativeRouterRefundBecomesSweepableWhypeResidual() (gas: 2985088)
+Logs:
+  native_refund_residual_delta_attacker_WHYPE_units 1000000000000000000
+  native_refund_residual_delta_protocol_WHYPE_units -1000000000000000000
+  native_refund_residual_PnL_attacker_WHYPE_units 1000000000000000000
+  mainnet_fork_proven false
+
+[PASS] test_Model_SelfDonationHasZeroPnL_NotAFinding() (gas: 1585512)
+Logs:
+  rejected_self_donation: delta_attacker_net=0 token units; gas makes realized PnL negative
+
+[PASS] test_Model_ZapperZeroInputSweep_AssertProfit() (gas: 5572447)
+Logs:
+  block 1
+  wHlpZapper.zapIn
+  delta_attacker_token_units 1000000
+  delta_protocol_token_units -1000000
+  delta_victim_LP_token_units -1000000
+  PnL_attacker_token_units 1000000
+  gas_used_native_fee_not_converted 257911
+  mainnet_fork_proven false
+
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 6.22ms (5.05ms CPU time)
+
+Ran 7 tests for poc/Guards.t.sol:GuardsTest
+[PASS] test_CallbackFromNonPoolRevertsWithoutDeltas() (gas: 42526)
+[PASS] test_CallbackWithWrongInitiatorRevertsWithoutVictimDelta() (gas: 54600)
+[PASS] test_FactoryAssignsStrategyToActualCaller() (gas: 3313516)
+[PASS] test_OpenAndCloseEncodeCallerNotVictim() (gas: 143910)
+Logs:
+  cross_user_close_delta_victim_debt=0 delta_victim_yield=0
+
+[PASS] test_StrategyManagerPermissionlessSinksRevert() (gas: 1154265)
+[PASS] test_TransientRouteDoesNotCrossBlocks() (gas: 1479990)
+[PASS] test_UnknownSelectorCannotCallLoopingSink() (gas: 10586)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 2.44ms (1.35ms CPU time)
+
+Warning: the following cheatcode(s) are deprecated and will be removed in future versions:
+  revertTo(uint256): replaced by `revertToState`
+  snapshot(): replaced by `snapshotState`
+Ran 2 tests for poc/Campaign.t.sol:CampaignTest
+[PASS] testFuzz_ModelResidualDrain(uint256,uint8) (runs: 1000, μ: 4288241, ~: 4287454)
+Logs:
+  Bound result 63544562483646282773430271
+
+[PASS] test_ModelCapitalMatrix_3Tiers_8Seeds() (gas: 7858862)
+Logs:
+  campaign seed 0
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 1000000000000000000000000
+    delta_protocol_mUSD_units -1000000000000000000000000
+    delta_residual_source_mUSD_units -1000000000000000000000000
+    PnL_attacker_mUSD_units_before_native_gas 1000000000000000000000000
+  campaign seed 1
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999999
+    delta_protocol_mUSD_units -999999999999999999999999
+    delta_residual_source_mUSD_units -999999999999999999999999
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999999
+  campaign seed 2
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999998
+    delta_protocol_mUSD_units -999999999999999999999998
+    delta_residual_source_mUSD_units -999999999999999999999998
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999998
+  campaign seed 3
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999997
+    delta_protocol_mUSD_units -999999999999999999999997
+    delta_residual_source_mUSD_units -999999999999999999999997
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999997
+  campaign seed 4
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999996
+    delta_protocol_mUSD_units -999999999999999999999996
+    delta_residual_source_mUSD_units -999999999999999999999996
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999996
+  campaign seed 5
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999995
+    delta_protocol_mUSD_units -999999999999999999999995
+    delta_residual_source_mUSD_units -999999999999999999999995
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999995
+  campaign seed 6
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999994
+    delta_protocol_mUSD_units -999999999999999999999994
+    delta_residual_source_mUSD_units -999999999999999999999994
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999994
+  campaign seed 7
+    capitalTier(A=0,B=1,C=2) 0
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 999999999999999999999993
+    delta_protocol_mUSD_units -999999999999999999999993
+    delta_residual_source_mUSD_units -999999999999999999999993
+    PnL_attacker_mUSD_units_before_native_gas 999999999999999999999993
+  campaign seed 0
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 10000000000000000000000000
+    delta_protocol_mUSD_units -10000000000000000000000000
+    delta_residual_source_mUSD_units -10000000000000000000000000
+    PnL_attacker_mUSD_units_before_native_gas 10000000000000000000000000
+  campaign seed 1
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999999
+    delta_protocol_mUSD_units -9999999999999999999999999
+    delta_residual_source_mUSD_units -9999999999999999999999999
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999999
+  campaign seed 2
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999998
+    delta_protocol_mUSD_units -9999999999999999999999998
+    delta_residual_source_mUSD_units -9999999999999999999999998
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999998
+  campaign seed 3
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999997
+    delta_protocol_mUSD_units -9999999999999999999999997
+    delta_residual_source_mUSD_units -9999999999999999999999997
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999997
+  campaign seed 4
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999996
+    delta_protocol_mUSD_units -9999999999999999999999996
+    delta_residual_source_mUSD_units -9999999999999999999999996
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999996
+  campaign seed 5
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999995
+    delta_protocol_mUSD_units -9999999999999999999999995
+    delta_residual_source_mUSD_units -9999999999999999999999995
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999995
+  campaign seed 6
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999994
+    delta_protocol_mUSD_units -9999999999999999999999994
+    delta_residual_source_mUSD_units -9999999999999999999999994
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999994
+  campaign seed 7
+    capitalTier(A=0,B=1,C=2) 1
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 9999999999999999999999993
+    delta_protocol_mUSD_units -9999999999999999999999993
+    delta_residual_source_mUSD_units -9999999999999999999999993
+    PnL_attacker_mUSD_units_before_native_gas 9999999999999999999999993
+  campaign seed 0
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 100000000000000000000000000
+    delta_protocol_mUSD_units -100000000000000000000000000
+    delta_residual_source_mUSD_units -100000000000000000000000000
+    PnL_attacker_mUSD_units_before_native_gas 100000000000000000000000000
+  campaign seed 1
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999999
+    delta_protocol_mUSD_units -99999999999999999999999999
+    delta_residual_source_mUSD_units -99999999999999999999999999
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999999
+  campaign seed 2
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999998
+    delta_protocol_mUSD_units -99999999999999999999999998
+    delta_residual_source_mUSD_units -99999999999999999999999998
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999998
+  campaign seed 3
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999997
+    delta_protocol_mUSD_units -99999999999999999999999997
+    delta_residual_source_mUSD_units -99999999999999999999999997
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999997
+  campaign seed 4
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999996
+    delta_protocol_mUSD_units -99999999999999999999999996
+    delta_residual_source_mUSD_units -99999999999999999999999996
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999996
+  campaign seed 5
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999995
+    delta_protocol_mUSD_units -99999999999999999999999995
+    delta_residual_source_mUSD_units -99999999999999999999999995
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999995
+  campaign seed 6
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999994
+    delta_protocol_mUSD_units -99999999999999999999999994
+    delta_residual_source_mUSD_units -99999999999999999999999994
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999994
+  campaign seed 7
+    capitalTier(A=0,B=1,C=2) 2
+    stateId=3 direct_residual; sequence=setPath,swap0,redeemBalance
+    delta_attacker_mUSD_units 99999999999999999999999993
+    delta_protocol_mUSD_units -99999999999999999999999993
+    delta_residual_source_mUSD_units -99999999999999999999999993
+    PnL_attacker_mUSD_units_before_native_gas 99999999999999999999999993
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 248.79ms (257.32ms CPU time)
+
+Ran 3 test suites in 256.98ms (257.44ms CPU time): 16 tests passed, 0 failed, 0 skipped (16 total tests)

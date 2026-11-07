@@ -1,0 +1,10 @@
+Final validation: PASS
+Build: 165 contracts / 117 source files; solc 0.8.10+commit.fc410830.Emscripten.clang; optimizer 200
+Production source hashes: PASS
+Python syntax and oracle-validity evidence JSON: PASS
+F-03 false-validity PoC: PASS; exchange called despite false; 100 FRAX pulled; 100 FXB delivered; attacker delta 0/0
+F-03 true-validity control: PASS; no attacker profit in either scenario
+Zero-incentive C-01 control: PASS; deficit=0, advantage=0, unbacked victim shares=0
+C-01 disposition: latent/conditional only, not a current mainnet finding at lockIncentive=0
+F-03 disposition: conditional lead only; no deployed stale state, MEV loss, or positive net P&L established
+Screenshot: user-supplied, original preserved with SHA-256, no block-pinned claim

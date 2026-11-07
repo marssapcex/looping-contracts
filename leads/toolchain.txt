@@ -1,0 +1,22 @@
+# Tool versions
+Fri Nov  6 10:17:15 UTC 2026
+forge Version: 1.7.1
+Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8
+Build Timestamp: 2026-05-08T07:50:55.527285345Z (1778226655)
+Build Profile: dist
+cast Version: 1.7.1
+Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8
+Build Timestamp: 2026-05-08T07:50:55.527285345Z (1778226655)
+Build Profile: dist
+anvil Version: 1.7.1
+Commit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8
+Build Timestamp: 2026-05-08T07:50:55.527285345Z (1778226655)
+Build Profile: dist
+v22.22.3
+solc, the solidity compiler commandline interface
+Version: 0.8.24+commit.e11b9ed9.Emscripten.clang
+0.11.6
+0.4.2
+forge-std 3b20d60d14b343ee4f908cb8079495c07f5e8981
+source 241867af5b14616539790d2b52f3fa4d3902db86
+solc npm 0.8.24+commit.e11b9ed9.Emscripten.clang

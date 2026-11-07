@@ -1,0 +1,405 @@
+Compiling 1 files with Solc 0.8.24
+Solc 0.8.24 finished in 13.04s
+Compiler run successful with warnings:
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/ILiquidSwap.sol
+
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/IWrappedHlpDepositor.sol
+
+Warning (3420): Source file does not specify required compiler version! Consider adding "pragma solidity ^0.8.24;"
+--> contracts/interfaces/IWrappedHype.sol
+
+Warning (2018): Function state mutability can be restricted to view
+   --> contracts/periphery/GluexAdapter.sol:100:5:
+    |
+100 |     function _loadSwapData(address tokenIn, address tokenOut) internal returns (bytes memory) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> contracts/periphery/HypertradeAdapter.sol:101:5:
+    |
+101 |     function _loadSwapData(address tokenIn, address tokenOut) internal returns (bytes memory) {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to pure
+   --> poc/Mocks.sol:124:5:
+    |
+124 |     function executeSwaps(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+╭------------------------+------------------+-------------------+--------------------+---------------------╮
+| Contract               | Runtime Size (B) | Initcode Size (B) | Runtime Margin (B) | Initcode Margin (B) |
++==========================================================================================================+
+| AdapterAttacker        | 4,094            | 4,141             | 20,482             | 45,011              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| Address                | 62               | 106               | 24,514             | 49,046              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| DataTypes              | 62               | 106               | 24,514             | 49,046              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| Errors                 | 62               | 106               | 24,514             | 49,046              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| GluexAdapter           | 5,199            | 5,760             | 19,377             | 43,392              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| HypertradeAdapter      | 6,333            | 7,730             | 18,243             | 41,422              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| LiquidSwapAdapter      | 8,353            | 9,406             | 16,223             | 39,746              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| Looping                | 12,377           | 14,142            | 12,199             | 35,010              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| MockDepositor          | 2,208            | 8,183             | 22,368             | 40,969              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| MockERC20              | 4,229            | 5,499             | 20,347             | 43,653              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| MockLiquidRouter       | 693              | 740               | 23,883             | 48,412              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| MockNoOpRouter         | 67               | 107               | 24,509             | 49,045              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| MockPool               | 2,066            | 2,113             | 22,510             | 47,039              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| MockRefundRouter       | 956              | 1,003             | 23,620             | 48,149              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| MockWHYPE              | 5,181            | 6,377             | 19,395             | 42,775              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| SafeERC20              | 62               | 106               | 24,514             | 49,046              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| StrategyManager        | 5,201            | 6,120             | 19,375             | 43,032              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| StrategyManagerFactory | 10,177           | 10,777            | 14,399             | 38,375              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| UiDataProvider         | 10,461           | 10,508            | 14,115             | 38,644              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| ZapperAttacker         | 3,235            | 3,282             | 21,341             | 45,870              |
+|------------------------+------------------+-------------------+--------------------+---------------------|
+| wHlpZapper             | 9,449            | 11,558            | 15,127             | 37,594              |
+╰------------------------+------------------+-------------------+--------------------+---------------------╯
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ contracts/periphery/GluexAdapter.sol:70:17
+   │
+70 │         require(block.timestamp < deadline, "GluexAdapter: expired");
+   │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+   ╭▸ contracts/StrategyManager.sol:64:17
+   │
+64 │                 IERC20(tokens[i]).transfer(owner(), balance);
+   │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ contracts/periphery/HypertradeAdapter.sol:79:17
+   │
+79 │         require(block.timestamp < deadline, "HypertradeAdapter: expired");
+   │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ contracts/periphery/LiquidSwapAdapter.sol:48:17
+   │
+48 │         require(block.timestamp < deadline, "Swapper: expired");
+   │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+   ╭▸ contracts/periphery/LiquidSwapAdapter.sol:61:9
+   │
+61 │         IERC20(tokenIn).transferFrom(msg.sender, address(this), amountIn);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+   ╭▸ contracts/periphery/LiquidSwapAdapter.sol:80:9
+   │
+80 │         IERC20(tokenOut).transfer(to, balanceOut);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ contracts/periphery/UiDataProvider.sol:201:28
+    │
+201 │         positionValueUsd = int256(_totalCollateralBase) - int256(_totalDebtBase);
+    │                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ contracts/periphery/wHlpZapper.sol:95:17
+   │
+95 │         require(block.timestamp < deadline, "wHlpZapper: expired");
+   │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ contracts/periphery/wHlpZapper.sol:141:17
+    │
+141 │         require(block.timestamp < deadline, "wHlpZapper: expired");
+    │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ contracts/periphery/UiDataProvider.sol:201:59
+    │
+201 │         positionValueUsd = int256(_totalCollateralBase) - int256(_totalDebtBase);
+    │                                                           ━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+   ╭▸ contracts/periphery/wHlpZapper.sol:97:9
+   │
+97 │         IERC20(tokenIn).transferFrom(msg.sender, address(this), amountIn);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+   ╭▸ poc/Campaign.t.sol:30:17
+   │
+30 │                 tokenOut.transfer(address(adapter), residual);
+   │                 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+   ╭▸ poc/Campaign.t.sol:36:79
+   │
+36 │                 int256 deltaAttacker = int256(tokenOut.balanceOf(attacker)) - int256(attackerBefore);
+   │                                                                               ━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ poc/AdapterBalanceDrain.t.sol:164:76
+    │
+164 │         console2.log("native_refund_residual_delta_protocol_WHYPE_units", -int256(delta));
+    │                                                                            ━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+   ╭▸ poc/Campaign.t.sol:37:87
+   │
+37 │                 int256 deltaProtocol = int256(tokenOut.balanceOf(address(adapter))) - int256(protocolBefore);
+   │                                                                                       ━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+   ╭▸ poc/Campaign.t.sol:40:41
+   │
+40 │                 assertEq(deltaAttacker, int256(residual));
+   │                                         ━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+    ╭▸ poc/AdapterBalanceDrain.t.sol:174:9
+    │
+174 │         tokenOut.transfer(address(adapter), B);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+    ╭▸ poc/AdapterBalanceDrain.t.sol:186:9
+    │
+186 │         token.transfer(target, amount);
+    │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ poc/AdapterBalanceDrain.t.sol:200:32
+    │
+200 │         int256 deltaAttacker = int256(attackerAfter) - int256(attackerBefore);
+    │                                ━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+   ╭▸ poc/Campaign.t.sol:41:42
+   │
+41 │                 assertEq(deltaProtocol, -int256(residual));
+   │                                          ━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ poc/AdapterBalanceDrain.t.sol:200:56
+    │
+200 │         int256 deltaAttacker = int256(attackerAfter) - int256(attackerBefore);
+    │                                                        ━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ poc/AdapterBalanceDrain.t.sol:201:32
+    │
+201 │         int256 deltaProtocol = int256(protocolAfter) - int256(protocolBefore);
+    │                                ━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+   ╭▸ poc/Campaign.t.sol:49:69
+   │
+49 │                 console2.log("  delta_residual_source_mUSD_units", -int256(residual));
+   │                                                                     ━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ poc/AdapterBalanceDrain.t.sol:201:56
+    │
+201 │         int256 deltaProtocol = int256(protocolAfter) - int256(protocolBefore);
+    │                                                        ━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ poc/AdapterBalanceDrain.t.sol:202:31
+    │
+202 │         int256 deltaVictim = -int256(expected); // residual seed → sweep, whole sequence
+    │                               ━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+    ╭▸ poc/AdapterBalanceDrain.t.sol:207:34
+    │
+207 │         assertEq(deltaProtocol, -int256(expected), "protocol residual decreases");
+    │                                  ━━━━━━━━━━━━━━━━
+    │
+    ├ note: consider disabling this lint if you're certain the cast is safe
+    │       
+    │       // casting to 'int256' is safe because [explain why]
+    │       // forge-lint: disable-next-line(unsafe-typecast)
+    │       
+    │       
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[erc20-unchecked-transfer]: ERC20 'transfer' and 'transferFrom' calls should check the return value
+   ╭▸ poc/Campaign.t.sol:65:9
+   │
+65 │         tokenOut.transfer(address(adapter), residual);
+   │         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#erc20-unchecked-transfer
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+   ╭▸ poc/MainnetReplay.sol:43:79
+   │
+43 │         int256 deltaAttacker = int256(IERC20(tokenOut).balanceOf(attacker)) - int256(attackerBefore);
+   │                                                                               ━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+
+warning[unsafe-typecast]: typecasts that can truncate values should be checked
+   ╭▸ poc/MainnetReplay.sol:44:87
+   │
+44 │         int256 deltaProtocol = int256(IERC20(tokenOut).balanceOf(address(adapter))) - int256(protocolBefore);
+   │                                                                                       ━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ├ note: consider disabling this lint if you're certain the cast is safe
+   │       
+   │       // casting to 'int256' is safe because [explain why]
+   │       // forge-lint: disable-next-line(unsafe-typecast)
+   │       
+   │       
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#unsafe-typecast
+

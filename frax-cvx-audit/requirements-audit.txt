@@ -1,0 +1,6 @@
+web3==7.16.0
+eth-tester==0.14.0b1
+py-evm==0.12.1b1
+eth-utils==6.0.0
+slither-analyzer==0.11.6
+crytic-compile==0.4.2

@@ -1,0 +1,272 @@
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeBridge.sol:41:        IERC20(l1token).approve(_bridge, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeBridge.sol:75:        uint256 balance = IERC20(l1token).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeBridge.sol:81:            balance = IERC20(l1token).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDeposit.sol:41:        IERC20(fxs).approve(fxsDeposit, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDeposit.sol:42:        IERC20(cvxFxs).approve(vlcvx, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDeposit.sol:73:        uint256 bal = IERC20(_token).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDeposit.sol:82:        uint256 fxsbalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDeposit.sol:104:        uint256 cvxfxsbalance = IERC20(cvxFxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDeposit.sol:116:        IERC20(fxs).safeTransfer(cvxFxsPoolStash, IERC20(fxs).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDepositV2.sol:48:        IERC20(fxs).approve(fxsDeposit, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDepositV2.sol:49:        IERC20(cvxFxs).approve(vlcvx, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDepositV2.sol:96:        uint256 bal = IERC20(_token).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDepositV2.sol:105:        uint256 fxsbalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDepositV2.sol:145:        IERC20(fxs).safeTransfer(cvxfxsReceiver, IERC20(fxs).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverCvxFxs.sol:33:        IERC20(fxs).approve(rewardAddress, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverCvxFxs.sol:34:        IERC20(cvx).approve(rewardAddress, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverCvxFxs.sol:50:        uint256 tokenbalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverCvxFxs.sol:67:        tokenbalance = IERC20(cvx).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverPlatform.sol:26:        uint256 tokenbalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverVeFxs.sol:58:        uint256 tokenbalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverVlCvx.sol:20:        IERC20(fxs).approve(vlcvx, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverVlCvx.sol:24:        uint256 fxsbalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FxsDepositor.sol:53:            uint256 unlockAt = block.timestamp + MAXTIME;
+.audit-tools/frax-cvx-platform/contracts/contracts/FxsDepositor.sol:67:        uint256 fxsBalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/FxsDepositor.sol:82:        uint256 unlockAt = block.timestamp + MAXTIME;
+.audit-tools/frax-cvx-platform/contracts/contracts/FxsDepositor.sol:109:            IERC20(fxs).safeTransferFrom(msg.sender, staker, _amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/FxsDepositor.sol:118:            IERC20(fxs).safeTransferFrom(msg.sender, address(this), _amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/GaugeExtraRewardDistributor.sol:54:        uint256 periodLength = ((block.timestamp + duration) / duration * duration) - IFraxFarmERC20(_farm).periodFinish();
+.audit-tools/frax-cvx-platform/contracts/contracts/GaugeExtraRewardDistributor.sol:58:        reward_tally = IERC20(crv).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/GaugeExtraRewardDistributor.sol:67:        reward_tally = IERC20(cvx).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:25:        uint256 rewardPerTokenStored;
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:51:    uint256 public totalSupply;
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:92:        rewardData[_rewardsToken].lastUpdateTime = block.timestamp;
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:93:        rewardData[_rewardsToken].periodFinish = block.timestamp;
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:121:        totalSupply += _amount;
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:135:        totalSupply -= _amount;
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:147:    function _rewardPerToken(address _rewardsToken) internal view returns(uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:148:        if (totalSupply == 0) {
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:149:            return rewardData[_rewardsToken].rewardPerTokenStored;
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:152:        rewardData[_rewardsToken].rewardPerTokenStored 
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:157:            / totalSupply
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:166:        return (_balance * (_rewardPerToken(_rewardsToken) - userRewardPerTokenPaid[_user][_rewardsToken] ) / 1e18) + rewards[_user][_rewardsToken];
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:170:        return MathUtil.min(block.timestamp, _finishTime);
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:177:    function rewardPerToken(address _rewardsToken) external view returns(uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:178:        return _rewardPerToken(_rewardsToken);
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:227:        if (block.timestamp >= rdata.periodFinish) {
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:230:            uint256 remaining = rdata.periodFinish - block.timestamp;
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:235:        rdata.lastUpdateTime = block.timestamp;
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:236:        rdata.periodFinish = block.timestamp + rewardsDuration;
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:247:        IERC20(_rewardsToken).safeTransferFrom(msg.sender, address(this), _reward);
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:270:            rewardData[token].rewardPerTokenStored = _rewardPerToken(token);
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:274:                userRewardPerTokenPaid[_account][token] = rewardData[token].rewardPerTokenStored;
+.audit-tools/frax-cvx-platform/contracts/contracts/PoolUtilities.sol:68:                            / (IERC20(vefxs).totalSupply() * 1e18);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:63:            uint256 bal = IRewards(rewards).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:116:            uint256 bal = IRewards(rewards).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:134:        uint256 fxsBalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:141:        sendAmount = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:152:            uint256 bal = IRewards(rewards).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:167:                uint256 bal = IERC20(_tokens[i]).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:190:        (bool success, bytes memory result) = _to.call{value:0}(_data);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:47:        IERC20(_stakingToken).approve(_stakingAddress, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:48:        IERC20(_lptoken).approve(_stakingToken, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:49:        IERC20(_token).approve(_stakingToken, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:57:            IERC20(curveLpToken).safeTransferFrom(msg.sender, address(this), _liquidity);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:74:            IERC20(convexDepositToken).safeTransferFrom(msg.sender, address(this), _liquidity);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:91:            IERC20(stakingToken).safeTransferFrom(msg.sender, address(this), _liquidity);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:105:            IERC20(stakingToken).safeTransferFrom(msg.sender, address(this), _addl_liq);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:119:            IERC20(curveLpToken).safeTransferFrom(msg.sender, address(this), _addl_liq);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:136:            IERC20(convexDepositToken).safeTransferFrom(msg.sender, address(this), _addl_liq);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:175:        IConvexWrapperV2(stakingToken).withdrawAndUnwrap(IERC20(stakingToken).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:176:        IERC20(curveLpToken).transfer(owner,IERC20(curveLpToken).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:198:            total_earned[i] = stakedearned[i] + IERC20(rewardTokens[i]).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:243:            uint256 b = IERC20(crv).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:247:            b = IERC20(cvx).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:31:        IERC20(stakingToken).approve(_stakingAddress, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:39:            IERC20(stakingToken).safeTransferFrom(msg.sender, address(this), _liquidity);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:42:            kek_id = IFraxFarmERC20_V2(stakingAddress).stakeLocked(IERC20(stakingToken).balanceOf(address(this)), _secs);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:53:            IERC20(stakingToken).safeTransferFrom(msg.sender, address(this), _addl_liq);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:56:            IFraxFarmERC20_V2(stakingAddress).lockAdditional(_kek_id, IERC20(stakingToken).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:95:            total_earned[i] = stakedearned[i] + IERC20(rewardTokens[i]).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:54:        IERC20(stakingToken).approve(_stakingAddress, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:83:            IERC20(stakingToken).safeTransferFrom(msg.sender, address(this), _liquidity);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:86:            IFraxFarmERC20NoReturn(stakingAddress).stakeLocked(IERC20(stakingToken).balanceOf(address(this)), _secs);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:97:            IERC20(stakingToken).safeTransferFrom(msg.sender, address(this), _addl_liq);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:100:            IFraxFarmERC20NoReturn(stakingAddress).lockAdditional(_kek_id, IERC20(stakingToken).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:130:            total_earned[i] = stakedearned[i] + IERC20(rewardTokens[i]).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:204:        uint256 fxsBalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:219:        fxsBalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:53:            INonfungiblePositionManager(positionManager).safeTransferFrom(msg.sender, address(this), _token_id);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:70:            IERC20(token0).safeTransferFrom(msg.sender, stakingAddress, _token0_amt);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:71:            IERC20(token1).safeTransferFrom(msg.sender, stakingAddress, _token1_amt);
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:104:            total_earned[i] = stakedearned[i] + IERC20(rewardTokens[i]).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:183:        INonfungiblePositionManager(_tokenAddress).safeTransferFrom(address(this), owner, _token_id);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:47:        IERC20(cvxFxs).safeApprove(exchange, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:48:        IERC20(fxs).safeApprove(exchange, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:49:        IERC20(fxs).safeApprove(deposit, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:50:        IERC20(exchange).safeApprove(booster, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:92:        (bool success, bytes memory result) = _to.call{value:_value}(_data);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:123:        IERC20(fxs).safeTransferFrom(treasury,address(this),_amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:133:        IERC20(fxs).safeTransferFrom(treasury,address(this),_amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:149:        IERC20(fxs).safeTransferFrom(treasury,address(this),_fxsAmount);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:150:        IERC20(cvxFxs).safeTransferFrom(treasury,address(this),_cvxFxsAmount);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:157:        uint256 lpBalance = IERC20(exchange).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:170:        ICurveExchange(exchange).remove_liquidity_one_coin(IERC20(exchange).balanceOf(address(this)), int128(1), _minAmountOut, treasury);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:172:        uint256 bal = IERC20(crv).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:178:        bal = IERC20(cvx).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:184:        bal = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:190:        bal = IERC20(cvxFxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:204:        IERC20(exchange).safeTransfer(treasury,IERC20(exchange).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:206:        uint256 bal = IERC20(crv).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:212:        bal = IERC20(cvx).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:218:        bal = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:232:        uint256 bal = IERC20(crv).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:239:        bal = IERC20(cvx).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:246:        bal = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:61:        IERC20(frxeth).safeApprove(curvepool, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:62:        IERC20(frxeth).safeApprove(sfrxeth, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:63:        IERC20(cvx).safeApprove(curvepool, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:64:        IERC20(steth).safeApprove(stethfrxeth, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:69:        IERC20(lptoken).safeApprove(vault, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:83:        return IERC20(cvx).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:118:        (bool success, bytes memory result) = _to.call{value:_value}(_data);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:155:        IERC20(wsteth).safeTransferFrom(treasury,address(this),_amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:161:            ICurveExchange(stethfrxeth).exchange(0,1,IERC20(steth).balanceOf(address(this)),_minAmountOut, address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:163:            IERC4626(sfrxeth).deposit(IERC20(frxeth).balanceOf(address(this)), treasury);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:166:            ICurveExchange(stethfrxeth).exchange(0,1,IERC20(steth).balanceOf(address(this)),_minAmountOut, treasury);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:178:            IERC20(frxeth).safeTransferFrom(treasury,address(this),_frxethAmount);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:183:            IERC20(sfrxeth).safeTransferFrom(treasury,address(this),_sfrxethAmount);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:186:            _frxethAmount = IERC20(frxeth).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:194:        uint256 lpBalance = IERC20(lptoken).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:225:        ICurveExchange(curvepool).remove_liquidity_one_coin(IERC20(lptoken).balanceOf(address(this)), uint256(1), _minAmountOut, false, treasury);
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:227:        uint256 bal = IERC20(crv).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:233:        bal = IERC20(cvx).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:239:        bal = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:256:        IERC20(lptoken).safeTransfer(treasury,IERC20(lptoken).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:258:        uint256 bal = IERC20(crv).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:264:        bal = IERC20(cvx).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:270:        bal = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:284:        uint256 bal = IERC20(crv).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:291:        bal = IERC20(cvx).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:298:        bal = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/VoterProxy.sol:55:        IERC20(fxs).safeApprove(escrow, 0);
+.audit-tools/frax-cvx-platform/contracts/contracts/VoterProxy.sol:56:        IERC20(fxs).safeApprove(escrow, _value);
+.audit-tools/frax-cvx-platform/contracts/contracts/VoterProxy.sol:63:        IERC20(fxs).safeApprove(escrow, 0);
+.audit-tools/frax-cvx-platform/contracts/contracts/VoterProxy.sol:64:        IERC20(fxs).safeApprove(escrow, _value);
+.audit-tools/frax-cvx-platform/contracts/contracts/VoterProxy.sol:97:        uint256 _balance = IERC20(_token).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/VoterProxy.sol:109:        (bool success, bytes memory result) = _to.call{value:_value}(_data);
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:24:        uint256 rewardPerTokenStored;
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:58:        IERC20(fxs).approve(fxsDepositor,type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:72:        rewardData[_rewardsToken].lastUpdateTime = block.timestamp;
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:73:        rewardData[_rewardsToken].periodFinish = block.timestamp;
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:99:        IERC20(fxs).safeTransferFrom(msg.sender, address(this), _amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:119:        IERC20(cvxfxs).safeTransferFrom(msg.sender, address(this), _amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:139:        IERC20(cvxfxs).safeTransferFrom(msg.sender, address(this), _amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:159:    function _rewardPerToken(address _rewardsToken) internal view returns(uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:160:        if (totalSupply() == 0) {
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:161:            return rewardData[_rewardsToken].rewardPerTokenStored;
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:164:        rewardData[_rewardsToken].rewardPerTokenStored 
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:169:            / totalSupply()
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:178:        return (_balance * (_rewardPerToken(_rewardsToken) - userRewardPerTokenPaid[_user][_rewardsToken] ) / 1e18) + rewards[_user][_rewardsToken];
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:182:        return MathUtil.min(block.timestamp, _finishTime);
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:189:    function rewardPerToken(address _rewardsToken) external view returns(uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:190:        return _rewardPerToken(_rewardsToken);
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:258:        if (block.timestamp >= rdata.periodFinish) {
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:261:            uint256 remaining = rdata.periodFinish - block.timestamp;
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:266:        rdata.lastUpdateTime = block.timestamp;
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:267:        rdata.periodFinish = block.timestamp + rewardsDuration;
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:278:        IERC20(_rewardsToken).safeTransferFrom(msg.sender, address(this), _reward);
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:295:            rewardData[token].rewardPerTokenStored = _rewardPerToken(token);
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:299:                userRewardPerTokenPaid[_account][token] = rewardData[token].rewardPerTokenStored;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/BridgeReceiver.sol:39:        (bool success, bytes memory result) = _to.call{value:_value}(_data);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FpisMigrate.sol:56:        (bool success, bytes memory result) = _to.call{value:_value}(_data);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FpisMigrate.sol:71:            IERC20(fpis).safeTransferFrom(msg.sender, address(this), _fpisAmount);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FpisMigrate.sol:76:            IERC20(cvxfpis).safeTransferFrom(msg.sender, address(this), _cvxfpisAmount);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalBooster.sol:137:        IERC20(vefxsFeeToken).approve(extraRewardDistribution,type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalBooster.sol:229:        IERC20(vefxsFeeToken).safeTransfer(cvxfxsRewardReceiver, IERC20(vefxsFeeToken).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFpisLocker.sol:32:        uint256 unlockAt = block.timestamp + MAXTIME;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFpisLocker.sol:56:        uint256 balance = IERC20(fpis).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFpisLocker.sol:73:        uint256 unlockAt = block.timestamp + MAXTIME;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFpisLocker.sol:79:        uint256 unlockAt = block.timestamp + MAXTIME;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFxsDepositor.sol:43:        uint256 fxsBalance = IERC20(fxs).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFxsDepositor.sol:62:        uint256 unlockAt = block.timestamp + MAXTIME;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFxsDepositor.sol:82:        IERC20(fxs).safeTransferFrom(msg.sender, staker, _amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFxsDepositor.sol:91:            IERC20(minter).safeApprove(_stakeAddress, _amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalPoolUtilities.sol:37:        uint256 supplyStkCvxfxs = IERC20(stkCvxFxs).totalSupply();
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalPoolUtilities.sol:49:        uint256 extraSupply = IRewardStaking(extraRewards).totalSupply();
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalPoolUtilities.sol:51:        if(block.timestamp <= IRewardStaking(extraRewards).periodFinish()){
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalVoterProxy.sol:59:        (bool success, bytes memory result) = _to.call{value:_value}(_data);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:64:    uint256 public rewardPerTokenStored;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:69:    uint256 private _totalSupply;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:89:    function totalSupply() public view returns (uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:90:        return _totalSupply;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:100:        rewardPerTokenStored = rewardPerToken();
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:104:            userRewardPerTokenPaid[_account] = rewardPerTokenStored;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:116:        return MathUtil.min(block.timestamp, periodFinish);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:120:    function rewardPerToken() public view returns (uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:121:        if (totalSupply() == 0) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:122:            return rewardPerTokenStored;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:124:        return rewardPerTokenStored + ((lastTimeRewardApplicable() - lastUpdateTime) * rewardRate * 1e18 / totalSupply());
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:129:        return rewards[_account] + (balanceOf(_account) * (rewardPerToken() - userRewardPerTokenPaid[_account]) / 1e18);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:158:        uint256 tsupply = _totalSupply;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:162:        _totalSupply = tsupply; //set supply
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:180:        IERC20(rewardToken).safeTransferFrom(msg.sender, address(this), _amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:191:            IERC20(rewardToken).safeTransferFrom(msg.sender, address(this), _rewards);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:208:        if (block.timestamp >= periodFinish) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:211:            uint256 remaining = periodFinish - block.timestamp;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:217:        lastUpdateTime = block.timestamp;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:218:        periodFinish = block.timestamp + duration;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:156:        uint256 bal = IERC20(reward.reward_token).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:159:        if (totalSupply() > 0 && bal > reward.reward_remaining) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:160:            reward.reward_integral = reward.reward_integral + ((bal - reward.reward_remaining) * 1e20 / totalSupply());
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:272:            IERC20(stakingToken).safeTransferFrom(msg.sender, address(this), _amount);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:347:        return totalSupply();
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/TreasuryFunds.sol:39:        (bool success, bytes memory result) = _to.call{value:_value}(_data);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:108:        IERC20(frax).approve(sfraxVault, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:109:        IERC20(sfrax).approve(sfraxVault, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:110:        IERC20(frax).approve(fraxlend, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:111:        IERC20(stakingToken).approve(fraxlend, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:165:        migrationTime = block.timestamp + 1 weeks; //set timelock of migration
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:171:        require(block.timestamp >= migrationTime, "!mtime");
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:178:        IERC20(stakingToken).safeTransfer(migrationContract, IERC20(stakingToken).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:185:        IERC20(stakingToken).approve(fraxlend, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:186:        IERC20(frax).approve(fraxlend, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:200:        operatorTime = block.timestamp + 1 weeks;
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:206:        require(block.timestamp >= operatorTime, "!otime");
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:268:                IERC20(stakingToken).safeTransferFrom(msg.sender, address(this), _assets);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:281:                IERC20(stakingToken).safeTransferFrom(msg.sender, address(this), assets);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:328:        assets = IERC20(stakingToken).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:333:        if (totalSupply() == 0) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:336:            shares = _assets * totalSupply() / totalAssets();
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:341:        if(totalSupply() > 0){
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:342:            assets = totalAssets() * _shares / totalSupply();
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:349:        if (totalSupply() == 0) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:352:            shares = _assets * totalSupply() / totalAssets();
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:353:            if ( shares * totalAssets() / totalSupply() < _assets) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:360:        if(totalSupply() > 0){
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:361:            assets = totalAssets() * _shares / totalSupply();
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:362:            if ( assets * totalSupply() / totalAssets() < _shares) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:432:        uint256 balance = IERC20(stakingToken).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:439:        uint256 balance = IERC20(stakingToken).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:454:                IFraxLend(fraxlend).borrowAsset(_amount, IERC20(stakingToken).balanceOf(address(this)), address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:458:        uint256 fraxbalance = IERC20(frax).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:467:            IERC4626(sfraxVault).redeem(IERC20(sfrax).balanceOf(address(this)), address(this), address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:522:        uint256 fraxbalance = IERC20(frax).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXBMigrator.sol:39:        IERC20(fxb).safeTransfer(cvxfxb, IERC20(fxb).balanceOf(address(this)));
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXBRateCalc.sol:74:        uint256 supply = IERC20(cvxfxb).totalSupply();
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXBRateCalc.sol:79:        currentrates = currentrates / IERC20(cvxfxb).totalSupply();
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXBSwapper.sol:47:        IERC20(frax).approve(exchange, type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXBSwapper.sol:79:        uint256 fbal = IERC20(frax).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexStaking.sol:17:    function totalSupply() external view returns(uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IDeposit.sol:7:   function totalSupply() external view returns(uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardDistribution.sol:7:    function totalSupply() external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardStaking.sol:17:    function totalSupply() external view returns(uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStakingWrapper.sol:24:    function totalSupply() external view returns(uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVPool.sol:12:  function approve(address spender, uint256 amount) external returns (bool);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVPool.sol:55:  function totalSupply() external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVPool.sol:58:  function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:103:        IERC20(stakingToken).safeTransferFrom(msg.sender, address(this), addl_liq);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:128:        _stakeLocked(msg.sender, msg.sender, token_id, secs, block.timestamp);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:146:        IERC20(stakingToken).safeTransferFrom( source_address, address(this), liquidity);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:195:        require(block.timestamp >= thisStake.ending_timestamp, "Stake is still locked!");
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:83:        IERC20(uni_token0).approve(address(stakingTokenNFT), type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:84:        IERC20(uni_token1).approve(address(stakingTokenNFT), type(uint256).max);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:198:            tk0_amt_to_use = IERC20(uni_token0).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:199:            tk1_amt_to_use = IERC20(uni_token1).balanceOf(address(this));
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:205:            IERC20(uni_token0).safeTransferFrom(msg.sender, address(this), tk0_amt_to_use);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:206:            IERC20(uni_token1).safeTransferFrom(msg.sender, address(this), tk1_amt_to_use);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:216:            block.timestamp + 604800 // Expiration: 7 days from now
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:244:        _stakeLocked(msg.sender, msg.sender, token_id, secs, block.timestamp);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:277:        stakingTokenNFT.safeTransferFrom(source_address, address(this), token_id);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:322:        // require(block.timestamp >= thisNFT.ending_timestamp || stakesUnlocked == true || valid_migrators[msg.sender] == true, "Stake is still locked!");
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:342:            stakingTokenNFT.safeTransferFrom(address(this), destination_address, token_id);

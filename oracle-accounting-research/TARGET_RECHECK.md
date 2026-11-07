@@ -1,0 +1,28 @@
+# Active-target recheck
+
+This recheck applies the corpus by **layer**, not by superficial incident keywords. It does not re-report an already-exploited 2026 mechanism. Existing report qualifications remain in force.
+
+| Target | Corpus-derived check | Result | Disposition / next evidence |
+|---|---|---|---|
+| HyperLend adapters/zapper | Raw residual donation versus pre-existing value; balance-delta control | Existing C1/C2 already model absolute-balance capture. New incident corpus strengthens the test rationale but supplies no deployed residual. | No change to existing LEAD status. Self-donation remains zero-P&L. Requires pinned residual and real zero-input router behavior. |
+| HyperLend `Looping` | Rhea-style route validation and actual terminal output | `Looping._swap` does not explicitly bind path endpoints to `_debtAsset`/`_yieldAsset`; it approves `path[0]`, measures `path[last]`, then supplies the separately declared yield asset. New exact-source negative control uses a real-pull/health-check pool. Correct route creates 100 supply/100 debt for caller only; wrong terminal reverts and victim deltas are zero. | **Robustness/route-validation LEAD only, no finding.** No circular-output aggregation exists in `Looping`; no Rhea-like solvency fabrication or victim P&L was shown. External pool/router behavior remains unverified. |
+| HyperLend external pool | Raw-donation cap, PPS oracle, wrong feed, liquidation accounting | Pool implementation and oracle are absent from this checkout. | Not marked pass or fail. At a pinned block, read `ADDRESSES_PROVIDER`, price oracle, source/feed decimals, caps and cash accounting before testing. |
+| Ellipsis CryptoSwap | Read-only reentrancy, quote/execution, virtual-price distortion | Existing exact-Vyper nonreentrant callback and quote/execution tests remain the relevant controls. No new external-oracle path was identified in the scoped AMM. | No new finding. Do not label ordinary AMM spot movement an external-feed compromise. |
+| Ellipsis `LpTokenStaker` | Wrong/stale/negative oracle answer and decimals | Existing INV-14/C-12 correctly records owner-registered 1e8 allocation oracle and unknown deployed addresses/answers. Owner registration is not a permissionless exploit. | Retain unproven configuration lead only. Next pinned reads: oracle address per pid, `latestAnswer`, decimals/freshness, allocation units, and a permissionless withdrawal if mispricing exists. |
+| Ellipsis reward contracts | Stale reward price versus stale emission schedule | Existing LEAD-001 is schedule advancement/accounting, not LML's stored-reward-price/live-AMM mismatch. | Do not merge the mechanisms or re-report LML. Existing mainnet qualifications unchanged. |
+| FOX `FoxLpBondsPool` | Same-pair pre-trade quote, protocol trade, liquid reward | This is precisely the already-confirmed historical FINDING-001. Current user-run pin blocked fresh caller with `Unauthorized`; arithmetic patch remains unverified. | No duplicate finding and no new 2026 replay. Keep gross pair depletion and attacker net separate as existing report does. |
+| Frax-CVX `cvxFXBSwapper` | Validity flag, stale quote, actual output | **New materially different lead F-03/C-10.** Production `processRewards()` ignores the boolean returned by `updateExchangeRate()`. Production-bytecode false-flag PoC still swaps; true control matches; attacker token deltas are zero. | Conditional source-level lead, not a current-mainnet finding. Requires deployed false/stale state, actual exchange/MEV loss and positive net P&L. Existing leverage mock always returned true, so old campaign did not cover this branch. |
+| Frax-CVX `cvxFXB` | Donation/PPS, empty vault, issuer-affiliate FXB/FRAX | `totalAssets` is local FXB plus lender collateral; donated FXB is real and `_addCollateral` supplies it. Zero-share deposits do not pull tokens. Existing donation and leverage campaigns remain valid within their models. | No Resupply/Summer-style finding promoted. Issuer affiliation is not an exemption: actual Fraxlend oracle/feed/liquidity still needs pinned review. |
+| Frax-CVX `StakedCvxFxs` | Instant raw-balance PPS donation | `totalAssets()` returns `totalSupply()`, not raw cvxFXS balance, so direct donations do not create the sDOLA PPS jump. | Negative control; no new finding. Reward-donation accounting remains covered by the existing campaign. |
+| Frax-CVX staking/fee conversion | Reclassification of old leads | C-01 remains closed under zero incentive; C-02 remains conditional yield trapping. | Neither is relabeled as an oracle incident. Production hashes unchanged. |
+
+## New artifacts and exact outcomes
+
+- Root Foundry: **7/7 PASS**, `poc/OracleAccountingBoundaries.t.sol`; log `oracle-accounting-research/boundary-tests.log`.
+- Frax-CVX build: **165 contracts / 117 sources**, solc `0.8.10+commit.fc410830.Emscripten.clang`, optimizer 200; only three test-only mock contracts were added.
+- Frax-CVX PoC: false validity still performs one exchange, pulls `100e18 FRAX`, uses `49.5e18` minimum output, and delivers `100e18 FXB` to the configured `cvxFXB`; attacker delta `0/0`. True control identical. Evidence: `frax-cvx-audit/evidence/oracle-validity-poc.json`.
+- No production HyperLend, Ellipsis, FOX, or Frax-CVX source was modified.
+
+## Explicitly excluded reproduction
+
+MAMO, YieldBlox, sDOLA, Ploutos, Aave CAPO, Moonwell cbETH, Venus THE, LML, Silo 2026, Rhea, Ostium, Bonzo, Summer, Edel, Makina, Balance, and Tectonic are **not new target findings**. Drift, Kelp, and Echo are comparators for governance/verifier/unbacked-mint boundaries, not new oracle bugs in these repositories. Full Sail is not used for a PoC because its details remain low confidence.

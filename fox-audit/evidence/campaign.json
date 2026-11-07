@@ -1,0 +1,17 @@
+{
+  "mode": "LOCAL_INTEGER_MODEL_NOT_MAINNET_REPLAY",
+  "rows": 2880,
+  "counts": {
+    "EXECUTED_LOCAL_MODEL": 1536,
+    "REJECTED_ONLY_STAKING_POOL": 240,
+    "SKIPPED_TVL_NOT_MEASURED_GE_1E9": 720,
+    "SKIPPED_ZERO_RESERVE": 384
+  },
+  "positive_local_counterexamples": 320,
+  "canonical_row": "S0-C-A-seed0",
+  "canonical_real_evm_replay": "scripts/replay.py --case canonical; evidence/canonical-replay.json",
+  "canonical_profit_usdt_raw": "530941023056701789655683",
+  "gas": "0 model USDT; real EVM native gas reported separately",
+  "flash_loan_cost": "0 model USDT; live incident net is sourced separately",
+  "tier_D": "SKIPPED_TVL_NOT_MEASURED_GE_1E9"
+}

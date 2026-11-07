@@ -1,0 +1,347 @@
+.audit-tools/frax-cvx-platform/contracts/contracts/Booster.sol:113:    function setRewardManager(address _rmanager) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/Booster.sol:133:    function claimOperatorRoles() external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/Booster.sol:153:    function setVefxsFeeInfo(address _distro, address _token) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/Booster.sol:183:    function setRewardActiveOnCreation(bool _active) external onlyPoolManager{
+.audit-tools/frax-cvx-platform/contracts/contracts/Booster.sol:218:    function recoverERC20(address _tokenAddress, uint256 _tokenAmount, address _withdrawTo) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/Booster.sol:224:    function setVeFXSProxy(address _vault, address _newproxy) external{
+.audit-tools/frax-cvx-platform/contracts/contracts/Booster.sol:276:    function recoverERC20FromProxy(address _tokenAddress, uint256 _tokenAmount, address _withdrawTo) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/Booster.sol:287:    function createVault(uint256 _pid) external returns (address){
+.audit-tools/frax-cvx-platform/contracts/contracts/Booster.sol:307:    function claimFees() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeBridge.sol:74:    function processFees() external{
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDeposit.sol:69:    function rescueToken(address _token, address _to) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDeposit.sol:77:    function distribute() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDepositV2.sol:92:    function rescueToken(address _token, address _to) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeDepositV2.sol:100:    function distribute() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverCvxFxs.sol:49:    function processFees() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverPlatform.sol:25:    function processFees() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverVeFxs.sol:50:    function withdrawTo(address _asset, uint256 _amount, address _to) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverVeFxs.sol:57:    function processFees() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/FeeReceiverVlCvx.sol:23:    function processFees() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/FxsDepositor.sol:92:    function lockFxs() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/FxsDepositor.sol:104:    function deposit(uint256 _amount, bool _lock) public {
+.audit-tools/frax-cvx-platform/contracts/contracts/FxsDepositor.sol:133:    function depositAll(bool _lock) external{
+.audit-tools/frax-cvx-platform/contracts/contracts/GaugeExtraRewardDistributor.sol:25:    function initialize(address _farm, address _wrapper) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/GaugeExtraRewardDistributor.sol:38:    function recoverERC20(address _tokenAddress, uint256 _tokenAmount) external onlyOwner {
+.audit-tools/frax-cvx-platform/contracts/contracts/GaugeExtraRewardDistributor.sol:45:    function distributeReward(address _farm) external returns(uint256 weeks_elapsed, uint256 reward_tally){
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:64:    function initialize(uint256 _pid, bool _startActive) external{
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:84:    function addReward(
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:109:    function setRewardHook( address _hook ) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:116:    function deposit(address _owner, uint256 _amount) external updateReward(msg.sender){
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:130:    function withdraw(address _owner, uint256 _amount) external updateReward(msg.sender){
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:181:    function getRewardForDuration(address _rewardsToken) external view returns(uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:186:    function claimableRewards(address _account) external view returns(EarnedData[] memory userRewards) {
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:201:    function getReward(address _forward) public updateReward(msg.sender) {
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:239:    function notifyRewardAmount(address _rewardsToken, uint256 _reward) external updateReward(address(0)) {
+.audit-tools/frax-cvx-platform/contracts/contracts/MultiRewards.sol:253:    function recoverERC20(address _tokenAddress, uint256 _tokenAmount) external onlyOwner {
+.audit-tools/frax-cvx-platform/contracts/contracts/PoolManager.sol:53:    function setRewardActiveOnCreation(bool _active) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/PoolRegistry.sol:53:    function setRewardImplementation(address _imp) external onlyOperator{
+.audit-tools/frax-cvx-platform/contracts/contracts/PoolRegistry.sol:59:    function setRewardActiveOnCreation(bool _active) external onlyOperator{
+.audit-tools/frax-cvx-platform/contracts/contracts/PoolUtilities.sol:101:    function earnedByOwner(uint256 _pid, address _owner) external returns (address[] memory token_addresses, uint256[] memory total_earned) {
+.audit-tools/frax-cvx-platform/contracts/contracts/PoolUtilities.sol:106:    function earned(uint256 _pid, address _vault) external returns (address[] memory token_addresses, uint256[] memory total_earned) {
+.audit-tools/frax-cvx-platform/contracts/contracts/PoolUtilities.sol:112:    function earned(address _stakingAddress, address _stakingToken, address _extrarewards, address _vault) public returns (address[] memory token_addresses, uint256[] memory total_earned) {
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:52:    function initialize(address _owner, address _stakingAddress, address _stakingToken, address _rewardsAddress) public virtual{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:91:    function setVeFXSProxy(address _proxy) external virtual onlyAdmin{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:103:    function getReward() external virtual{}
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:104:    function getReward(bool _claim) external virtual{}
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:105:    function getReward(bool _claim, address[] calldata _rewardTokenList) external virtual{}
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:106:    function earned() external virtual returns (address[] memory token_addresses, uint256[] memory total_earned){}
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyBase.sol:176:    function execute(
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:34:    function initialize(address _owner, address _stakingAddress, address _stakingToken, address _rewardsAddress) public override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:54:    function stakeLockedCurveLp(uint256 _liquidity, uint256 _secs) external onlyOwner nonReentrant returns (bytes32 kek_id){
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:71:    function stakeLockedConvexToken(uint256 _liquidity, uint256 _secs) external onlyOwner nonReentrant returns (bytes32 kek_id){
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:88:    function stakeLocked(uint256 _liquidity, uint256 _secs) external onlyOwner nonReentrant returns (bytes32 kek_id){
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:102:    function lockAdditional(bytes32 _kek_id, uint256 _addl_liq) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:116:    function lockAdditionalCurveLp(bytes32 _kek_id, uint256 _addl_liq) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:133:    function lockAdditionalConvexToken(bytes32 _kek_id, uint256 _addl_liq) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:150:    function lockLonger(bytes32 _kek_id, uint256 new_ending_ts) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:160:    function withdrawLocked(bytes32 _kek_id) external onlyOwner nonReentrant{        
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:170:    function withdrawLockedAndUnwrap(bytes32 _kek_id) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:183:    function earned() external override returns (address[] memory token_addresses, uint256[] memory total_earned) {
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:225:    function getReward() external override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:233:    function getReward(bool _claim) public override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyConvex.sol:270:    function getReward(bool _claim, address[] calldata _rewardTokenList) external override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:24:    function initialize(address _owner, address _stakingAddress, address _stakingToken, address _rewardsAddress) public override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:36:    function stakeLocked(uint256 _liquidity, uint256 _secs) external onlyOwner nonReentrant returns (bytes32 kek_id){
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:50:    function lockAdditional(bytes32 _kek_id, uint256 _addl_liq) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:64:    function lockLonger(bytes32 _kek_id, uint256 new_ending_ts) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:73:    function withdrawLocked(bytes32 _kek_id) external onlyOwner nonReentrant returns (uint256 liquidity){
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:84:    function earned() external override returns (address[] memory token_addresses, uint256[] memory total_earned) {
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:116:    function getReward() external override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:124:    function getReward(bool _claim) public override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20.sol:148:    function getReward(bool _claim, address[] calldata _rewardTokenList) external override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:41:    function initialize(address _owner, address _stakingAddress, address _stakingToken, address _rewardsAddress) public override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:71:    function setVeFXSProxy(address _proxy) external override onlyAdmin{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:80:    function stakeLocked(uint256 _liquidity, uint256 _secs) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:94:    function lockAdditional(bytes32 _kek_id, uint256 _addl_liq) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:108:    function withdrawLocked(bytes32 _kek_id) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:119:    function earned() external override returns (address[] memory token_addresses, uint256[] memory total_earned) {
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:151:    function getReward() external override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:159:    function getReward(bool _claim) public override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyERC20Joint.sol:183:    function getReward(bool _claim, address[] calldata _rewardTokenList) external override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:27:    function initialize(address _owner, address _stakingAddress, address , address _rewardsAddress) public override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:50:    function stakeLocked(uint256 _token_id, uint256 _secs) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:64:    function lockAdditional(uint256 _token_id, uint256 _token0_amt, uint256 _token1_amt) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:82:    function withdrawLocked(uint256 _token_id) external onlyOwner nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:93:    function earned() external override returns (address[] memory token_addresses, uint256[] memory total_earned) {
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:125:    function getReward() external override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:133:    function getReward(bool _claim) public override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:160:    function getReward(bool _claim, address[] calldata _rewardTokenList) external override{
+.audit-tools/frax-cvx-platform/contracts/contracts/StakingProxyUniV3.sol:182:    function recoverERC721(address _tokenAddress, uint256 _token_id) external onlyOwner {
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:82:    function withdrawTo(IERC20 _asset, uint256 _amount, address _to) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:86:    function execute(
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManager.sol:228:     function claimLPRewards() external onlyOperator{
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:108:    function withdrawTo(IERC20 _asset, uint256 _amount, address _to) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:112:    function execute(
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:208:    function lockLonger(uint256 _slot, uint256 _new_ending_ts) external onlyOperator{
+.audit-tools/frax-cvx-platform/contracts/contracts/TreasuryManagerFrax.sol:280:     function claimLPRewards() external onlyOperator{
+.audit-tools/frax-cvx-platform/contracts/contracts/VaultEarnedView.sol:16:    function earned(address _stakingAddress, address _wrapper, address _extrarewards, address _vault) external returns (address[] memory token_addresses, uint256[] memory total_earned) {
+.audit-tools/frax-cvx-platform/contracts/contracts/VoterProxy.sol:94:    function claimFees(address _distroContract, address _token, address _claimTo) external returns (uint256){
+.audit-tools/frax-cvx-platform/contracts/contracts/VoterProxy.sol:102:    function execute(
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:64:    function addReward(
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:92:    function deposit(uint256 _amount, bool _lock) public nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:107:    function deposit(uint256 _amount) external{
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:112:    function stake(uint256 _amount) public nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:125:    function stakeAll() external{
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:131:    function stakeFor(address _for, uint256 _amount) external nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:144:    function withdraw(uint256 _amount) external nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:193:    function getRewardForDuration(address _rewardsToken) external view returns(uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:198:    function claimableRewards(address _account) external view returns(EarnedData[] memory userRewards) {
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:210:    function setRewardRedirect(address _to) external nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:216:    function getReward(address _address) public nonReentrant updateReward(_address) {
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:233:    function getReward(address _address, address _forwardTo) public nonReentrant updateReward(_address) {
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:270:    function notifyRewardAmount(address _rewardsToken, uint256 _reward) external nonReentrant updateReward(address(0)) {
+.audit-tools/frax-cvx-platform/contracts/contracts/cvxFxsStaking.sol:284:    function recoverERC20(address _tokenAddress, uint256 _tokenAmount) external nonReentrant onlyOwner {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/BridgeReceiver.sol:25:    function withdrawTo(IERC20 _asset, uint256 _amount, address _to) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/BridgeReceiver.sol:32:    function execute(
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FpisMigrate.sol:49:    function execute(
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FpisMigrate.sol:61:    function withdrawTo(IERC20 _asset, uint256 _amount, address _to) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalBooster.sol:122:    function setVefxsDistro(address _distro, address _feeToken, address _cvxFeeReceiver) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalBooster.sol:150:    function recoverERC20(address _tokenAddress, uint256 _tokenAmount, address _withdrawTo) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalBooster.sol:156:    function recoverERC20FromProxy(address _tokenAddress, uint256 _tokenAmount, address _withdrawTo) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalBooster.sol:171:    function execute(address _to, bytes calldata _data) external onlyOwner{
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalBooster.sol:203:    function claimFees() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFpisLocker.sol:90:    function lock() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFxsDepositor.sol:73:    function lockFxs() external {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFxsDepositor.sol:78:    function deposit(uint256 _amount, address _stakeAddress) public {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalFxsDepositor.sol:97:    function depositAll(address _stakeAddress) external{
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalPoolUtilities.sol:27:    function stakedCvxFxsRewardRates() external view returns (address[] memory tokens, uint256[] memory rates) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/FraxtalVoterProxy.sol:52:    function execute(
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:128:    function earned(address _account) public view returns (uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:168:    function getReward(address _claimTo) public updateReward(msg.sender) returns(bool){
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/RewardDistribution.sol:203:    function notifyRewardAmount(uint256 reward)
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:215:    function earned(address _account) external returns(EarnedData[] memory claimable) {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:241:    function setRewardRedirect(address _to) external nonReentrant{
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:247:    function getReward(address _account) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:258:    function getReward(address _account, address _forwardTo) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:266:    function stake(uint256 _amount, address _to) public {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:279:    function stakeFor(address _to, uint256 _amount) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:284:    function withdraw(uint256 _amount, bool _claim) public returns(bool){
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:325:    function withdrawAll(bool claim) external{
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:350:    function deposit(uint256 _amount, address _to) public returns(uint256){
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/StakedCvxFxs.sol:391:    function withdraw(uint256 assets, address receiver, address owner) external returns (uint256 shares){
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/TreasuryFunds.sol:25:    function withdrawTo(IERC20 _asset, uint256 _amount, address _to) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/TreasuryFunds.sol:32:    function execute(
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:262:    function deposit(uint256 _assets, address _receiver) external returns (uint256 shares){
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:305:    function withdraw(uint256 _amount, address _receiver, address _owner) public override returns(uint256 shares){
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXB.sol:515:    function processRewards() external{
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxFXBSwapper.sol:77:    function processRewards() external{
+.audit-tools/frax-cvx-platform/contracts/contracts/fraxtal/cvxToken.sol:21:    function bridge() external returns (address);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IBaseRewards.sol:5:    function initialize(
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IBaseRewards.sol:13:    function getReward(address,bool) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IBooster.sol:8:   function setRewardActiveOnCreation(bool _active) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IBooster.sol:15:   function createVault(uint256 _pid) external returns (address);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IBooster.sol:16:   function claimFees() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexDeposits.sol:5:    function deposit(uint256 _pid, uint256 _amount, bool _stake) external returns(bool);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexDeposits.sol:6:    function deposit(uint256 _amount, bool _lock, address _stakeAddress) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexStaking.sol:5:    function stakeFor(address, uint256) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexStaking.sol:6:    function stake(uint256) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexStaking.sol:7:    function withdraw(uint256 amount, bool claim) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexStaking.sol:8:    function withdrawAndUnwrap(uint256 amount, bool claim) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexStaking.sol:9:    function earned(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexStaking.sol:10:    function getReward() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexStaking.sol:11:    function getReward(address _account, bool _claimExtras) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:6:    function stakeLockedCurveLp(uint256 _liquidity, uint256 _secs) external returns (bytes32 kek_id);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:7:    function stakeLockedConvexToken(uint256 _liquidity, uint256 _secs) external returns (bytes32 kek_id);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:8:    function stakeLocked(uint256 _liquidity, uint256 _secs) external returns (bytes32 kek_id);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:9:    function lockAdditional(bytes32 _kek_id, uint256 _addl_liq) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:10:    function lockAdditionalCurveLp(bytes32 _kek_id, uint256 _addl_liq) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:11:    function lockAdditionalConvexToken(bytes32 _kek_id, uint256 _addl_liq) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:12:    function lockLonger(bytes32 _kek_id, uint256 new_ending_ts) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:13:    function withdrawLocked(bytes32 _kek_id) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:14:    function withdrawLockedAndUnwrap(bytes32 _kek_id) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:15:    function getReward() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexVault.sol:16:    function getReward(bool _claim, address[] calldata _rewardTokenList) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapper.sol:17:  function deposit(uint256 _amount, address _to) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapper.sol:18:  function stake(uint256 _amount, address _to) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapper.sol:19:  function withdraw(uint256 _amount) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapper.sol:20:  function withdrawAndUnwrap(uint256 _amount) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapper.sol:21:  function getReward(address _account) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapper.sol:22:  function getReward(address _account, address _forwardTo) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapper.sol:24:  function earned(address _account) external view returns(EarnedData[] memory claimable);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapperV2.sol:26:  function deposit(uint256 _amount, address _to) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapperV2.sol:27:  function stake(uint256 _amount, address _to) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapperV2.sol:28:  function withdraw(uint256 _amount) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapperV2.sol:29:  function withdrawAndUnwrap(uint256 _amount) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapperV2.sol:30:  function getReward(address _account) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapperV2.sol:31:  function getReward(address _account, address _forwardTo) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapperV2.sol:34:  function earned(address _account) external returns(EarnedData[] memory claimable);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IConvexWrapperV2.sol:35:  function earnedView(address _account) external view returns(EarnedData[] memory claimable);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/ICurveConvex.sol:8:   function deposit(uint256 _pid, uint256 _amount, bool _stake) external returns(bool);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/ICvxDistribution.sol:5:    function earned(address _account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/ICvxDistribution.sol:6:    function getReward(address _forward) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IDeposit.sol:10:   function withdrawTo(uint256,uint256,address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IDeposit.sol:11:   function claimRewards(uint256,address) external returns(bool);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IERC4626.sol:11:    function deposit(uint256 assets, address receiver) external returns (uint256 shares);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IERC4626.sol:17:    function withdraw(uint256 assets, address receiver, address owner) external returns (uint256 shares);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFeeDeposit.sol:5:    function distribute() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFeeDistro.sol:7:   function earned(address _account) external view returns(uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFeeReceiver.sol:5:   function processFees() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFpisMigrate.sol:7:   function execute(
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFpisMigrate.sol:12:   function withdrawTo(address _asset, uint256 _amount, address _to) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmBase.sol:7:    function lockedLiquidityOf(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmBase.sol:11:    function stakerSetVeFXSProxy(address proxy_address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmBase.sol:12:    function getReward(address destination_address) external returns (uint256[] memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:23:    function lockedStakesOf(address account) external view returns (LockedStake[] memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:24:    function lockedStakesOfLength(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:25:    function lockAdditional(bytes32 kek_id, uint256 addl_liq) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:26:    function lockLonger(bytes32 kek_id, uint256 new_ending_ts) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:27:    function stakeLocked(uint256 liquidity, uint256 secs) external returns (bytes32);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:28:    function withdrawLocked(bytes32 kek_id, address destination_address) external returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:35:    function earned(address account) external view returns (uint256[] memory new_earned);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:37:    function lockedLiquidityOf(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:40:    function lockMultiplier(uint256 secs) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:52:    function stakerSetVeFXSProxy(address proxy_address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:53:    function getReward(address destination_address) external returns (uint256[] memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20.sol:60:    function setRewardVars(address reward_token_address, uint256 _new_rate, address _gauge_controller_address, address _rewards_distributor_address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20NoReturn.sol:23:    function lockedStakesOf(address account) external view returns (LockedStake[] memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20NoReturn.sol:24:    function lockedStakesOfLength(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20NoReturn.sol:25:    function lockAdditional(bytes32 kek_id, uint256 addl_liq) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20NoReturn.sol:26:    function stakeLocked(uint256 liquidity, uint256 secs) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20NoReturn.sol:27:    function withdrawLocked(bytes32 kek_id, address destination_address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20NoReturn.sol:33:    function earned(address account) external view returns (uint256[] memory new_earned);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20NoReturn.sol:35:    function lockedLiquidityOf(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20NoReturn.sol:38:    function lockMultiplier(uint256 secs) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20NoReturn.sol:50:    function stakerSetVeFXSProxy(address proxy_address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20NoReturn.sol:51:    function getReward(address destination_address) external returns (uint256[] memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:23:    function lockedStakesOf(address account) external view returns (LockedStake[] memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:24:    function lockedStakesOfLength(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:25:    function lockAdditional(bytes32 kek_id, uint256 addl_liq) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:26:    function lockLonger(bytes32 kek_id, uint256 new_ending_ts) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:27:    function stakeLocked(uint256 liquidity, uint256 secs) external returns (bytes32);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:28:    function withdrawLocked(bytes32 kek_id, address destination_address, bool _claim) external returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:37:    function earned(address account) external view returns (uint256[] memory new_earned);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:39:    function lockedLiquidityOf(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:42:    function lockMultiplier(uint256 secs) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:54:    function stakerSetVeFXSProxy(address proxy_address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:55:    function getReward(address destination_address) external returns (uint256[] memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:59:    function lock_time_for_max_multiplier() external view returns(uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:63:    function setRewardVars(address reward_token_address, uint256 _new_rate, address _gauge_controller_address, address _rewards_distributor_address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:68:    function withdrawalOnlyShutdown() external view returns(bool);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmERC20_V2.sol:70:    function stakesUnlocked() external view returns(bool);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:30:    function lockedNFTsOf(address account) external view returns (LockedNFT[] memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:31:    function lockedNFTsOfLength(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:32:    function lockAdditional(uint256 token_id, uint256 token0_amt, uint256 token1_amt,uint256 token0_min_in, uint256 token1_min_in, bool use_balof_override) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:33:    function stakeLocked(uint256 token_id, uint256 secs) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:34:    function withdrawLocked(uint256 token_id, address destination_address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:40:    function earned(address account) external view returns (uint256[] memory new_earned);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:42:    function lockedLiquidityOf(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:45:    function lockMultiplier(uint256 secs) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:57:    function stakerSetVeFXSProxy(address proxy_address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:58:    function getReward(address destination_address) external returns (uint256[] memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxFarmUniV3.sol:59:    function getReward(address destination_address, bool also_claim_extra) external returns (uint256[] memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxtalBridge.sol:5:    function depositERC20(
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxtalBridge.sol:13:    function depositERC20To(
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxtalVeFxsRewardDistro.sol:11:    function earned(address _account) external view returns (uint256 _earned);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxtalVoteEscrow.sol:5:    function lockedById(address _addr, uint256 _id) external view returns (int128 _amount, uint128 _end);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxtalVoteEscrow.sol:6:    function lockedByIndex(address _addr, uint128 _index) external view returns (int128 _amount, uint128 _end);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxtalVoteEscrow.sol:7:    function lockedEnd(address _addr, uint128 _index) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxtalVoteEscrow.sol:10:    function depositFor(address _addr, uint256 _value, uint128 _lockIndex) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFraxtalVoteEscrow.sol:13:    function withdraw(uint128 _lockIndex) external returns (uint256 _value);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IFxsDepositor.sol:5:   function deposit(uint256 _amount, bool _lock) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IGauge.sol:5:    function deposit(uint256) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IGauge.sol:7:    function withdraw(uint256) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IGauge.sol:8:    function claim_rewards() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IPoolRegistry.sol:11:    function setRewardActiveOnCreation(bool _active) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IPoolRegistry.sol:12:    function setRewardImplementation(address _imp) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IProxyVault.sol:13:    function initialize(address _owner, address _stakingAddress, address _stakingToken, address _rewardsAddress) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IProxyVault.sol:18:    function getReward() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IProxyVault.sol:19:    function getReward(bool _claim) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IProxyVault.sol:20:    function getReward(bool _claim, address[] calldata _rewardTokenList) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IProxyVault.sol:21:    function earned() external returns (address[] memory token_addresses, uint256[] memory total_earned);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardDistribution.sol:5:    function getReward(address _claimTo) external returns(bool);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardReceiver.sol:5:   function processRewards() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardStaking.sol:5:    function stakeFor(address, uint256) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardStaking.sol:6:    function stake( uint256) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardStaking.sol:7:    function withdraw(uint256 amount, bool claim) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardStaking.sol:8:    function withdrawAndUnwrap(uint256 amount, bool claim) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardStaking.sol:9:    function earned(address account) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardStaking.sol:10:    function getReward() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewardStaking.sol:11:    function getReward(address _account, bool _claimExtras) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewards.sol:10:    function initialize(uint256 _pid, bool _startActive) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewards.sol:11:    function addReward(address _rewardsToken, address _distributor) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewards.sol:17:    function deposit(address _owner, uint256 _amount) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewards.sol:18:    function withdraw(address _owner, uint256 _amount) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewards.sol:19:    function getReward(address _forward) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewards.sol:20:    function notifyRewardAmount(address _rewardsToken, uint256 _reward) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IRewards.sol:22:    function claimableRewards(address _account) external view returns(EarnedData[] memory userRewards);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStaker.sol:10:    function claimFees(address,address,address) external returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStaker.sol:13:    function execute(address _to, uint256 _value, bytes calldata _data) external returns (bool, bytes memory);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStakingWrapper.sol:16:    function initialize(uint256 _poolId) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStakingWrapper.sol:18:    function setRewardHook(address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStakingWrapper.sol:20:    function getReward(address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStakingWrapper.sol:21:    function getReward(address,address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStakingWrapper.sol:27:    function earned(address _account) external returns(EarnedData[] memory claimable);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStakingWrapper.sol:28:    function deposit(uint256 _amount, address _to) external returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStakingWrapper.sol:29:    function withdraw(uint256 _amount) external returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStakingWrapper.sol:30:    function withdraw(uint256 _amount, address _receiver, address ) external returns(uint256 shares);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStash.sol:6:    function processStash() external returns (bool);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStash.sol:7:    function claimRewards() external returns (bool);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IStash.sol:8:    function initialize(uint256 _pid, address _operator, address _staker, address _gauge, address _rewardFactory) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVPool.sol:19:  function deposit(uint256 _amount) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVPool.sol:20:  function depositWithPermit(uint256 _amount, uint256 _deadline, uint8 _v, bytes32 _r, bytes32 _s) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVPool.sol:28:  function initialize(string memory _name, string memory _symbol, address _token, address _poolAccountant, address _addressListFactory) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVPool.sol:65:  function withdraw(uint256 _shares) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVPool.sol:66:  function withdrawFee() external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVirtualBalanceRewardPool.sol:5:    function initialize(
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVoteEscrow.sol:5:    function locked(address) external view returns(uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVoteEscrow.sol:6:    function locked__end(address) external view returns(uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/interfaces/IVoteEscrow.sol:10:    function withdraw() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:10:    function addReward(
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:57:    function claimable_tokens(address) external view returns (uint256);    
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:58:    function claimable_rewards(address,address) external view returns (uint256);    
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:71:    function claimable_tokens(address) external view returns (uint256);    
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:72:    function claimable_rewards(address,address) external view returns (uint256);    
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:84:    function claimable_tokens(address) external view returns (uint256);    
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:85:    function claimable_reward(address) external view returns (uint256);
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:86:    function claim_rewards(address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:90:    function claim_rewards(address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:91:    function claimable_tokens(address) external view returns (uint256);    
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:92:    function claimable_reward(address,address) external view returns (uint256);   
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:107:    function executeVote(uint256 _vid) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:111:    function withdraw_admin_fees(address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:113:    function execute() external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:117:    function claim(address) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:121:    function notifyRewardAmount(uint256) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:179:    function deposit(uint256 pid, uint256 amount, address to) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:180:    function withdraw(uint256 pid, uint256 amount, address to) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/IDebugInterfaces.sol:181:    function withdrawAndHarvest(uint256 pid, uint256 amount, address to) external;
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:48:    function earned(address ) external view returns(uint256[] memory new_earned){
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:63:    function lockedStakesOf(address account) external view returns (LockedStake[] memory) {
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:68:    function lockedStakesOfLength(address account) external view returns (uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:72:    function lockedLiquidityOf(address account) external view returns(uint256){
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:92:    function lockAdditional(bytes32 kek_id, uint256 addl_liq) public {
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:127:    function stakeLocked(uint256 token_id, uint256 secs) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:178:    function withdrawLocked(bytes32 kek_id, address destination_address) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:221:    function getReward(address ) external pure returns (uint256[] memory _reward){
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:225:    function getReward(address , bool ) external pure returns (uint256[] memory _reward){
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_Erc20.sol:233:    function stakerSetVeFXSProxy(address proxy) external{
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:94:    function earned(address ) external pure returns(uint256){
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:109:    function lockedNFTsOf(address account) external view returns (LockedNFT[] memory) {
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:114:    function lockedNFTsOfLength(address account) external view returns (uint256) {
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:118:    function lockedLiquidityOf(address account) external view returns(uint256){
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:182:    function lockAdditional(
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:243:    function stakeLocked(uint256 token_id, uint256 secs) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:296:    function withdrawLocked(uint256 token_id, address destination_address) external {
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:348:    function getReward(address ) external returns (uint256[] memory){
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:352:    function getReward(address , bool ) external returns (uint256[] memory){
+.audit-tools/frax-cvx-platform/contracts/contracts/testing/TestPool_UniV3.sol:384:    function stakerSetVeFXSProxy(address ) external{

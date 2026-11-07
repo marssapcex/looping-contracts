@@ -1,0 +1,14 @@
+oracle-accounting-research/INCIDENTS.md: OK
+oracle-accounting-research/INVARIANTS.md: OK
+oracle-accounting-research/POC_PATTERNS.md: OK
+oracle-accounting-research/README.md: OK
+oracle-accounting-research/TARGET_RECHECK.md: OK
+oracle-accounting-research/all-root-tests.log: OK
+oracle-accounting-research/boundary-tests.log: OK
+oracle-accounting-research/corpus.csv: OK
+oracle-accounting-research/evidence/corpus-validation.json: OK
+oracle-accounting-research/evidence/tool-versions.log: OK
+oracle-accounting-research/evidence/validation.log: OK
+oracle-accounting-research/scripts/validate_corpus.py: OK
+oracle-accounting-research/sources/PRIMARY_NOTES.md: OK
+poc/OracleAccountingBoundaries.t.sol: OK
