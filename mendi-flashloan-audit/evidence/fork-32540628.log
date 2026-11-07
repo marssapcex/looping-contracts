@@ -111,7 +111,7 @@ Traces:
     │   │   │   │   │   ├─ [24420] 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f::approve(0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a, 1000000000000000000 [1e18])
     │   │   │   │   │   │   ├─ emit Approval(owner: MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], spender: 0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a, amount: 1000000000000000000 [1e18])
     │   │   │   │   │   │   └─ ← [Return] true
-    │   │   │   │   │   ├─ [225] 0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a::exactInputSingle(ExactInputSingleParams({ tokenIn: 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f, tokenOut: 0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4, fee: 3000, recipient: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, deadline: 1794047911 [1.794e9], amountIn: 1000000000000000000 [1e18], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
+    │   │   │   │   │   ├─ [225] 0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a::exactInputSingle(ExactInputSingleParams({ tokenIn: 0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f, tokenOut: 0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4, fee: 500, recipient: 0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f, deadline: 1794047911 [1.794e9], amountIn: 1000000000000000000 [1e18], amountOutMinimum: 0, sqrtPriceLimitX96: 0 }))
     │   │   │   │   │   │   └─ ← [Revert] EvmError: Revert
     │   │   │   │   │   └─ ← [Revert] EvmError: Revert
     │   │   │   │   └─ ← [Revert] EvmError: Revert
@@ -129,9 +129,9 @@ Backtrace:
   at MendiCandidateFlashBorrower.execute
   at MendiStaleCollateralForkTest.testForkCandidate_flashMintBorrowExitRepayAndMeasureNet
 
-Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 2.87s (2.87s CPU time)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 4.42s (4.42s CPU time)
 
-Ran 1 test suite in 3.16s (2.87s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+Ran 1 test suite in 5.14s (4.42s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
 
 Failing tests:
 Encountered 1 failing test in poc/MendiStaleCollateralFork.t.sol:MendiStaleCollateralForkTest
