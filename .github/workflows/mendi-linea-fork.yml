@@ -19,7 +19,7 @@ on:
       - mendi-flashloan-audit/**
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   recon-and-fork:
@@ -103,6 +103,28 @@ jobs:
         run: |
           set -o pipefail
           RPC_URL="$RPC_URL" BLOCK="$BLOCK" forge test -vvvv --match-test testForkCandidate_flashMintBorrowExitRepayAndMeasureNet 2>&1 | tee evidence/fork-${BLOCK}.log
+
+      - name: Persist only pinned evidence for sandbox review
+        if: always()
+        env:
+          BRANCH: arena/ee2289ba-looping-contracts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin "$BRANCH"
+          shopt -s nullglob
+          files=(mendi-flashloan-audit/evidence/*${BLOCK}*)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "No pinned evidence files were generated"
+            exit 0
+          fi
+          git add -- "${files[@]}"
+          if git diff --cached --quiet; then
+            echo "Pinned evidence is unchanged"
+            exit 0
+          fi
+          git commit -m "Add Mendi pinned evidence for ${BLOCK} [skip ci]"
+          git push origin "HEAD:${BRANCH}"
 
       - name: Upload pinned evidence
         if: always()
