@@ -1,0 +1,88 @@
+No files changed, compilation skipped
+
+Ran 1 test for poc/MendiStaleCollateralFork.t.sol:MendiStaleCollateralForkTest
+[FAIL: EvmError: Revert] testForkCandidate_flashMintBorrowExitRepayAndMeasureNet() (block: 32540628) (gas: 1024260098)
+Traces:
+  [1024260098] MendiStaleCollateralForkTest::testForkCandidate_flashMintBorrowExitRepayAndMeasureNet()
+    ├─ [0] VM::envString("RPC_URL") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envUint("BLOCK") [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::createSelectFork("<rpc url>", 32540628 [3.254e7])
+    │   └─ ← [Return] 0
+    ├─ [0] VM::envOr("FLASH_TOKEN", 0x176211869cA2b568f2A7D4EE941E073a821EE1ff) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envOr("COLLATERAL_CTOKEN", 0x9be5e24F05bBAfC28Da814bD59284878b388a40f) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envOr("DEBT_CTOKEN", 0xf669C3C03D9fdF4339e19214A749E52616300E89) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envOr("FLASH_AMOUNT", 1000000000 [1e9]) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envOr("BORROW_AMOUNT", 100000000 [1e8]) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envOr("BUY_FEE", 3000) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envOr("EXIT_FEE", 500) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envOr("REQUIRE_PROFIT", false) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envOr("EXPECT_REVERT", false) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [0] VM::envOr("MIN_FLASH_NET", 0) [staticcall]
+    │   └─ ← [Return] <env var value>
+    ├─ [9672] 0xf669C3C03D9fdF4339e19214A749E52616300E89::underlying() [staticcall]
+    │   ├─ [2426] 0x883100388d61ef6dAa147de45dEB04934FBCD40d::underlying() [delegatecall]
+    │   │   └─ ← [Return] 0xA219439258ca9da29E9Cc4cE5596924745e12B93
+    │   └─ ← [Return] 0xA219439258ca9da29E9Cc4cE5596924745e12B93
+    ├─ [1351299] → new MendiCandidateFlashBorrower@0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f
+    │   ├─ [9672] 0x9be5e24F05bBAfC28Da814bD59284878b388a40f::underlying() [staticcall]
+    │   │   ├─ [2426] 0x1ce3023De380E9BbE14f32Cb56DCA4Ccb8f9c920::underlying() [delegatecall]
+    │   │   │   └─ ← [Return] 0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4
+    │   │   └─ ← [Return] 0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4
+    │   ├─ [9672] 0xf669C3C03D9fdF4339e19214A749E52616300E89::underlying() [staticcall]
+    │   │   ├─ [2426] 0x883100388d61ef6dAa147de45dEB04934FBCD40d::underlying() [delegatecall]
+    │   │   │   └─ ← [Return] 0xA219439258ca9da29E9Cc4cE5596924745e12B93
+    │   │   └─ ← [Return] 0xA219439258ca9da29E9Cc4cE5596924745e12B93
+    │   ├─ [3217] 0x9be5e24F05bBAfC28Da814bD59284878b388a40f::comptroller() [staticcall]
+    │   │   ├─ [2471] 0x1ce3023De380E9BbE14f32Cb56DCA4Ccb8f9c920::comptroller() [delegatecall]
+    │   │   │   └─ ← [Return] 0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103
+    │   │   └─ ← [Return] 0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103
+    │   ├─ [3217] 0xf669C3C03D9fdF4339e19214A749E52616300E89::comptroller() [staticcall]
+    │   │   ├─ [2471] 0x883100388d61ef6dAa147de45dEB04934FBCD40d::comptroller() [delegatecall]
+    │   │   │   └─ ← [Return] 0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103
+    │   │   └─ ← [Return] 0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103
+    │   └─ ← [Return] 5809 bytes of code
+    ├─ [9726] 0x176211869cA2b568f2A7D4EE941E073a821EE1ff::balanceOf(MendiStaleCollateralForkTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [2529] 0xab838fe7d492C621a5B1b23952Af99Cc37a2E0d3::balanceOf(MendiStaleCollateralForkTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [9719] 0xA219439258ca9da29E9Cc4cE5596924745e12B93::balanceOf(MendiStaleCollateralForkTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [staticcall]
+    │   ├─ [2559] 0xc0583e2F5930EDE5Fab9D57bAC4169878730B010::balanceOf(MendiStaleCollateralForkTest: [0x7FA9385bE102ac3EAc297483Dd6233D62b3e1496]) [delegatecall]
+    │   │   └─ ← [Return] 0
+    │   └─ ← [Return] 0
+    ├─ [1022823893] MendiCandidateFlashBorrower::execute()
+    │   ├─ [1022799439] 0xc47b8C00b0f69a36fa203Ffeac0334874574a8Ac::flashLoanSimple(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x176211869cA2b568f2A7D4EE941E073a821EE1ff, 1000000000 [1e9], 0x, 0)
+    │   │   ├─ [65] 0xF2a9096Bf98e1dd8fB31C4caCb2df5C982ec66CA::flashLoanSimple(MendiCandidateFlashBorrower: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 0x176211869cA2b568f2A7D4EE941E073a821EE1ff, 1000000000 [1e9], 0x, 0) [delegatecall]
+    │   │   │   └─ ← [NotActivated] EvmError: NotActivated
+    │   │   └─ ← [Revert] EvmError: Revert
+    │   └─ ← [Revert] EvmError: Revert
+    └─ ← [Revert] EvmError: Revert
+
+Backtrace:
+  at 0xF2a9096Bf98e1dd8fB31C4caCb2df5C982ec66CA.flashLoanSimple
+  at 0xc47b8C00b0f69a36fa203Ffeac0334874574a8Ac.flashLoanSimple
+  at MendiCandidateFlashBorrower.execute
+  at MendiStaleCollateralForkTest.testForkCandidate_flashMintBorrowExitRepayAndMeasureNet
+
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 3.69s (3.69s CPU time)
+
+Ran 1 test suite in 3.69s (3.69s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in poc/MendiStaleCollateralFork.t.sol:MendiStaleCollateralForkTest
+[FAIL: EvmError: Revert] testForkCandidate_flashMintBorrowExitRepayAndMeasureNet() (block: 32540628) (gas: 1024260098)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

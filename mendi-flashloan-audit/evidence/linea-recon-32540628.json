@@ -1,0 +1,1000 @@
+{
+  "provenance": "PINNED_LINEA_READ_ONLY_RECON_NOT_AN_EXPLOIT",
+  "rpcHost": "rpc.linea.build",
+  "chainId": "59144",
+  "block": {
+    "number": 32540628,
+    "hash": "0x19b1bf8e37420eed74f18b3b7908c13ce21f9679f7e9ad4372c48df3de5c6b9a",
+    "timestamp": 1794044311
+  },
+  "upstreamCommit": "134d766bb7a07c9485f180d7d5edeb1fd9e30828",
+  "unitroller": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+  "implementation": "0x1a11669Ecf91692440Da95CC8A12DE80B1C3D9e3",
+  "pendingImplementation": {
+    "ok": true,
+    "value": "0x0000000000000000000000000000000000000000"
+  },
+  "admin": "0x6C81d7Fe6072CE519c1A5B966d62545F07B26902",
+  "oracle": "0x05b1b5b09251355fdEb13c768987Ab750D2c6865",
+  "legacyMixedV2": "0xD2Ed953C240edC59D57E5CFB527Eb768048Fa012",
+  "expectedMixedV3": "0x05b1b5b09251355fdEb13c768987Ab750D2c6865",
+  "activeOracleMatchesExpectedV3Address": true,
+  "closeFactor": "500000000000000000",
+  "liquidationIncentive": "1080000000000000000",
+  "markets": {
+    "meUSDC": {
+      "cToken": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "symbol": "meUSDC",
+      "underlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "underlyingSymbol": "USDC",
+      "underlyingDecimals": 6,
+      "cTokenDecimals": 8,
+      "comptroller": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "interestRateModel": "0x23b9CB6f49100c54fA2A13bA0f85832B38780CB7",
+      "reserveFactor": "130000000000000000",
+      "isListed": true,
+      "collateralFactor": "850000000000000000",
+      "isComped": false,
+      "supplyCap": "0",
+      "currentSupplyUnderlying": "207658986513",
+      "supplyCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supplyCapZeroMeansUnlimited": true,
+      "borrowCap": "0",
+      "borrowCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "borrowCapZeroMeansUnlimited": true,
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "119226013393",
+      "totalSupply": "890889356133167",
+      "totalBorrows": "88650565571",
+      "totalReserves": "217592450",
+      "exchangeRate": "233091780796806",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "999918170000000000000000000000"
+      },
+      "usdPriceResult": {
+        "ok": true,
+        "value": "999918170000000000"
+      },
+      "implementationSlot": {
+        "raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "implementation": "0x0000000000000000000000000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meUSDT": {
+      "cToken": "0xf669C3C03D9fdF4339e19214A749E52616300E89",
+      "symbol": "meUSDT",
+      "underlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
+      "underlyingSymbol": "USDT",
+      "underlyingDecimals": 6,
+      "cTokenDecimals": 8,
+      "comptroller": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "interestRateModel": "0x23b9CB6f49100c54fA2A13bA0f85832B38780CB7",
+      "reserveFactor": "130000000000000000",
+      "isListed": true,
+      "collateralFactor": "850000000000000000",
+      "isComped": false,
+      "supplyCap": "0",
+      "currentSupplyUnderlying": "117545100139",
+      "supplyCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supplyCapZeroMeansUnlimited": true,
+      "borrowCap": "0",
+      "borrowCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "borrowCapZeroMeansUnlimited": true,
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "70668811092",
+      "totalSupply": "496208271974357",
+      "totalBorrows": "46988961408",
+      "totalReserves": "112672360",
+      "exchangeRate": "236886619548483",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "998750250000000000000000000000"
+      },
+      "usdPriceResult": {
+        "ok": true,
+        "value": "998750250000000000"
+      },
+      "implementationSlot": {
+        "raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "implementation": "0x0000000000000000000000000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meWETH": {
+      "cToken": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "symbol": "meWETH",
+      "underlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "underlyingSymbol": "WETH",
+      "underlyingDecimals": 18,
+      "cTokenDecimals": 8,
+      "comptroller": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "interestRateModel": "0x62c31a75334E566Aa049aB24a2FF13aC3a5c02d0",
+      "reserveFactor": "150000000000000000",
+      "isListed": true,
+      "collateralFactor": "800000000000000000",
+      "isComped": false,
+      "supplyCap": "0",
+      "currentSupplyUnderlying": "197789715519210556633",
+      "supplyCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supplyCapZeroMeansUnlimited": true,
+      "borrowCap": "0",
+      "borrowCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "borrowCapZeroMeansUnlimited": true,
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "180797818787541957293",
+      "totalSupply": "920003241694",
+      "totalBorrows": "17114941391437647194",
+      "totalReserves": "123044659769047853",
+      "exchangeRate": "214988063688798288085567720",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "2237948861170000000000"
+      },
+      "usdPriceResult": {
+        "ok": true,
+        "value": "2237948861170000000000"
+      },
+      "implementationSlot": {
+        "raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "implementation": "0x0000000000000000000000000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meDAI": {
+      "cToken": "0x1f27f81C1D13Dd96A3b75d42e3d5d92b709869AA",
+      "symbol": "meDAI",
+      "underlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
+      "underlyingSymbol": "DAI",
+      "underlyingDecimals": 18,
+      "cTokenDecimals": 8,
+      "comptroller": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "interestRateModel": "0x23b9CB6f49100c54fA2A13bA0f85832B38780CB7",
+      "reserveFactor": "130000000000000000",
+      "isListed": true,
+      "collateralFactor": "800000000000000000",
+      "isComped": false,
+      "supplyCap": "0",
+      "currentSupplyUnderlying": "9170358146860508194260",
+      "supplyCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supplyCapZeroMeansUnlimited": true,
+      "borrowCap": "0",
+      "borrowCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "borrowCapZeroMeansUnlimited": true,
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "3174074549162896725397",
+      "totalSupply": "38148774838795",
+      "totalBorrows": "6052586336411662917830",
+      "totalReserves": "56302738714051448966",
+      "exchangeRate": "240384080107726233097314590",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "999754540000000000"
+      },
+      "usdPriceResult": {
+        "ok": true,
+        "value": "999754540000000000"
+      },
+      "implementationSlot": {
+        "raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "implementation": "0x0000000000000000000000000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meWBTC": {
+      "cToken": "0x9be5e24F05bBAfC28Da814bD59284878b388a40f",
+      "symbol": "meWBTC",
+      "underlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
+      "underlyingSymbol": "WBTC",
+      "underlyingDecimals": 8,
+      "cTokenDecimals": 8,
+      "comptroller": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "interestRateModel": "0x85A58aDC34401E0792037D0e512F7e9B0b93ea19",
+      "reserveFactor": "200000000000000000",
+      "isListed": true,
+      "collateralFactor": "650000000000000000",
+      "isComped": false,
+      "supplyCap": "0",
+      "currentSupplyUnderlying": "37557171",
+      "supplyCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supplyCapZeroMeansUnlimited": true,
+      "borrowCap": "0",
+      "borrowCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "borrowCapZeroMeansUnlimited": true,
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "11012061",
+      "totalSupply": "1739782867",
+      "totalBorrows": "27093307",
+      "totalReserves": "548196",
+      "exchangeRate": "21587275465450367",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "761331374920600000000000000000000"
+      },
+      "usdPriceResult": {
+        "ok": true,
+        "value": "76133137492060000000000"
+      },
+      "implementationSlot": {
+        "raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "implementation": "0x0000000000000000000000000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "mewstETH": {
+      "cToken": "0xCeEd853798ff1c95cEB4dC48f68394eb7A86A782",
+      "symbol": "mewstETH",
+      "underlying": "0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F",
+      "underlyingSymbol": "wstETH",
+      "underlyingDecimals": 18,
+      "cTokenDecimals": 8,
+      "comptroller": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "interestRateModel": "0x85A58aDC34401E0792037D0e512F7e9B0b93ea19",
+      "reserveFactor": "200000000000000000",
+      "isListed": true,
+      "collateralFactor": "600000000000000000",
+      "isComped": false,
+      "supplyCap": "0",
+      "currentSupplyUnderlying": "11143036280357429047",
+      "supplyCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supplyCapZeroMeansUnlimited": true,
+      "borrowCap": "0",
+      "borrowCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "borrowCapZeroMeansUnlimited": true,
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "3082107966238874072",
+      "totalSupply": "49748435285",
+      "totalBorrows": "8245423153674112180",
+      "totalReserves": "184494839555557204",
+      "exchangeRate": "223987673512160575443915692",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "2793550441000000000000"
+      },
+      "usdPriceResult": {
+        "ok": true,
+        "value": "2793550441000000000000"
+      },
+      "implementationSlot": {
+        "raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "implementation": "0x0000000000000000000000000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meezETH": {
+      "cToken": "0x8a90D208666Deec08123444F67Bf5B1836074a67",
+      "symbol": "meezETH",
+      "underlying": "0x2416092f143378750bb29b79eD961ab195CcEea5",
+      "underlyingSymbol": "ezETH",
+      "underlyingDecimals": 18,
+      "cTokenDecimals": 8,
+      "comptroller": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "interestRateModel": "0x85A58aDC34401E0792037D0e512F7e9B0b93ea19",
+      "reserveFactor": "200000000000000000",
+      "isListed": true,
+      "collateralFactor": "700000000000000000",
+      "isComped": false,
+      "supplyCap": "0",
+      "currentSupplyUnderlying": "85099654107093599955",
+      "supplyCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supplyCapZeroMeansUnlimited": true,
+      "borrowCap": "0",
+      "borrowCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "borrowCapZeroMeansUnlimited": true,
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "83696462417162966847",
+      "totalSupply": "424618260028",
+      "totalBorrows": "1427092615549026694",
+      "totalReserves": "23900925618393585",
+      "exchangeRate": "200414494895914259784575446",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "2437644485789265317381"
+      },
+      "usdPriceResult": {
+        "ok": true,
+        "value": "2437644485789265317381"
+      },
+      "implementationSlot": {
+        "raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "implementation": "0x0000000000000000000000000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meweETH": {
+      "cToken": "0x9B4971aC84054597EDEd7Dc7b4b7E8A0c90753B5",
+      "symbol": "meweETH",
+      "underlying": "0x1Bf74C010E6320bab11e2e5A532b5AC15e0b8aA6",
+      "underlyingSymbol": "weETH",
+      "underlyingDecimals": 18,
+      "cTokenDecimals": 8,
+      "comptroller": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "interestRateModel": "0x85A58aDC34401E0792037D0e512F7e9B0b93ea19",
+      "reserveFactor": "200000000000000000",
+      "isListed": true,
+      "collateralFactor": "700000000000000000",
+      "isComped": false,
+      "supplyCap": "0",
+      "currentSupplyUnderlying": "73267696104806540271",
+      "supplyCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supplyCapZeroMeansUnlimited": true,
+      "borrowCap": "0",
+      "borrowCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "borrowCapZeroMeansUnlimited": true,
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "64637158882932508406",
+      "totalSupply": "360782074705",
+      "totalBorrows": "8780475097770596877",
+      "totalReserves": "149937875896565011",
+      "exchangeRate": "203080200602303203255537140",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "2479587377008135437867"
+      },
+      "usdPriceResult": {
+        "ok": true,
+        "value": "2479587377008135437867"
+      },
+      "implementationSlot": {
+        "raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "implementation": "0x0000000000000000000000000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "mewrsETH": {
+      "cToken": "0x109F4Af9ec6A5ede198f7A4d9d9d7390de29362A",
+      "symbol": "mewrsETH",
+      "underlying": "0xD2671165570f41BBB3B0097893300b6EB6101E6C",
+      "underlyingSymbol": "wrsETH",
+      "underlyingDecimals": 18,
+      "cTokenDecimals": 8,
+      "comptroller": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "interestRateModel": "0x62c31a75334E566Aa049aB24a2FF13aC3a5c02d0",
+      "reserveFactor": "200000000000000000",
+      "isListed": true,
+      "collateralFactor": "0",
+      "isComped": false,
+      "supplyCap": "0",
+      "currentSupplyUnderlying": "12891980417030526528",
+      "supplyCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "supplyCapZeroMeansUnlimited": true,
+      "borrowCap": "0",
+      "borrowCapacity": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+      "borrowCapZeroMeansUnlimited": true,
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "11067815549242576537",
+      "totalSupply": "63169237375",
+      "totalBorrows": "1932913448434800728",
+      "totalReserves": "108748580646850736",
+      "exchangeRate": "204086371036872542724756933",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "2426716445049241109051"
+      },
+      "usdPriceResult": {
+        "ok": true,
+        "value": "2426716445049241109051"
+      },
+      "implementationSlot": {
+        "raw": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "implementation": "0x0000000000000000000000000000000000000000"
+      },
+      "collateralStops": [
+        "ZERO_COLLATERAL_FACTOR"
+      ],
+      "debtStops": []
+    }
+  },
+  "configs": {
+    "meUSDC": {
+      "symbol": "meUSDC",
+      "priceId": "0x000000000000000000000000aadaa473c1bdf7317ec07c915680af29debfdcb5",
+      "toSymbol": "USD",
+      "underlyingDecimals": 6,
+      "sourceType": "ADDRESS_FEED"
+    },
+    "meUSDT": {
+      "symbol": "meUSDT",
+      "priceId": "0x000000000000000000000000efca2bbe0edd0e22b2e0d2f8248e99f4bef4a7db",
+      "toSymbol": "USD",
+      "underlyingDecimals": 6,
+      "sourceType": "ADDRESS_FEED"
+    },
+    "meWETH": {
+      "symbol": "meWETH",
+      "priceId": "0x0000000000000000000000003c6cd9cc7c7a4c2cf5a82734cd249d7d593354da",
+      "toSymbol": "USD",
+      "underlyingDecimals": 18,
+      "sourceType": "ADDRESS_FEED"
+    },
+    "meDAI": {
+      "symbol": "meDAI",
+      "priceId": "0x0000000000000000000000005133d67c38afbdd02997c14abd8d83676b4e309a",
+      "toSymbol": "USD",
+      "underlyingDecimals": 18,
+      "sourceType": "ADDRESS_FEED"
+    },
+    "meWBTC": {
+      "symbol": "meWBTC",
+      "priceId": "0x0000000000000000000000007a99092816c8bd5ec8ba229e3a6e6da1e628e1f9",
+      "toSymbol": "USD",
+      "underlyingDecimals": 8,
+      "sourceType": "ADDRESS_FEED"
+    },
+    "mewstETH": {
+      "symbol": "mewstETH",
+      "priceId": "0x0000000000000000000000008ece1aba32716fdde8d6482bfd88e9a0ee01f565",
+      "toSymbol": "USD",
+      "underlyingDecimals": 18,
+      "sourceType": "ADDRESS_FEED"
+    },
+    "meezETH": {
+      "symbol": "meezETH",
+      "priceId": "0x000000000000000000000000d707bd88a6aae8174c1447af4c746d55676c84ba",
+      "toSymbol": "meWETH_api3",
+      "underlyingDecimals": 18,
+      "sourceType": "ADDRESS_FEED"
+    },
+    "meWETH_api3": {
+      "symbol": "meWETH_api3",
+      "priceId": "0x00000000000000000000000014d8ca4d05cfd1ea4739abab06b28d8dc7c6d6ca",
+      "toSymbol": "USD",
+      "underlyingDecimals": 18,
+      "sourceType": "ADDRESS_FEED"
+    },
+    "meweETH": {
+      "symbol": "meweETH",
+      "priceId": "0x0000000000000000000000001fbc7d24654b10c71fd74d3730d9df17836181ef",
+      "toSymbol": "meWETH_api3",
+      "underlyingDecimals": 18,
+      "sourceType": "ADDRESS_FEED"
+    },
+    "mewrsETH": {
+      "symbol": "mewrsETH",
+      "priceId": "0x0000000000000000000000006fecd2f4798d37fbe64bfde1ebecae3b3fb1ab9b",
+      "toSymbol": "meWETH_api3",
+      "underlyingDecimals": 18,
+      "sourceType": "ADDRESS_FEED"
+    }
+  },
+  "feeds": {
+    "0xAADAa473C1bDF7317ec07c915680Af29DeBfdCb5": {
+      "address": "0xAADAa473C1bDF7317ec07c915680Af29DeBfdCb5",
+      "decimalsResult": {
+        "ok": true,
+        "value": "8"
+      },
+      "answerResult": {
+        "ok": true,
+        "value": "99991817"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "36893488147419103356",
+          "99991817",
+          "1793983210",
+          "1793983210",
+          "36893488147419103356"
+        ]
+      },
+      "timestampResult": {
+        "ok": true,
+        "value": "1793983210"
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "USDC / USD"
+      },
+      "updatedAt": "1793983210",
+      "ageSeconds": "61101",
+      "adapterChecksFreshness": false
+    },
+    "0xefCA2bbe0EdD0E22b2e0d2F8248E99F4bEf4A7dB": {
+      "address": "0xefCA2bbe0EdD0E22b2e0d2F8248E99F4bEf4A7dB",
+      "decimalsResult": {
+        "ok": true,
+        "value": "8"
+      },
+      "answerResult": {
+        "ok": true,
+        "value": "99875025"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "36893488147419103354",
+          "99875025",
+          "1793982778",
+          "1793982778",
+          "36893488147419103354"
+        ]
+      },
+      "timestampResult": {
+        "ok": true,
+        "value": "1793982778"
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "USDT / USD"
+      },
+      "updatedAt": "1793982778",
+      "ageSeconds": "61533",
+      "adapterChecksFreshness": false
+    },
+    "0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA": {
+      "address": "0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA",
+      "decimalsResult": {
+        "ok": true,
+        "value": "8"
+      },
+      "answerResult": {
+        "ok": true,
+        "value": "223794886117"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "18446744073709586864",
+          "223794886117",
+          "1794003070",
+          "1794003070",
+          "18446744073709586864"
+        ]
+      },
+      "timestampResult": {
+        "ok": true,
+        "value": "1794003070"
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "ETH / USD"
+      },
+      "updatedAt": "1794003070",
+      "ageSeconds": "41241",
+      "adapterChecksFreshness": false
+    },
+    "0x5133D67c38AFbdd02997c14Abd8d83676B4e309A": {
+      "address": "0x5133D67c38AFbdd02997c14Abd8d83676B4e309A",
+      "decimalsResult": {
+        "ok": true,
+        "value": "8"
+      },
+      "answerResult": {
+        "ok": true,
+        "value": "99975454"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "18446744073709552773",
+          "99975454",
+          "1794000350",
+          "1794000350",
+          "18446744073709552773"
+        ]
+      },
+      "timestampResult": {
+        "ok": true,
+        "value": "1794000350"
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "DAI / USD"
+      },
+      "updatedAt": "1794000350",
+      "ageSeconds": "43961",
+      "adapterChecksFreshness": false
+    },
+    "0x7A99092816C8BD5ec8ba229e3a6E6Da1E628E1F9": {
+      "address": "0x7A99092816C8BD5ec8ba229e3a6E6Da1E628E1F9",
+      "decimalsResult": {
+        "ok": true,
+        "value": "8"
+      },
+      "answerResult": {
+        "ok": true,
+        "value": "7613313749206"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "18446744073709572454",
+          "7613313749206",
+          "1794042074",
+          "1794042074",
+          "18446744073709572454"
+        ]
+      },
+      "timestampResult": {
+        "ok": true,
+        "value": "1794042074"
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "BTC / USD"
+      },
+      "updatedAt": "1794042074",
+      "ageSeconds": "2237",
+      "adapterChecksFreshness": false
+    },
+    "0x8eCE1AbA32716FdDe8D6482bfd88E9a0ee01f565": {
+      "address": "0x8eCE1AbA32716FdDe8D6482bfd88E9a0ee01f565",
+      "decimalsResult": {
+        "ok": true,
+        "value": "8"
+      },
+      "answerResult": {
+        "ok": true,
+        "value": "279355044100"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "18446744073709578664",
+          "279355044100",
+          "1794002376",
+          "1794002376",
+          "18446744073709578664"
+        ]
+      },
+      "timestampResult": {
+        "ok": true,
+        "value": "1794002376"
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "WSTETH / USD"
+      },
+      "updatedAt": "1794002376",
+      "ageSeconds": "41935",
+      "adapterChecksFreshness": false
+    },
+    "0x14D8CA4d05cfd1EA4739AbAB06b28D8dC7C6d6cA": {
+      "address": "0x14D8CA4d05cfd1EA4739AbAB06b28D8dC7C6d6cA",
+      "decimalsResult": {
+        "ok": true,
+        "value": "18"
+      },
+      "answerResult": {
+        "ok": true,
+        "value": "2238875726575963700000"
+      },
+      "roundResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "timestampResult": {
+        "ok": true,
+        "value": "1794002418"
+      },
+      "descriptionResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "updatedAt": "1794002418",
+      "ageSeconds": "41893",
+      "adapterChecksFreshness": false
+    },
+    "0xD707bD88A6AAe8174C1447af4C746D55676C84BA": {
+      "address": "0xD707bD88A6AAe8174C1447af4C746D55676C84BA",
+      "decimalsResult": {
+        "ok": true,
+        "value": "18"
+      },
+      "answerResult": {
+        "ok": true,
+        "value": "1088780612900426438"
+      },
+      "roundResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "timestampResult": {
+        "ok": true,
+        "value": "1794034031"
+      },
+      "descriptionResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "updatedAt": "1794034031",
+      "ageSeconds": "10280",
+      "adapterChecksFreshness": false
+    },
+    "0x1FBc7d24654b10c71fd74d3730d9Df17836181EF": {
+      "address": "0x1FBc7d24654b10c71fd74d3730d9Df17836181EF",
+      "decimalsResult": {
+        "ok": true,
+        "value": "18"
+      },
+      "answerResult": {
+        "ok": true,
+        "value": "1107514520602849788"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "18446744073709552564",
+          "1107514520602849788",
+          "1793990206",
+          "1793990206",
+          "18446744073709552564"
+        ]
+      },
+      "timestampResult": {
+        "ok": true,
+        "value": "1793990206"
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "weETH / eETH Exchange Rate"
+      },
+      "updatedAt": "1793990206",
+      "ageSeconds": "54105",
+      "adapterChecksFreshness": false
+    },
+    "0x6feCd2f4798D37fBe64BFDe1eBeCaE3B3fB1Ab9B": {
+      "address": "0x6feCd2f4798D37fBe64BFDe1eBeCaE3B3fB1Ab9B",
+      "decimalsResult": {
+        "ok": true,
+        "value": "18"
+      },
+      "answerResult": {
+        "ok": true,
+        "value": "1083899573452677784"
+      },
+      "roundResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "timestampResult": {
+        "ok": true,
+        "value": "1794015803"
+      },
+      "descriptionResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "updatedAt": "1794015803",
+      "ageSeconds": "28508",
+      "adapterChecksFreshness": false
+    }
+  },
+  "code": [
+    {
+      "address": "0x1b4d3b0421dDc1eB216D230Bc01527422Fb93103",
+      "artifact": "Unitroller.json",
+      "bytes": 1503,
+      "liveKeccak256": "0x2d84c174465700012ad0a52e2ce9597bf9d77f18860961035ce2dc212aede9cb",
+      "artifactKeccak256": "0x2d84c174465700012ad0a52e2ce9597bf9d77f18860961035ce2dc212aede9cb",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0x1a11669Ecf91692440Da95CC8A12DE80B1C3D9e3",
+      "artifact": "Comptroller.json",
+      "bytes": 16772,
+      "liveKeccak256": "0x9e1cb3a237df8db7e44cbb458c4cfaf8bb360bf74ecaab3a5df4967be3dfbcd7",
+      "artifactKeccak256": "0x9e1cb3a237df8db7e44cbb458c4cfaf8bb360bf74ecaab3a5df4967be3dfbcd7",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0x05b1b5b09251355fdEb13c768987Ab750D2c6865",
+      "bytes": 2752,
+      "liveKeccak256": "0x19fcd66f61b14a26fb1494e60533c1b1a800c8c02d0befab14bb24f7d4d8cdc4"
+    },
+    {
+      "address": "0xD2Ed953C240edC59D57E5CFB527Eb768048Fa012",
+      "artifact": "MixedPriceOracleV2.json",
+      "bytes": 3313,
+      "liveKeccak256": "0x2df3b2d319a820c4b094f7ca2033d560048165835189823aac380356109d7282",
+      "artifactKeccak256": "0x7fd56d9675960bd3929351f499c110dfbb058bbacaa5e3841fc6078c3c609e8d",
+      "artifactBytecodeMatches": false
+    },
+    {
+      "address": "0xA2aa501b19aff244D90cc15a4Cf739D2725B5729",
+      "bytes": 680,
+      "liveKeccak256": "0x932cddc50793da935ccf915651ad67f6b746e9936fcc5614f0ff492563782c75"
+    },
+    {
+      "address": "0x333D8b480BDB25eA7Be4Dd87EEB359988CE1b30D",
+      "artifact": "CErc20Upgradable_USDC_Proxy.json",
+      "bytes": 2739,
+      "liveKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "bytes": 1852,
+      "liveKeccak256": "0x469a90ba4c77663d6a9512da10e00f54cae91fda8007c53ad1ba2789457ea5fb"
+    },
+    {
+      "address": "0xf669C3C03D9fdF4339e19214A749E52616300E89",
+      "artifact": "CErc20Upgradable_USDT_Proxy.json",
+      "bytes": 2739,
+      "liveKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
+      "bytes": 2227,
+      "liveKeccak256": "0x4d9be648c5bf39973670d9f8b481d5d0b971e6a2db2deccc6b98cde21c5dd83e"
+    },
+    {
+      "address": "0xAd7f33984bed10518012013D4aB0458D37FEE6F3",
+      "artifact": "CErc20Upgradable_WETH_Proxy.json",
+      "bytes": 2739,
+      "liveKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "bytes": 3124,
+      "liveKeccak256": "0xa670ec6c272ddec6d328d6f3d5cad65a841a6ab45e8e5cf825150eb458be4f1f"
+    },
+    {
+      "address": "0x1f27f81C1D13Dd96A3b75d42e3d5d92b709869AA",
+      "artifact": "CErc20Upgradable_DAI_Proxy.json",
+      "bytes": 2739,
+      "liveKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
+      "bytes": 2227,
+      "liveKeccak256": "0x4d9be648c5bf39973670d9f8b481d5d0b971e6a2db2deccc6b98cde21c5dd83e"
+    },
+    {
+      "address": "0x9be5e24F05bBAfC28Da814bD59284878b388a40f",
+      "artifact": "CErc20Upgradable_WBTC_Proxy.json",
+      "bytes": 2739,
+      "liveKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
+      "bytes": 2227,
+      "liveKeccak256": "0x4d9be648c5bf39973670d9f8b481d5d0b971e6a2db2deccc6b98cde21c5dd83e"
+    },
+    {
+      "address": "0xCeEd853798ff1c95cEB4dC48f68394eb7A86A782",
+      "artifact": "CErc20Upgradable_wstETH_Proxy.json",
+      "bytes": 2739,
+      "liveKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F",
+      "bytes": 2227,
+      "liveKeccak256": "0x4d9be648c5bf39973670d9f8b481d5d0b971e6a2db2deccc6b98cde21c5dd83e"
+    },
+    {
+      "address": "0x8a90D208666Deec08123444F67Bf5B1836074a67",
+      "artifact": "CErc20Upgradable_ezETH_Proxy.json",
+      "bytes": 2739,
+      "liveKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0x2416092f143378750bb29b79eD961ab195CcEea5",
+      "bytes": 2188,
+      "liveKeccak256": "0x06a890fdb8635927343908799f7327050162056ba4b6a55d68ea83cddf893455"
+    },
+    {
+      "address": "0x9B4971aC84054597EDEd7Dc7b4b7E8A0c90753B5",
+      "artifact": "CErc20Upgradable_weETH_Proxy.json",
+      "bytes": 2739,
+      "liveKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0x1Bf74C010E6320bab11e2e5A532b5AC15e0b8aA6",
+      "bytes": 1159,
+      "liveKeccak256": "0xcbfd123ee41c64b376b8f4f7f097157a5bf967c4018f097e5f67ae7291985794"
+    },
+    {
+      "address": "0x109F4Af9ec6A5ede198f7A4d9d9d7390de29362A",
+      "artifact": "CErc20Upgradable_wrsETH_Proxy.json",
+      "bytes": 2739,
+      "liveKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactKeccak256": "0xe5e3693157141608a301682c8c228c0277eac7efc0b98b57f874ca49752b5fd8",
+      "artifactBytecodeMatches": true
+    },
+    {
+      "address": "0xD2671165570f41BBB3B0097893300b6EB6101E6C",
+      "bytes": 2882,
+      "liveKeccak256": "0x7d2a5bde2101c9df1eacc505c8f46a833cf83582dc51c98c9c0c0e2fca6e2e2c"
+    },
+    {
+      "address": "0xAADAa473C1bDF7317ec07c915680Af29DeBfdCb5",
+      "bytes": 9571,
+      "liveKeccak256": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2"
+    },
+    {
+      "address": "0xefCA2bbe0EdD0E22b2e0d2F8248E99F4bEf4A7dB",
+      "bytes": 9571,
+      "liveKeccak256": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2"
+    },
+    {
+      "address": "0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA",
+      "bytes": 9571,
+      "liveKeccak256": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2"
+    },
+    {
+      "address": "0x5133D67c38AFbdd02997c14Abd8d83676B4e309A",
+      "bytes": 9571,
+      "liveKeccak256": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2"
+    },
+    {
+      "address": "0x7A99092816C8BD5ec8ba229e3a6E6Da1E628E1F9",
+      "bytes": 9571,
+      "liveKeccak256": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2"
+    },
+    {
+      "address": "0x8eCE1AbA32716FdDe8D6482bfd88E9a0ee01f565",
+      "bytes": 9571,
+      "liveKeccak256": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2"
+    },
+    {
+      "address": "0x14D8CA4d05cfd1EA4739AbAB06b28D8dC7C6d6cA",
+      "bytes": 522,
+      "liveKeccak256": "0xc69c6172dca2b560d20a933451f227a599a841a62345b2991af3cd9e92b4f624"
+    },
+    {
+      "address": "0xD707bD88A6AAe8174C1447af4C746D55676C84BA",
+      "bytes": 522,
+      "liveKeccak256": "0xb368330ff9af9198d4fea0cf452e16987e3268b7af6980af2a76d31d2daa33d0"
+    },
+    {
+      "address": "0x1FBc7d24654b10c71fd74d3730d9Df17836181EF",
+      "bytes": 9571,
+      "liveKeccak256": "0xbd6f524cdc4268b6bd1bb6f77a8821faeea9c52ee9e0afa0b6d948ce82c966c2"
+    },
+    {
+      "address": "0x6feCd2f4798D37fBe64BFDe1eBeCaE3B3fB1Ab9B",
+      "bytes": 2162,
+      "liveKeccak256": "0x5866fddb57e2f2fee011780e326ee3d3056ed29262a6ea6f5bebd9a5a2b4fb82"
+    }
+  ],
+  "interpretation": {
+    "zeroCapsMeanUnlimitedNotClosed": true,
+    "noFreshnessCheckInMixedPriceOracleV3Source": true,
+    "staleFeedIsNotSufficientForProfit": true,
+    "requiredNextStep": "Executable DEX/flash quotes and same-transaction fork PoC with repayment and liquid balance deltas"
+  }
+}

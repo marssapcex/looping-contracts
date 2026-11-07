@@ -1,0 +1,12 @@
+{
+  "output": "/home/runner/work/looping-contracts/looping-contracts/mendi-flashloan-audit/evidence/linea-execution-32540628.json",
+  "block": {
+    "number": 32540628,
+    "hash": "0x19b1bf8e37420eed74f18b3b7908c13ce21f9679f7e9ad4372c48df3de5c6b9a",
+    "timestamp": 1794044311
+  },
+  "flashPremiumBps": "5",
+  "successfulQuotes": 0,
+  "totalQuotes": 128,
+  "candidates": []
+}

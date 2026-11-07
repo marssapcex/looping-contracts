@@ -1,0 +1,343 @@
+{
+  "output": "/home/runner/work/looping-contracts/looping-contracts/mendi-flashloan-audit/evidence/linea-recon-32540628.json",
+  "block": {
+    "number": 32540628,
+    "hash": "0x19b1bf8e37420eed74f18b3b7908c13ce21f9679f7e9ad4372c48df3de5c6b9a",
+    "timestamp": 1794044311
+  },
+  "oracle": "0x05b1b5b09251355fdEb13c768987Ab750D2c6865",
+  "activeOracleMatchesExpectedV3Address": true,
+  "markets": {
+    "meUSDC": {
+      "collateralFactor": "850000000000000000",
+      "supplyCap": "0",
+      "borrowCap": "0",
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "119226013393",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "999918170000000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meUSDT": {
+      "collateralFactor": "850000000000000000",
+      "supplyCap": "0",
+      "borrowCap": "0",
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "70668811092",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "998750250000000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meWETH": {
+      "collateralFactor": "800000000000000000",
+      "supplyCap": "0",
+      "borrowCap": "0",
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "180797818787541957293",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "2237948861170000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meDAI": {
+      "collateralFactor": "800000000000000000",
+      "supplyCap": "0",
+      "borrowCap": "0",
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "3174074549162896725397",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "999754540000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meWBTC": {
+      "collateralFactor": "650000000000000000",
+      "supplyCap": "0",
+      "borrowCap": "0",
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "11012061",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "761331374920600000000000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "mewstETH": {
+      "collateralFactor": "600000000000000000",
+      "supplyCap": "0",
+      "borrowCap": "0",
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "3082107966238874072",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "2793550441000000000000"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meezETH": {
+      "collateralFactor": "700000000000000000",
+      "supplyCap": "0",
+      "borrowCap": "0",
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "83696462417162966847",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "2437644485789265317381"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "meweETH": {
+      "collateralFactor": "700000000000000000",
+      "supplyCap": "0",
+      "borrowCap": "0",
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "64637158882932508406",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "2479587377008135437867"
+      },
+      "collateralStops": [],
+      "debtStops": []
+    },
+    "mewrsETH": {
+      "collateralFactor": "0",
+      "supplyCap": "0",
+      "borrowCap": "0",
+      "mintPaused": false,
+      "borrowPaused": false,
+      "deprecated": false,
+      "cash": "11067815549242576537",
+      "oraclePriceResult": {
+        "ok": true,
+        "value": "2426716445049241109051"
+      },
+      "collateralStops": [
+        "ZERO_COLLATERAL_FACTOR"
+      ],
+      "debtStops": []
+    }
+  },
+  "feeds": {
+    "0xAADAa473C1bDF7317ec07c915680Af29DeBfdCb5": {
+      "ageSeconds": "61101",
+      "answerResult": {
+        "ok": true,
+        "value": "99991817"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "36893488147419103356",
+          "99991817",
+          "1793983210",
+          "1793983210",
+          "36893488147419103356"
+        ]
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "USDC / USD"
+      }
+    },
+    "0xefCA2bbe0EdD0E22b2e0d2F8248E99F4bEf4A7dB": {
+      "ageSeconds": "61533",
+      "answerResult": {
+        "ok": true,
+        "value": "99875025"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "36893488147419103354",
+          "99875025",
+          "1793982778",
+          "1793982778",
+          "36893488147419103354"
+        ]
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "USDT / USD"
+      }
+    },
+    "0x3c6Cd9Cc7c7a4c2Cf5a82734CD249D7D593354dA": {
+      "ageSeconds": "41241",
+      "answerResult": {
+        "ok": true,
+        "value": "223794886117"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "18446744073709586864",
+          "223794886117",
+          "1794003070",
+          "1794003070",
+          "18446744073709586864"
+        ]
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "ETH / USD"
+      }
+    },
+    "0x5133D67c38AFbdd02997c14Abd8d83676B4e309A": {
+      "ageSeconds": "43961",
+      "answerResult": {
+        "ok": true,
+        "value": "99975454"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "18446744073709552773",
+          "99975454",
+          "1794000350",
+          "1794000350",
+          "18446744073709552773"
+        ]
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "DAI / USD"
+      }
+    },
+    "0x7A99092816C8BD5ec8ba229e3a6E6Da1E628E1F9": {
+      "ageSeconds": "2237",
+      "answerResult": {
+        "ok": true,
+        "value": "7613313749206"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "18446744073709572454",
+          "7613313749206",
+          "1794042074",
+          "1794042074",
+          "18446744073709572454"
+        ]
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "BTC / USD"
+      }
+    },
+    "0x8eCE1AbA32716FdDe8D6482bfd88E9a0ee01f565": {
+      "ageSeconds": "41935",
+      "answerResult": {
+        "ok": true,
+        "value": "279355044100"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "18446744073709578664",
+          "279355044100",
+          "1794002376",
+          "1794002376",
+          "18446744073709578664"
+        ]
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "WSTETH / USD"
+      }
+    },
+    "0x14D8CA4d05cfd1EA4739AbAB06b28D8dC7C6d6cA": {
+      "ageSeconds": "41893",
+      "answerResult": {
+        "ok": true,
+        "value": "2238875726575963700000"
+      },
+      "roundResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "descriptionResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      }
+    },
+    "0xD707bD88A6AAe8174C1447af4C746D55676C84BA": {
+      "ageSeconds": "10280",
+      "answerResult": {
+        "ok": true,
+        "value": "1088780612900426438"
+      },
+      "roundResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "descriptionResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      }
+    },
+    "0x1FBc7d24654b10c71fd74d3730d9Df17836181EF": {
+      "ageSeconds": "54105",
+      "answerResult": {
+        "ok": true,
+        "value": "1107514520602849788"
+      },
+      "roundResult": {
+        "ok": true,
+        "value": [
+          "18446744073709552564",
+          "1107514520602849788",
+          "1793990206",
+          "1793990206",
+          "18446744073709552564"
+        ]
+      },
+      "descriptionResult": {
+        "ok": true,
+        "value": "weETH / eETH Exchange Rate"
+      }
+    },
+    "0x6feCd2f4798D37fBe64BFDe1eBeCaE3B3fB1Ab9B": {
+      "ageSeconds": "28508",
+      "answerResult": {
+        "ok": true,
+        "value": "1083899573452677784"
+      },
+      "roundResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "descriptionResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      }
+    }
+  }
+}

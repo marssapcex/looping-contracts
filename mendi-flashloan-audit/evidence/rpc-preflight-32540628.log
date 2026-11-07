@@ -1,0 +1,12 @@
+=== https://rpc.linea.build ===
+{
+  "rpc": "https://rpc.linea.build",
+  "chainId": 59144,
+  "block": {
+    "number": 32540628,
+    "tag": "0x1f087d4",
+    "hash": "0x19b1bf8e37420eed74f18b3b7908c13ce21f9679f7e9ad4372c48df3de5c6b9a",
+    "timestamp": 1794044311
+  },
+  "oracle": "0x05b1b5b09251355fdeb13c768987ab750d2c6865"
+}
