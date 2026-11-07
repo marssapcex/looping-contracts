@@ -29,18 +29,19 @@
           "1087035037169311709676991323",
           "106049932289129864659545191",
           "0",
-          "61458",
-          "0x0000000000000000000000000000000000000002",
+          "1794043922",
+          "2",
           "0x374D7860c4f2f604De0191298dD393703Cce84f3",
           "0x0000000000000000000000000000000000000000",
           "0x63aB166e6E1b6Fb705b6ca23686FaD9705EB3534",
-          "276919672622736598737169709690926286449",
+          "0xB1532b76D054c9F9E61b25c4d91f69B4133E4671",
           "441955634",
+          "0",
           "0"
         ]
       },
-      "aToken": "0x0000000000000000000000000000000000000002",
-      "availableLiquidity": "0",
+      "aToken": "0x374D7860c4f2f604De0191298dD393703Cce84f3",
+      "availableLiquidity": "43198904149",
       "active": true,
       "frozen": false,
       "paused": false,
@@ -59,18 +60,19 @@
           "1083036153140448641572730172",
           "84583658423245271327260026",
           "0",
-          "20939",
-          "0x0000000000000000000000000000000000000003",
+          "1794003403",
+          "3",
           "0x88231dfEC71D4FF5c1e466D08C321944A7adC673",
           "0x0000000000000000000000000000000000000000",
           "0x4CEdfa47F7d0e9036110B850Ce49f4cd47b28a2F",
-          "276919672622736598737169709690926286449",
+          "0xB1532b76D054c9F9E61b25c4d91f69B4133E4671",
           "105162296",
+          "0",
           "0"
         ]
       },
-      "aToken": "0x0000000000000000000000000000000000000003",
-      "availableLiquidity": "0",
+      "aToken": "0x88231dfEC71D4FF5c1e466D08C321944A7adC673",
+      "availableLiquidity": "23940983462",
       "active": true,
       "frozen": false,
       "paused": false,
@@ -89,18 +91,19 @@
           "1038423230905660402773109903",
           "20297034300804784363482964",
           "0",
-          "21184",
-          "0x0000000000000000000000000000000000000000",
+          "1794003648",
+          "0",
           "0x787897dF92703BB3Fc4d9Ee98e15C0b8130Bf163",
           "0x0000000000000000000000000000000000000000",
           "0x0e7543a9dA61b2E71fC880685eD2945B7426a689",
-          "276919672622736598737169709690926286449",
+          "0xB1532b76D054c9F9E61b25c4d91f69B4133E4671",
           "285787073079783221",
+          "0",
           "0"
         ]
       },
-      "aToken": "0x0000000000000000000000000000000000000000",
-      "availableLiquidity": "2414284440000590",
+      "aToken": "0x787897dF92703BB3Fc4d9Ee98e15C0b8130Bf163",
+      "availableLiquidity": "685152502338234207159",
       "active": true,
       "frozen": false,
       "paused": false,
@@ -120,11 +123,12 @@
           "0",
           "0",
           "0",
+          "0",
           "0x0000000000000000000000000000000000000000",
           "0x0000000000000000000000000000000000000000",
           "0x0000000000000000000000000000000000000000",
-          "0x0000000000000000000000000000000000000000",
-          "276919672622736598737169709690926286449",
+          "0xB1532b76D054c9F9E61b25c4d91f69B4133E4671",
+          "0",
           "0",
           "0"
         ]
@@ -149,18 +153,19 @@
           "1018213159481630667775089110",
           "13296028127314340901941029",
           "0",
-          "24990",
-          "0x0000000000000000000000000000000000000001",
+          "1793941918",
+          "1",
           "0x37f7E06359F98162615e016d0008023D910bB576",
           "0x0000000000000000000000000000000000000000",
           "0x74A1b56f5137b00AA0ADA1dD964a3A361Ecc32e9",
-          "276919672622736598737169709690926286449",
+          "0xB1532b76D054c9F9E61b25c4d91f69B4133E4671",
           "5437",
+          "0",
           "0"
         ]
       },
-      "aToken": "0x0000000000000000000000000000000000000001",
-      "availableLiquidity": "0",
+      "aToken": "0x37f7E06359F98162615e016d0008023D910bB576",
+      "availableLiquidity": "1012558385",
       "active": true,
       "frozen": false,
       "paused": false,
@@ -179,18 +184,19 @@
           "1010403437576542166123392076",
           "1237128849671075301879069",
           "0",
-          "31125",
-          "0x0000000000000000000000000000000000000004",
+          "1793882517",
+          "4",
           "0x58943d20e010d9E34C4511990e232783460d0219",
           "0x0000000000000000000000000000000000000000",
           "0x81C1a619Be23050B3242B41a739e6B6CfDa56687",
-          "276919672622736598737169709690926286449",
+          "0xB1532b76D054c9F9E61b25c4d91f69B4133E4671",
           "9802206802866",
+          "0",
           "0"
         ]
       },
-      "aToken": "0x0000000000000000000000000000000000000004",
-      "availableLiquidity": "0",
+      "aToken": "0x58943d20e010d9E34C4511990e232783460d0219",
+      "availableLiquidity": "237026211367170217578",
       "active": true,
       "frozen": false,
       "paused": false,
@@ -209,18 +215,19 @@
           "1000000000000000000000000000",
           "0",
           "0",
-          "64356",
-          "0x0000000000000000000000000000000000000005",
+          "1793653604",
+          "5",
           "0x935EfCBeFc1dF0541aFc3fE145134f8c9a0beB89",
           "0x0000000000000000000000000000000000000000",
           "0x1fE3452CEF885724F8aDF1382ee17d05d7e01CaB",
-          "276919672622736598737169709690926286449",
+          "0xB1532b76D054c9F9E61b25c4d91f69B4133E4671",
+          "0",
           "0",
           "0"
         ]
       },
-      "aToken": "0x0000000000000000000000000000000000000005",
-      "availableLiquidity": "0",
+      "aToken": "0x935EfCBeFc1dF0541aFc3fE145134f8c9a0beB89",
+      "availableLiquidity": "377883842200277580286",
       "active": true,
       "frozen": false,
       "paused": false,
@@ -239,18 +246,19 @@
           "1000000000000000000000000000",
           "0",
           "0",
-          "3283",
-          "0x0000000000000000000000000000000000000006",
+          "1793854675",
+          "6",
           "0x0C7921aB4888fd06731898b3fffFeB06781D5F4F",
           "0x0000000000000000000000000000000000000000",
           "0x37a843725508243952950307CeacE7A9f5D5c280",
-          "276919672622736598737169709690926286449",
+          "0xB1532b76D054c9F9E61b25c4d91f69B4133E4671",
           "24055407322298",
+          "0",
           "0"
         ]
       },
-      "aToken": "0x0000000000000000000000000000000000000006",
-      "availableLiquidity": "0",
+      "aToken": "0x0C7921aB4888fd06731898b3fffFeB06781D5F4F",
+      "availableLiquidity": "885899343956501495048",
       "active": true,
       "frozen": false,
       "paused": false,
@@ -269,18 +277,19 @@
           "1000000000000000000000000000",
           "0",
           "0",
-          "4364",
-          "0x0000000000000000000000000000000000000007",
+          "1793265932",
+          "7",
           "0xCDD80E6211FC767352B198f827200C7e93d7Bb04",
           "0x0000000000000000000000000000000000000000",
           "0xf3C806a402E4E9101373F76C05880EEAc91BB5b9",
-          "276919672622736598737169709690926286449",
+          "0xB1532b76D054c9F9E61b25c4d91f69B4133E4671",
           "7037649208269",
+          "0",
           "0"
         ]
       },
-      "aToken": "0x0000000000000000000000000000000000000007",
-      "availableLiquidity": "0",
+      "aToken": "0xCDD80E6211FC767352B198f827200C7e93d7Bb04",
+      "availableLiquidity": "564425646297241204279",
       "active": true,
       "frozen": true,
       "paused": false,
@@ -297,7 +306,7 @@
       "amountIn": "1000000000000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -310,11 +319,38 @@
       "fee": 500,
       "amountIn": "1000000000000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "492314082",
+          "18891623171032272500600377737667846",
+          "7",
+          "406587"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "492314082",
+      "flashFee": "500000000000000",
+      "flashFeeUsd": "1118974430585000000",
+      "acquisitionCostUsd": "2237948861170000000000",
+      "costIncludingFlashUsd": "2239067835600585000000",
+      "collateralOracleValueUsd": "492273795938669940000",
+      "weightedCollateralUsd": "418432726547869449000",
+      "oracleToExecutionRatio": "219856579649641287",
+      "breakEvenRatio": "1176470588235294117",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "418535460261945346104",
+        "candidateAmount": "418535460261945346104",
+        "borrowUsd": "418432726547869448999",
+        "upperBoundNetBeforeExitAndGas": "-1820635109052715551001",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meUSDC",
@@ -324,11 +360,38 @@
       "fee": 3000,
       "amountIn": "1000000000000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "1055038323",
+          "3539154206758736024042460625328936",
+          "3",
+          "213187"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "1055038323",
+      "flashFee": "500000000000000",
+      "flashFeeUsd": "1118974430585000000",
+      "acquisitionCostUsd": "2237948861170000000000",
+      "costIncludingFlashUsd": "2239067835600585000000",
+      "collateralOracleValueUsd": "1054951989214028910000",
+      "weightedCollateralUsd": "896709190831924573500",
+      "oracleToExecutionRatio": "471156778924055784",
+      "breakEvenRatio": "1176470588235294117",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "896929351110448144101",
+        "candidateAmount": "896929351110448144101",
+        "borrowUsd": "896709190831924573499",
+        "upperBoundNetBeforeExitAndGas": "-1342358644768660426501",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meUSDC",
@@ -338,11 +401,38 @@
       "fee": 10000,
       "amountIn": "1000000000000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "7611417",
+          "15114013174389911901106801347436976937",
+          "6",
+          "248261"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "7611417",
+      "flashFee": "500000000000000",
+      "flashFeeUsd": "1118974430585000000",
+      "acquisitionCostUsd": "2237948861170000000000",
+      "costIncludingFlashUsd": "2239067835600585000000",
+      "collateralOracleValueUsd": "7610794157746890000",
+      "weightedCollateralUsd": "6469175034084856500",
+      "oracleToExecutionRatio": "3399090477178618",
+      "breakEvenRatio": "1176470588235294117",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "6470763347656172184",
+        "candidateAmount": "6470763347656172184",
+        "borrowUsd": "6469175034084856499",
+        "upperBoundNetBeforeExitAndGas": "-2232598660566500143501",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meUSDC",
@@ -352,11 +442,38 @@
       "fee": 100,
       "amountIn": "1000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "17557980",
+          "22404273242115363918360312426107",
+          "2",
+          "3384290"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "17557980",
+      "flashFee": "500000",
+      "flashFeeUsd": "499375125000000000",
+      "acquisitionCostUsd": "998750250000000000000",
+      "costIncludingFlashUsd": "999249625125000000000",
+      "collateralOracleValueUsd": "17556543230496600000",
+      "weightedCollateralUsd": "14923061745922110000",
+      "oracleToExecutionRatio": "17569727112282262",
+      "breakEvenRatio": "1176470588235294117",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meUSDC",
+        "maxBorrowByLiquidity": "14924283",
+        "candidateAmount": "14924283",
+        "borrowUsd": "14923061745922110000",
+        "upperBoundNetBeforeExitAndGas": "-984326563379077890000",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meUSDC",
@@ -366,11 +483,38 @@
       "fee": 500,
       "amountIn": "1000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "13206",
+          "1461446703485210103287273052203988822378723970341",
+          "1",
+          "2592388"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "13206",
+      "flashFee": "500000",
+      "flashFeeUsd": "499375125000000000",
+      "acquisitionCostUsd": "998750250000000000000",
+      "costIncludingFlashUsd": "999249625125000000000",
+      "collateralOracleValueUsd": "13204919353020000",
+      "weightedCollateralUsd": "11224181450067000",
+      "oracleToExecutionRatio": "13214835433506",
+      "breakEvenRatio": "1176470588235294117",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "11226937214075566",
+        "candidateAmount": "11226937214075566",
+        "borrowUsd": "11224181450066999",
+        "upperBoundNetBeforeExitAndGas": "-999238400943549933001",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meUSDC",
@@ -381,7 +525,7 @@
       "amountIn": "1000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -393,48 +537,6 @@
       "flashUnderlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
       "fee": 10000,
       "amountIn": "1000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meUSDC",
-      "collateralUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
-      "flashSymbol": "WBTC",
-      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
-      "fee": 100,
-      "amountIn": "1000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meUSDC",
-      "collateralUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
-      "flashSymbol": "WBTC",
-      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
-      "fee": 500,
-      "amountIn": "1000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meUSDC",
-      "collateralUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
-      "flashSymbol": "WBTC",
-      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
-      "fee": 3000,
-      "amountIn": "1000000",
       "quoteResult": {
         "ok": false,
         "error": "execution reverted (no data present; likely require(false) occurred"
@@ -447,6 +549,48 @@
       "collateralUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
       "flashSymbol": "WBTC",
       "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
+      "fee": 100,
+      "amountIn": "1000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted: \"Unexpected error\""
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meUSDC",
+      "collateralUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "flashSymbol": "WBTC",
+      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
+      "fee": 500,
+      "amountIn": "1000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meUSDC",
+      "collateralUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "flashSymbol": "WBTC",
+      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
+      "fee": 3000,
+      "amountIn": "1000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted: \"Unexpected error\""
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meUSDC",
+      "collateralUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "flashSymbol": "WBTC",
+      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
       "fee": 10000,
       "amountIn": "1000000",
       "quoteResult": {
@@ -464,11 +608,38 @@
       "fee": 100,
       "amountIn": "1000000000000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "66803",
+          "180087732143301473162673901644911472517",
+          "2",
+          "6833689"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "66803",
+      "flashFee": "500000000000000",
+      "flashFeeUsd": "1118974430585000000",
+      "acquisitionCostUsd": "2237948861170000000000",
+      "costIncludingFlashUsd": "2239067835600585000000",
+      "collateralOracleValueUsd": "66719512950750000",
+      "weightedCollateralUsd": "56711586008137500",
+      "oracleToExecutionRatio": "29797897093570",
+      "breakEvenRatio": "1176470588235294117",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "56725509851785719",
+        "candidateAmount": "56725509851785719",
+        "borrowUsd": "56711586008137499",
+        "upperBoundNetBeforeExitAndGas": "-2239011124014576862501",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meUSDT",
@@ -478,11 +649,38 @@
       "fee": 500,
       "amountIn": "1000000000000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "976136",
+          "1461446703485210103287273052203988822378723970341",
+          "3",
+          "2114043"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "976136",
+      "flashFee": "500000000000000",
+      "flashFeeUsd": "1118974430585000000",
+      "acquisitionCostUsd": "2237948861170000000000",
+      "costIncludingFlashUsd": "2239067835600585000000",
+      "collateralOracleValueUsd": "974916074034000000",
+      "weightedCollateralUsd": "828678662928900000",
+      "oracleToExecutionRatio": "435411584469703",
+      "breakEvenRatio": "1176470588235294117",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "828882120334157222",
+        "candidateAmount": "828882120334157222",
+        "borrowUsd": "828678662928899999",
+        "upperBoundNetBeforeExitAndGas": "-2238239156937656100001",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meUSDT",
@@ -493,7 +691,7 @@
       "amountIn": "1000000000000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -520,11 +718,38 @@
       "fee": 100,
       "amountIn": "1000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "1000293799",
+          "79222361276718282418864904418",
+          "8",
+          "292774"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "1000293799",
+      "flashFee": "500000",
+      "flashFeeUsd": "499959085000000000",
+      "acquisitionCostUsd": "999918170000000000000",
+      "costIncludingFlashUsd": "1000418129085000000000",
+      "collateralOracleValueUsd": "999043681824699750000",
+      "weightedCollateralUsd": "849187129550994787500",
+      "oracleToExecutionRatio": "998626127195878243",
+      "breakEvenRatio": "1176470588235294117",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "849395622200420102618",
+        "candidateAmount": "849395622200420102618",
+        "borrowUsd": "849187129550994787499",
+        "upperBoundNetBeforeExitAndGas": "-151230999534005212501",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meUSDT",
@@ -534,11 +759,38 @@
       "fee": 500,
       "amountIn": "1000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "1037043",
+          "4295128740",
+          "1",
+          "2571706"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "1037043",
+      "flashFee": "500000",
+      "flashFeeUsd": "499959085000000000",
+      "acquisitionCostUsd": "999918170000000000000",
+      "costIncludingFlashUsd": "1000418129085000000000",
+      "collateralOracleValueUsd": "1035746955510750000",
+      "weightedCollateralUsd": "880384912184137500",
+      "oracleToExecutionRatio": "1035314060589907",
+      "breakEvenRatio": "1176470588235294117",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "880601064521434931",
+        "candidateAmount": "880601064521434931",
+        "borrowUsd": "880384912184137499",
+        "upperBoundNetBeforeExitAndGas": "-999537744172815862501",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meUSDT",
@@ -549,7 +801,7 @@
       "amountIn": "1000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"SPL\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -577,7 +829,7 @@
       "amountIn": "1000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -591,7 +843,7 @@
       "amountIn": "1000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -605,7 +857,7 @@
       "amountIn": "1000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -619,7 +871,7 @@
       "amountIn": "1000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -632,11 +884,38 @@
       "fee": 100,
       "amountIn": "1000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "989986",
+          "4295128740",
+          "2",
+          "35871029"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "989986",
+      "flashFee": "500000",
+      "flashFeeUsd": "499959085000000000",
+      "acquisitionCostUsd": "999918170000000000000",
+      "costIncludingFlashUsd": "1000418129085000000000",
+      "collateralOracleValueUsd": "2215538041",
+      "weightedCollateralUsd": "1772430432",
+      "oracleToExecutionRatio": "2214612",
+      "breakEvenRatio": "1250000000000000000",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "1772865599",
+        "candidateAmount": "1772865599",
+        "borrowUsd": "1772430431",
+        "upperBoundNetBeforeExitAndGas": "-1000418129083227569569",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meWETH",
@@ -646,11 +925,38 @@
       "fee": 500,
       "amountIn": "1000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "75291333007110172",
+          "63051252143257502008603239768423",
+          "72",
+          "1977609"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "75291333007110172",
+      "flashFee": "500000",
+      "flashFeeUsd": "499959085000000000",
+      "acquisitionCostUsd": "999918170000000000000",
+      "costIncludingFlashUsd": "1000418129085000000000",
+      "collateralOracleValueUsd": "168498152959233440940",
+      "weightedCollateralUsd": "134798522367386752752",
+      "oracleToExecutionRatio": "168427728427257523",
+      "breakEvenRatio": "1250000000000000000",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "134831618136374507238",
+        "candidateAmount": "134831618136374507238",
+        "borrowUsd": "134798522367386752751",
+        "upperBoundNetBeforeExitAndGas": "-865619606717613247249",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meWETH",
@@ -660,8 +966,172 @@
       "fee": 3000,
       "amountIn": "1000000000",
       "quoteResult": {
+        "ok": true,
+        "value": [
+          "298223130262642721",
+          "1119788775707124519883463245280897",
+          "5",
+          "212254"
+        ]
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "298223130262642721",
+      "flashFee": "500000",
+      "flashFeeUsd": "499959085000000000",
+      "acquisitionCostUsd": "999918170000000000000",
+      "costIncludingFlashUsd": "1000418129085000000000",
+      "collateralOracleValueUsd": "667408114745833840456",
+      "weightedCollateralUsd": "533926491796667072364",
+      "oracleToExecutionRatio": "667129168636974851",
+      "breakEvenRatio": "1250000000000000000",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "534057581570639401511",
+        "candidateAmount": "534057581570639401511",
+        "borrowUsd": "533926491796667072363",
+        "upperBoundNetBeforeExitAndGas": "-466491637288332927637",
+        "debtStops": []
+      },
+      "candidateOnly": false
+    },
+    {
+      "collateral": "meWETH",
+      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "flashSymbol": "USDC",
+      "flashUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "fee": 10000,
+      "amountIn": "1000000000",
+      "quoteResult": {
+        "ok": true,
+        "value": [
+          "9577535013310349",
+          "431157143495059497905848457919",
+          "12",
+          "398913"
+        ]
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "9577535013310349",
+      "flashFee": "500000",
+      "flashFeeUsd": "499959085000000000",
+      "acquisitionCostUsd": "999918170000000000000",
+      "costIncludingFlashUsd": "1000418129085000000000",
+      "collateralOracleValueUsd": "21434033575853696336",
+      "weightedCollateralUsd": "17147226860682957068",
+      "oracleToExecutionRatio": "21425075128794037",
+      "breakEvenRatio": "1250000000000000000",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "17151436852372740480",
+        "candidateAmount": "17151436852372740480",
+        "borrowUsd": "17147226860682957067",
+        "upperBoundNetBeforeExitAndGas": "-983270902224317042933",
+        "debtStops": []
+      },
+      "candidateOnly": false
+    },
+    {
+      "collateral": "meWETH",
+      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "flashSymbol": "USDT",
+      "flashUnderlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
+      "fee": 100,
+      "amountIn": "1000000000",
+      "quoteResult": {
+        "ok": true,
+        "value": [
+          "2009122203283894",
+          "35088515108684751163117667060",
+          "2",
+          "6260629"
+        ]
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "2009122203283894",
+      "flashFee": "500000",
+      "flashFeeUsd": "499375125000000000",
+      "acquisitionCostUsd": "998750250000000000000",
+      "costIncludingFlashUsd": "999249625125000000000",
+      "collateralOracleValueUsd": "4496312746790551811",
+      "weightedCollateralUsd": "3597050197432441448",
+      "oracleToExecutionRatio": "4499689200511924",
+      "breakEvenRatio": "1250000000000000000",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "3597933346151587816",
+        "candidateAmount": "3597933346151587816",
+        "borrowUsd": "3597050197432441447",
+        "upperBoundNetBeforeExitAndGas": "-995652574927567558553",
+        "debtStops": []
+      },
+      "candidateOnly": false
+    },
+    {
+      "collateral": "meWETH",
+      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "flashSymbol": "USDT",
+      "flashUnderlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
+      "fee": 500,
+      "amountIn": "1000000000",
+      "quoteResult": {
+        "ok": true,
+        "value": [
+          "744831654638706",
+          "4295128740",
+          "1",
+          "3066639"
+        ]
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "744831654638706",
+      "flashFee": "500000",
+      "flashFeeUsd": "499375125000000000",
+      "acquisitionCostUsd": "998750250000000000000",
+      "costIncludingFlashUsd": "999249625125000000000",
+      "collateralOracleValueUsd": "1666895153262058840",
+      "weightedCollateralUsd": "1333516122609647072",
+      "oracleToExecutionRatio": "1668146888775205",
+      "breakEvenRatio": "1250000000000000000",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "1333843527841991167",
+        "candidateAmount": "1333843527841991167",
+        "borrowUsd": "1333516122609647071",
+        "upperBoundNetBeforeExitAndGas": "-997916109002390352929",
+        "debtStops": []
+      },
+      "candidateOnly": false
+    },
+    {
+      "collateral": "meWETH",
+      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "flashSymbol": "USDT",
+      "flashUnderlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
+      "fee": 3000,
+      "amountIn": "1000000000",
+      "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"SPL\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -669,8 +1139,8 @@
     {
       "collateral": "meWETH",
       "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "flashSymbol": "USDC",
-      "flashUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "flashSymbol": "USDT",
+      "flashUnderlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
       "fee": 10000,
       "amountIn": "1000000000",
       "quoteResult": {
@@ -683,6 +1153,228 @@
     {
       "collateral": "meWETH",
       "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "flashSymbol": "WBTC",
+      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
+      "fee": 100,
+      "amountIn": "1000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meWETH",
+      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "flashSymbol": "WBTC",
+      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
+      "fee": 500,
+      "amountIn": "1000000",
+      "quoteResult": {
+        "ok": true,
+        "value": [
+          "175386184677708429",
+          "17012202554370027451418165998474301",
+          "6",
+          "294468"
+        ]
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "175386184677708429",
+      "flashFee": "500",
+      "flashFeeUsd": "380665687460300000",
+      "acquisitionCostUsd": "761331374920600000000",
+      "costIncludingFlashUsd": "761712040608060300000",
+      "collateralOracleValueUsd": "392505312264428882165",
+      "weightedCollateralUsd": "314004249811543105732",
+      "oracleToExecutionRatio": "515293564154636866",
+      "breakEvenRatio": "1250000000000000000",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "314081344218294928405",
+        "candidateAmount": "314081344218294928405",
+        "borrowUsd": "314004249811543105731",
+        "upperBoundNetBeforeExitAndGas": "-447707790796517194269",
+        "debtStops": []
+      },
+      "candidateOnly": false
+    },
+    {
+      "collateral": "meWETH",
+      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "flashSymbol": "WBTC",
+      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
+      "fee": 3000,
+      "amountIn": "1000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meWETH",
+      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "flashSymbol": "WBTC",
+      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
+      "fee": 10000,
+      "amountIn": "1000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meDAI",
+      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
+      "flashSymbol": "WETH",
+      "flashUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "fee": 100,
+      "amountIn": "1000000000000000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meDAI",
+      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
+      "flashSymbol": "WETH",
+      "flashUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "fee": 500,
+      "amountIn": "1000000000000000000",
+      "quoteResult": {
+        "ok": true,
+        "value": [
+          "145573211637908625",
+          "1461446703485210103287273052203988822378723970341",
+          "2",
+          "5040806"
+        ]
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "145573211637908625",
+      "flashFee": "500000000000000",
+      "flashFeeUsd": "1118974430585000000",
+      "acquisitionCostUsd": "2237948861170000000000",
+      "costIncludingFlashUsd": "2239067835600585000000",
+      "collateralOracleValueUsd": "145537479237379983",
+      "weightedCollateralUsd": "116429983389903986",
+      "oracleToExecutionRatio": "64999137999917",
+      "breakEvenRatio": "1250000000000000000",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "116458569310326898",
+        "candidateAmount": "116458569310326898",
+        "borrowUsd": "116429983389903985",
+        "upperBoundNetBeforeExitAndGas": "-2238951405617195096015",
+        "debtStops": []
+      },
+      "candidateOnly": false
+    },
+    {
+      "collateral": "meDAI",
+      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
+      "flashSymbol": "WETH",
+      "flashUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "fee": 3000,
+      "amountIn": "1000000000000000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meDAI",
+      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
+      "flashSymbol": "WETH",
+      "flashUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+      "fee": 10000,
+      "amountIn": "1000000000000000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meDAI",
+      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
+      "flashSymbol": "USDC",
+      "flashUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "fee": 100,
+      "amountIn": "1000000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meDAI",
+      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
+      "flashSymbol": "USDC",
+      "flashUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "fee": 500,
+      "amountIn": "1000000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted: \"Unexpected error\""
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meDAI",
+      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
+      "flashSymbol": "USDC",
+      "flashUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "fee": 3000,
+      "amountIn": "1000000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meDAI",
+      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
+      "flashSymbol": "USDC",
+      "flashUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+      "fee": 10000,
+      "amountIn": "1000000000",
+      "quoteResult": {
+        "ok": false,
+        "error": "execution reverted (no data present; likely require(false) occurred"
+      },
+      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+    },
+    {
+      "collateral": "meDAI",
+      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
       "flashSymbol": "USDT",
       "flashUnderlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
       "fee": 100,
@@ -695,230 +1387,6 @@
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
     },
     {
-      "collateral": "meWETH",
-      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "flashSymbol": "USDT",
-      "flashUnderlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
-      "fee": 500,
-      "amountIn": "1000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meWETH",
-      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "flashSymbol": "USDT",
-      "flashUnderlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
-      "fee": 3000,
-      "amountIn": "1000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meWETH",
-      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "flashSymbol": "USDT",
-      "flashUnderlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
-      "fee": 10000,
-      "amountIn": "1000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meWETH",
-      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "flashSymbol": "WBTC",
-      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
-      "fee": 100,
-      "amountIn": "1000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meWETH",
-      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "flashSymbol": "WBTC",
-      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
-      "fee": 500,
-      "amountIn": "1000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meWETH",
-      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "flashSymbol": "WBTC",
-      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
-      "fee": 3000,
-      "amountIn": "1000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meWETH",
-      "collateralUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "flashSymbol": "WBTC",
-      "flashUnderlying": "0x3aAB2285ddcDdaD8edf438C1bAB47e1a9D05a9b4",
-      "fee": 10000,
-      "amountIn": "1000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meDAI",
-      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
-      "flashSymbol": "WETH",
-      "flashUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "fee": 100,
-      "amountIn": "1000000000000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meDAI",
-      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
-      "flashSymbol": "WETH",
-      "flashUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "fee": 500,
-      "amountIn": "1000000000000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meDAI",
-      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
-      "flashSymbol": "WETH",
-      "flashUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "fee": 3000,
-      "amountIn": "1000000000000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meDAI",
-      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
-      "flashSymbol": "WETH",
-      "flashUnderlying": "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
-      "fee": 10000,
-      "amountIn": "1000000000000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meDAI",
-      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
-      "flashSymbol": "USDC",
-      "flashUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
-      "fee": 100,
-      "amountIn": "1000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meDAI",
-      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
-      "flashSymbol": "USDC",
-      "flashUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
-      "fee": 500,
-      "amountIn": "1000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meDAI",
-      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
-      "flashSymbol": "USDC",
-      "flashUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
-      "fee": 3000,
-      "amountIn": "1000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meDAI",
-      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
-      "flashSymbol": "USDC",
-      "flashUnderlying": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
-      "fee": 10000,
-      "amountIn": "1000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
-      "collateral": "meDAI",
-      "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
-      "flashSymbol": "USDT",
-      "flashUnderlying": "0xA219439258ca9da29E9Cc4cE5596924745e12B93",
-      "fee": 100,
-      "amountIn": "1000000000",
-      "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
-      },
-      "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
-    },
-    {
       "collateral": "meDAI",
       "collateralUnderlying": "0x4AF15ec2A0BD43Db75dd04E62FAA3B8EF36b00d5",
       "flashSymbol": "USDT",
@@ -941,7 +1409,7 @@
       "amountIn": "1000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -1038,11 +1506,38 @@
       "fee": 500,
       "amountIn": "1000000000000000000",
       "quoteResult": {
-        "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "ok": true,
+        "value": [
+          "396443",
+          "987808985726839681744120058579423286",
+          "4",
+          "433968"
+        ]
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
-      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
+      "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9",
+      "amountOut": "396443",
+      "flashFee": "500000000000000",
+      "flashFeeUsd": "1118974430585000000",
+      "acquisitionCostUsd": "2237948861170000000000",
+      "costIncludingFlashUsd": "2239067835600585000000",
+      "collateralOracleValueUsd": "301824494267647425800",
+      "weightedCollateralUsd": "196185921273970826770",
+      "oracleToExecutionRatio": "134799173776121465",
+      "breakEvenRatio": "1538461538461538461",
+      "supplyCapacityAcceptsOutput": true,
+      "flashLiquidityAcceptsInput": true,
+      "flashReserveEligible": true,
+      "collateralStops": [],
+      "bestDebt": {
+        "symbol": "meDAI",
+        "maxBorrowByLiquidity": "196234088893430608247",
+        "candidateAmount": "196234088893430608247",
+        "borrowUsd": "196185921273970826769",
+        "upperBoundNetBeforeExitAndGas": "-2042881914326614173231",
+        "debtStops": []
+      },
+      "candidateOnly": false
     },
     {
       "collateral": "meWBTC",
@@ -1081,7 +1576,7 @@
       "amountIn": "1000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -1109,7 +1604,7 @@
       "amountIn": "1000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -1137,7 +1632,7 @@
       "amountIn": "1000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -1151,7 +1646,7 @@
       "amountIn": "1000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -1165,7 +1660,7 @@
       "amountIn": "1000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -1179,7 +1674,7 @@
       "amountIn": "1000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
@@ -1417,7 +1912,7 @@
       "amountIn": "1000000000000000000",
       "quoteResult": {
         "ok": false,
-        "error": "execution reverted (no data present; likely require(false) occurred"
+        "error": "execution reverted: \"Unexpected error\""
       },
       "quoter": "0x42bE4D6527829FeFA1493e1fb9F3676d2425C3C1",
       "factory": "0x31FAfd4889FA1269F7a13A66eE0fB458f27D72A9"
