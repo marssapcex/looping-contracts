@@ -17,3 +17,5 @@ remappings = [
 [profile.fork]
 src = 'poc'
 test = 'poc'
+# The live Aave L2PoolInstance is compiled for Cancun; Mendi itself remains solc 0.8.10-compatible.
+evm_version = 'cancun'
