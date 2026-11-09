@@ -1,0 +1,25 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SomniaLendEconomicPoC.t.sol:SomniaLendEconomicPoCTest
+[FAIL: EvmError: Revert] test_recon_exact_live_configuration() (gas: 68840)
+Logs:
+  fork block 460997889
+  pool implementation 0x1C53629cd824c293ce0611BbA08E4B0f6e92e5cC
+  oracle 0x9b7B5d69a08071ce74C2f3D655038E3b782eAaFc
+  oracle base currency 0x0000000000000000000000000000000000000000
+  oracle base unit 100000000
+  oracle fallback 0x0000000000000000000000000000000000000000
+  flash premium bps 5
+  reserve count 5
+
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 4.38s (3.59s CPU time)
+
+Ran 1 test suite in 4.39s (4.38s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/SomniaLendEconomicPoC.t.sol:SomniaLendEconomicPoCTest
+[FAIL: EvmError: Revert] test_recon_exact_live_configuration() (gas: 68840)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
