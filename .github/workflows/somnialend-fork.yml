@@ -15,37 +15,52 @@ on:
     branches: [arena/ee2289ba-looping-contracts]
     paths:
       - .github/workflows/somnialend-fork.yml
-      - somnialend-audit/**
+      - somnialend-audit/src/**
+      - somnialend-audit/test/**
+      - somnialend-audit/foundry.toml
+      - somnialend-audit/run-fork.sh
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: somnialend-fork-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   fork:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
+    env:
+      FOUNDRY_VERSION: "1.7.1"
     steps:
       - name: Check out branch and forge-std
         uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Install Foundry 1.7.1
+      # Forge 1.8+ sends EIP-1898 block objects on every fork state read; the Somnia RPC rejects
+      # them with -32602, so the fork dies on the first account read. 1.7.1 sends hex block numbers.
+      - name: Install pinned Foundry (RPC compatibility)
         uses: foundry-rs/foundry-toolchain@v1
         with:
-          version: 1.7.1
+          version: ${{ env.FOUNDRY_VERSION }}
 
       - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install exact local solc adapter dependencies
+      - name: Install pure-JS solc
         run: npm ci --prefix somnialend-audit/tools --no-audit --no-fund
 
       - name: Compile harness
         working-directory: somnialend-audit
         run: forge build
+
+      - name: Offline harness unit tests (not evidence)
+        working-directory: somnialend-audit
+        run: forge test --match-contract SomniaLendHarnessUnitTest -vv
 
       - name: Select and pin Somnia state
         id: pin
@@ -65,14 +80,14 @@ jobs:
           echo "SOMNIA_FORK_BLOCK=$BLOCK" >> "$GITHUB_ENV"
           echo "block=$BLOCK" >> "$GITHUB_OUTPUT"
 
-      - name: Recon reserves, implementations, feeds and CLOB books
+      - name: Recon reserves, feeds, books
         id: recon
         if: always()
         working-directory: somnialend-audit
         run: |
           set -o pipefail
           mkdir -p evidence results
-          forge test --match-test test_recon_exact_live_configuration -vvvv 2>&1 | tee "evidence/recon-${SOMNIA_FORK_BLOCK}.log"
+          ./run-fork.sh recon
 
       - name: No-trade flashloan control
         id: control
@@ -80,39 +95,33 @@ jobs:
         working-directory: somnialend-audit
         run: |
           set -o pipefail
-          forge test --match-test test_control_no_trade_no_oracle_delta -vvvv 2>&1 | tee "evidence/control-${SOMNIA_FORK_BLOCK}.log"
+          ./run-fork.sh control
 
-      - name: Execute SOMI and USDso instrumented attacks
-        id: measured
+      - name: Atomic zero-seed sweep
+        id: sweep
         if: always()
         working-directory: somnialend-audit
         run: |
           set -o pipefail
-          forge test --match-test 'test_(somi|usdso)_instrumented_with_loss_coverage' -vvvv 2>&1 | tee "evidence/measured-${SOMNIA_FORK_BLOCK}.log"
-
-      - name: Execute zero-seed atomic profit assertions
-        id: zero_seed
-        if: always()
-        continue-on-error: true
-        working-directory: somnialend-audit
-        run: |
-          set -o pipefail
-          forge test --match-test 'test_(somi|usdso)_atomic_zero_seed' -vvvv 2>&1 | tee "evidence/zero-seed-${SOMNIA_FORK_BLOCK}.log"
+          ./run-fork.sh sweep
 
       - name: Record explicit outcomes
         if: always()
         run: |
+          OUT="somnialend-audit/evidence/outcomes-${{ steps.pin.outputs.block }}.txt"
           {
             echo "Somnia fork block: ${{ steps.pin.outputs.block }}"
+            echo "run: ${{ github.run_id }} attempt ${{ github.run_attempt }}"
+            echo "forge: ${{ env.FOUNDRY_VERSION }}"
             echo "recon: ${{ steps.recon.outcome }}"
             echo "control: ${{ steps.control.outcome }}"
-            echo "instrumented attacks: ${{ steps.measured.outcome }}"
-            echo "zero-seed profit assertions: ${{ steps.zero_seed.outcome }}"
-            echo "A zero-seed failure is a failed atomic exploit assertion, not a successful measurement of profit."
-          } | tee somnialend-audit/evidence/outcomes-${{ steps.pin.outputs.block }}.txt
-          cat somnialend-audit/evidence/outcomes-${{ steps.pin.outputs.block }}.txt >> "$GITHUB_STEP_SUMMARY"
+            echo "sweep: ${{ steps.sweep.outcome }}"
+            echo "A failed sweep step means no scenario returned a successful, repaid, positive-P&L"
+            echo "transaction. It is never reported as a mitigated or exploitable finding by itself."
+          } | tee "$OUT"
+          cat "$OUT" >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Upload exact pinned evidence
+      - name: Upload artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -122,3 +131,22 @@ jobs:
           path: |
             somnialend-audit/evidence/
             somnialend-audit/results/*.json
+
+      # The sandbox that built this harness cannot reach the Somnia RPC, so CI commits the raw
+      # evidence back to the branch. [skip ci] stops a self-retrigger loop.
+      - name: Commit evidence to branch
+        if: always()
+        run: |
+          set -euo pipefail
+          git config user.name "arena-agent"
+          git config user.email "297053741+arena-agent@users.noreply.github.com"
+          git add somnialend-audit/evidence somnialend-audit/results
+          if git diff --cached --quiet; then
+            echo "no new evidence"
+            exit 0
+          fi
+          git commit -m "Add SomniaLend fork evidence for block ${{ steps.pin.outputs.block }} [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && break
+            sleep 5
+          done

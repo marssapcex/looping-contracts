@@ -1,98 +1,116 @@
-# SomniaLend / dreamDEX economic fork harness
+# SomniaLend × dreamDEX — pinned fork economic PoC
 
-Mainnet-fork-only PoC for two independent hypotheses:
+Measures, on pinned Somnia mainnet state, whether a flashloan can push a dreamDEX CLOB book far
+enough that SomniaLend's oracle re-read inside the same transaction credits the attacker with more
+borrow power than the flashloan costs. This is the Mango-style shape: the protocol's code does what
+it says, the question is whether its price source can be moved for less than the borrowing it unlocks.
 
-1. **SOMI revaluation:** flashloan USDso → IOC buy native SOMI on dreamDEX → wrap WSOMI → reread AaveOracle in the same callback → supply WSOMI → borrow maximum USDso → repay the flashloan.
-2. **USDso revaluation:** flashloan USDC.e → IOC sell USDC.e for USDso on dreamDEX → reread AaveOracle in the same callback → supply USDso → borrow maximum USDC.e → repay the flashloan.
+Nothing in this directory is a source-code bug hunt, and nothing here has been executed successfully
+on Somnia yet. Results are only valid when the JSON in `results/` and the logs in `evidence/` come
+from a real fork run at a pinned block.
 
-The default attack leaves the supplied collateral and debt in place. It does not need to reverse the collateral trade: the borrowed flash asset funds repayment. Liquid **surplus** USDC.e/WETH/WBTC is optionally sold back to USDso through real IOC orders while retaining enough of the flash asset for repayment. This measures executable proceeds rather than valuing gross debt at a manipulated oracle.
+## Why Forge 1.7.1 is mandatory
 
-## Status
+Somnia's RPC rejects EIP-1898 block objects (`{"blockHash": ...}`) with `-32602 invalid parameters`.
+Forge ≥ 1.8 sends that form on every account read during fork bootstrap, so the run dies with
 
-- `forge build` passes with Forge 1.7.1 and solc 0.8.24.
-- The sandbox's direct TLS connections to both Somnia RPC endpoints fail before `createSelectFork`; no local chain result is claimed.
-- `.github/workflows/somnialend-fork.yml` executes the same tests on a GitHub-hosted runner, pins the block in its log, and uploads raw logs plus JSON results.
-- See `REPORT.md` and `evidence/` for the latest actual execution disposition. Compilation is not an exploit result.
+```
+failed to get account for 0x0000000000000000000000000000000000000000
+```
 
-## Deployed scope
+Forge ≤ 1.7 sends hex block numbers and works. Same report upstream:
+`somnia-chain/dreamdex-bot-kit` issue #37.
 
-| Contract | Address |
-|---|---|
-| SomniaLend Pool proxy | `0xEC6758e6324c167DB39B6908036240460a2b0168` |
-| AaveOracle | `0x9b7B5d69a08071ce74C2f3D655038E3b782eAaFc` |
-| WSOMI | `0x046EDe9564A72571df6F5e44d0405360c0f4dCab` |
-| USDC.e | `0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00` |
-| WETH | `0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8` |
-| USDso | `0x00000022dA000002656c64D9eA6011ea952D008A` |
-| WBTC | `0xC5098b3cA516784323872F17235fa074E167D3D2` |
-| SOMI/USDso SpotPool | `0x035De7403eac6872787779CCA7CCF1b4CDb61379` |
-| USDC.e/USDso SpotPool | `0x47fD2f18426f67106DBaC82F6d21D446c5F2120b` |
-| WETH/USDso SpotPool | `0xa936da11B57b50A344e1293AAaE5232885ea2bDE` |
-| WBTC/USDso SpotPool | `0x25bfF6B7B5E2243424F38E75de7ab03C0522a5EA` |
+```bash
+foundryup -v 1.7.1
+forge --version      # must print 1.7.1
+```
 
-Recon resolves the Pool EIP-1967 implementation, reserve/aToken/variableDebtToken configuration, every configured oracle source and EIP-1967 feed implementation, feed decimals/rounds/timestamps, flash premium, CLOB parameters and five book levels. It does not infer feeds from marketing or assume Chainlink/CAPO.
+`run-fork.sh` warns if the version is outside 1.0–1.7.
 
-The dreamDEX interface is the post-June-2026 `placeOrder` ABI from `somnia-chain/dreamdex-bot-kit` commit `4e75896896e024c03e2033d5920514f249998cd6`. The old `placeTakerOrderWithoutVault` path is intentionally absent. Runtime `getPoolParams`, `getAutoPullRequirement`, and `placeOrder` calls validate the deployed surface at the pinned block; source-repository correspondence alone is not treated as deployed-bytecode proof.
-
-## Run locally
-
-Requirements: Foundry 1.7.1, Node 22, the root `lib/forge-std` submodule, and `npm ci --prefix tools` from this directory.
+## Run it on the fork
 
 ```bash
 cd somnialend-audit
-npm ci --prefix tools
-export SOMNIA_RPC_URL=https://api.infra.mainnet.somnia.network
-# Pin a real block; never silently replace it with latest inside a test.
-export SOMNIA_FORK_BLOCK="$(cast block-number --rpc-url "$SOMNIA_RPC_URL")"
+npm ci --prefix tools            # pure-JS solc 0.8.24, no platform binaries
 
-./run-fork.sh recon
-./run-fork.sh control
-./run-fork.sh measured
-./run-fork.sh zero-seed
+export SOMNIA_RPC_URL=https://api.infra.mainnet.somnia.network
+export SOMNIA_FORK_BLOCK=$(cast block-number --rpc-url "$SOMNIA_RPC_URL")
+
+./run-fork.sh recon     # reserves, aTokens, feeds, round ids, CLOB params and books
+./run-fork.sh control    # flashloan with no trade: proves the oracle does not move
+./run-fork.sh sweep      # all atomic zero-seed directions, size sweep
 ```
 
-`run-fork.sh` uses `forge` from `PATH` or the pinned npm Forge binary. Tests reject a missing block, a non-5031 chain, or a fork whose actual block differs from `SOMNIA_FORK_BLOCK`.
+`./run-fork.sh all` runs recon → control → sweep. Logs land in `evidence/`, JSON per scenario in
+`results/`. Unit tests for the harness itself (arithmetic + revert decoding, no chain):
+`./run-fork.sh unit`.
 
-### Parameters
+## What each scenario does
 
-| Environment variable | Default | Meaning |
-|---|---:|---|
-| `SOMI_FLASH_USDSO` | `25000e18` | USDso flash amount for SOMI branch |
-| `USDSO_ATTACK_FLASH_USDC` | `1000e6` | USDC.e flash amount for USDso branch |
-| `DEX_BUY_LIMIT_BPS` | `11000` | Maximum SOMI buy limit versus best ask |
-| `DEX_SELL_LIMIT_BPS` | `9000` | Minimum USDC.e sell limit versus best bid |
-| `DEX_UNWIND_LIMIT_BPS` | `9000` | Minimum liquid-surplus unwind limit |
-| `BORROW_BPS` | `10000` | Fraction of Aave `availableBorrowsBase` to borrow |
-| `BORROW_ALL_OPPOSITE_RESERVES` | `false` | After borrowing the flash asset, iterate all other non-collateral reserves |
-| `UNWIND_LIQUID_SURPLUS` | `true` | IOC-sell liquid non-USDso surplus after borrowing |
+Both directions are zero-seed: the contract starts with no tokens, borrows only gas from the tester.
 
-Amounts are raw token units. Orders are rounded to live tick/lot bounds and sized against `getAutoPullRequirement`; partial IOC fills are measured by wallet balance deltas. Empty books, no fills, native SOMI stuck in the DEX vault, and repayment shortfalls are not silently converted into profits.
+| Scenario | Flash | Trade | Collateral supplied | Borrowed |
+|---|---|---|---|---|
+| `somi-pump-supply` | USDso | IOC **bid** on SOMI/USDso, pushes the ask up | WSOMI (wrapped from the fill) | max USDso, optionally every other enabled reserve |
+| `usdso-pump-supply` | USDC.e | IOC **ask** on USDC.e/USDso, pushes USDso up | USDso | max USDC.e, optionally the rest |
 
-## Test meanings
+Both then answer the same question with one number:
 
-- `test_recon_exact_live_configuration`: read-only pinned configuration/book baseline.
-- `test_control_no_trade_no_oracle_delta`: flashloan and repayment without trading; only the explicitly seeded premium is spent.
-- `test_somi_instrumented_with_loss_coverage`: executes the full path even if the attack loses. The USDso seed is subtracted from net USDso. This is a measurement, not a zero-capital exploit.
-- `test_usdso_instrumented_with_loss_coverage`: same for the USDso branch. A losing result can have positive/negative deltas in different assets; the report does not combine them using a manipulated oracle.
-- `test_somi_atomic_zero_seed`: no seed. Requires real execution, supply, borrow, successful repayment, and positive net USDso after repayment.
-- `test_usdso_atomic_zero_seed`: no seed. Requires positive net USDso after actual surplus USDC.e unwind and zero remaining net USDC.e exposure.
+```
+coverage = borrowPowerAfterSupply / (flashAmount + premium), in base currency
+```
 
-A zero-seed test reverting on insufficient repayment is an atomic exploit failure. The instrumented test exists to retain complete oracle/borrow/P&L measurements for that case; it must never be presented as proof of zero-capital profit.
+`coverage > 10 000 bps` is the necessary condition for the round trip to repay itself. If coverage is
+below that, the path is a loss by construction regardless of how far the book moved, and the fork log
+prints the size sweep so the number is visible instead of asserted.
 
-## Accounting semantics
+The report also prints the two numbers that decide whether coverage could ever clear:
 
-- **DEX impact:** top-of-book before/after plus effective execution price computed from actual token deltas, including fees.
-- **Oracle impact:** collateral and debt prices reread inside the flashloan callback immediately after the CLOB fill; signed bps deltas are logged.
-- **Borrow impact:** actual post-supply `availableBorrowsBase` versus the same acquired collateral valued at the pre-trade oracle and live LTV.
-- **Maximum borrow:** raw amount per asset, capped by current aToken cash and then enforced by the real Pool.
-- **Liquid P&L:** signed token deltas after flash repayment and actual surplus unwinds. Zero-seed USDso is liquid atomic proceeds; EOA gas is reported separately and not fake-deducted with a zero gas price.
-- **Debt/collateral:** remaining base values, health factor, current bad debt (`max(debt-collateral,0)`), and debt if collateral becomes worthless are separate fields. Gross borrow, potential future bad debt, and residual collateral are not profit.
+* `edgeRequiredBps` — `(1 + premium) / LTV − 1`: the gap between what the attacker pays and what the
+  oracle credits that is needed for break even at the reserve's real LTV.
+* `unitEdgeBps` — that gap as actually measured in the run: oracle value of the bought collateral
+  versus base currency paid.
+* `breakevenLtvBps` — the LTV at which this specific fill would have broken even.
 
-JSON artifacts are written under `results/`; raw verbose traces are under `evidence/`. Generated JSON is ignored by Git so a later run cannot silently rewrite historical claims; pinned logs/results should be copied into named evidence files when reporting them.
+The mirror family (supply the flash asset, borrow the opposite reserve, sell it) is not implemented
+because it is structurally unrepayable: the flash principal must stay liquid to be returned, so it
+cannot also be locked as collateral.
 
-## Sources
+## How P&L is counted
 
-- Somnia RPC: https://docs.somnia.network/network/rpcs
-- SomniaLend flashloan flow: https://docs.somnialend.finance/flash-loans
-- Verified AaveOracle: https://explorer.somnia.network/address/0x9b7B5d69a08071ce74C2f3D655038E3b782eAaFc
-- dreamDEX ABI/source kit: https://github.com/somnia-chain/dreamdex-bot-kit/tree/4e75896896e024c03e2033d5920514f249998cd6
+A run counts as profitable only when the Pool's `flashLoanSimple` returned (amount + premium pulled)
+**and** a strictly positive USDso balance is still owned by the contract. Abandoned collateral,
+outstanding debt, bad debt, gross borrow size and theoretical quotes are never counted as profit.
+
+When the attack cannot repay, the harness reverts with `Shortfall(SomniaMetrics)`, and the test
+decodes the full metric set out of the revert payload: oracle before/after, book before/after,
+realized fill price, coverage, borrow power, health factor, and the shortfall in flash-asset units and
+base currency. A failing run is therefore still a measured data point.
+
+## Files
+
+```
+src/Interfaces.sol        Aave V3 Pool/Oracle + dreamDEX CLOB + ERC20 surface actually used
+src/SomniaLendAttack.sol  flashloan receiver, CLOB IOC orders, supply/borrow, metrics
+src/Economics.sol         break-even algebra (coverage, required edge, break-even LTV)
+test/SomniaLendEconomicPoC.t.sol  fork repro + control + sweep + JSON writer
+test/HarnessUnit.t.sol    offline checks of the harness accounting
+test/Economics.t.sol      offline checks of the break-even algebra
+run-fork.sh               recon | control | sweep | all | unit
+```
+
+## Attack contract addresses (Somnia mainnet 5031)
+
+Pool `0xEC6758e6324c167DB39B6908036240460a2b0168`
+Oracle `0x9b7B5d69a08071ce74C2f3D655038E3b782eAaFc`
+DIA SOMI adapter `0x1f5f46B0DABEf8806a1f33772522ED683Ba64E27` (DIA oracle `0xbA0E0750A56e995506CA458b2BdD752754CF39C4`)
+WSOMI `0x046EDe9564A72571df6F5e44d0405360c0f4dCab`
+USDso `0x00000022dA000002656c64D9eA6011ea952D008A`
+USDC.e `0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00`
+CLOB: SOMI/USDso `0x035De7403eac6872787779CCA7CCF1b4CDb61379`, USDC.e/USDso `0x47fD2f18426f67106DBaC82F6d21D446c5F2120b`
+dreamDEX SpotPool proxy reader `0x55790554C0d6914edb90F8d05B2f0bBc85605026`
+
+The CLOB ABI (`getPoolParams`, `getBookLevels`, `getAutoPullRequirement`, `placeOrder`) follows
+`somnia-chain/dreamdex-bot-kit`; native SOMI is the sentinel `0x28f34DeFd2b4CB48d9eE6d89f2Be4Bc601694c00`
+and is wrapped into WSOMI before it is supplied.

