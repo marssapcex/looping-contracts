@@ -588,7 +588,9 @@ contract SomniaLendAttack {
         // their net is exactly minus the premium. Reporting the raw ratio would make the control
         // look like a 6035 bps attack, which is worse than useless.
         uint256 coverable = m.postSupplyAvailableBorrowsBase + unspentBase;
-        if (m.suppliedCollateral == 0) coverable = m.flashAmount;
+        // A control run trades nothing: it starts and ends with exactly the flash principal, so
+        // its coverage is 1:1 less the premium by construction, in base currency.
+        if (m.suppliedCollateral == 0) coverable = (m.flashAmount * flashPrice) / (10 ** flashDecimals);
         m.coverageBps = Economics.coverageBps(coverable, m.repaymentBase);
         m.maxNetBase = Economics.netBase(coverable, m.repaymentBase);
         m.edgeRequiredBps = Economics.edgeRequiredBps(m.ltvBps, m.premiumBps);

@@ -5,9 +5,10 @@ enough that SomniaLend's oracle re-read inside the same transaction credits the 
 borrow power than the flashloan costs. This is the Mango-style shape: the protocol's code does what
 it says, the question is whether its price source can be moved for less than the borrowing it unlocks.
 
-Nothing in this directory is a source-code bug hunt, and nothing here has been executed successfully
-on Somnia yet. Results are only valid when the JSON in `results/` and the logs in `evidence/` come
-from a real fork run at a pinned block.
+Nothing in this directory is a source-code bug hunt. It **has** now been executed on Somnia: see
+[`REPORT.md`](REPORT.md) for the measured result at block 461 020 184 and the raw logs in
+`evidence/`. Results are only valid when the JSON in `results/` and the logs in `evidence/` come
+from a real fork run at a pinned block, which is what those files are.
 
 ## Why Forge 1.7.1 is mandatory
 
@@ -37,7 +38,7 @@ npm ci --prefix tools            # pure-JS solc 0.8.24, no platform binaries
 export SOMNIA_RPC_URL=https://api.infra.mainnet.somnia.network
 export SOMNIA_FORK_BLOCK=$(cast block-number --rpc-url "$SOMNIA_RPC_URL")
 
-./run-fork.sh recon     # reserves, aTokens, feeds, round ids, CLOB params and books
+./run-fork.sh recon      # reserves, aTokens, feeds, staleness, CLOB params, books, depth
 ./run-fork.sh control    # flashloan with no trade: proves the oracle does not move
 ./run-fork.sh sweep      # all atomic zero-seed directions, size sweep
 ```
@@ -55,7 +56,12 @@ Both directions are zero-seed: the contract starts with no tokens, borrows only 
 | `somi-pump-supply` | USDso | IOC **bid** on SOMI/USDso, pushes the ask up | WSOMI (wrapped from the fill) | max USDso, optionally every other enabled reserve |
 | `usdso-pump-supply` | USDC.e | IOC **ask** on USDC.e/USDso, pushes USDso up | USDso | max USDC.e, optionally the rest |
 
-Both then answer the same question with one number:
+The decisive output of `recon` is the **required edge** per reserve, `(1 + premium) / LTV − 1`:
+that is the gap between what you pay and what the protocol credits that a flash-loaned round trip
+has to clear. Measured on chain at block 461 020 184 it is 6 675 bps for WSOMI and 3 340 bps for
+USDso; the realized gaps were 2–34 bps and 0 bps respectively.
+
+Both scenarios then answer the same question with one number:
 
 ```
 coverage = borrowPowerAfterSupply / (flashAmount + premium), in base currency
