@@ -1,0 +1,5 @@
+out/
+cache/
+tools/node_modules/
+results/*.json
+.env

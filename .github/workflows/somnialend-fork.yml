@@ -1,0 +1,124 @@
+name: SomniaLend pinned economic fork
+
+on:
+  workflow_dispatch:
+    inputs:
+      block:
+        description: Somnia block; blank pins the current RPC block at run time
+        required: false
+        default: ""
+      rpc_url:
+        description: Somnia JSON-RPC endpoint
+        required: false
+        default: "https://api.infra.mainnet.somnia.network"
+  push:
+    branches: [arena/ee2289ba-looping-contracts]
+    paths:
+      - .github/workflows/somnialend-fork.yml
+      - somnialend-audit/**
+
+permissions:
+  contents: read
+
+jobs:
+  fork:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out branch and forge-std
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Foundry 1.7.1
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: 1.7.1
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install exact local solc adapter dependencies
+        run: npm ci --prefix somnialend-audit/tools --no-audit --no-fund
+
+      - name: Compile harness
+        working-directory: somnialend-audit
+        run: forge build
+
+      - name: Select and pin Somnia state
+        id: pin
+        env:
+          REQUESTED_RPC: ${{ inputs.rpc_url }}
+          REQUESTED_BLOCK: ${{ inputs.block }}
+        run: |
+          set -euo pipefail
+          RPC="${REQUESTED_RPC:-https://api.infra.mainnet.somnia.network}"
+          BLOCK="$REQUESTED_BLOCK"
+          test "$(cast chain-id --rpc-url "$RPC")" = "5031"
+          if [ -z "$BLOCK" ]; then BLOCK="$(cast block-number --rpc-url "$RPC")"; fi
+          test -n "$BLOCK"
+          cast code 0xEC6758e6324c167DB39B6908036240460a2b0168 --block "$BLOCK" --rpc-url "$RPC" | grep -qv '^0x$'
+          echo "Pinned Somnia block: $BLOCK"
+          echo "SOMNIA_RPC_URL=$RPC" >> "$GITHUB_ENV"
+          echo "SOMNIA_FORK_BLOCK=$BLOCK" >> "$GITHUB_ENV"
+          echo "block=$BLOCK" >> "$GITHUB_OUTPUT"
+
+      - name: Recon reserves, implementations, feeds and CLOB books
+        id: recon
+        if: always()
+        working-directory: somnialend-audit
+        run: |
+          set -o pipefail
+          mkdir -p evidence results
+          forge test --match-test test_recon_exact_live_configuration -vvvv 2>&1 | tee "evidence/recon-${SOMNIA_FORK_BLOCK}.log"
+
+      - name: No-trade flashloan control
+        id: control
+        if: always()
+        working-directory: somnialend-audit
+        run: |
+          set -o pipefail
+          forge test --match-test test_control_no_trade_no_oracle_delta -vvvv 2>&1 | tee "evidence/control-${SOMNIA_FORK_BLOCK}.log"
+
+      - name: Execute SOMI and USDso instrumented attacks
+        id: measured
+        if: always()
+        working-directory: somnialend-audit
+        run: |
+          set -o pipefail
+          forge test --match-test 'test_(somi|usdso)_instrumented_with_loss_coverage' -vvvv 2>&1 | tee "evidence/measured-${SOMNIA_FORK_BLOCK}.log"
+
+      - name: Execute zero-seed atomic profit assertions
+        id: zero_seed
+        if: always()
+        continue-on-error: true
+        working-directory: somnialend-audit
+        run: |
+          set -o pipefail
+          forge test --match-test 'test_(somi|usdso)_atomic_zero_seed' -vvvv 2>&1 | tee "evidence/zero-seed-${SOMNIA_FORK_BLOCK}.log"
+
+      - name: Record explicit outcomes
+        if: always()
+        run: |
+          {
+            echo "Somnia fork block: ${{ steps.pin.outputs.block }}"
+            echo "recon: ${{ steps.recon.outcome }}"
+            echo "control: ${{ steps.control.outcome }}"
+            echo "instrumented attacks: ${{ steps.measured.outcome }}"
+            echo "zero-seed profit assertions: ${{ steps.zero_seed.outcome }}"
+            echo "A zero-seed failure is a failed atomic exploit assertion, not a successful measurement of profit."
+          } | tee somnialend-audit/evidence/outcomes-${{ steps.pin.outputs.block }}.txt
+          cat somnialend-audit/evidence/outcomes-${{ steps.pin.outputs.block }}.txt >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload exact pinned evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: somnialend-fork-${{ steps.pin.outputs.block }}-${{ github.run_attempt }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            somnialend-audit/evidence/
+            somnialend-audit/results/*.json

@@ -1,0 +1,18 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "Pinned local Forge and solc for SomniaLend fork harness",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@foundry-rs/anvil-linux-amd64": "1.7.1",
+    "@foundry-rs/forge-linux-amd64": "1.7.1",
+    "solc": "0.8.24"
+  },
+  "private": "true"
+}
