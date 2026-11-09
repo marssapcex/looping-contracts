@@ -2,6 +2,7 @@
 pragma solidity ^0.8.24;
 
 import {Test, console2} from "forge-std/Test.sol";
+import {DexMath} from "../src/Interfaces.sol";
 import {
     IAaveOracle,
     IDreamDexSpotPool,
@@ -26,6 +27,7 @@ contract SomniaLendEconomicPoCTest is Test {
     address internal constant WETH = 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8;
     address internal constant USDSO = 0x00000022dA000002656c64D9eA6011ea952D008A;
     address internal constant WBTC = 0xC5098b3cA516784323872F17235fa074E167D3D2;
+    address internal constant NATIVE = 0x28f34DeFd2b4CB48d9eE6d89f2Be4Bc601694c00;
 
     address internal constant SOMI_USDSO = 0x035De7403eac6872787779CCA7CCF1b4CDb61379;
     address internal constant USDC_USDSO = 0x47fD2f18426f67106DBaC82F6d21D446c5F2120b;
@@ -114,6 +116,11 @@ contract SomniaLendEconomicPoCTest is Test {
         require(IAaveOracle(ORACLE).getAssetPrice(USDC) > 0, "no USDC oracle price");
         require(_best(SOMI_USDSO, false) > 0, "empty SOMI ask book");
         require(_best(USDC_USDSO, true) > 0, "empty USDC bid book");
+
+        _logDepth("SOMI/USDso", SOMI_USDSO);
+        _logDepth("USDC.e/USDso", USDC_USDSO);
+        _logDepth("WETH/USDso", WETH_USDSO);
+        _logDepth("WBTC/USDso", WBTC_USDSO);
 
         // What an attack would have to beat, computed from live state only.
         _logThreshold("WSOMI", WSOMI);
@@ -494,6 +501,54 @@ contract SomniaLendEconomicPoCTest is Test {
         }
     }
 
+    /// @dev How much notional is needed to walk the book by a given amount. This is the number
+    ///      that decides whether any oracle/DEX gap is reachable with borrowed money at all: if a
+    ///      10% walk costs more than the collateral gap can repay, no size works.
+    function _logDepth(string memory label, address pool) internal view {
+        (address base, address quote,,,,,) = IDreamDexSpotPool(pool).getPoolParams();
+        console2.log("--- depth", label);
+        uint8 baseDec = base == NATIVE ? 18 : IERC20(base).decimals();
+        uint8 quoteDec = IERC20(quote).decimals();
+
+        for (uint64 n = 1; n <= 20; n += 3) {
+            IDreamDexSpotPool.BookLevel[] memory asks = IDreamDexSpotPool(pool).getBookLevels(false, n);
+            if (asks.length == 0) {
+                console2.log("  asks: empty at level", n);
+                break;
+            }
+            uint256 worst = asks[asks.length - 1].price;
+            uint256 best = asks[0].price;
+            uint256 notional;
+            for (uint256 i; i < asks.length; ++i) {
+                notional += DexMath.quoteForBase(asks[i].price, asks[i].quantity, baseDec, quoteDec);
+            }
+            console2.log("  ask levels", asks.length);
+            console2.log("    worst ask", worst);
+            console2.log("    walk bps", ((worst - best) * 10_000) / best);
+            console2.log("    cumulative quote needed", notional);
+            if (asks.length < n) break;
+        }
+
+        for (uint64 n = 1; n <= 20; n += 3) {
+            IDreamDexSpotPool.BookLevel[] memory bids = IDreamDexSpotPool(pool).getBookLevels(true, n);
+            if (bids.length == 0) {
+                console2.log("  bids: empty at level", n);
+                break;
+            }
+            uint256 worst = bids[bids.length - 1].price;
+            uint256 best = bids[0].price;
+            uint256 notional;
+            for (uint256 i; i < bids.length; ++i) {
+                notional += DexMath.quoteForBase(bids[i].price, bids[i].quantity, baseDec, quoteDec);
+            }
+            console2.log("  bid levels", bids.length);
+            console2.log("    worst bid", worst);
+            console2.log("    walk down bps", ((best - worst) * 10_000) / best);
+            console2.log("    cumulative quote available", notional);
+            if (bids.length < n) break;
+        }
+    }
+
     /// @dev The number that decides feasibility before any trade is attempted:
     ///      edge = (1 + flashPremium) / LTV - 1.
     function _logThreshold(string memory symbol, address asset) internal view {
@@ -566,24 +621,43 @@ contract SomniaLendEconomicPoCTest is Test {
         console2.log("--- basis", label);
         console2.log("  base", base);
         console2.log("  quote", quote);
+        console2.log("  oracle base", IAaveOracle(ORACLE).getAssetPrice(base == NATIVE ? WSOMI : base));
+        console2.log("  oracle quote", IAaveOracle(ORACLE).getAssetPrice(quote));
+
         if (ask > 0 && minQty > 0) {
-            (address input, uint256 required,) =
-                IDreamDexSpotPool(pool).getAutoPullRequirement(address(this), true, ask, minQty, 0);
-            if (input == quote && required > 0) {
-                int256 edge = _edgeBps(base, quote, minQty, required);
-                console2.log("  BUY 1 minQty at ask: quote cost", required);
-                console2.log("  BUY static basis bps (oracle value vs cost)", edge);
+            (bool ok, address input, uint256 required) = _autoPull(pool, true, ask, minQty);
+            if (ok && input == quote && required > 0) {
+                console2.log("  buy 1 minQty: quote cost", required);
+                console2.log("  buy static basis bps", _edgeBps(base, quote, minQty, required));
+            } else {
+                console2.log("  buy probe unavailable");
             }
         }
         if (bid > 0 && minQty > 0) {
-            (address input2, uint256 required2,) =
-                IDreamDexSpotPool(pool).getAutoPullRequirement(address(this), false, bid, minQty, 0);
-            if (input2 == base && required2 > 0) {
-                int256 edge2 = _edgeBps(base, quote, required2, minQty);
-                console2.log("  SELL 1 minQty at bid: base required", required2);
-                console2.log("  SELL static basis bps (proceeds vs oracle value)", edge2);
+            (bool ok, address input, uint256 required) = _autoPull(pool, false, bid, minQty);
+            if (ok && input == base && required > 0) {
+                console2.log("  sell 1 minQty: base provided", required);
+                console2.log("  sell static basis bps", _edgeBps(base, quote, required, minQty));
+            } else {
+                console2.log("  sell probe unavailable");
             }
         }
+    }
+
+    /// @dev `getAutoPullRequirement` reverts for accounts with no vault on the real deployment, so
+    ///      recon must tolerate a failure instead of losing the whole run to it.
+    function _autoPull(address pool, bool isBid, uint256 price, uint256 quantity)
+        internal
+        view
+        returns (bool ok, address input, uint256 required)
+    {
+        bytes memory call_ = abi.encodeWithSelector(
+            IDreamDexSpotPool.getAutoPullRequirement.selector, address(this), isBid, price, quantity, uint96(0)
+        );
+        bytes memory data;
+        (ok, data) = pool.staticcall(call_);
+        if (ok && data.length >= 96) (input, required,) = abi.decode(data, (address, uint256, uint256));
+        else ok = false;
     }
 
     /// @dev Signed basis in bps between the oracle's value of `baseAmount` of `base` and the

@@ -584,8 +584,13 @@ contract SomniaLendAttack {
         uint256 unspentBase = (m.unspentFlashAsset * IAaveOracle(ORACLE).getAssetPrice(m.flashAsset))
             / (10 ** flashDecimals);
 
-        m.coverageBps = Economics.coverageBps(m.postSupplyAvailableBorrowsBase + unspentBase, m.repaymentBase);
-        m.maxNetBase = Economics.netBase(m.postSupplyAvailableBorrowsBase + unspentBase, m.repaymentBase);
+        // Control runs trade nothing and borrow nothing: by construction their coverage is 1:1 and
+        // their net is exactly minus the premium. Reporting the raw ratio would make the control
+        // look like a 6035 bps attack, which is worse than useless.
+        uint256 coverable = m.postSupplyAvailableBorrowsBase + unspentBase;
+        if (m.suppliedCollateral == 0) coverable = m.flashAmount;
+        m.coverageBps = Economics.coverageBps(coverable, m.repaymentBase);
+        m.maxNetBase = Economics.netBase(coverable, m.repaymentBase);
         m.edgeRequiredBps = Economics.edgeRequiredBps(m.ltvBps, m.premiumBps);
 
         // What the protocol says the bought collateral is worth, versus what was actually paid.
