@@ -621,8 +621,12 @@ contract SomniaLendEconomicPoCTest is Test {
         console2.log("--- basis", label);
         console2.log("  base", base);
         console2.log("  quote", quote);
-        console2.log("  oracle base", IAaveOracle(ORACLE).getAssetPrice(base == NATIVE ? WSOMI : base));
-        console2.log("  oracle quote", IAaveOracle(ORACLE).getAssetPrice(quote));
+        (bool baseOk, uint256 basePx) = _price(base);
+        (bool quoteOk, uint256 quotePx) = _price(quote);
+        console2.log("  oracle base ok", baseOk ? 1 : 0);
+        console2.log("  oracle base", basePx);
+        console2.log("  oracle quote ok", quoteOk ? 1 : 0);
+        console2.log("  oracle quote", quotePx);
 
         if (ask > 0 && minQty > 0) {
             (bool ok, address input, uint256 required) = _autoPull(pool, true, ask, minQty);
@@ -642,6 +646,16 @@ contract SomniaLendEconomicPoCTest is Test {
                 console2.log("  sell probe unavailable");
             }
         }
+    }
+
+    /// @dev Never trusts the oracle to answer for a non-reserve; returns ok=false instead of
+    ///      reverting the whole recon run.
+    function _price(address asset) internal view returns (bool ok, uint256 price) {
+        address priced = (asset == NATIVE || asset == address(0)) ? WSOMI : asset;
+        bytes memory data;
+        (ok, data) = ORACLE.staticcall(abi.encodeWithSelector(IAaveOracle.getAssetPrice.selector, priced));
+        if (ok && data.length >= 32) price = abi.decode(data, (uint256));
+        else ok = false;
     }
 
     /// @dev `getAutoPullRequirement` reverts for accounts with no vault on the real deployment, so
@@ -667,10 +681,25 @@ contract SomniaLendEconomicPoCTest is Test {
         view
         returns (int256)
     {
-        uint256 baseValue = (baseAmount * IAaveOracle(ORACLE).getAssetPrice(base)) / (10 ** IERC20(base).decimals());
-        uint256 quoteValue = (quoteAmount * IAaveOracle(ORACLE).getAssetPrice(quote)) / (10 ** IERC20(quote).decimals());
-        if (quoteValue == 0) return 0;
+        (bool ok, uint256 baseValue) = _value(base, baseAmount);
+        (bool ok2, uint256 quoteValue) = _value(quote, quoteAmount);
+        if (!ok || !ok2 || quoteValue == 0) return 0;
         return int256((baseValue * 10_000) / quoteValue) - 10_000;
+    }
+
+    /// @dev Native SOMI is the CLOB sentinel, not a reserve, so it has no oracle entry of its own.
+    ///      It is the base asset of SOMI/USDso and inherits WSOMI's published price.
+    function _value(address asset, uint256 amount)
+        internal
+        view
+        returns (bool ok, uint256 baseValue)
+    {
+        if (amount == 0) return (true, 0);
+        address priced = (asset == NATIVE || asset == address(0)) ? WSOMI : asset;
+        uint256 price = IAaveOracle(ORACLE).getAssetPrice(priced);
+        if (price == 0) return (false, 0);
+        uint8 dec = (asset == NATIVE || asset == address(0)) ? 18 : IERC20(asset).decimals();
+        return (true, (amount * price) / (10 ** dec));
     }
 
     function _best(address pool, bool isBid) internal view returns (uint256) {
