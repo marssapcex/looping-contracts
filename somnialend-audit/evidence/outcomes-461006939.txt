@@ -1,0 +1,8 @@
+Somnia fork block: 461006939
+run: 42690150317 attempt 1
+forge: 1.7.1
+recon: failure
+control: success
+sweep: success
+A failed sweep step means no scenario returned a successful, repaid, positive-P&L
+transaction. It is never reported as a mitigated or exploitable finding by itself.
