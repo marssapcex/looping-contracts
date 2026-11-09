@@ -7,7 +7,6 @@ import {
     IDreamDexSpotPool,
     IERC20,
     ISomniaLendPool,
-    ReserveData,
     SomniaConfigLib,
     SomniaMetrics
 } from "../src/Interfaces.sol";
@@ -84,6 +83,10 @@ contract SomniaLendEconomicPoCTest is Test {
         require(reserves.length >= 2, "reserve list unavailable");
 
         for (uint256 i; i < reserves.length; ++i) {
+            if (reserves[i].code.length == 0) {
+                console2.log("reserve is not a contract, skipping", reserves[i]);
+                continue;
+            }
             _logReserve(reserves[i]);
         }
         console2.log("flash premium bps", ISomniaLendPool(POOL).FLASHLOAN_PREMIUM_TOTAL());
@@ -111,6 +114,13 @@ contract SomniaLendEconomicPoCTest is Test {
         require(IAaveOracle(ORACLE).getAssetPrice(USDC) > 0, "no USDC oracle price");
         require(_best(SOMI_USDSO, false) > 0, "empty SOMI ask book");
         require(_best(USDC_USDSO, true) > 0, "empty USDC bid book");
+
+        // What an attack would have to beat, computed from live state only.
+        _logThreshold("WSOMI", WSOMI);
+        _logThreshold("USDso", USDSO);
+        _logThreshold("USDC.e", USDC);
+        _logThreshold("WETH", WETH);
+        _logThreshold("WBTC", WBTC);
     }
 
     // ─────────────────────────────────────────────────────────────────────────────
@@ -282,9 +292,23 @@ contract SomniaLendEconomicPoCTest is Test {
         if (sel == SomniaLendAttack.Shortfall.selector) return "repayment-shortfall";
         if (sel == SomniaLendAttack.Aborted.selector) {
             (, bytes memory inner) = abi.decode(body, (bytes, bytes));
-            return string.concat("aborted:", _message(inner));
+            return string.concat("aborted:", _message(inner), " sel=", _hex4(inner));
         }
         return _message(reason);
+    }
+
+    function _hex4(bytes memory reason) internal pure returns (string memory) {
+        if (reason.length < 4) return "0x00000000";
+        bytes memory out = new bytes(10);
+        out[0] = "0";
+        out[1] = "x";
+        bytes16 hexDigits = "0123456789abcdef";
+        for (uint256 i; i < 4; ++i) {
+            uint8 b = uint8(reason[i]);
+            out[2 + i * 2] = hexDigits[b >> 4];
+            out[3 + i * 2] = hexDigits[b & 0x0f];
+        }
+        return string(out);
     }
 
     function _message(bytes memory reason) internal pure returns (string memory) {
@@ -342,6 +366,9 @@ contract SomniaLendEconomicPoCTest is Test {
         console2.log("  bad debt base", m.badDebtBase);
         console2.log("  attacker liquid value base", m.attackerLiquidBase);
         console2.log("  seeded base (0 = zero-seed)", m.seededBase);
+        console2.log("  step failures", m.stepFailures);
+        console2.log("  last error step", m.lastErrorStep);
+        console2.log("  last error selector", uint32(m.lastErrorSelector));
         console2.log("  shortfall (flash asset units)", m.shortfallFlashAsset);
         console2.log("  shortfall (base units)", m.shortfallBase);
         console2.log("  repaid", m.repaid);
@@ -413,6 +440,9 @@ contract SomniaLendEconomicPoCTest is Test {
         json = vm.serializeUint(key, "attackerLiquidBase", m.attackerLiquidBase);
         json = vm.serializeUint(key, "seededBase", m.seededBase);
         json = vm.serializeUint(key, "zeroSeed", m.zeroSeed ? 1 : 0);
+        json = vm.serializeUint(key, "stepFailures", m.stepFailures);
+        json = vm.serializeUint(key, "lastErrorStep", m.lastErrorStep);
+        json = vm.serializeUint(key, "lastErrorSelector", uint32(m.lastErrorSelector));
         json = vm.serializeUint(key, "shortfallFlashAsset", m.shortfallFlashAsset);
         json = vm.serializeUint(key, "shortfallBase", m.shortfallBase);
         json = vm.serializeUint(key, "oracleRereadCount", m.oracleRereadCount);
@@ -428,17 +458,12 @@ contract SomniaLendEconomicPoCTest is Test {
     // ─────────────────────────────────────────────────────────────────────────────
 
     function _logReserve(address asset) internal view {
-        ReserveData memory r = ISomniaLendPool(POOL).getReserveData(asset);
-        address source = IAaveOracle(ORACLE).getSourceOfAsset(asset);
         console2.log("--- reserve", asset);
-        console2.log("  symbol", IERC20(asset).symbol());
         console2.log("  decimals", IERC20(asset).decimals());
-        console2.log("  aToken", r.aTokenAddress);
-        console2.log("  variableDebtToken", r.variableDebtTokenAddress);
-        console2.log("  aToken cash", IERC20(asset).balanceOf(r.aTokenAddress));
-        console2.log("  debt supply", IERC20(r.variableDebtTokenAddress).totalSupply());
-        console2.log("  config raw", r.configuration.data);
         console2.log("  oracle price", IAaveOracle(ORACLE).getAssetPrice(asset));
+        console2.log("  config raw", _configRaw(asset));
+
+        address source = IAaveOracle(ORACLE).getSourceOfAsset(asset);
         console2.log("  source", source);
         console2.log("  source code size", source.code.length);
         if (source != address(0)) {
@@ -452,7 +477,66 @@ contract SomniaLendEconomicPoCTest is Test {
                 console2.log("  feed startedAt", startedAt);
                 console2.log("  feed updatedAt", updatedAt);
                 console2.log("  chain timestamp", block.timestamp);
+            } else {
+                console2.log("  feed latestRoundData failed, data length", data.length);
             }
+        }
+
+        // Reserve liquidity, discovered without trusting the V3 struct layout: probe the pool for
+        // a wrapper that proves it belongs to this asset, then read that wrapper's balance.
+        (address aToken, bool known) = _aTokenOf(asset);
+        if (known) {
+            console2.log("  aToken", aToken);
+            console2.log("  aToken underlying cash", IERC20(asset).balanceOf(aToken));
+            console2.log("  aToken shares", IERC20(aToken).totalSupply());
+        } else {
+            console2.log("  aToken NOT resolved by either route");
+        }
+    }
+
+    /// @dev The number that decides feasibility before any trade is attempted:
+    ///      edge = (1 + flashPremium) / LTV - 1.
+    function _logThreshold(string memory symbol, address asset) internal view {
+        uint256 cfg = _configRaw(asset);
+        uint256 ltv = cfg & 0xffff;
+        uint256 threshold = (cfg >> 16) & 0xffff;
+        uint256 premium = ISomniaLendPool(POOL).FLASHLOAN_PREMIUM_TOTAL();
+        console2.log("--- feasibility", symbol);
+        console2.log("  ltv bps", ltv);
+        console2.log("  liquidation threshold bps", threshold);
+        console2.log("  edge required bps", ltv == 0 ? type(uint256).max : ((10_000 + premium) * 10_000) / ltv - 10_000);
+    }
+
+    function _configRaw(address asset) internal view returns (uint256) {
+        (bool ok, bytes memory data) = POOL.staticcall(abi.encodeWithSignature("getConfiguration(address)", asset));
+        return ok && data.length >= 32 ? abi.decode(data, (uint256)) : 0;
+    }
+
+    function _aTokenOf(address asset) internal view returns (address, bool) {
+        (bool ok, bytes memory data) = POOL.staticcall(abi.encodeWithSignature("getReserveAToken(address)", asset));
+        if (ok && data.length >= 32) {
+            address candidate = abi.decode(data, (address));
+            if (_underlyingOf(candidate) == asset) return (candidate, true);
+        }
+        (ok, data) = POOL.staticcall(abi.encodeWithSignature("getReserveData(address)", asset));
+        if (ok && data.length >= 32) {
+            for (uint256 i; i + 32 <= data.length; i += 32) {
+                address candidate = address(uint160(uint256(_word(data, i))));
+                if (_underlyingOf(candidate) == asset) return (candidate, true);
+            }
+        }
+        return (address(0), false);
+    }
+
+    function _underlyingOf(address token) internal view returns (address underlying) {
+        if (token == address(0) || token.code.length == 0) return address(0);
+        (bool ok, bytes memory data) = token.staticcall(abi.encodeWithSignature("UNDERLYING_ASSET_ADDRESS()"));
+        if (ok && data.length >= 32) underlying = abi.decode(data, (address));
+    }
+
+    function _word(bytes memory data, uint256 offset) internal pure returns (uint256 out) {
+        assembly {
+            out := mload(add(add(data, 32), offset))
         }
     }
 

@@ -52,6 +52,9 @@ contract SomniaLendHarnessUnitTest is Test {
         m.attackerLiquidBase = 889;
         m.seededBase = 0;
         m.zeroSeed = true;
+        m.stepFailures = 2;
+        m.lastErrorStep = 5;
+        m.lastErrorSelector = 0xdeadbeef;
         m.shortfallFlashAsset = 77;
         m.shortfallBase = 88;
         m.oracleRereadCount = 1;
@@ -94,6 +97,9 @@ contract SomniaLendHarnessUnitTest is Test {
         assertEq(out.attackerLiquidBase, m.attackerLiquidBase);
         assertEq(out.seededBase, m.seededBase);
         assertEq(out.zeroSeed, m.zeroSeed);
+        assertEq(out.stepFailures, m.stepFailures);
+        assertEq(out.lastErrorStep, m.lastErrorStep);
+        assertEq(out.lastErrorSelector, m.lastErrorSelector);
         assertEq(out.shortfallFlashAsset, m.shortfallFlashAsset);
         assertEq(out.shortfallBase, m.shortfallBase);
         assertEq(out.oracleRereadCount, m.oracleRereadCount);
@@ -110,6 +116,9 @@ contract SomniaLendHarnessUnitTest is Test {
     function test_profit_criterion_requires_all_three_conditions() public view {
         SomniaMetrics memory m;
         m.zeroSeed = true;
+        m.stepFailures = 2;
+        m.lastErrorStep = 5;
+        m.lastErrorSelector = 0xdeadbeef;
         assertFalse(attack.isProfitable(m), "zero metrics must not be profitable");
 
         m.repaid = true;
@@ -127,6 +136,9 @@ contract SomniaLendHarnessUnitTest is Test {
         assertFalse(attack.isProfitable(m), "a seeded run must never be reported as profit");
 
         m.zeroSeed = true;
+        m.stepFailures = 2;
+        m.lastErrorStep = 5;
+        m.lastErrorSelector = 0xdeadbeef;
         m.seededBase = 5;
         m.attackerLiquidBase = 5;
         assertFalse(attack.isProfitable(m), "value at or below the seed is not profit");

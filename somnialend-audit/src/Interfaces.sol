@@ -79,6 +79,9 @@ struct SomniaMetrics {
     int256 badDebtBase;
     uint256 attackerLiquidBase;
     uint256 seededBase;
+    uint256 stepFailures;
+    bytes4 lastErrorSelector;
+    uint16 lastErrorStep;
     bool zeroSeed;
     uint256 finalUsdso;
     uint256 finalUsdc;
@@ -99,6 +102,20 @@ struct SomniaMetrics {
     uint256 shortfallBase;
     uint256 oracleRereadCount;
     bool repaid;
+}
+
+/// @notice Step identifiers carried in `SomniaMetrics.lastErrorStep` so a failed fork run names
+///         the exact leg that broke instead of reporting a bare revert.
+library Step {
+    uint16 internal constant NONE = 0;
+    uint16 internal constant ATOKEN_LOOKUP = 1;
+    uint16 internal constant RESERVE_CONFIG = 2;
+    uint16 internal constant ACCOUNT_DATA = 3;
+    uint16 internal constant ORACLE_PRICE = 4;
+    uint16 internal constant BORROW = 5;
+    uint16 internal constant EXIT_ORDER = 6;
+    uint16 internal constant SUPPLY = 7;
+    uint16 internal constant NODE_LIMIT = 8;
 }
 
 /// @notice Decimal-aware CLOB price helper.

