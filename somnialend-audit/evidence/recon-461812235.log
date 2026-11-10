@@ -1,0 +1,394 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SomniaLendEconomicPoC.t.sol:SomniaLendEconomicPoCTest
+[PASS] test_recon_exact_live_configuration() (gas: 4288191)
+Logs:
+  fork block 461812235
+  pool implementation 0x1C53629cd824c293ce0611BbA08E4B0f6e92e5cC
+  oracle 0x9b7B5d69a08071ce74C2f3D655038E3b782eAaFc
+  oracle base currency 0x0000000000000000000000000000000000000000
+  oracle base unit 100000000
+  oracle fallback 0x0000000000000000000000000000000000000000
+  flash premium bps 5
+  reserve count 5
+  --- reserve 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+    decimals 18
+    oracle price 16342083
+    config raw 8563487817770754018099019874710220231554725189488
+    source 0xfA2b4bb4330f77d799d7f9093b68f1fDe21043A7
+    source code size 1519
+    source impl 0x0000000000000000000000000000000000000000
+    feed round 0
+    feed answer 16342083
+    feed startedAt 1794335558
+    feed updatedAt 1794335558
+    chain timestamp 1794335680
+    aToken 0xFe171d9d2679c4544ADD1a20d565C251cEd9FF4A
+    aToken underlying cash 3617751001554239827254821
+    aToken shares 3652531763513775069029261
+  --- reserve 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+    decimals 6
+    oracle price 99966341
+    config raw 382707905977560904238963058720621429750228227202380
+    source 0x7052210aE4e3624975d706EF8901CDb455d7DEC4
+    source code size 1519
+    source impl 0x0000000000000000000000000000000000000000
+    feed round 0
+    feed answer 99966341
+    feed startedAt 1794284889
+    feed updatedAt 1794284889
+    chain timestamp 1794335680
+    aToken 0x024c0D0f79FAa994453CC955Df986A361E97f1a9
+    aToken underlying cash 6279903791
+    aToken shares 14317551013
+  --- reserve 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+    decimals 18
+    oracle price 203299000000
+    config raw 8563486156238251588841818597034873003436894985048
+    source 0x6217179F136fF94B91DD5Ecd0755Ce5739ddf272
+    source code size 1519
+    source impl 0x0000000000000000000000000000000000000000
+    feed round 0
+    feed answer 203299000000
+    feed startedAt 1794335469
+    feed updatedAt 1794335469
+    chain timestamp 1794335680
+    aToken 0x27b52440EE1730bE92E2f17395DC6699Ed25211b
+    aToken underlying cash 13965507800601214633
+    aToken shares 15355649883494608586
+  --- reserve 0x00000022dA000002656c64D9eA6011ea952D008A
+    decimals 18
+    oracle price 99966341
+    config raw 374144419198249521928573053949520585158311158226252
+    source 0x7052210aE4e3624975d706EF8901CDb455d7DEC4
+    source code size 1519
+    source impl 0x0000000000000000000000000000000000000000
+    feed round 0
+    feed answer 99966341
+    feed startedAt 1794284889
+    feed updatedAt 1794284889
+    chain timestamp 1794335680
+    aToken 0x3a587605C9805d2306bF8093f71863dE5AeA3e86
+    aToken underlying cash 129829191117859768984251
+    aToken shares 247563460776924509367390
+  --- reserve 0xC5098b3cA516784323872F17235fa074E167D3D2
+    decimals 8
+    oracle price 7278976085937
+    config raw 8563486156235842363099453601311953580517866871140
+    source 0x780B2cEAFAbcEEE6Aa5168f5c228363DC676aE90
+    source code size 1519
+    source impl 0x0000000000000000000000000000000000000000
+    feed round 0
+    feed answer 7278976085937
+    feed startedAt 1794325487
+    feed updatedAt 1794325487
+    chain timestamp 1794335680
+    aToken 0xb4c242CEa88D2d2985d80d6E63fF61Df7AD9607e
+    aToken underlying cash 11834464
+    aToken shares 11834531
+  flash premium bps 5
+  --- market SOMI/USDso
+    pool 0x035De7403eac6872787779CCA7CCF1b4CDb61379
+    base 0x28f34DeFd2b4CB48d9eE6d89f2Be4Bc601694c00
+    quote 0x00000022dA000002656c64D9eA6011ea952D008A
+    maker fee bps*1k 0
+    taker fee bps*1k 0
+    tick 100000000000000
+    min quantity 1000000000000000000
+    lot 10000000000000000
+    best bid 163700000000000000
+    best ask 163800000000000000
+  --- market USDC.e/USDso
+    pool 0x47fD2f18426f67106DBaC82F6d21D446c5F2120b
+    base 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+    quote 0x00000022dA000002656c64D9eA6011ea952D008A
+    maker fee bps*1k 0
+    taker fee bps*1k 0
+    tick 100000000000000
+    min quantity 1000000
+    lot 10000
+    best bid 999600000000000000
+    best ask 1000200000000000000
+  --- market WETH/USDso
+    pool 0xa936da11B57b50A344e1293AAaE5232885ea2bDE
+    base 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+    quote 0x00000022dA000002656c64D9eA6011ea952D008A
+    maker fee bps*1k 0
+    taker fee bps*1k 0
+    tick 10000000000000000
+    min quantity 1000000000000000
+    lot 100000000000000
+    best bid 2039900000000000000000
+    best ask 2040580000000000000000
+  --- market WBTC/USDso
+    pool 0x25bfF6B7B5E2243424F38E75de7ab03C0522a5EA
+    base 0xC5098b3cA516784323872F17235fa074E167D3D2
+    quote 0x00000022dA000002656c64D9eA6011ea952D008A
+    maker fee bps*1k 0
+    taker fee bps*1k 0
+    tick 100000000000000000
+    min quantity 10000
+    lot 1000
+    best bid 73427900000000000000000
+    best ask 73457800000000000000000
+  --- basis SOMI/USDso
+    base 0x28f34DeFd2b4CB48d9eE6d89f2Be4Bc601694c00
+    quote 0x00000022dA000002656c64D9eA6011ea952D008A
+    oracle base ok 1
+    oracle base 16342083
+    oracle quote ok 1
+    oracle quote 99966341
+    buy 1 minQty: quote cost 163800000000000000
+    buy static basis bps -20
+    sell 1 minQty: base provided 1000000000000000000
+    sell static basis bps -8366
+  --- basis USDC.e/USDso
+    base 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+    quote 0x00000022dA000002656c64D9eA6011ea952D008A
+    oracle base ok 1
+    oracle base 99966341
+    oracle quote ok 1
+    oracle quote 99966341
+    buy 1 minQty: quote cost 1000200000000000000
+    buy static basis bps -2
+    sell 1 minQty: base provided 1000000
+    sell static basis bps 0
+  --- basis WETH/USDso
+    base 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+    quote 0x00000022dA000002656c64D9eA6011ea952D008A
+    oracle base ok 1
+    oracle base 203299000000
+    oracle quote ok 1
+    oracle quote 99966341
+    buy 1 minQty: quote cost 2040580000000000000
+    buy static basis bps -34
+    sell 1 minQty: base provided 1000000000000000
+    sell static basis bps 20326814
+  --- basis WBTC/USDso
+    base 0xC5098b3cA516784323872F17235fa074E167D3D2
+    quote 0x00000022dA000002656c64D9eA6011ea952D008A
+    oracle base ok 1
+    oracle base 7278976085937
+    oracle quote ok 1
+    oracle quote 99966341
+    buy 1 minQty: quote cost 7345780000000000000
+    buy static basis bps -88
+    sell 1 minQty: base provided 10000
+    sell static basis bps 0
+  SOMI SpotPool implementation 0xaeD4e84AB8C24D7a1ba716A69f9a56f9E2C07E98
+  --- depth SOMI/USDso
+    ask levels 1
+      worst ask 163800000000000000
+      walk bps 0
+      cumulative quote needed 93388932000000000000
+    ask levels 4
+      worst ask 164100000000000000
+      walk bps 18
+      cumulative quote needed 6301165401000000000000
+    ask levels 7
+      worst ask 164400000000000000
+      walk bps 36
+      cumulative quote needed 18580723738000000000000
+    ask levels 10
+      worst ask 164700000000000000
+      walk bps 54
+      cumulative quote needed 30269470384000000000000
+    ask levels 13
+      worst ask 165000000000000000
+      walk bps 73
+      cumulative quote needed 33765252900000000000000
+    ask levels 16
+      worst ask 195000000000000000
+      walk bps 1904
+      cumulative quote needed 35604979436000000000000
+    ask levels 19
+      worst ask 450000000000000000
+      walk bps 17472
+      cumulative quote needed 35661809436000000000000
+    bid levels 1
+      worst bid 163700000000000000
+      walk down bps 0
+      cumulative quote available 276134071000000000000
+    bid levels 4
+      worst bid 163400000000000000
+      walk down bps 18
+      cumulative quote available 12514550471000000000000
+    bid levels 7
+      worst bid 163100000000000000
+      walk down bps 36
+      cumulative quote available 48512338390000000000000
+    bid levels 10
+      worst bid 162800000000000000
+      walk down bps 54
+      cumulative quote available 77130376963000000000000
+    bid levels 13
+      worst bid 162500000000000000
+      walk down bps 73
+      cumulative quote available 81731160617000000000000
+    bid levels 14
+      worst bid 148200000000000000
+      walk down bps 946
+      cumulative quote available 81735606617000000000000
+  --- depth USDC.e/USDso
+    ask levels 1
+      worst ask 1000200000000000000
+      walk bps 0
+      cumulative quote needed 941588280000000000000
+    ask levels 4
+      worst ask 1002100000000000000
+      walk bps 18
+      cumulative quote needed 32057870760000000000000
+    ask levels 5
+      worst ask 1003100000000000000
+      walk bps 28
+      cumulative quote needed 51888555900000000000000
+    bid levels 1
+      worst bid 999600000000000000
+      walk down bps 0
+      cumulative quote available 858256560000000000000
+    bid levels 4
+      worst bid 997700000000000000
+      walk down bps 19
+      cumulative quote available 29140712280000000000000
+    bid levels 4
+      worst bid 997700000000000000
+      walk down bps 19
+      cumulative quote available 29140712280000000000000
+  --- depth WETH/USDso
+    ask levels 1
+      worst ask 2040580000000000000000
+      walk bps 0
+      cumulative quote needed 6917974316000000000000
+    ask levels 4
+      worst ask 2041600000000000000000
+      walk bps 4
+      cumulative quote needed 14637334582000000000000
+    ask levels 7
+      worst ask 2043070000000000000000
+      walk bps 12
+      cumulative quote needed 29653868959000000000000
+    ask levels 10
+      worst ask 2043780000000000000000
+      walk bps 15
+      cumulative quote needed 45280160600000000000000
+    ask levels 13
+      worst ask 2045500000000000000000
+      walk bps 24
+      cumulative quote needed 61399167096000000000000
+    ask levels 16
+      worst ask 2046980000000000000000
+      walk bps 31
+      cumulative quote needed 82597892322000000000000
+    ask levels 16
+      worst ask 2046980000000000000000
+      walk bps 31
+      cumulative quote needed 82597892322000000000000
+    bid levels 1
+      worst bid 2039900000000000000000
+      walk down bps 0
+      cumulative quote available 93223430000000000000
+    bid levels 4
+      worst bid 2038570000000000000000
+      walk down bps 6
+      cumulative quote available 22320114954000000000000
+    bid levels 7
+      worst bid 2037510000000000000000
+      walk down bps 11
+      cumulative quote available 45216625324000000000000
+    bid levels 10
+      worst bid 2035710000000000000000
+      walk down bps 20
+      cumulative quote available 68411344869000000000000
+    bid levels 13
+      worst bid 2034630000000000000000
+      walk down bps 25
+      cumulative quote available 92256938272000000000000
+    bid levels 16
+      worst bid 2033030000000000000000
+      walk down bps 33
+      cumulative quote available 124983812235000000000000
+    bid levels 16
+      worst bid 2033030000000000000000
+      walk down bps 33
+      cumulative quote available 124983812235000000000000
+  --- depth WBTC/USDso
+    ask levels 1
+      worst ask 73457800000000000000000
+      walk bps 0
+      cumulative quote needed 85945626000000000000
+    ask levels 4
+      worst ask 73487500000000000000000
+      walk bps 4
+      cumulative quote needed 32662374597000000000000
+    ask levels 7
+      worst ask 73513100000000000000000
+      walk bps 7
+      cumulative quote needed 55091337970000000000000
+    ask levels 10
+      worst ask 73525900000000000000000
+      walk bps 9
+      cumulative quote needed 67154721209000000000000
+    ask levels 13
+      worst ask 73564300000000000000000
+      walk bps 14
+      cumulative quote needed 99401966026000000000000
+    ask levels 16
+      worst ask 73589900000000000000000
+      walk bps 17
+      cumulative quote needed 122440026713000000000000
+    ask levels 18
+      worst ask 81378700000000000000000
+      walk bps 1078
+      cumulative quote needed 136344180377000000000000
+    bid levels 1
+      worst bid 73427900000000000000000
+      walk down bps 0
+      cumulative quote available 99861944000000000000
+    bid levels 4
+      worst bid 73393700000000000000000
+      walk down bps 4
+      cumulative quote available 32776727787000000000000
+    bid levels 7
+      worst bid 73374500000000000000000
+      walk down bps 7
+      cumulative quote available 44478802105000000000000
+    bid levels 10
+      worst bid 73342500000000000000000
+      walk down bps 11
+      cumulative quote available 76884190665000000000000
+    bid levels 13
+      worst bid 73316900000000000000000
+      walk down bps 15
+      cumulative quote available 99413735879000000000000
+    bid levels 16
+      worst bid 73291300000000000000000
+      walk down bps 18
+      cumulative quote available 122386042759000000000000
+    bid levels 17
+      worst bid 73255800000000000000000
+      walk down bps 23
+      cumulative quote available 124481891197000000000000
+  --- feasibility WSOMI
+    ltv bps 6000
+    liquidation threshold bps 7250
+    edge required bps 6675
+  --- feasibility USDso
+    ltv bps 7500
+    liquidation threshold bps 8500
+    edge required bps 3340
+  --- feasibility USDC.e
+    ltv bps 7500
+    liquidation threshold bps 8500
+    edge required bps 3340
+  --- feasibility WETH
+    ltv bps 7000
+    liquidation threshold bps 8250
+    edge required bps 4292
+  --- feasibility WBTC
+    ltv bps 6500
+    liquidation threshold bps 7500
+    edge required bps 5392
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 99.91s (99.20s CPU time)
+
+Ran 1 test suite in 100.04s (99.91s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

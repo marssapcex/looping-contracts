@@ -1,6 +1,6 @@
 {
   "attackerLiquidBase": 1873617246,
-  "badDebtBase": -624541515,
+  "badDebtBase": -624541615,
   "baselineBorrowPowerBase": 1873619146,
   "bestAskAfter": 1000200000000000000,
   "bestAskBefore": 1000200000000000000,
@@ -38,8 +38,8 @@
   "flashAmount": 25000000,
   "flashPremium": 12500,
   "flashRepayment": 25012500,
-  "forkBlock": 461801256,
-  "healthFactor": 1133334422065069844,
+  "forkBlock": 461812235,
+  "healthFactor": 1133334482554181186,
   "lastErrorSelector": 0,
   "lastErrorStep": 0,
   "liquidationThresholdBps": 8500,
@@ -64,7 +64,7 @@
   "stepFailures": 0,
   "suppliedCollateral": "24990000000000000000",
   "totalCollateralBase": 2498158861,
-  "totalDebtBase": 1873617346,
+  "totalDebtBase": 1873617246,
   "unitEdgeBps": 0,
   "unspentFlashAsset": 0,
   "zeroSeed": 1
