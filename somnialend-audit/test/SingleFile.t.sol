@@ -15,6 +15,7 @@ interface IWrappedNative {
 
 interface IAaveOracle {
     function getAssetPrice(address) external view returns (uint256);
+    function getSourceOfAsset(address) external view returns (address);
 }
 
 interface IPool {
@@ -454,6 +455,7 @@ contract SomniaPoC is Test {
         console2.log("block", block.number);
         _reserves();
         _book();
+        _oracleSource();
         _oracleProbe();
 
         if (vm.envOr("PINNED_ONLY", false)) return;
@@ -553,6 +555,55 @@ contract SomniaPoC is Test {
         console2.log("  oracle after ", m.oracleAfter);
         console2.log("  ORACLE MOVE BPS (only number that matters)", _move(m.oracleBefore, m.oracleAfter));
         console2.log("  oracle moved at all?", _move(m.oracleBefore, m.oracleAfter) > 0);
+    }
+
+    /// @notice Follow the oracle to its actual source of truth and measure how old it is.
+    ///         The lending pool reads source.latestRoundData(); that answer is produced by an OEV
+    ///         wrapper around a DIA dAPI, on its own schedule, not by the CLOB. So the question
+    ///         that decides an oracle attack is not "can I move the DEX" but "how stale is the
+    ///         number I would be borrowing against".
+    function _oracleSource() internal view {
+        console2.log("=== ORACLE SOURCE");
+        address[5] memory assets = [WSOMI, USDSO, USDC, WETH, WBTC];
+        string[5] memory names = ["WSOMI", "USDso", "USDC.e", "WETH", "WBTC"];
+        for (uint256 i; i < assets.length; ++i) {
+            address src = IAaveOracle(ORACLE).getSourceOfAsset(assets[i]);
+            (bool ok, bytes memory ret) = src.staticcall(abi.encodeWithSignature("latestRoundData()"));
+            if (!ok || ret.length < 160) continue;
+            (, int256 answer,, uint256 updatedAt,) =
+                abi.decode(ret, (uint80, int256, uint256, uint256, uint80));
+            uint256 age = block.timestamp > updatedAt ? block.timestamp - updatedAt : 0;
+            console2.log("--- feed", names[i]);
+            console2.log("  source", src);
+            console2.log("  answer", uint256(answer));
+            console2.log("  updatedAt", updatedAt);
+            console2.log("  block ts", block.timestamp);
+            console2.log("  AGE SECONDS", age);
+            console2.log("  AGE HOURS", age / 3600);
+            console2.log("  ORACLE/DEX GAP BPS", _gapBps(uint256(answer), _bookAsk()));
+        }
+        // Aave's guard against stale prices. If it is unset the staleness above is unguarded.
+        (bool ok2, bytes memory r2) = POOL.staticcall(abi.encodeWithSignature("getPriceOracleSentinel()"));
+        if (ok2 && r2.length >= 32) {
+            address sentinel;
+            assembly {
+                sentinel := mload(add(r2, 32))
+            }
+            console2.log("price oracle sentinel", sentinel);
+            console2.log("  sentinel set?", sentinel != address(0));
+        }
+    }
+
+    function _bookAsk() internal view returns (uint256) {
+        IClob.Level[] memory l = IClob(MARKET).getBookLevels(false, 1);
+        return l.length == 0 ? 0 : l[0].price;
+    }
+
+    /// @dev oracle8 has 8 decimals, dex18 has 18. Positive = oracle reports higher than the book.
+    function _gapBps(uint256 oracle8, uint256 dex18) internal pure returns (int256) {
+        if (oracle8 == 0 || dex18 == 0) return 0;
+        int256 o = int256(oracle8 * 1e10);
+        return ((o - int256(dex18)) * int256(BPS)) / o;
     }
 
     function _book() internal view {
