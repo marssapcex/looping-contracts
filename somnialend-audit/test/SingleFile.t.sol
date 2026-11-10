@@ -25,6 +25,7 @@ interface IPool {
     function getConfiguration(address) external view returns (uint256);
     function getUserEMode(address) external view returns (uint256);
     function setUserEMode(uint8) external;
+    function getEModeCategoryData(uint8) external view returns (uint16, uint16, uint16, address, string memory);
     function getUserAccountData(address)
         external
         view
@@ -420,6 +421,35 @@ contract SomniaPoC is Test {
             console2.log("  oracle price", IAaveOracle(ORACLE).getAssetPrice(assets[i]));
         }
         console2.log("user eMode", IPool(POOL).getUserEMode(address(this)));
+
+        // The only number that can overturn the verdict: an eMode category whose LTV is >= 10000
+        // would let a borrower take out more than the collateral is worth. Every other value
+        // caps coverage at LTV / (1 + premium), which is below break-even by construction.
+        for (uint8 id = 0; id <= 3; ++id) {
+            _eMode(id);
+        }
+    }
+
+    /// @dev Raw staticcall: the EModeCategory struct layout differs between Aave 3.0 and 3.1+,
+    ///      so decode the first words by hand instead of trusting an ABI.
+    function _eMode(uint8 id) internal view {
+        (bool ok, bytes memory ret) =
+            POOL.staticcall(abi.encodeWithSelector(IPool.getEModeCategoryData.selector, id));
+        if (!ok || ret.length < 128) return;
+        uint256 ltv;
+        uint256 liqThreshold;
+        uint256 liqBonus;
+        assembly {
+            ltv := mload(add(ret, 32))
+            liqThreshold := mload(add(ret, 64))
+            liqBonus := mload(add(ret, 96))
+        }
+        if (liqThreshold == 0) return; // category not configured
+        console2.log("--- eMode category", id);
+        console2.log("  ltv", ltv);
+        console2.log("  liquidation threshold", liqThreshold);
+        console2.log("  liquidation bonus", liqBonus);
+        console2.log("  EXPLOITABLE (ltv >= 10000)", ltv >= BPS);
     }
 
     function _book() internal view {
