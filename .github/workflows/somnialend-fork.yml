@@ -130,7 +130,18 @@ jobs:
         working-directory: somnialend-audit
         run: |
           set -o pipefail
-          ./run-fork.sh poc
+          mkdir -p evidence
+          LOG="evidence/probe-${SOMNIA_FORK_BLOCK}.log"
+          echo "running: forge test --match-test test_attack (block ${SOMNIA_FORK_BLOCK})"
+          forge test --fork-url "$FORK_URL" --fork-block-number "$SOMNIA_FORK_BLOCK" \
+            --match-test test_attack -vv 2>&1 | tee "$LOG"
+          echo "--- log is $(wc -l < "$LOG") lines"
+          if ! grep -q "ORACLE PROBE" "$LOG"; then
+            echo "::error::the oracle probe never ran; log has no ORACLE PROBE marker"
+            head -40 "$LOG"
+            exit 1
+          fi
+          sed -n '/ORACLE PROBE/,/oracle moved at all/p' "$LOG" | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Record explicit outcomes
         if: always()
