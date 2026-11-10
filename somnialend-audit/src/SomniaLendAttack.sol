@@ -493,11 +493,11 @@ contract SomniaLendAttack {
         ISomniaLendPool(POOL).borrow(asset, amount, VARIABLE_DEBT, 0, address(this));
     }
 
-    function _recordStepFailure(uint16 step, bytes memory inner) internal {
+    function _recordStepFailure(uint16 which, bytes memory inner) internal {
         m.stepFailures += 1;
-        m.lastErrorStep = step;
+        m.lastErrorStep = which;
         m.lastErrorSelector = _selector(inner);
-        console2.log("STEP FAILED", step);
+        console2.log("STEP FAILED", which);
         console2.log("  selector", uint32(m.lastErrorSelector));
     }
 

@@ -5,3 +5,4 @@ tools/node_modules/
 .env
 
 # Fork evidence IS the deliverable: results/*.json and evidence/*.log are committed on purpose.
+foundry.lock
