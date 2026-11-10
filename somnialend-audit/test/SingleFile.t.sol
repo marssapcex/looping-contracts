@@ -184,6 +184,7 @@ contract Attack {
 }
 
 contract SomniaPoC is Test {
+
     address constant POOL   = 0xEC6758e6324c167DB39B6908036240460a2b0168;
     address constant ORACLE = 0x9b7B5d69a08071ce74C2f3D655038E3b782eAaFc;
     address constant WSOMI  = 0x046EDe9564A72571df6F5e44d0405360c0f4dCab;
@@ -191,9 +192,11 @@ contract SomniaPoC is Test {
     address constant USDSO  = 0x00000022dA000002656c64D9eA6011ea952D008A;
     address constant MARKET = 0x035De7403eac6872787779CCA7CCF1b4CDb61379;
 
+    /// @dev The fork comes from the command line (run-fork.sh), not from here. That keeps the
+    ///      pinned block in one place and avoids double-forking.
     function setUp() public {
-        vm.createSelectFork(vm.envString("SOMNIA_RPC_URL"), vm.envUint("SOMNIA_FORK_BLOCK"));
-        require(block.chainid == 5031, "not Somnia");
+        require(block.chainid == 5031, "not Somnia: pass --fork-url and --fork-block-number");
+        require(block.number > 0, "no forked block");
     }
 
     /// @notice Run this one. Prints the whole case at the pinned block.

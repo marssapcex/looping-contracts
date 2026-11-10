@@ -10,7 +10,22 @@ Nothing in this directory is a source-code bug hunt. It **has** now been execute
 `evidence/`. Results are only valid when the JSON in `results/` and the logs in `evidence/` come
 from a real fork run at a pinned block, which is what those files are.
 
-## Why Forge 1.7.1 is mandatory
+## Two ways to clear the RPC
+
+**A. The proxy (works with any forge, including 2.0).** Somnia rejects EIP-1898 block objects;
+the bundled proxy rewrites them to block numbers. No version hunting:
+
+```bash
+node eip1898-proxy.mjs --upstream https://api.infra.mainnet.somnia.network --port 8546 &
+forge test --fork-url http://127.0.0.1:8546 --fork-block-number <N> --match-test test_attack -vv
+```
+
+`bootstrap-poc.sh ~/my-poc` builds a folder with the PoC, forge-std, the proxy and a `go.sh` that
+does the above. Verified against a fake RPC that rejects the object form exactly like Somnia.
+
+**B. Forge 1.7.1.** Sends plain hex block numbers, no proxy needed.
+
+## Why Forge 1.7.1 is the fallback and not the default
 
 Somnia's RPC rejects EIP-1898 block objects (`{"blockHash": ...}`) with `-32602 invalid parameters`.
 Forge ≥ 1.8 sends that form on every account read during fork bootstrap, so the run dies with
@@ -22,12 +37,18 @@ failed to get account for 0x0000000000000000000000000000000000000000
 Forge ≤ 1.7 sends hex block numbers and works. Same report upstream:
 `somnia-chain/dreamdex-bot-kit` issue #37.
 
+> **`foundryup -v 1.7.1` no longer works.** foundryup 2.x only knows stable/nightly, so that
+> command prints `foundryup 2.0.0` and silently keeps your current forge. Install the exact
+> release tarball instead:
+
 ```bash
-foundryup -v 1.7.1
-forge --version      # must print 1.7.1
+curl -L -o f.tar.gz https://github.com/foundry-rs/foundry/releases/download/v1.7.1/foundry_v1.7.1_darwin_arm64.tar.gz
+mkdir -p ~/.foundry/v1.7.1 && tar xzf f.tar.gz -C ~/.foundry/v1.7.1
+FORGE=~/.foundry/v1.7.1/forge ./run-fork.sh sweep     # darwin_amd64 / linux_amd64 / linux_arm64
 ```
 
-`run-fork.sh` warns if the version is outside 1.0–1.7.
+`run-fork.sh` now refuses to run on forge >= 1.8 without the proxy and tells you which of the two
+routes to take.
 
 ## Run it on the fork
 

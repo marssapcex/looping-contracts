@@ -58,6 +58,20 @@ jobs:
         working-directory: somnialend-audit
         run: forge build
 
+      - name: Start EIP-1898 rewriting proxy
+        working-directory: somnialend-audit
+        env:
+          SOMNIA_RPC_URL: ${{ inputs.rpc_url }}
+        run: |
+          set -euo pipefail
+          RPC="${SOMNIA_RPC_URL:-https://api.infra.mainnet.somnia.network}"
+          node eip1898-proxy.mjs --upstream "$RPC" --port 8546 > proxy.log 2>&1 &
+          for _ in $(seq 1 30); do
+            curl -sf http://127.0.0.1:8546 > /dev/null && exit 0
+            sleep 1
+          done
+          cat proxy.log; echo "proxy did not start"; exit 1
+
       - name: Offline harness unit tests (not evidence)
         working-directory: somnialend-audit
         run: forge test --match-contract SomniaLendHarnessUnitTest -vv
@@ -77,6 +91,8 @@ jobs:
           cast code 0xEC6758e6324c167DB39B6908036240460a2b0168 --block "$BLOCK" --rpc-url "$RPC" | grep -qv '^0x$'
           echo "Pinned Somnia block: $BLOCK"
           echo "SOMNIA_RPC_URL=$RPC" >> "$GITHUB_ENV"
+          # The harness talks to the local rewriting proxy so the forge version does not matter.
+          echo "FORK_URL=http://127.0.0.1:8546" >> "$GITHUB_ENV"
           echo "SOMNIA_FORK_BLOCK=$BLOCK" >> "$GITHUB_ENV"
           echo "block=$BLOCK" >> "$GITHUB_OUTPUT"
 

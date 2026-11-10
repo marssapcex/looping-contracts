@@ -50,12 +50,13 @@ contract SomniaLendEconomicPoCTest is Test {
     bool internal expectProfitable;
 
     function setUp() public {
-        forkBlock = vm.envUint("SOMNIA_FORK_BLOCK");
-        require(forkBlock > 0, "pin SOMNIA_FORK_BLOCK");
-        // Somnia RPC rejects EIP-1898 block objects, which Forge >= 1.8 sends on every fork read.
-        // This harness therefore requires Forge <= 1.7.x (foundryup -v 1.7.1).
-        vm.createSelectFork(vm.envString("SOMNIA_RPC_URL"), forkBlock);
-        require(block.chainid == 5031, "not Somnia mainnet");
+        // The fork is created on the command line by run-fork.sh:
+        //   forge test --fork-url <rpc> --fork-block-number <N>
+        // Doing it there (not here) means the pinned block has one source of truth, and the
+        // EIP-1898 rewriting proxy can be dropped in by changing only that URL.
+        require(block.chainid == 5031, "not Somnia mainnet: pass --fork-url and --fork-block-number");
+        forkBlock = vm.envOr("SOMNIA_FORK_BLOCK", block.number);
+        require(forkBlock > 0, "no forked block");
         require(block.number == forkBlock, "fork block mismatch");
 
         buyLimitBps = vm.envOr("DEX_BUY_LIMIT_BPS", uint256(10_050));
