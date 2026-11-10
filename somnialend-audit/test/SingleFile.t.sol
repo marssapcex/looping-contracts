@@ -266,7 +266,7 @@ contract SomniaPoC is Test {
         for (uint256 i; i < sizes.length; ++i) {
             (Metrics memory m, bool repaid) = _attempt(sizes[i]);
             if (m.flashAmount == 0) {
-                console2.log("  size produced no metrics (non-Shortfall revert)", sizes[i]);
+                console2.log("  size", sizes[i], "reverted without metrics");
                 continue;
             }
             console2.log("=== FLASH USDso", sizes[i]);
@@ -312,7 +312,9 @@ contract SomniaPoC is Test {
         try a.run(amount, vm.envOr("LIMIT_BPS", uint256(10_050))) {
             return (a.metrics(), true);
         } catch (bytes memory err) {
-            return (_decode(err), false);
+            Metrics memory got = _decode(err);
+            if (got.flashAmount == 0) _explain(err);
+            return (got, false);
         }
     }
 
@@ -326,6 +328,31 @@ contract SomniaPoC is Test {
         bytes memory body = new bytes(err.length - 4);
         for (uint256 i; i < body.length; ++i) body[i] = err[i + 4];
         return abi.decode(body, (Metrics));
+    }
+
+    /// @dev A revert that did not carry Metrics is still information: print the selector and,
+    ///      when it is a standard Error(string), the reason. Otherwise say where it came from.
+    function _explain(bytes memory err) internal {
+        if (err.length < 4) {
+            console2.log("  revert with no data (or out of gas at this size)");
+            return;
+        }
+        bytes4 sel;
+        assembly {
+            sel := mload(add(err, 32))
+        }
+        console2.log("  revert selector", uint32(sel));
+        bytes memory body = new bytes(err.length - 4);
+        for (uint256 i; i < body.length; ++i) body[i] = err[i + 4];
+        if (sel == 0x08c379a0) {
+            // Error(string)
+            console2.log("  Error(string):", abi.decode(body, (string)));
+        } else if (sel == 0x4e487b71) {
+            // Panic(uint256)
+            console2.log("  Panic(uint256):", abi.decode(body, (uint256)));
+        } else {
+            console2.log("  custom error, payload bytes", body.length);
+        }
     }
 
     // ---------------------------------------------------------------- report
