@@ -1,0 +1,50 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SomniaLendEconomicPoC.t.sol:SomniaLendEconomicPoCTest
+[PASS] test_control_no_trade_no_oracle_delta() (gas: 8167759)
+Logs:
+  SEEDED base (disables profit claim) 49983170
+  mode 3
+  flash asset 0x00000022dA000002656c64D9eA6011ea952D008A
+  flash amount 1000000000000000000000
+  flash premium 500000000000000000
+  stage control-pre
+    best bid 999700000000000000
+    best ask 1000200000000000000
+    collateral oracle 0
+    debt oracle 99966341
+  stage control-same-tx
+    best bid 999700000000000000
+    best ask 1000200000000000000
+    collateral oracle 0
+    debt oracle 99966341
+  unspent flash principal 1000000000000000000000
+  repayment base 100016324170
+  borrow power base after supply 0
+  borrow power inflation base (price effect only) 0
+  COVERAGE bps (>10000 is required) 9995
+  MAX NET ATOMIC base (borrow max - repay) -49983170
+  EDGE REQUIRED bps 115792089237316195423570985008687907853269984665640564039457584007913129639935
+  UNIT EDGE bps (oracle value vs paid) 0
+  BREAKEVEN LTV bps for this fill 0
+  bad debt base (debt - collateral, >0 = lender loss) 0
+  position collateral base 0
+  position debt base 0
+  health factor 115792089237316195423570985008687907853269984665640564039457584007913129639935
+  stage final
+    best bid 999700000000000000
+    best ask 1000200000000000000
+    collateral oracle 0
+    debt oracle 99966341
+  attacker liquid value base (excludes collateral/debt) 0
+  seeded base 49983170
+  FINAL USDso 0
+  FINAL USDC 0
+  FINAL WETH 0
+  FINAL WBTC 0
+  FINAL WSOMI 0
+  FINAL native 0
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 4.60s (4.33s CPU time)
+
+Ran 1 test suite in 4.61s (4.60s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
