@@ -121,6 +121,17 @@ jobs:
           set -o pipefail
           ./run-fork.sh sweep
 
+      # The oracle-manipulation probe: consume the ENTIRE book, hold the SOMI, never supply it,
+      # and re-read the lending oracle. This is the only stage that tests "pump the venue, make
+      # the oracle report high, borrow against it" rather than a supply-and-borrow round trip.
+      - name: Oracle probe (whole book, no supply)
+        id: probe
+        if: always()
+        working-directory: somnialend-audit
+        run: |
+          set -o pipefail
+          ./run-fork.sh poc
+
       - name: Record explicit outcomes
         if: always()
         run: |
@@ -132,6 +143,7 @@ jobs:
             echo "recon: ${{ steps.recon.outcome }}"
             echo "control: ${{ steps.control.outcome }}"
             echo "sweep: ${{ steps.sweep.outcome }}"
+            echo "probe: ${{ steps.probe.outcome }}"
             echo "A failed sweep step means no scenario returned a successful, repaid, positive-P&L"
             echo "transaction. It is never reported as a mitigated or exploitable finding by itself."
           } | tee "$OUT"
