@@ -1,0 +1,704 @@
+No files changed, compilation skipped
+
+Warning: the following cheatcode(s) are deprecated and will be removed in future versions:
+  revertTo(uint256): replaced by `revertToState`
+  snapshot(): replaced by `snapshotState`
+Ran 1 test for test/SomniaLendEconomicPoC.t.sol:SomniaLendEconomicPoCTest
+[PASS] test_sweep_atomic_directions() (gas: 105140790)
+Logs:
+  mode 1
+  flash asset 0x00000022dA000002656c64D9eA6011ea952D008A
+  flash amount 100000000000000000000
+  flash premium 50000000000000000
+  stage baseline
+    best bid 161600000000000000
+    best ask 161800000000000000
+    collateral oracle 16342083
+    debt oracle 99966341
+  collateral oracle before 16342083
+  collateral oracle after 16342083
+  debt oracle before 99966341
+  debt oracle after 99966341
+  dex best bid before/after 161600000000000000 161600000000000000
+  dex best ask before/after 161800000000000000 161900000000000000
+  supplied 614620000000000000000
+  ltv bps 6000
+  liquidation threshold bps 7250
+  baseline borrow power base 6026502632
+  actual available borrow base 6026502632
+    aToken cash 129729191117859768984251
+  borrow candidate asset 0x00000022dA000002656c64D9eA6011ea952D008A
+    amount 60285257464810080424
+  unspent flash principal 550036000000000000
+  repayment base 10001632417
+  borrow power base after supply 6026502632
+  borrow power inflation base (price effect only) 0
+  COVERAGE bps (>10000 is required) 6080
+  MAX NET ATOMIC base (borrow max - repay) -3920144699
+  EDGE REQUIRED bps 6675
+  UNIT EDGE bps (oracle value vs paid) 103
+  BREAKEVEN LTV bps for this fill 9902
+  bad debt base (debt - collateral, >0 = lender loss) -4017674449
+  position collateral base 10044171053
+  position debt base 6026496604
+  health factor 1208334541857480154
+  attacker liquid value base (excludes collateral/debt) 6081481691
+  seeded base 0
+  SHORTFALL units of flash asset 39214706535189919576
+  SHORTFALL base 3920150725
+  ---------- scenario somi-pump-supply 100000000000000000000
+    outcome repayment-shortfall
+    pre-trade base traded 614620000000000000000
+    pre-trade quote traded 99449964000000000000
+    pre-trade exec price 161807236991962513
+    oracle collateral before 16342083
+    oracle collateral after 16342083
+    oracle debt before 99966341
+    oracle debt after 99966341
+    best bid before/after 161600000000000000 161600000000000000
+    best ask before/after 161800000000000000 161900000000000000
+    supplied 614620000000000000000
+    ltv bps 6000
+    baseline borrow base 6026502632
+    actual borrow base 6026502632
+    borrowed USDso 60285257464810080424
+    borrowed USDC 0
+    borrowed WETH 0
+    borrowed WBTC 0
+    borrowed WSOMI 0
+    exit base sold 0
+    exit USDso proceeds 0
+    final USDso 60835293464810080424
+    final USDC 0
+    debt base 6026496604
+    collateral base 10044171053
+    health factor 1208334541857480154
+    unspent flash principal 550036000000000000
+    repayment base 10001632417
+    COVERAGE bps 6080
+    UNIT EDGE bps 103
+    EDGE REQUIRED bps 6675
+    borrow power inflation base 0
+    MAX NET ATOMIC base -3920144699
+    BREAKEVEN LTV bps 9902
+    bad debt base -4017674449
+    attacker liquid value base 6081481691
+    seeded base (0 = zero-seed) 0
+    step failures 0
+    last error step 0
+    last error selector 0
+    shortfall (flash asset units) 39214706535189919576
+    shortfall (base units) 3920150725
+    repaid false
+    PROFITABLE false
+  mode 1
+  flash asset 0x00000022dA000002656c64D9eA6011ea952D008A
+  flash amount 5000000000000000000000
+  flash premium 2500000000000000000
+  stage baseline
+    best bid 161600000000000000
+    best ask 161800000000000000
+    collateral oracle 16342083
+    debt oracle 99966341
+  collateral oracle before 16342083
+  collateral oracle after 16342083
+  debt oracle before 99966341
+  debt oracle after 99966341
+  dex best bid before/after 161600000000000000 161600000000000000
+  dex best ask before/after 161800000000000000 162000000000000000
+  supplied 30731400000000000000000
+  ltv bps 6000
+  liquidation threshold bps 7250
+  baseline borrow power base 301329053703
+  actual available borrow base 301329053704
+    aToken cash 124829191117859768984251
+  borrow candidate asset 0x00000022dA000002656c64D9eA6011ea952D008A
+    amount 3014302107686426174185
+  unspent flash principal 23308350000000000000
+  repayment base 500081620852
+  borrow power base after supply 301329053704
+  borrow power inflation base (price effect only) 1
+  COVERAGE bps (>10000 is required) 6072
+  MAX NET ATOMIC base (borrow max - repay) -196422516684
+  EDGE REQUIRED bps 6675
+  UNIT EDGE bps (oracle value vs paid) 94
+  BREAKEVEN LTV bps for this fill 9911
+  bad debt base (debt - collateral, >0 = lender loss) -200886337133
+  position collateral base 502215089506
+  position debt base 301328752373
+  health factor 1208334541674573477
+  attacker liquid value base (excludes collateral/debt) 303658802838
+  seeded base 0
+  SHORTFALL units of flash asset 1964889542313573825815
+  SHORTFALL base 196422818014
+  ---------- scenario somi-pump-supply 5000000000000000000000
+    outcome repayment-shortfall
+    pre-trade base traded 30731400000000000000000
+    pre-trade quote traded 4976691650000000000000
+    pre-trade exec price 161941585804746936
+    oracle collateral before 16342083
+    oracle collateral after 16342083
+    oracle debt before 99966341
+    oracle debt after 99966341
+    best bid before/after 161600000000000000 161600000000000000
+    best ask before/after 161800000000000000 162000000000000000
+    supplied 30731400000000000000000
+    ltv bps 6000
+    baseline borrow base 301329053703
+    actual borrow base 301329053704
+    borrowed USDso 3014302107686426174185
+    borrowed USDC 0
+    borrowed WETH 0
+    borrowed WBTC 0
+    borrowed WSOMI 0
+    exit base sold 0
+    exit USDso proceeds 0
+    final USDso 3037610457686426174185
+    final USDC 0
+    debt base 301328752373
+    collateral base 502215089506
+    health factor 1208334541674573477
+    unspent flash principal 23308350000000000000
+    repayment base 500081620852
+    COVERAGE bps 6072
+    UNIT EDGE bps 94
+    EDGE REQUIRED bps 6675
+    borrow power inflation base 1
+    MAX NET ATOMIC base -196422516684
+    BREAKEVEN LTV bps 9911
+    bad debt base -200886337133
+    attacker liquid value base 303658802838
+    seeded base (0 = zero-seed) 0
+    step failures 0
+    last error step 0
+    last error selector 0
+    shortfall (flash asset units) 1964889542313573825815
+    shortfall (base units) 196422818014
+    repaid false
+    PROFITABLE false
+  mode 1
+  flash asset 0x00000022dA000002656c64D9eA6011ea952D008A
+  flash amount 25000000000000000000000
+  flash premium 12500000000000000000
+  stage baseline
+    best bid 161600000000000000
+    best ask 161800000000000000
+    collateral oracle 16342083
+    debt oracle 99966341
+  collateral oracle before 16342083
+  collateral oracle after 16342083
+  debt oracle before 99966341
+  debt oracle after 99966341
+  dex best bid before/after 161600000000000000 161600000000000000
+  dex best ask before/after 161800000000000000 162500000000000000
+  supplied 153657030000000000000000
+  ltv bps 6000
+  liquidation threshold bps 7250
+  baseline borrow power base 1506645562676
+  actual available borrow base 1506645562676
+    aToken cash 104829191117859768984251
+  borrow candidate asset 0x00000022dA000002656c64D9eA6011ea952D008A
+    amount 15071513481022577389323
+  STEP FAILED 5
+    selector 147028384
+  unspent flash principal 71437035000000000000
+  repayment base 2500408104262
+  borrow power base after supply 1506645562676
+  borrow power inflation base (price effect only) 0
+  COVERAGE bps (>10000 is required) 6054
+  MAX NET ATOMIC base (borrow max - repay) -986621242586
+  EDGE REQUIRED bps 6675
+  UNIT EDGE bps (oracle value vs paid) 76
+  BREAKEVEN LTV bps for this fill 9929
+  bad debt base (debt - collateral, >0 = lender loss) -2511075937793
+  position collateral base 2511075937793
+  position debt base 0
+  health factor 115792089237316195423570985008687907853269984665640564039457584007913129639935
+  attacker liquid value base (excludes collateral/debt) 7141299000
+  seeded base 0
+  SHORTFALL units of flash asset 24941062965000000000000
+  SHORTFALL base 2493266805261
+  ---------- scenario somi-pump-supply 25000000000000000000000
+    outcome repayment-shortfall
+    pre-trade base traded 153657030000000000000000
+    pre-trade quote traded 24928562965000000000000
+    pre-trade exec price 162235095686803265
+    oracle collateral before 16342083
+    oracle collateral after 16342083
+    oracle debt before 99966341
+    oracle debt after 99966341
+    best bid before/after 161600000000000000 161600000000000000
+    best ask before/after 161800000000000000 162500000000000000
+    supplied 153657030000000000000000
+    ltv bps 6000
+    baseline borrow base 1506645562676
+    actual borrow base 1506645562676
+    borrowed USDso 0
+    borrowed USDC 0
+    borrowed WETH 0
+    borrowed WBTC 0
+    borrowed WSOMI 0
+    exit base sold 0
+    exit USDso proceeds 0
+    final USDso 71437035000000000000
+    final USDC 0
+    debt base 0
+    collateral base 2511075937793
+    health factor 115792089237316195423570985008687907853269984665640564039457584007913129639935
+    unspent flash principal 71437035000000000000
+    repayment base 2500408104262
+    COVERAGE bps 6054
+    UNIT EDGE bps 76
+    EDGE REQUIRED bps 6675
+    borrow power inflation base 0
+    MAX NET ATOMIC base -986621242586
+    BREAKEVEN LTV bps 9929
+    bad debt base -2511075937793
+    attacker liquid value base 7141299000
+    seeded base (0 = zero-seed) 0
+    step failures 1
+    last error step 5
+    last error selector 147028384
+    shortfall (flash asset units) 24941062965000000000000
+    shortfall (base units) 2493266805261
+    repaid false
+    PROFITABLE false
+  mode 1
+  flash asset 0x00000022dA000002656c64D9eA6011ea952D008A
+  flash amount 100000000000000000000000
+  flash premium 50000000000000000000
+  stage baseline
+    best bid 161600000000000000
+    best ask 161800000000000000
+    collateral oracle 16342083
+    debt oracle 99966341
+  collateral oracle before 16342083
+  collateral oracle after 16342083
+  debt oracle before 99966341
+  debt oracle after 99966341
+  dex best bid before/after 161600000000000000 161600000000000000
+  dex best ask before/after 161800000000000000 162800000000000000
+  supplied 198702570000000000000000
+  ltv bps 6000
+  liquidation threshold bps 7250
+  baseline borrow power base 1948328334751
+  actual available borrow base 1948328334752
+    aToken cash 29829191117859768984251
+  borrow candidate asset 0x00000022dA000002656c64D9eA6011ea952D008A
+    amount 19489823944071334970637
+  STEP FAILED 5
+    selector 147028384
+  unspent flash principal 67746761509000000000000
+  repayment base 10001632417050
+  borrow power base after supply 1948328334752
+  borrow power inflation base (price effect only) 1
+  COVERAGE bps (>10000 is required) 8719
+  MAX NET ATOMIC base (borrow max - repay) -1280908219644
+  EDGE REQUIRED bps 6675
+  UNIT EDGE bps (oracle value vs paid) 71
+  BREAKEVEN LTV bps for this fill 9934
+  bad debt base (debt - collateral, >0 = lender loss) -3247213891253
+  position collateral base 3247213891253
+  position debt base 0
+  health factor 115792089237316195423570985008687907853269984665640564039457584007913129639935
+  attacker liquid value base (excludes collateral/debt) 6772395862654
+  seeded base 0
+  SHORTFALL units of flash asset 32303238491000000000000
+  SHORTFALL base 3229236554395
+  ---------- scenario somi-pump-supply 100000000000000000000000
+    outcome repayment-shortfall
+    pre-trade base traded 198702570000000000000000
+    pre-trade quote traded 32253238491000000000000
+    pre-trade exec price 162319181332179045
+    oracle collateral before 16342083
+    oracle collateral after 16342083
+    oracle debt before 99966341
+    oracle debt after 99966341
+    best bid before/after 161600000000000000 161600000000000000
+    best ask before/after 161800000000000000 162800000000000000
+    supplied 198702570000000000000000
+    ltv bps 6000
+    baseline borrow base 1948328334751
+    actual borrow base 1948328334752
+    borrowed USDso 0
+    borrowed USDC 0
+    borrowed WETH 0
+    borrowed WBTC 0
+    borrowed WSOMI 0
+    exit base sold 0
+    exit USDso proceeds 0
+    final USDso 67746761509000000000000
+    final USDC 0
+    debt base 0
+    collateral base 3247213891253
+    health factor 115792089237316195423570985008687907853269984665640564039457584007913129639935
+    unspent flash principal 67746761509000000000000
+    repayment base 10001632417050
+    COVERAGE bps 8719
+    UNIT EDGE bps 71
+    EDGE REQUIRED bps 6675
+    borrow power inflation base 1
+    MAX NET ATOMIC base -1280908219644
+    BREAKEVEN LTV bps 9934
+    bad debt base -3247213891253
+    attacker liquid value base 6772395862654
+    seeded base (0 = zero-seed) 0
+    step failures 1
+    last error step 5
+    last error selector 147028384
+    shortfall (flash asset units) 32303238491000000000000
+    shortfall (base units) 3229236554395
+    repaid false
+    PROFITABLE false
+  mode 2
+  flash asset 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+  flash amount 25000000
+  flash premium 12500
+  stage baseline
+    best bid 999600000000000000
+    best ask 1000200000000000000
+    collateral oracle 99966341
+    debt oracle 99966341
+  collateral oracle before 99966341
+  collateral oracle after 99966341
+  debt oracle before 99966341
+  debt oracle after 99966341
+  dex best bid before/after 999600000000000000 999600000000000000
+  dex best ask before/after 1000200000000000000 1000200000000000000
+  supplied 24990000000000000000
+  ltv bps 7500
+  liquidation threshold bps 8500
+  baseline borrow power base 1873619146
+  actual available borrow base 1873619146
+    aToken cash 6254903791
+  borrow candidate asset 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+    amount 18742481
+  no exit surplus 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+  unspent flash principal 0
+  repayment base 2500408104
+  borrow power base after supply 1873619146
+  borrow power inflation base (price effect only) 0
+  COVERAGE bps (>10000 is required) 7493
+  MAX NET ATOMIC base (borrow max - repay) -626788958
+  EDGE REQUIRED bps 3340
+  UNIT EDGE bps (oracle value vs paid) 0
+  BREAKEVEN LTV bps for this fill 10005
+  bad debt base (debt - collateral, >0 = lender loss) -624541615
+  position collateral base 2498158861
+  position debt base 1873617246
+  health factor 1133334482554181186
+  attacker liquid value base (excludes collateral/debt) 1873617246
+  seeded base 0
+  SHORTFALL units of flash asset 6270019
+  SHORTFALL base 626790857
+  ---------- scenario usdso-pump-supply 25000000
+    outcome repayment-shortfall
+    pre-trade base traded 25000000
+    pre-trade quote traded 24990000000000000000
+    pre-trade exec price 999600000000000000
+    oracle collateral before 99966341
+    oracle collateral after 99966341
+    oracle debt before 99966341
+    oracle debt after 99966341
+    best bid before/after 999600000000000000 999600000000000000
+    best ask before/after 1000200000000000000 1000200000000000000
+    supplied 24990000000000000000
+    ltv bps 7500
+    baseline borrow base 1873619146
+    actual borrow base 1873619146
+    borrowed USDso 0
+    borrowed USDC 18742481
+    borrowed WETH 0
+    borrowed WBTC 0
+    borrowed WSOMI 0
+    exit base sold 0
+    exit USDso proceeds 0
+    final USDso 0
+    final USDC 18742481
+    debt base 1873617246
+    collateral base 2498158861
+    health factor 1133334482554181186
+    unspent flash principal 0
+    repayment base 2500408104
+    COVERAGE bps 7493
+    UNIT EDGE bps 0
+    EDGE REQUIRED bps 3340
+    borrow power inflation base 0
+    MAX NET ATOMIC base -626788958
+    BREAKEVEN LTV bps 10005
+    bad debt base -624541615
+    attacker liquid value base 1873617246
+    seeded base (0 = zero-seed) 0
+    step failures 0
+    last error step 0
+    last error selector 0
+    shortfall (flash asset units) 6270019
+    shortfall (base units) 626790857
+    repaid false
+    PROFITABLE false
+  mode 2
+  flash asset 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+  flash amount 1000000000
+  flash premium 500000
+  stage baseline
+    best bid 999600000000000000
+    best ask 1000200000000000000
+    collateral oracle 99966341
+    debt oracle 99966341
+  collateral oracle before 99966341
+  collateral oracle after 99966341
+  debt oracle before 99966341
+  debt oracle after 99966341
+  dex best bid before/after 999600000000000000 999100000000000000
+  dex best ask before/after 1000200000000000000 1000200000000000000
+  supplied 999529750000000000000
+  ltv bps 7500
+  liquidation threshold bps 8500
+  baseline borrow power base 74939498871
+  actual available borrow base 74939498871
+    aToken cash 5279903791
+  borrow candidate asset 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+    amount 749646562
+  no exit surplus 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+  unspent flash principal 0
+  repayment base 100016324170
+  borrow power base after supply 74939498871
+  borrow power inflation base (price effect only) 0
+  COVERAGE bps (>10000 is required) 7492
+  MAX NET ATOMIC base (borrow max - repay) -25076825299
+  EDGE REQUIRED bps 3340
+  UNIT EDGE bps (oracle value vs paid) 0
+  BREAKEVEN LTV bps for this fill 10005
+  bad debt base (debt - collateral, >0 = lender loss) -24979907982
+  position collateral base 99919331828
+  position debt base 74939423846
+  health factor 1133334467963531559
+  attacker liquid value base (excludes collateral/debt) 74939423846
+  seeded base 0
+  SHORTFALL units of flash asset 250853438
+  SHORTFALL base 25076900324
+  ---------- scenario usdso-pump-supply 1000000000
+    outcome repayment-shortfall
+    pre-trade base traded 1000000000
+    pre-trade quote traded 999529750000000000000
+    pre-trade exec price 999529750000000000
+    oracle collateral before 99966341
+    oracle collateral after 99966341
+    oracle debt before 99966341
+    oracle debt after 99966341
+    best bid before/after 999600000000000000 999100000000000000
+    best ask before/after 1000200000000000000 1000200000000000000
+    supplied 999529750000000000000
+    ltv bps 7500
+    baseline borrow base 74939498871
+    actual borrow base 74939498871
+    borrowed USDso 0
+    borrowed USDC 749646562
+    borrowed WETH 0
+    borrowed WBTC 0
+    borrowed WSOMI 0
+    exit base sold 0
+    exit USDso proceeds 0
+    final USDso 0
+    final USDC 749646562
+    debt base 74939423846
+    collateral base 99919331828
+    health factor 1133334467963531559
+    unspent flash principal 0
+    repayment base 100016324170
+    COVERAGE bps 7492
+    UNIT EDGE bps 0
+    EDGE REQUIRED bps 3340
+    borrow power inflation base 0
+    MAX NET ATOMIC base -25076825299
+    BREAKEVEN LTV bps 10005
+    bad debt base -24979907982
+    attacker liquid value base 74939423846
+    seeded base (0 = zero-seed) 0
+    step failures 0
+    last error step 0
+    last error selector 0
+    shortfall (flash asset units) 250853438
+    shortfall (base units) 25076900324
+    repaid false
+    PROFITABLE false
+  mode 2
+  flash asset 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+  flash amount 3000000000
+  flash premium 1500000
+  stage baseline
+    best bid 999600000000000000
+    best ask 1000200000000000000
+    collateral oracle 99966341
+    debt oracle 99966341
+  collateral oracle before 99966341
+  collateral oracle after 99966341
+  debt oracle before 99966341
+  debt oracle after 99966341
+  dex best bid before/after 999600000000000000 999100000000000000
+  dex best ask before/after 1000200000000000000 1000200000000000000
+  supplied 2997729750000000000000
+  ltv bps 7500
+  liquidation threshold bps 8500
+  baseline borrow power base 224754055810
+  actual available borrow base 224754055811
+    aToken cash 3279903791
+  borrow candidate asset 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+    amount 2248295064
+  STEP FAILED 5
+    selector 147028384
+  no exit surplus 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+  unspent flash principal 0
+  repayment base 300048972511
+  borrow power base after supply 224754055811
+  borrow power inflation base (price effect only) 1
+  COVERAGE bps (>10000 is required) 7490
+  MAX NET ATOMIC base (borrow max - repay) -75294916700
+  EDGE REQUIRED bps 3340
+  UNIT EDGE bps (oracle value vs paid) 0
+  BREAKEVEN LTV bps for this fill 10005
+  bad debt base (debt - collateral, >0 = lender loss) -299672074414
+  position collateral base 299672074414
+  position debt base 0
+  health factor 115792089237316195423570985008687907853269984665640564039457584007913129639935
+  attacker liquid value base (excludes collateral/debt) 0
+  seeded base 0
+  SHORTFALL units of flash asset 3001500000
+  SHORTFALL base 300048972511
+  ---------- scenario usdso-pump-supply 3000000000
+    outcome repayment-shortfall
+    pre-trade base traded 3000000000
+    pre-trade quote traded 2997729750000000000000
+    pre-trade exec price 999243250000000000
+    oracle collateral before 99966341
+    oracle collateral after 99966341
+    oracle debt before 99966341
+    oracle debt after 99966341
+    best bid before/after 999600000000000000 999100000000000000
+    best ask before/after 1000200000000000000 1000200000000000000
+    supplied 2997729750000000000000
+    ltv bps 7500
+    baseline borrow base 224754055810
+    actual borrow base 224754055811
+    borrowed USDso 0
+    borrowed USDC 0
+    borrowed WETH 0
+    borrowed WBTC 0
+    borrowed WSOMI 0
+    exit base sold 0
+    exit USDso proceeds 0
+    final USDso 0
+    final USDC 0
+    debt base 0
+    collateral base 299672074414
+    health factor 115792089237316195423570985008687907853269984665640564039457584007913129639935
+    unspent flash principal 0
+    repayment base 300048972511
+    COVERAGE bps 7490
+    UNIT EDGE bps 0
+    EDGE REQUIRED bps 3340
+    borrow power inflation base 1
+    MAX NET ATOMIC base -75294916700
+    BREAKEVEN LTV bps 10005
+    bad debt base -299672074414
+    attacker liquid value base 0
+    seeded base (0 = zero-seed) 0
+    step failures 1
+    last error step 5
+    last error selector 147028384
+    shortfall (flash asset units) 3001500000
+    shortfall (base units) 300048972511
+    repaid false
+    PROFITABLE false
+  mode 2
+  flash asset 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+  flash amount 6000000000
+  flash premium 3000000
+  stage baseline
+    best bid 999600000000000000
+    best ask 1000200000000000000
+    collateral oracle 99966341
+    debt oracle 99966341
+  collateral oracle before 99966341
+  collateral oracle after 99966341
+  debt oracle before 99966341
+  debt oracle after 99966341
+  dex best bid before/after 999600000000000000 999100000000000000
+  dex best ask before/after 1000200000000000000 1000200000000000000
+  supplied 5995029750000000000000
+  ltv bps 7500
+  liquidation threshold bps 8500
+  baseline borrow power base 449475891220
+  actual available borrow base 449475891220
+    aToken cash 279903791
+  borrow candidate asset 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+    amount 279903791
+  no exit surplus 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+  unspent flash principal 0
+  repayment base 600097945023
+  borrow power base after supply 449475891220
+  borrow power inflation base (price effect only) 0
+  COVERAGE bps (>10000 is required) 7490
+  MAX NET ATOMIC base (borrow max - repay) -150622053803
+  EDGE REQUIRED bps 3340
+  UNIT EDGE bps (oracle value vs paid) 0
+  BREAKEVEN LTV bps for this fill 10005
+  bad debt base (debt - collateral, >0 = lender loss) -571320230475
+  position collateral base 599301188293
+  position debt base 27980957818
+  health factor 18205452914170859710
+  attacker liquid value base (excludes collateral/debt) 27980957818
+  seeded base 0
+  SHORTFALL units of flash asset 5723096209
+  SHORTFALL base 572116987204
+  ---------- scenario usdso-pump-supply 6000000000
+    outcome repayment-shortfall
+    pre-trade base traded 6000000000
+    pre-trade quote traded 5995029750000000000000
+    pre-trade exec price 999171625000000000
+    oracle collateral before 99966341
+    oracle collateral after 99966341
+    oracle debt before 99966341
+    oracle debt after 99966341
+    best bid before/after 999600000000000000 999100000000000000
+    best ask before/after 1000200000000000000 1000200000000000000
+    supplied 5995029750000000000000
+    ltv bps 7500
+    baseline borrow base 449475891220
+    actual borrow base 449475891220
+    borrowed USDso 0
+    borrowed USDC 279903791
+    borrowed WETH 0
+    borrowed WBTC 0
+    borrowed WSOMI 0
+    exit base sold 0
+    exit USDso proceeds 0
+    final USDso 0
+    final USDC 279903791
+    debt base 27980957818
+    collateral base 599301188293
+    health factor 18205452914170859710
+    unspent flash principal 0
+    repayment base 600097945023
+    COVERAGE bps 7490
+    UNIT EDGE bps 0
+    EDGE REQUIRED bps 3340
+    borrow power inflation base 0
+    MAX NET ATOMIC base -150622053803
+    BREAKEVEN LTV bps 10005
+    bad debt base -571320230475
+    attacker liquid value base 27980957818
+    seeded base (0 = zero-seed) 0
+    step failures 0
+    last error step 0
+    last error selector 0
+    shortfall (flash asset units) 5723096209
+    shortfall (base units) 572116987204
+    repaid false
+    PROFITABLE false
+  ======== SUMMARY ========
+  ANY PROFITABLE ATOMIC ZERO-SEED PATH false
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 67.43s (67.43s CPU time)
+
+Ran 1 test suite in 67.60s (67.43s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)

