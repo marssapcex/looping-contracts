@@ -1,113 +1,68 @@
-# Lệnh cài đặt — copy/paste
+# Codespaces / máy mới — 3 lệnh
 
-Máy bạn: macOS, Homebrew + conda (`/opt/homebrew/Caskroom/miniconda/...`), project ở `~/my-poc`.
+Repo: https://github.com/marssapcex/looping-contracts
 
-## 0. Vào project
+## Lỗi hay gặp (đọc trước)
 
-```bash
-cd ~/my-poc
-```
+| Lỗi | Nguyên nhân thật |
+|---|---|
+| `cd: looping-contracts/verification: No such file` | Mày **đã ở trong** repo rồi. Dùng `cd verification` |
+| `Cannot find module '/workspaces/looping-contracts/scripts/compile.js'` | `npm install` chạy ở **root** (package.json HyperLend), không phải `verification/` |
+| `Cannot find module 'solc'` (khi chạy `node scripts/compile.js`) | chưa `npm install` **trong `verification/`** |
+| `read_from_conf_file: certora/conf/ghost.conf: not found` | đang đứng sai thư mục, không phải thiếu file |
+| `cd: /home/codespace/looping-contracts/verification` | codespace của mày ở `/workspaces/...`, không phải `/home/codespace/...` |
+| syntax error near `(` | copy dính chữ `→ ...` hoặc 2 lệnh bị nối |
 
-## 1. Sửa lỗi `forge build` (thiếu dependency — KHÔNG phải lỗi Solidity)
-
-```bash
-# 1a. OpenZeppelin: cần CẢ HAI bản. LoanVaultBase import bản *-upgradeable,
-#     nếu chỉ cài bản thường thì vẫn fail y như cũ.
-npm install @openzeppelin/contracts@5.6.1 @openzeppelin/contracts-upgradeable@5.6.1
-
-# 1b. Foundry nếu chưa có
-curl -L https://foundry.paradigm.xyz | bash
-source ~/.bashrc || source ~/.zshrc
-foundryup
-
-# 1c. Build
-forge build
-```
-
-Nếu vẫn báo `Source "src/DualPausableUpgradeable.sol" not found` → file này **thiếu trong bản dump**,
-phải thêm vào `src/`. Bản dựng lại nằm ở `verification/src/DualPausableUpgradeable.sol`, copy sang:
+## Cài 1 lần
 
 ```bash
-cp verification/src/DualPausableUpgradeable.sol ~/my-poc/src/
+# 1. lấy code mới nhất
+cd /workspaces/looping-contracts
+git pull origin master
+
+# 2. node deps — PHẢI trong verification/
+bash verification/scripts/bootstrap.sh
 ```
 
-Nếu báo `Source "src/interfaces/IRoleManager.sol" not found` → thiếu file interface:
+`bootstrap.sh` tự `cd` vào `verification/`, cài `node_modules`, compile, chạy 217 assertion.
+Kết quả đúng phải là:
 
-```bash
-mkdir -p ~/my-poc/src/interfaces
-cp verification/src/interfaces/*.sol ~/my-poc/src/interfaces/
+```
+OK: compiled 13 sources -> 33 contracts (0.47 MB)
+=== 173 PASS / 0 FAIL / 4 NOTE ===
+=== 44 PASS / 0 FAIL / 4 NOTE ===
+GHOST RULES VALIDATED
 ```
 
-## 2. Cài Certora Prover
+## Certora (1 lần)
 
 ```bash
 python3 -m venv ~/certora-env
 source ~/certora-env/bin/activate
-pip install certora-cli
-certoraRun --version          # phải in ra 8.x
+pip install certora-cli solc-select
+solc-select install 0.8.35 && solc-select use 0.8.35
+export CERTORAKEY=...          # thêm vào ~/.bashrc nếu muốn giữ
+certoraRun --version
+python3 -m certora_cli.CertoraProver --version 2>/dev/null || true
 ```
 
-Nếu `pip install` lỗi vì conda python 3.14:
+Python 3.14 trong codespace đã cài được `certora-cli 8.20.3` — không cần hạ version.
+
+## Chạy Prover
 
 ```bash
-# dùng python 3.12 của homebrew thay cho conda
-brew install python@3.12
-python3.12 -m venv ~/certora-env
-source ~/certora-env/bin/activate
-pip install certora-cli
+cd /workspaces/looping-contracts
+bash verification/scripts/certora-all.sh              # tất cả 6 spec
+bash verification/scripts/certora-all.sh ghost        # 1 spec
+bash verification/scripts/certora-all.sh ghost withdrawal
 ```
 
-## 3. API key
+Script tự check `certoraRun` + `CERTORAKEY` + `node_modules` trước khi đốt credit.
 
-```bash
-export CERTORAKEY=...        # key của bạn; đừng commit vào repo
-```
+## Vì sao không cần `forge build`
 
-Kiểm tra key + mạng (Certora cần ra được 2 host này):
+`verification/` có bản source đầy đủ để Prover dùng (`verification/src/`, 13 file, đã gồm
+`DualPausableUpgradeable.sol` và `interfaces/` mà bản dump ban đầu thiếu).
+Prover chỉ cần solc + deps npm, không cần Foundry.
 
-```bash
-curl -sS -o /dev/null -w "%{http_code}\n" https://prover.certora.com
-curl -sS -o /dev/null -w "%{http_code}\n" https://binaries.soliditylang.org/linux-amd64/list.json
-```
-
-Nếu host thứ hai trả lỗi/timeout → `certoraRun` sẽ không tải được solc 0.8.35. Cách chữa:
-tải solc thủ công rồi trỏ vào đường dẫn cục bộ (mục 4).
-
-## 4. Solc 0.8.35 (pragma của project là 0.8.35, KHÔNG phải 0.8.24)
-
-```bash
-# macOS: dùng solc-select
-pip install solc-select
-solc-select install 0.8.35
-solc-select use 0.8.35
-solc --version
-```
-
-Nếu `solc-select install` cũng bị chặn mạng, tải tay:
-
-```bash
-mkdir -p ~/.svm/0.8.35
-curl -L -o ~/.svm/0.8.35/solc-0.8.35 \
-  https://github.com/ethereum/solidity/releases/download/v0.8.35/solc-macos
-chmod +x ~/.svm/0.8.35/solc-0.8.35
-```
-
-Rồi trong file `.conf` đổi `"solc": "solc8.35"` thành:
-
-```json
-"solc": "/Users/haanhtuanhuy/.svm/0.8.35/solc-0.8.35"
-```
-
-## 5. Build cho Certora (không cần Foundry)
-
-```bash
-cd verification
-npm install                    # solc 0.8.35 + OZ 5.6.1 + @ethereumjs/vm
-node scripts/compile.js        # → "OK: compiled 13 sources -> 33 contracts"
-```
-
-## 6. Kiểm tra môi trường trước khi đốt credit Prover
-
-```bash
-node scripts/run-audit.sh      # 173 + 44 assertion trên bytecode thật, phải 0 FAIL
-```
+Nếu vẫn muốn `forge build` ở root: xem `docs/RUN.md` mục "Foundry (tuỳ chọn)".

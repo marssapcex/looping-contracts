@@ -1,6 +1,18 @@
-# Lệnh chạy — copy/paste
+# Lệnh chạy
 
-Tất cả chạy từ `verification/` (nơi có `certora/` và `node_modules/`).
+## Cách nhanh nhất (script tự lo thư mục)
+
+```bash
+cd /workspaces/looping-contracts     # root repo, KHÔNG phải verification/
+bash verification/scripts/bootstrap.sh        # cài + compile + audit
+bash verification/scripts/certora-all.sh      # chạy cả 6 spec
+bash verification/scripts/certora-all.sh ghost withdrawal   # chạy 2 spec
+```
+
+## Cách thủ công
+
+Phải `cd verification` trước. Đứng ở root sẽ ra
+`Cannot find module '/workspaces/looping-contracts/scripts/compile.js'`.
 
 ## 0. Kiểm tra trước (miễn phí, không tốn credit)
 
