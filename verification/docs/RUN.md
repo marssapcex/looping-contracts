@@ -108,3 +108,37 @@ certoraRun certora/conf/ghost.conf --rule <tên_rule> --dump_difficulty_stats
 ```
 
 Report HTML mở tự động; trace nằm ở tab **Rule Report → Call Trace**.
+
+---
+
+## 8. Fuzz (stateful, không tốn credit)
+
+```bash
+bash verification/scripts/run-fuzz.sh              # 200 seq x 60 bước, seed 900
+bash verification/scripts/run-fuzz.sh 100 70 4242  # runs steps seed
+node scripts/fuzz.js --runs 1 --steps 60 --seed 913   # replay 1 seed đang fail
+```
+
+Khác `audit.js`: cái đó là kịch bản cố định, còn fuzz sinh **chuỗi lệnh + timestamp
+ngẫu nhiên**, kiểm invariant sau **mỗi** lệnh, và in lại trace tối thiểu khi fail.
+
+9 invariant được kiểm (đều phải đúng ở mọi trạng thái, kể cả delinquent/illiquid/terminated):
+
+| | |
+|---|---|
+| F1 | `balanceOf(vault) <= totalSupply()` — escrow share không thể vượt cung |
+| F2 | `maturedRedeemShares() <= balanceOf(vault)` — sổ matured nằm trong escrow |
+| F3 | `reservedAssets() <= ghost_held()` — reservation phải có tiền mặt thật |
+| F4 | `availableToBorrow() <= ghost_held() - reservedAssets()` — không xài tiền đã giữ cho claim |
+| F5 | `getTotalAssets()+reservedAssets()+accruedFees() == ghost_held()+amountOwed()+totalRecoveryPaid()` — **hằng đẳng thức kế toán** |
+| F6 | `accruedFees() <= amountOwed()+ghost_held()` — fee không thể lớn hơn nguồn |
+| F7 | `redemptionFundingShortfall() <= maturedRedeemShares()` — thiếu hụt không vượt sổ |
+| F8 | `lastAccrualCash() <= ghost_held()+borrowedAmount()` — watermark là số dư thật |
+| F9 | giá/share > 0 khi còn share — chặn chia cho 0 |
+
+F5 chỉ fail một chiều (`backing < promises`). Chiều ngược lại là donate/transfer thẳng
+vào vault — không phải bug, accrue sau đó hấp thụ vào sổ.
+
+### Muốn thêm invariant
+Sửa `invariants()` trong `scripts/fuzz.js`, dùng `get("tênGetter()")`. Nếu getter trả
+struct thì thêm getter phụ vào harness trước (xem mục 6).

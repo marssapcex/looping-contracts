@@ -1,0 +1,16 @@
+{
+ "errors": [
+  {
+   "component": "general",
+   "formattedMessage": "CompilerError: Stack too deep. Try compiling with `--via-ir` (cli) or the equivalent `viaIR: true` (standard JSON) while enabling the optimizer. Otherwise, try removing local variables.\n   --> /home/user/looping-contracts/verification/.certora_internal/26_11_13_17_08_04_760086fc58/.certora_sources/home/user/looping-contracts/verification/src/LoanVaultDeposits.sol:407:9:\n    |\n407 |         s.basePeriodStart = a.periodStart;ui ...\n    |         ^\n\n",
+   "message": "Compiler error (/solidity/libsolidity/codegen/LValue.cpp:54): Stack too deep. Try compiling with `--via-ir` (cli) or the equivalent `viaIR: true` (standard JSON) while enabling the optimizer. Otherwise, try removing local variables.",
+   "severity": "error",
+   "sourceLocation": {
+    "end": 29644,
+    "file": "/home/user/looping-contracts/verification/.certora_internal/26_11_13_17_08_04_760086fc58/.certora_sources/home/user/looping-contracts/verification/src/LoanVaultDeposits.sol",
+    "start": 29643
+   },
+   "type": "CompilerError"
+  }
+ ]
+}

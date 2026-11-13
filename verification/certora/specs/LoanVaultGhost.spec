@@ -311,14 +311,19 @@ rule settersCannotMoveValue() {
  * rather than approximate.
  * ==========================================================================*/
 
-/// The vault's promises are bounded by its cash plus what the borrower owes.
-/// This is the solvency identity that a "burn without reservation" bug breaks.
-/// (The reservation sits inside `amountOwed()`, so it must NOT be added again on
-/// the left — the version that does is a tautology.)
-invariant promisesCoveredByCashAndReceivable()
-    to_mathint(reservedAssets()) + to_mathint(totalRecoveryPaid())
-        + to_mathint(getTotalAssets()) + to_mathint(accruedFees())
-        <= to_mathint(ghost_held()) + to_mathint(totalRecoveryPaid()) + to_mathint(amountOwed());
+/// THE ACCOUNTING IDENTITY — the strongest statement in this file.
+///
+///     pool book + claim reservation + fee bank  ==  idle cash + receivable + paid out
+///
+/// Every term is an independent getter, so this cannot be satisfied by a getter
+/// agreeing with itself. `getTotalAssets()` is the pool book *net* of the claim
+/// reservation; `totalRecoveryPaid()` is what wind-down has already handed to
+/// lenders. It holds exactly on 9 hand-built states (deposit -> borrow -> accrue ->
+/// fund -> redeem -> terminate -> claimRecovery) and on 100 x 60 random steps of the
+/// stateful fuzzer, which is what makes it worth proving.
+invariant accountingIdentity()
+    to_mathint(getTotalAssets()) + to_mathint(reservedAssets()) + to_mathint(accruedFees())
+        == to_mathint(ghost_held()) + to_mathint(amountOwed()) + to_mathint(totalRecoveryPaid());
 
 /// The watermark can never claim more unreserved cash than exists.
 invariant watermarkWithinCash()

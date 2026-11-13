@@ -43,6 +43,12 @@ const input = {
   sources,
   settings: {
     optimizer: { enabled: true, runs: 1 },
+    // Legacy pipeline: keeps the harness deployable under EIP-170 so the local audit
+    // rig can actually run it. The Certora confs use `solc_via_ir: true` instead,
+    // because *their* output selection (evm.assembly / functionDebugData /
+    // transientStorageLayout) pushes LoanVaultDeposits.sol:407 into "stack too deep"
+    // on the legacy pipeline. The Prover never deploys, so it does not care about
+    // code size. Force viaIR here only if you want byte-identical artifacts.
     viaIR: process.env.VIA_IR === "1",
     evmVersion: "cancun",
     outputSelection: { "*": { "*": ["abi", "evm.bytecode.object", "evm.deployedBytecode.object", "metadata"] } },

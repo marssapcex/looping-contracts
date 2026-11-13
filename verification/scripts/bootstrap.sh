@@ -36,4 +36,8 @@ node scripts/audit2.js | grep -E '^FAIL|=== '
 node scripts/ghostcheck.js | tail -2
 
 echo
+echo "==> fuzz (short run; full suite: bash verification/scripts/run-fuzz.sh)"
+node scripts/fuzz.js --runs 20 --steps 40 --seed 900 | grep -E '===|PASS /'
+
+echo
 echo "==> xong. Chạy Prover bằng: bash verification/scripts/certora-all.sh"

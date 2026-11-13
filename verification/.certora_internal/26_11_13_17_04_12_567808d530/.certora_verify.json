@@ -1,0 +1,8 @@
+{
+    "importFilesToOrigRelpaths": {},
+    "primary_contract": "LoanVaultHarness",
+    "specfile": "/home/user/looping-contracts/verification/certora/specs/LoanVaultGhost.spec",
+    "specfileOrigRelpath": "certora/specs/LoanVaultGhost.spec",
+    "specfilesToImportDecls": {},
+    "type": "spec"
+}

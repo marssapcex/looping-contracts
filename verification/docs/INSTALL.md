@@ -59,6 +59,16 @@ bash verification/scripts/certora-all.sh ghost withdrawal
 
 Script tự check `certoraRun` + `CERTORAKEY` + `node_modules` trước khi đốt credit.
 
+## Nếu Prover báo lỗi cấu hình
+
+| Lỗi | Nguyên nhân |
+|---|---|
+| `cannot use 'collections.OrderedDict' as a set element` | `packages` phải là **list string** `"tên=đường/dẫn"`, không phải object `{"path":..,"type":..}`. Đã sửa trong mọi conf. |
+| `Stack too deep ... LoanVaultDeposits.sol:407` | conf phải có `"solc_via_ir": true`. Đã bật. |
+| `attribute/flag 'solc': Cannot run solc8.35` | cần file tên đúng `solc8.35` trên `PATH` (không phải `solc`). |
+| `Cannot run local checks because of missing a suitable java installation` | `apt install openjdk-21-jre-headless`, hoặc `pip install jdk4py` rồi trỏ `JAVA_HOME`. |
+| `code size to deposit exceeds maximum code size` (chỉ ở `audit.js`) | harness 24KB; local rig compile legacy (đủ), Prover compile viaIR (không deploy nên không sao). |
+
 ## Vì sao không cần `forge build`
 
 `verification/` có bản source đầy đủ để Prover dùng (`verification/src/`, 13 file, đã gồm
