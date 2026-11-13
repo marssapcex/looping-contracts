@@ -30,6 +30,32 @@ contract LoanVaultHarness is LoanVault {
     /// @dev Mirrors the loan-asset balance held by this contract (the source of `_heldAssetsUsdc`).
     uint256 public ghost_held;
 
+    // ---- Share-flow ghosts -------------------------------------------------
+    // Maintained by overriding `_update` and recording *exactly* what it already
+    // does. No protocol logic is consulted, so these are true by construction and
+    // give the CVL a conservation law it can actually close:
+    //     totalSupply            == ghost_minted - ghost_burned
+    //     balanceOf(address(this)) == ghost_escrowIn - ghost_escrowOut
+    //     ghost_burned            == ghost_burnedFromVault
+    uint256 public ghost_minted;
+    uint256 public ghost_burned;
+    uint256 public ghost_escrowIn;
+    uint256 public ghost_escrowOut;
+    uint256 public ghost_burnedFromVault;
+
+    /// @dev Transparent instrumentation. Placed BEFORE `super._update` so a reverting
+    ///      transfer can never leave the ghost ahead of the real state.
+    function _update(address from, address to, uint256 value) internal override {
+        if (from == address(0)) ghost_minted += value;
+        if (to == address(0)) ghost_burned += value;
+        if (to == address(this)) ghost_escrowIn += value;
+        if (from == address(this)) {
+            ghost_escrowOut += value;
+            if (to == address(0)) ghost_burnedFromVault += value;
+        }
+        super._update(from, to, value);
+    }
+
     /// @dev The address allowed through `onlyVaultManager`.
     address public immutable harnessManager;
 

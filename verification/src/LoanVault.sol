@@ -377,7 +377,7 @@ contract LoanVault is LoanVaultBorrower {
     }
 
     /// @dev Enforces `canTransfer` on every share movement; no registry check on either endpoint.
-    function _update(address from, address to, uint256 value) internal override {
+    function _update(address from, address to, uint256 value) internal virtual override {
         if (!canTransfer(from, to)) revert TransferNotApproved(from, to);
         super._update(from, to, value);
     }

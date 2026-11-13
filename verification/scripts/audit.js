@@ -555,6 +555,78 @@ async function main() {
     check("ADV-03 no re-maturation on later boundaries", (await v(c, vault, "maturedRedeemShares()", [], t3)) === 100_000_000n);
   }
 
+  // ==================================================================================
+  // S11 — ghost closures (the ghosts the CVL conservation laws rely on)
+  // ==================================================================================
+  {
+    const { c, vault, mint } = await bootstrap();
+    let ts = GENESIS + 1000n;
+    await mint(A.alice, 5_000_000_000n);
+    await mint(A.bob, 5_000_000_000n);
+    await mint(A.borrower, 9_000_000_000n);
+
+    const checkGhosts = async (label) => {
+      const supply = await v(c, vault, "totalSupply()", [], ts);
+      const minted = await v(c, vault, "ghost_minted()", [], ts);
+      const burned = await v(c, vault, "ghost_burned()", [], ts);
+      const escrow = await v(c, vault, "balanceOf(address)", [vault], ts);
+      const gIn = await v(c, vault, "ghost_escrowIn()", [], ts);
+      const gOut = await v(c, vault, "ghost_escrowOut()", [], ts);
+      const bfv = await v(c, vault, "ghost_burnedFromVault()", [], ts);
+      check(`GHOST I1 totalSupply == minted - burned (${label})`, supply === minted - burned,
+        `${S(supply)} vs ${S(minted - burned)}`);
+      check(`GHOST I2 escrow == in - out (${label})`, escrow === gIn - gOut, `${S(escrow)} vs ${S(gIn - gOut)}`);
+      check(`GHOST I3 vault burns are a subset of global burns (${label})`, bfv <= burned, `${S(bfv)} <= ${S(burned)}`);
+      check(`GHOST I4 funded burn == escrow released by funding (${label})`, bfv <= gOut, `${S(bfv)} <= ${S(gOut)}`);
+    };
+
+    // 1) deposits + requests (escrow grows, supply unchanged)
+    await tx(c, vault, A.alice, "deposit(uint256,address)", [500_000_000n, A.alice], ts);
+    await checkGhosts("deposit");
+    ts += 3_600n;
+    await tx(c, vault, A.alice, "requestRedeem(uint256)", [150_000_000n], ts);
+    ts += 3_600n;
+    await tx(c, vault, A.bob, "deposit(uint256,address)", [300_000_000n, A.bob], ts);
+    await tx(c, vault, A.bob, "requestRedeem(uint256)", [100_000_000n], ts);
+    await checkGhosts("requests");
+    const supplyBeforeFund = await v(c, vault, "totalSupply()", [], ts);
+    const escrowBeforeFund = await v(c, vault, "balanceOf(address)", [vault], ts);
+
+    // 2) accrue past the boundaries, then fund: supply must drop by exactly the burn
+    ts += 8n * 86400n;
+    await tx(c, vault, A.carol, "update()", [], ts);
+    const maturedNow = await v(c, vault, "maturedRedeemShares()", [], ts);
+    check("GHOST matured == escrow before funding", maturedNow === escrowBeforeFund, `${S(maturedNow)} vs ${S(escrowBeforeFund)}`);
+    const fr = await tx(c, vault, A.carol, "fundRedemptions()", [], ts);
+    check("GHOST funding succeeds", fr.ok, fr.revert);
+    const supplyAfterFund = await v(c, vault, "totalSupply()", [], ts);
+    check("GHOST funding burn == matured escrow", supplyBeforeFund - supplyAfterFund === maturedNow,
+      `${S(supplyBeforeFund - supplyAfterFund)} vs ${S(maturedNow)}`);
+    check("GHOST funding empties the escrow", (await v(c, vault, "balanceOf(address)", [vault], ts)) === 0n);
+    await checkGhosts("funding");
+
+    // 3) claims
+    await tx(c, vault, A.alice, "redeem()", [], ts);
+    await tx(c, vault, A.bob, "redeem()", [], ts);
+    await checkGhosts("claims");
+    check("GHOST claims never burn supply again",
+      (await v(c, vault, "totalSupply()", [], ts)) === supplyAfterFund);
+
+    // 4) wind-down with a fresh unfunded cohort
+    ts += 3_600n;
+    await tx(c, vault, A.alice, "requestRedeem(uint256)", [40_000_000n], ts);
+    await checkGhosts("wind-down request");
+    ts += 8n * 86400n;
+    await tx(c, vault, A.manager, "terminate()", [], ts);
+    ts += 14n * 86400n;
+    const rec = await tx(c, vault, A.alice, "claimRecovery()", [], ts);
+    check("GHOST wind-down claim ok", rec.ok, rec.revert);
+    await checkGhosts("wind-down claim");
+    check("GHOST escrow fully returned after every lender claimed",
+      (await v(c, vault, "balanceOf(address)", [vault], ts)) === 0n,
+      S(await v(c, vault, "balanceOf(address)", [vault], ts)));
+  }
+
   for (const line of out) console.log(line);
   console.log(`\n=== ${results.pass.length} PASS / ${results.fail.length} FAIL / ${results.note.length} NOTE ===`);
   if (results.fail.length) console.log("FAILURES:\n" + results.fail.join("\n"));
