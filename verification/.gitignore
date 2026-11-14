@@ -4,3 +4,8 @@ cache
 certora/out
 .emv
 *.zip
+
+# Certora build scratch: regenerated on every certoraRun, can reach 100+ MB.
+# Must never be committed (it also breaks `git pull` for anyone who has run it).
+.certora_internal
+.certora_recent
