@@ -59,6 +59,46 @@ bash verification/scripts/certora-all.sh ghost withdrawal
 
 Script tự check `certoraRun` + `CERTORAKEY` + `node_modules` trước khi đốt credit.
 
+## Lỗi `Cannot run solc8.35` (hay gặp nhất)
+
+```
+attribute/flag 'solc': Cannot run solc8.35
+```
+
+Không phải mày thiếu solc. Certora đọc giá trị `"solc": "solc8.35"` trong conf rồi gọi
+`shutil.which("solc8.35")` — tức là nó tìm **một file thực thi tên đúng là `solc8.35`**.
+`solc-select` chỉ cài binary tên `solc`, nên `solc-select install 0.8.35` xong vẫn fail.
+
+`certora-all.sh` giờ tự tạo shim. Nếu muốn làm tay:
+
+```bash
+mkdir -p ~/.certora-bin
+ln -sf "$(command -v solc)" ~/.certora-bin/solc8.35
+export PATH="$HOME/.certora-bin:$PATH"
+solc8.35 --version        # phải ra 0.8.35
+```
+
+Hoặc bỏ hẳn `solc` khỏi conf và để nó dùng `solc` trên PATH:
+
+```json
+"solc": "/home/codespace/certora-env/bin/solc"
+```
+
+## Lỗi Java
+
+```
+Cannot run local checks because of missing a suitable java installation
+```
+
+certoraRun typecheck CVL ở máy trước khi upload. Không có JDK thì nó dừng. Hai cách:
+
+```bash
+sudo apt-get install -y openjdk-21-jre-headless     # codespace / ubuntu
+pip install jdk4py                                  # không cần sudo, JRE nằm trong pip package
+```
+
+Với `jdk4py`, script tự set `JAVA_HOME` và `PATH`.
+
 ## Nếu Prover báo lỗi cấu hình
 
 | Lỗi | Nguyên nhân |
