@@ -10,6 +10,12 @@ VER_DIR="$(dirname "$SELF_DIR")"
 cd "$VER_DIR" || { echo "!! không tìm thấy thư mục verification"; exit 1; }
 echo "==> đang ở: $(pwd)"
 
+# --- 1b. dọn rác certora nếu bản repo cũ còn track nó ----------------------
+if [ -d .certora_internal ] && git ls-files --error-unmatch .certora_internal >/dev/null 2>&1; then
+  echo "==> repo cũ còn track .certora_internal, xoá để pull được"
+  rm -rf .certora_internal
+fi
+
 # --- 2. kiểm tra đây có phải project verification không --------------------
 if [ ! -f certora/conf/ghost.conf ]; then
   echo "!! certora/conf/ghost.conf không tồn tại."

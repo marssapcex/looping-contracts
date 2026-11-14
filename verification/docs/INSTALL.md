@@ -76,3 +76,24 @@ Script tự check `certoraRun` + `CERTORAKEY` + `node_modules` trước khi đ�
 Prover chỉ cần solc + deps npm, không cần Foundry.
 
 Nếu vẫn muốn `forge build` ở root: xem `docs/RUN.md` mục "Foundry (tuỳ chọn)".
+
+## Nếu `git pull` báo lỗi
+
+```
+error: The following untracked working tree files would be overwritten by merge:
+        verification/.certora_internal/latest
+Aborting
+```
+
+Nghĩa là mày đã chạy `certoraRun` ít nhất một lần, nên có thư mục rác
+`verification/.certora_internal/` (có thể 100+ MB). Repo cũ lỡ track thư mục này
+(commit `a34a1ce`), nên git từ chối merge. Chữa một lần:
+
+```bash
+cd /workspaces/looping-contracts
+rm -rf verification/.certora_internal
+git pull origin master          # từ 5b4aaa3 trở đi sẽ không tái diễn
+```
+
+Từ commit `5b4aaa3`, `.certora_internal/` đã nằm trong `verification/.gitignore`.
+Đừng bao giờ `git add -A` trong thư mục này — dùng `git add verification/src verification/certora verification/scripts verification/docs`.

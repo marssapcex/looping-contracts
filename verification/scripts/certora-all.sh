@@ -10,12 +10,21 @@ VER_DIR="$(dirname "$SELF_DIR")"
 cd "$VER_DIR" || exit 1
 
 # --- kiểm tra môi trường trước khi đốt credit ------------------------------
-command -v certoraRun >/dev/null || {
-  echo "!! chưa có certoraRun. Chạy:"
+if ! command -v certoraRun >/dev/null; then
+  # most common cause: installed already, but the venv is not active in this shell
+  for cand in "$HOME/certora-env/bin/certoraRun" "$HOME/.local/bin/certoraRun"; do
+    if [ -x "$cand" ]; then
+      echo "!! certoraRun có ở $cand nhưng chưa activate. Chạy:"
+      echo "   source $(dirname "$(dirname "$cand")")/bin/activate"
+      echo "   bash verification/scripts/certora-all.sh"
+      exit 1
+    fi
+  done
+  echo "!! chưa cài certora-cli. Chạy:"
   echo "   python3 -m venv ~/certora-env && source ~/certora-env/bin/activate"
   echo "   pip install certora-cli solc-select"
   exit 1
-}
+fi
 [ -n "${CERTORAKEY:-}" ] || { echo "!! thiếu CERTORAKEY (export CERTORAKEY=...)"; exit 1; }
 [ -d node_modules ] || { echo "!! thiếu node_modules. Chạy: bash verification/scripts/bootstrap.sh"; exit 1; }
 command -v solc >/dev/null && echo "==> solc: $(solc --version | tail -1)"
