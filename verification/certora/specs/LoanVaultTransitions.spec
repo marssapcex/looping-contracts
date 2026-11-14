@@ -81,14 +81,14 @@ methods {
 
 /// R-T1 — `deposit` credits exactly the assets pulled and mints shares at the
 /// pre-deposit price (the lender is never diluted, the pool is never inflated).
-rule depositIsExact(uint256 assets) {
+rule depositIsExact(uint256 assets, address receiver) {
     env e;
 
     uint256 supplyBefore = totalSupply();
     uint256 poolBefore = getTotalAssets();
     uint256 heldBefore = ghost_held();
 
-    uint256 minted = deposit(e, assets);
+    uint256 minted = deposit(e, assets, receiver);
 
     assert ghost_held() == heldBefore + assets, "deposit must pull exactly the requested amount";
     assert getTotalAssets() == poolBefore + assets, "the pool must grow by exactly the deposit";
@@ -100,14 +100,14 @@ rule depositIsExact(uint256 assets) {
 }
 
 /// R-T2 — `mint` pulls exactly the previewed cost and mints exactly the shares.
-rule mintIsExact(uint256 shares_) {
+rule mintIsExact(uint256 shares_, address receiver) {
     env e;
 
     uint256 supplyBefore = totalSupply();
     uint256 poolBefore = getTotalAssets();
     uint256 heldBefore = ghost_held();
 
-    uint256 cost = mint(e, shares_);
+    uint256 cost = mint(e, shares_, receiver);
 
     assert totalSupply() == supplyBefore + shares_, "mint must mint exactly the requested shares";
     assert ghost_held() == heldBefore + cost, "mint must pull exactly the cost it reports";
@@ -118,13 +118,13 @@ rule mintIsExact(uint256 shares_) {
 
 /// R-T3 — capacity is a *deposit-time* gate (see FINDING F-1: accrual can push
 /// the exposure past the cap, so this is the strongest true statement).
-rule depositStaysWithinCapacity(uint256 assets) {
+rule depositStaysWithinCapacity(uint256 assets, address receiver) {
     env e;
 
     uint256 capacity = vaultCapacity();
     uint256 poolBefore = getTotalAssets();
 
-    deposit(e, assets);
+    deposit(e, assets, receiver);
 
     assert poolBefore + assets <= capacity, "a successful deposit must fit the cap";
     assert getTotalAssets() >= poolBefore, "the pool only grows here";

@@ -86,6 +86,16 @@ ensure_java() {
 ensure_java || exit 1
 
 
+# --- typecheck CVL tại máy trước khi đốt credit -----------------------------
+# Bắt các lỗi không cần Prover: sai số tham số, getter không tồn tại,
+# khai báo methods{} lệch ABI.
+node scripts/speccheck.js || {
+  echo
+  echo "!! spec sai chữ ký hàm — sửa trước khi chạy, đừng đốt credit."
+  exit 1
+}
+echo
+
 # --- chọn spec -------------------------------------------------------------
 ALL="ghost withdrawal winddown accounting transitions params"
 if [ $# -gt 0 ]; then SET="$*"; else SET="$ALL"; fi

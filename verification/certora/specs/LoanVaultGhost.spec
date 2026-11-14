@@ -207,7 +207,7 @@ rule requestRedeemOnlyMovesShares() {
     uint256 escrowOutBefore = ghost_escrowOut();
     uint256 supplyBefore = totalSupply();
 
-    requestRedeem(e);
+    requestRedeem(e, shares);
 
     assert ghost_minted() == mintedBefore, "a request never mints";
     assert ghost_burned() == burnedBefore, "a request never burns";

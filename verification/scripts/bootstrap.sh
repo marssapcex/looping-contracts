@@ -36,6 +36,9 @@ echo "==> compile"
 node scripts/compile.js || exit 1
 
 # --- 5. audit --------------------------------------------------------------
+echo "==> spec typecheck"
+node scripts/speccheck.js || exit 1
+
 echo "==> audit"
 node scripts/audit.js  | grep -E '^FAIL|=== '
 node scripts/audit2.js | grep -E '^FAIL|=== '
